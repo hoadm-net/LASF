@@ -53,11 +53,12 @@ Sinh viên nào có điểm trung bình cao nhất?
 
 | Tham số | Giá trị |
 |---------|---------|
+| `input_max_length` | 4096 tokens trong local batch inference (`truncation=True`) |
 | `max_new_tokens` | 256 |
 | `temperature` | 0.0 (greedy) |
 | `do_sample` | False |
 
-Dùng greedy decoding để đảm bảo reproducibility.
+Dùng greedy decoding để đảm bảo reproducibility. Trong thiết lập local chạy batch, prompt đầu vào hiện bị cắt ở 4096 tokens; đây là một chi tiết quan trọng khi đánh giá trên các schema lớn như BIRD-VI.
 
 ---
 

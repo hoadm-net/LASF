@@ -59,11 +59,11 @@ def load_bird_vi(dev_path: str) -> list[Example]:
     examples = []
     for item in data:
         examples.append(Example(
-            question_id=f"bird_dev_{item['question_id']:04d}",
+            question_id=str(item["id"]),
             db_id=item["db_id"],
-            question=item["question"],
+            question=item["question_vi"],
             gold_sql=item["SQL"],
-            evidence=item.get("evidence", ""),
+            evidence=item.get("evidence_vi", ""),
         ))
     return examples
 

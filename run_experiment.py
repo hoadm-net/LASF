@@ -106,7 +106,10 @@ def main():
 
         # Batched SQL generation
         pred_sqls = generator.generate_batch(
-            [ex.question for ex in batch], schemas, augmented=use_aug
+            [ex.question for ex in batch],
+            schemas,
+            augmented=use_aug,
+            evidences=[ex.evidence for ex in batch],
         )
 
         for ex, schema, pred_sql in zip(batch, schemas, pred_sqls):
@@ -133,9 +136,9 @@ def main():
 
     out_path = out_dir / f"{config_tag}_{model_tag}.jsonl"
     with open(out_path, "w", encoding="utf-8") as f:
-        for item in predictions:
-            item["exact_match"] = metrics["em_list"][predictions.index(item)]
-            item["execution_accuracy"] = metrics["ex_list"][predictions.index(item)]
+        for i, item in enumerate(predictions):
+            item["exact_match"] = metrics["em_list"][i]
+            item["execution_accuracy"] = metrics["ex_list"][i]
             f.write(json.dumps(item, ensure_ascii=False) + "\n")
 
     print(f"  Saved → {out_path}")

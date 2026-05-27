@@ -47,9 +47,9 @@ Nếu H3 đúng: $\Delta_{0.5B} > \Delta_{1.5B} > \Delta_{3B} > \Delta_{7B}$
 | Dataset | Split | Vai trò |
 |---------|-------|---------|
 | Vietnamese Spider | Dev | **Primary** — validate giả thuyết (đơn giản hơn, debug nhanh) |
-| Vietnamese BIRD | Dev | **Confirmation** — xác nhận lại trên benchmark khó hơn |
+| Vietnamese BIRD | Dev | **Stress test** — kiểm tra độ bền và boundary conditions trên benchmark khó hơn |
 
-Chiến lược: kiểm chứng toàn bộ H1, H2, H3 trên Spider trước, sau đó confirm lại trên BIRD.
+Chiến lược: kiểm chứng toàn bộ H1, H2, H3 trên Spider trước, sau đó dùng BIRD để kiểm tra khả năng tổng quát hóa và phát hiện các failure modes trên schema lớn/phức tạp.
 
 > *"We evaluate on the dev set as our approach is training-free and involves no parameter optimization on any split."*
 

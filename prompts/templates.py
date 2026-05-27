@@ -35,14 +35,15 @@ def _format_schema(schema: Schema, augmented: bool) -> str:
     return "\n".join(lines).strip()
 
 
-def build_sql_generation_prompt(question: str, schema: Schema, augmented: bool) -> str:
+def build_sql_generation_prompt(question: str, schema: Schema, augmented: bool, evidence: str = "") -> str:
     schema_text = _format_schema(schema, augmented=augmented)
+    evidence_section = f"\n### Evidence\n{evidence}" if evidence and evidence.strip() else ""
     return f"""### Task
 Given a SQLite database schema and a question in Vietnamese, generate the correct SQL query.
 Only return the SQL query, no explanation.
 
 ### Schema
-{schema_text}
+{schema_text}{evidence_section}
 
 ### Question
 {question}

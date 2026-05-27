@@ -1,4 +1,4 @@
-# LSAF: A Lightweight Schema-Aware Framework for Vietnamese Text-to-SQL
+# LASF: A Lightweight Schema-Aware Framework for Vietnamese Text-to-SQL
 
 ## Tổng quan
 
@@ -150,7 +150,7 @@ So sánh 4 cấu hình để tách biệt đóng góp của từng thành phần
 
 **Đánh giá H3:** So sánh delta tuyệt đối (Full − Baseline) giữa các kích thước model (0.5B, 1.5B, 3B, 7B) để xác minh mô hình nhỏ hưởng lợi nhiều hơn.
 
-**GPT-4o-mini (upper-bound reference):** Chạy riêng ở config baseline để định vị khoảng cách giữa local small models và API-based frontier model, không tham gia ablation.
+**GPT-4.1-mini (upper-bound reference):** Chạy riêng ở config baseline để định vị khoảng cách giữa local small models và API-based frontier model, không tham gia ablation.
 
 ---
 
@@ -166,7 +166,7 @@ So sánh 4 cấu hình để tách biệt đóng góp của từng thành phần
 ## Cấu trúc thư mục (dự kiến)
 
 ```
-LSAF/
+LASF/
 ├── data/
 │   ├── spider_vi/          # Vietnamese Spider dev set
 │   └── bird_vi/            # Vietnamese BIRD dev set

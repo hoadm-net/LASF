@@ -112,6 +112,6 @@ Sample values:
 ## Lưu ý triển khai
 
 - Sample values được trích xuất trực tiếp từ database trước khi gọi LLM
-- Output JSON được validate bằng Pydantic schema trước khi lưu
-- Nếu LLM sinh JSON lỗi, retry tối đa 3 lần với temperature thấp hơn
+- Output JSON hiện được trích xuất bằng cách parse trực tiếp block JSON trong câu trả lời của model
+- Nếu LLM sinh JSON lỗi, hệ thống retry tối đa 3 lần với temperature tăng dần để cải thiện khả năng thoát lỗi format
 - Lưu toàn bộ augmented schemas vào `augmentation/augmented_schemas/`

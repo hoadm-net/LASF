@@ -39,21 +39,23 @@ class SQLGenerator:
             )
             self.model.eval()
 
-    def generate(self, question: str, schema: Schema, augmented: bool) -> str:
+    def generate(self, question: str, schema: Schema, augmented: bool, evidence: str = "") -> str:
         """Generate SQL for a single example."""
-        prompt = build_sql_generation_prompt(question, schema, augmented=augmented)
+        prompt = build_sql_generation_prompt(question, schema, augmented=augmented, evidence=evidence)
         if self._is_openai:
             return self._generate_openai(prompt)
         return self._generate_local(prompt)
 
-    def generate_batch(self, questions: List[str], schemas: List[Schema], augmented: bool) -> List[str]:
+    def generate_batch(self, questions: List[str], schemas: List[Schema], augmented: bool, evidences: List[str] = None) -> List[str]:
         """Generate SQL for a batch of examples (local models only)."""
+        if evidences is None:
+            evidences = [""] * len(questions)
         if self._is_openai:
-            return [self.generate(q, s, augmented) for q, s in zip(questions, schemas)]
+            return [self.generate(q, s, augmented, e) for q, s, e in zip(questions, schemas, evidences)]
 
         prompts = [
-            build_sql_generation_prompt(q, s, augmented=augmented)
-            for q, s in zip(questions, schemas)
+            build_sql_generation_prompt(q, s, augmented=augmented, evidence=e)
+            for q, s, e in zip(questions, schemas, evidences)
         ]
         texts = [
             self.tokenizer.apply_chat_template(
@@ -68,7 +70,7 @@ class SQLGenerator:
             return_tensors="pt",
             padding=True,
             truncation=True,
-            max_length=2048,
+            max_length=4096,
         ).to(self.device)
 
         input_len = inputs["input_ids"].shape[1]

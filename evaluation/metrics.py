@@ -1,5 +1,6 @@
 import re
 import sqlite3
+import time
 from pathlib import Path
 
 import sqlglot
@@ -22,11 +23,18 @@ def exact_match(pred_sql: str, gold_sql: str) -> int:
     return int(normalize_sql(pred_sql) == normalize_sql(gold_sql))
 
 
-def execute_sql(sql: str, db_path: str):
-    """Execute SQL and return result set, or None on error."""
+def execute_sql(sql: str, db_path: str, timeout: float = 30.0):
+    """Execute SQL and return result set, or None on error/timeout."""
     try:
         conn = sqlite3.connect(db_path)
         conn.text_factory = lambda b: b.decode(errors="ignore")
+
+        # Cancel query if it takes longer than `timeout` seconds
+        deadline = time.time() + timeout
+        def _progress():
+            return 1 if time.time() > deadline else 0
+        conn.set_progress_handler(_progress, 100)
+
         cursor = conn.cursor()
         cursor.execute(sql)
         result = cursor.fetchall()
