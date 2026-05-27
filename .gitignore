@@ -13,7 +13,6 @@ build/
 # Data & model cache
 data/
 augmentation/augmented_schemas/
-evaluation/results/
 third_party/
 *.sqlite
 
