@@ -31,20 +31,41 @@ DATA_DIRS = {
 
 
 def download_hf_dataset(name: str, hf_repo: str, out_dir: str) -> None:
+    from huggingface_hub import HfApi, hf_hub_download
+
     print(f"\n[HuggingFace] Downloading {hf_repo} → {out_dir}")
     Path(out_dir).mkdir(parents=True, exist_ok=True)
 
-    dataset = load_dataset(hf_repo)
+    api = HfApi()
+    all_files = list(api.list_repo_files(hf_repo, repo_type="dataset"))
 
-    for split in dataset.keys():
+    # Find dev and train JSON files — prefer files containing 'dev'/'train' in name
+    def pick_file(keyword: str) -> str | None:
+        # Priority: exact match "dev.json", then anything with keyword in name
+        exact = f"{keyword}.json"
+        if exact in all_files:
+            return exact
+        candidates = [f for f in all_files if keyword in f.lower() and f.endswith(".json")]
+        # Prefer shorter names (less likely to be a variant)
+        return sorted(candidates, key=len)[0] if candidates else None
+
+    splits = {"dev": pick_file("dev"), "train": pick_file("train")}
+
+    for split, filename in splits.items():
+        if filename is None:
+            print(f"  [{split}] No matching file found, skipping.")
+            continue
         out_path = Path(out_dir) / f"{split}.json"
         if out_path.exists():
             print(f"  [{split}] Already exists, skipping.")
             continue
-        records = [dict(row) for row in dataset[split]]
+        print(f"  [{split}] Downloading '{filename}' ...")
+        local = hf_hub_download(repo_id=hf_repo, filename=filename, repo_type="dataset")
+        with open(local, encoding="utf-8") as f:
+            data = json.load(f)
         with open(out_path, "w", encoding="utf-8") as f:
-            json.dump(records, f, ensure_ascii=False, indent=2)
-        print(f"  [{split}] Saved {len(records)} examples → {out_path}")
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"  [{split}] Saved {len(data)} examples → {out_path}")
 
 
 def download_databases(out_dir: str = "data") -> None:

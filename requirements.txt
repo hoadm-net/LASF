@@ -24,3 +24,8 @@ pyyaml>=6.0
 # Utilities
 tqdm>=4.66.0
 gdown>=5.1.0
+
+# OpenAI API (GPT-4o-mini upper-bound reference baseline)
+openai>=1.30.0
+python-dotenv>=1.0.0
+statsmodels>=0.14.0

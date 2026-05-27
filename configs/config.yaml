@@ -12,14 +12,14 @@ augmentation:
   max_retries: 3
   temperature: 0.1
   max_new_tokens: 1024
-  device: cpu  # -> cuda on GPU server
+  device: cuda
 
 linking:
   model: intfloat/multilingual-e5-large
   top_k: 10
   min_tables: 1
   always_include_pk: true
-  device: cpu  # -> cuda on GPU server
+  device: cuda
 
 generation:
   models:
@@ -29,7 +29,14 @@ generation:
     - Qwen/Qwen2.5-Coder-7B-Instruct
   max_new_tokens: 256
   temperature: 0.0
-  device: cpu  # -> cuda on GPU server
+  device: cuda
+
+  # Upper-bound reference baseline — runs only in "baseline" config
+  reference_baseline:
+    model: gpt-4.1-mini
+    configs: [baseline]  # ablation không áp dụng cho model này
+    max_tokens: 256
+    temperature: 0.0
 
 evaluation:
   results_dir: evaluation/results

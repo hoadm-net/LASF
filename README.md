@@ -99,14 +99,17 @@ Output là JSON có cấu trúc, dễ validate và tái sử dụng.
 
 **Models được đánh giá:**
 
-| Model | Tham số |
-|-------|---------|
-| `Qwen2.5-Coder-0.5B-Instruct` | 0.5B |
-| `Qwen2.5-Coder-1.5B-Instruct` | 1.5B |
-| `Qwen2.5-Coder-3B-Instruct` | 3B |
-| `Qwen2.5-Coder-7B-Instruct` | 7B |
+| Model | Tham số | Vai trò |
+|-------|---------|--------|
+| `Qwen2.5-Coder-0.5B-Instruct` | 0.5B | Main experiment |
+| `Qwen2.5-Coder-1.5B-Instruct` | 1.5B | Main experiment |
+| `Qwen2.5-Coder-3B-Instruct` | 3B | Main experiment |
+| `Qwen2.5-Coder-7B-Instruct` | 7B | Main experiment |
+| `GPT-4.1-mini` | ~8B (API) | Upper-bound reference baseline |
 
 Input prompt: câu hỏi tiếng Việt + schema đã được augment và filter (top-k retrieved).
+
+> **GPT-4.1-mini** chỉ chạy ở config `baseline` (full schema, zero-shot) để cung cấp điểm tham chiếu trên. Không tham gia ablation study chính vì phụ thuộc API và không phù hợp với mục tiêu local/training-free.
 
 ---
 
@@ -147,6 +150,8 @@ So sánh 4 cấu hình để tách biệt đóng góp của từng thành phần
 
 **Đánh giá H3:** So sánh delta tuyệt đối (Full − Baseline) giữa các kích thước model (0.5B, 1.5B, 3B, 7B) để xác minh mô hình nhỏ hưởng lợi nhiều hơn.
 
+**GPT-4o-mini (upper-bound reference):** Chạy riêng ở config baseline để định vị khoảng cách giữa local small models và API-based frontier model, không tham gia ablation.
+
 ---
 
 ## Kỳ vọng kết quả
@@ -185,4 +190,4 @@ LSAF/
 
 - Python 3.10+
 - Transformers, sentence-transformers
-- Tất cả model chạy local, không cần API key
+- Hầu hết model chạy local; GPT-4.1-mini dùng OpenAI API (chỉ cho upper-bound reference baseline)
