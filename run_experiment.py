@@ -61,6 +61,7 @@ def parse_args():
                         help="Max padded prompt tokens per batch (local models)")
     parser.add_argument("--results_dir", default=None, help="Default: evaluation.results_dir_v2 in config.yaml")
     parser.add_argument("--limit", type=int, default=None, help="Only the first N examples (debugging)")
+    parser.add_argument("--db_filter", default=None, help="Only questions on this database (debugging)")
     return parser.parse_args()
 
 
@@ -126,6 +127,8 @@ def main():
     data_cfg = cfg["data"][args.dataset]
     loader = load_spider_vi if args.dataset == "spider_vi" else load_bird_vi
     examples = loader(data_cfg["dev"], lang=args.lang)
+    if args.db_filter:
+        examples = [e for e in examples if e.db_id == args.db_filter]
     if args.limit:
         examples = examples[: args.limit]
     db_dir = data_cfg["db_dir"]
@@ -196,6 +199,9 @@ def main():
             "link_ms": link_ms,
         })
     prep_seconds = time.perf_counter() - t0
+    if linker is not None:  # free the encoder's GPU memory before long-context generation
+        del linker
+        torch.cuda.empty_cache()
 
     # 2) Generation, longest prompts first so memory problems show up immediately
     lengths = [r["prompt_tokens"] or 0 for r in records]
@@ -205,12 +211,25 @@ def main():
     else:
         batches = make_batches(order, lengths, args.batch_size, args.max_batch_tokens)
 
+    def generate_safe(batch: list[int]) -> list[dict]:
+        """Split the batch on CUDA OOM; a single example that still does not fit is recorded as 'oom'."""
+        try:
+            return generator.generate_batch([prompts[i] for i in batch])
+        except torch.cuda.OutOfMemoryError:
+            torch.cuda.empty_cache()
+            if len(batch) == 1:
+                print(f"\n  [OOM] {records[batch[0]]['question_id']} ({lengths[batch[0]]} tokens)")
+                return [{"pred_sql": "", "raw_output": "", "output_tokens": 0, "oom": True}]
+            mid = len(batch) // 2
+            return generate_safe(batch[:mid]) + generate_safe(batch[mid:])
+
     t0 = time.perf_counter()
     for batch in tqdm(batches, desc=f"{args.config} | {short_model_name(args.model)}"):
         t_batch = time.perf_counter()
-        outs = generator.generate_batch([prompts[i] for i in batch])
+        outs = generate_safe(batch)
         per_ex_ms = (time.perf_counter() - t_batch) * 1000 / len(batch)
         for i, out in zip(batch, outs):
+            records[i]["oom"] = bool(out.get("oom"))
             records[i]["pred_sql"] = out["pred_sql"]
             records[i]["raw_output"] = out["raw_output"]
             records[i]["output_tokens"] = out.get("output_tokens")
@@ -239,6 +258,8 @@ def main():
     results_dir = args.results_dir or cfg["evaluation"].get("results_dir_v2", "evaluation/results_v2")
     out_dir = Path(results_dir) / args.dataset
     out_dir.mkdir(parents=True, exist_ok=True)
+    if args.db_filter:
+        stem += f"_db-{args.db_filter}"
     if args.limit:
         stem += f"_limit{args.limit}"
     out_path = out_dir / f"{stem}.jsonl"
@@ -260,6 +281,7 @@ def main():
         "ex": metrics["ex"],
         "invalid_rate": metrics["invalid_rate"],
         "n_truncated": sum(r["truncated"] for r in records),
+        "n_oom": sum(r.get("oom", False) for r in records),
         "prep_seconds": round(prep_seconds, 1),
         "gen_seconds": round(gen_seconds, 1),
         "peak_vram_gb": round(peak_vram, 2) if peak_vram is not None else None,

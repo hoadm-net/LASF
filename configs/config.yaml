@@ -13,6 +13,7 @@ augmentation:
   seed: 2026
   temperature: 0.1
   max_new_tokens: 1024
+  max_columns_per_call: 12  # wide tables are augmented in groups of columns
   device: cuda
 
 linking:

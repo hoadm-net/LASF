@@ -100,6 +100,7 @@ def main():
         max_retries=aug_cfg["max_retries"],
         seed=seed,
         max_new_tokens=aug_cfg.get("max_new_tokens", 1024),
+        max_columns_per_call=aug_cfg.get("max_columns_per_call", 12),
     )
 
     # Cost log for the offline step (one line per DB), used to report augmentation cost
@@ -128,6 +129,8 @@ def main():
                 "peak_vram_gb": round(torch.cuda.max_memory_allocated() / 1e9, 2) if torch.cuda.is_available() else None,
                 "attempts": sum(t["attempts"] for t in ts),
                 "failed_tables": [t["table"] for t in ts if not t["ok"]],
+                "n_columns_augmented": sum(t["n_columns_augmented"] for t in ts),
+                "n_calls": sum(t["n_calls"] for t in ts),
                 "prompt_tokens": sum(t["prompt_tokens"] for t in ts),
                 "output_tokens": sum(t["output_tokens"] for t in ts),
                 "model": aug_cfg["model"],

@@ -27,6 +27,14 @@
 - `download_data.py` lưu DB BIRD với đuôi `.db` trong khi loader tìm `.sqlite`. Mà `sqlite3.connect` gặp đường dẫn không tồn tại thì tạo DB rỗng, không báo lỗi. Đã sửa: lưu `.sqlite`, loader mở DB ở chế độ read-only và báo lỗi nếu thiếu file.
 - v1 đưa cả bảng nội bộ `sqlite_sequence` vào schema/prompt. v2 đã loại ra. Sau khi loại: ViSpider **80 bảng / 439 cột** (Table 2 của bài ghi 81/441, tức đã đếm cả bảng nội bộ); ViBIRD 75 / 798, DB lớn nhất 199 cột, khớp với bài.
 
+### Quyết định khi chạy qua đêm 29–30/10 (cần tác giả xem lại)
+
+- **Augmentation theo nhóm cột.** Model sinh trung bình khoảng 64 token mỗi cột, nên `max_new_tokens=1024` chỉ đủ cho khoảng 16 cột. Bảng rộng hơn (ViBIRD có 9 bảng, `Match` 115 cột; ViSpider có 2 bảng) trả về JSON bị cắt, sau 3 lần thử thì bảng bị bỏ qua mà không có metadata, và code không báo lỗi. v1 dùng cùng cấu hình nên nhiều khả năng mắc lỗi này. v2 chia bảng >12 cột thành từng nhóm 12 cột (`augmentation.max_columns_per_call`). Bảng ≤12 cột giữ nguyên prompt và seed. Độ phủ metadata ghi ở `augmentation/augmented_schemas/_coverage.csv`.
+- **Bản tải model đầu tiên thiếu `generation_config.json`.** File này chứa token dừng và các tham số sampling mặc định. Metadata sinh trước khi phát hiện đã bị xóa, và toàn bộ augmentation được sinh lại sau khi tải đủ model.
+- **Prompt dài:** đã thử model 7B với prompt 32k token trên RTX 4090: 6.5 giây, VRAM tối đa 21.8GB. Nếu một batch tràn bộ nhớ thì tự chia nhỏ. Câu nào vẫn không vừa thì được ghi `oom` (số câu `n_oom` có trong `.meta.json`).
+- **E5 dùng k ∈ {20, 30, 50}** cho ViBIRD, chọn theo kết quả recall (với k=10 chỉ 66.8% câu giữ đủ bảng vàng). ViSpider dùng k ∈ {5, 20}.
+- Thứ tự chạy: `revision/scripts/run_queue.sh`; tiến độ ghi ở `logs/queue.log`.
+
 ---
 
 ## 2. Sửa code (trước khi chạy)

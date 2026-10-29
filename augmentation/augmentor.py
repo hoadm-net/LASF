@@ -13,11 +13,12 @@ from prompts.templates import build_augmentation_prompt
 
 class SchemaAugmentor:
     def __init__(self, model_name: str = "Qwen/Qwen2.5-7B-Instruct", device: str = "cpu", max_retries: int = 3,
-                 seed: int = 2026, max_new_tokens: int = 1024):
+                 seed: int = 2026, max_new_tokens: int = 1024, max_columns_per_call: int = 12):
         self.device = device
         self.max_retries = max_retries
         self.seed = seed
         self.max_new_tokens = max_new_tokens
+        self.max_columns_per_call = max_columns_per_call
         self.table_stats: list[dict] = []  # one entry per augmented table, reset by augment_schema
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(
@@ -52,34 +53,54 @@ class SchemaAugmentor:
         except json.JSONDecodeError:
             return None
 
-    def augment_table(self, table: Table, db_id: str = "", temperature: float = 0.1) -> Table:
-        """Augment a single table with Vietnamese metadata."""
-        sample_values = {col.name: col.sample_values for col in table.columns}
-        prompt = build_augmentation_prompt(table.name, table.columns, sample_values)
-        # Per-table seed: output does not depend on the order in which tables/DBs are processed
-        table_seed = self.seed + zlib.crc32(f"{db_id}/{table.name}".encode()) % (2**31)
-        stats = {"db_id": db_id, "table": table.name, "n_columns": len(table.columns),
-                 "attempts": 0, "ok": False, "prompt_tokens": 0, "output_tokens": 0}
-        start = time.perf_counter()
-
-        data = None
+    def _augment_columns(self, table_name: str, columns: list[Column], seed: int, temperature: float,
+                         stats: dict) -> dict | None:
+        """One generation call (with retries) for a group of columns; returns the parsed JSON or None."""
+        sample_values = {col.name: col.sample_values for col in columns}
+        prompt = build_augmentation_prompt(table_name, columns, sample_values)
         for attempt in range(self.max_retries):
-            set_seed(table_seed + attempt)
+            set_seed(seed + attempt)
             raw, n_in, n_out = self._generate(prompt, temperature=temperature + attempt * 0.1)
             stats["attempts"] += 1
             stats["prompt_tokens"] += n_in
             stats["output_tokens"] += n_out
             data = self._extract_json(raw)
             if data:
-                break
+                return data
+        return None
+
+    def augment_table(self, table: Table, db_id: str = "", temperature: float = 0.1) -> Table:
+        """Augment a single table with Vietnamese metadata.
+
+        Wide tables are augmented in groups of `max_columns_per_call` columns: at ~64 output
+        tokens per column, a single call would exceed max_new_tokens and return truncated JSON.
+        """
+        # Per-table seed: output does not depend on the order in which tables/DBs are processed
+        table_seed = self.seed + zlib.crc32(f"{db_id}/{table.name}".encode()) % (2**31)
+        n = self.max_columns_per_call
+        groups = [table.columns[i : i + n] for i in range(0, len(table.columns), n)] or [[]]
+        stats = {"db_id": db_id, "table": table.name, "n_columns": len(table.columns), "n_calls": len(groups),
+                 "attempts": 0, "ok": False, "failed_groups": 0, "prompt_tokens": 0, "output_tokens": 0}
+        start = time.perf_counter()
+
+        col_map, table_alias = {}, ""
+        for g, cols in enumerate(groups):
+            data = self._augment_columns(table.name, cols, table_seed + 1000 * g, temperature, stats)
+            if data is None:
+                stats["failed_groups"] += 1
+                continue
+            table_alias = table_alias or data.get("alias_vi", "")
+            for c in data.get("columns", []):
+                if isinstance(c, dict) and "name" in c:
+                    col_map[c["name"]] = c
         stats["seconds"] = time.perf_counter() - start
-        stats["ok"] = data is not None
+        stats["ok"] = stats["failed_groups"] == 0
+        stats["n_columns_augmented"] = sum(1 for c in table.columns if col_map.get(c.name, {}).get("alias_vi"))
         self.table_stats.append(stats)
-        if data is None:
+        if not col_map:
             # Return table unchanged if all retries fail
             return table
 
-        col_map = {c["name"]: c for c in data.get("columns", [])}
         new_columns = []
         for col in table.columns:
             aug = col_map.get(col.name, {})
@@ -93,7 +114,7 @@ class SchemaAugmentor:
                 is_primary_key=col.is_primary_key,
                 foreign_key_to=col.foreign_key_to,
             ))
-        return Table(name=table.name, alias_vi=data.get("alias_vi", ""), columns=new_columns)
+        return Table(name=table.name, alias_vi=table_alias, columns=new_columns)
 
     def augment_schema(self, schema: Schema) -> Schema:
         """Augment all tables in a schema."""

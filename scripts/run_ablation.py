@@ -51,6 +51,15 @@ BATCH_SIZES = {
 }
 
 
+# Padded prompt-token budget per batch (RTX 4090, 24GB)
+MAX_BATCH_TOKENS = {
+    "Qwen/Qwen2.5-Coder-0.5B-Instruct": 131072,
+    "Qwen/Qwen2.5-Coder-1.5B-Instruct": 65536,
+    "Qwen/Qwen2.5-Coder-3B-Instruct": 49152,
+    "Qwen/Qwen2.5-Coder-7B-Instruct": 32768,
+}
+
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=DATASETS, default=None, help="Run for one dataset only")
@@ -138,7 +147,7 @@ def main():
             cmd += ["--device", args.device]
         if model != REFERENCE_MODEL:
             batch_size = BATCH_SIZES.get(model, 8)
-            cmd += ["--batch-size", str(batch_size)]
+            cmd += ["--batch-size", str(batch_size), "--max_batch_tokens", str(MAX_BATCH_TOKENS.get(model, 32768))]
 
         ok = run_experiment(cmd, args.dry_run)
         if ok:
