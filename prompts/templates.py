@@ -1,6 +1,10 @@
 from utils.data_loader import Schema, Column, Table
 
 
+def count_schema_lines(schema: Schema, augmented: bool) -> int:
+    return len(_format_schema(schema, augmented=augmented).split("\n"))
+
+
 def _format_column(col: Column, augmented: bool) -> str:
     parts = [f"{col.name} {col.type}"]
     if augmented and col.alias_vi:
@@ -35,8 +39,13 @@ def _format_schema(schema: Schema, augmented: bool) -> str:
     return "\n".join(lines).strip()
 
 
-def build_sql_generation_prompt(question: str, schema: Schema, augmented: bool, evidence: str = "") -> str:
+def build_sql_generation_prompt(question: str, schema: Schema, augmented: bool, evidence: str = "",
+                                max_schema_lines: int | None = None) -> str:
+    """max_schema_lines keeps only the first N lines of the rendered schema (used to fit the
+    context budget without cutting the question)."""
     schema_text = _format_schema(schema, augmented=augmented)
+    if max_schema_lines is not None:
+        schema_text = "\n".join(schema_text.split("\n")[:max_schema_lines]).rstrip()
     evidence_section = f"\n### Evidence\n{evidence}" if evidence and evidence.strip() else ""
     return f"""### Task
 Given a SQLite database schema and a question in Vietnamese, generate the correct SQL query.

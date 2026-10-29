@@ -1,1 +1,2 @@
 evaluation/results/**/*.jsonl filter=lfs diff=lfs merge=lfs -text
+evaluation/results_v2/**/*.jsonl filter=lfs diff=lfs merge=lfs -text

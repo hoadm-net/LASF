@@ -41,4 +41,5 @@ generation:
 
 evaluation:
   results_dir: evaluation/results
+  results_dir_v2: evaluation/results_v2
   alpha: 0.05

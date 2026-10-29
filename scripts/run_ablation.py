@@ -28,7 +28,10 @@ from pathlib import Path
 
 import yaml
 
-CONFIGS = ["baseline", "+aug", "+link", "full"]
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from run_experiment import result_stem
+
+CONFIGS = ["baseline", "+aug", "+link", "augret", "full"]
 LOCAL_MODELS = [
     "Qwen/Qwen2.5-Coder-0.5B-Instruct",
     "Qwen/Qwen2.5-Coder-1.5B-Instruct",
@@ -36,7 +39,7 @@ LOCAL_MODELS = [
     "Qwen/Qwen2.5-Coder-7B-Instruct",
 ]
 REFERENCE_MODEL = "gpt-4.1-mini"
-REFERENCE_CONFIGS = ["baseline"]
+REFERENCE_CONFIGS = ["baseline", "full"]
 DATASETS = ["spider_vi", "bird_vi"]
 
 # Batch sizes tuned for RTX 3090 (24GB): larger = faster for small models
@@ -56,7 +59,11 @@ def parse_args():
     parser.add_argument("--device", default=None, help="Override device (cpu/cuda)")
     parser.add_argument("--dry_run", action="store_true", help="Print commands without executing")
     parser.add_argument("--overwrite", action="store_true", help="Re-run even if output JSONL exists")
-    parser.add_argument("--skip_reference", action="store_true", help="Skip GPT-4o-mini reference baseline")
+    parser.add_argument("--skip_reference", action="store_true", help="Skip GPT-4.1-mini reference runs")
+    parser.add_argument("--configs", nargs="+", default=CONFIGS, choices=CONFIGS, help="Subset of configs")
+    parser.add_argument("--lang", choices=["vi", "en"], default="vi")
+    parser.add_argument("--top_k", type=int, default=None)
+    parser.add_argument("--top_k_ratio", type=float, default=None)
     return parser.parse_args()
 
 
@@ -65,10 +72,9 @@ def load_config(path: str) -> dict:
         return yaml.safe_load(f)
 
 
-def output_path(results_dir: str, dataset: str, config: str, model_name: str) -> Path:
-    model_tag = model_name.split("/")[-1].lower().replace("-instruct", "")
-    config_tag = config.replace("+", "plus")
-    return Path(results_dir) / dataset / f"{config_tag}_{model_tag}.jsonl"
+def output_path(results_dir: str, dataset: str, config: str, model_name: str, args) -> Path:
+    stem = result_stem(config, model_name, args.lang, args.top_k, args.top_k_ratio)
+    return Path(results_dir) / dataset / f"{stem}.jsonl"
 
 
 def run_experiment(cmd: list[str], dry_run: bool) -> bool:
@@ -84,7 +90,7 @@ def run_experiment(cmd: list[str], dry_run: bool) -> bool:
 def main():
     args = parse_args()
     cfg = load_config(args.cfg)
-    results_dir = cfg["evaluation"]["results_dir"]
+    results_dir = cfg["evaluation"]["results_dir_v2"]
     datasets = [args.dataset] if args.dataset else DATASETS
     local_models = [args.model] if args.model else LOCAL_MODELS
 
@@ -94,21 +100,22 @@ def main():
     # Main ablation: local models × all configs × all datasets
     for dataset in datasets:
         for model in local_models:
-            for config in CONFIGS:
+            for config in args.configs:
                 experiments.append((dataset, model, config))
 
     # GPT-4o-mini upper-bound reference: baseline only
     if not args.skip_reference:
         for dataset in datasets:
             for config in REFERENCE_CONFIGS:
-                experiments.append((dataset, REFERENCE_MODEL, config))
+                if config in args.configs:
+                    experiments.append((dataset, REFERENCE_MODEL, config))
 
     total = len(experiments)
     print(f"Total experiments planned: {total}")
 
     skipped, ran, failed = 0, 0, 0
     for dataset, model, config in experiments:
-        out = output_path(results_dir, dataset, config, model)
+        out = output_path(results_dir, dataset, config, model, args)
 
         if out.exists() and not args.overwrite:
             print(f"  [SKIP] {out.name} already exists.")
@@ -122,6 +129,11 @@ def main():
             "--config", config,
             "--cfg", args.cfg,
         ]
+        cmd += ["--lang", args.lang]
+        if args.top_k is not None:
+            cmd += ["--top_k", str(args.top_k)]
+        if args.top_k_ratio is not None:
+            cmd += ["--top_k_ratio", str(args.top_k_ratio)]
         if args.device:
             cmd += ["--device", args.device]
         if model != REFERENCE_MODEL:
