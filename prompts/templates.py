@@ -1,6 +1,10 @@
 from utils.data_loader import Schema, Column, Table
 
 
+# Set by run_experiment --max_value_chars; None keeps sample values verbatim (default, as in v1)
+MAX_VALUE_CHARS = None
+
+
 def count_schema_lines(schema: Schema, augmented: bool) -> int:
     return len(_format_schema(schema, augmented=augmented).split("\n"))
 
@@ -11,7 +15,10 @@ def _format_column(col: Column, augmented: bool) -> str:
         synonyms = ", ".join([col.alias_vi] + col.synonym[:2])
         parts.append(f"alias: {synonyms}")
     if augmented and col.sample_values:
-        parts.append(f"values: {', '.join(col.sample_values)}")
+        values = col.sample_values
+        if MAX_VALUE_CHARS is not None:  # optional cap for very long raw values (e.g. XML blobs in BIRD)
+            values = [v if len(v) <= MAX_VALUE_CHARS else v[:MAX_VALUE_CHARS] + "..." for v in values]
+        parts.append(f"values: {', '.join(values)}")
     if augmented and col.description:
         parts.append(f"-- {col.description}")
     return " | ".join(parts)

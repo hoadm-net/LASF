@@ -66,6 +66,8 @@ def parse_args():
     parser.add_argument("--results_dir", default=None, help="Default: evaluation.results_dir_v2 in config.yaml")
     parser.add_argument("--limit", type=int, default=None, help="Only the first N examples (debugging)")
     parser.add_argument("--db_filter", default=None, help="Only questions on this database (debugging)")
+    parser.add_argument("--max_value_chars", type=int, default=None,
+                        help="Cap each sample value shown in augmented prompts (default: verbatim)")
     parser.add_argument("--sample", type=int, default=None,
                         help="Random sample of N questions (seed 2026), e.g. for latency benchmarks")
     return parser.parse_args()
@@ -123,6 +125,9 @@ def git_commit() -> str:
 def main():
     args = parse_args()
     cfg = load_config(args.cfg)
+    if args.max_value_chars is not None:
+        import prompts.templates
+        prompts.templates.MAX_VALUE_CHARS = args.max_value_chars
 
     is_openai = args.model == GPT4O_MINI
     if is_openai and args.config not in GPT4O_MINI_ALLOWED_CONFIGS:
@@ -285,6 +290,8 @@ def main():
         stem += f"_limit{args.limit}"
     if args.sample:
         stem += f"_sample{args.sample}"
+    if args.max_value_chars is not None:
+        stem += f"_v{args.max_value_chars}"
     out_path = out_dir / f"{stem}.jsonl"
     with open(out_path, "w", encoding="utf-8") as f:
         for item in records:
@@ -297,6 +304,7 @@ def main():
         "aug_prompt": aug_prompt,
         "use_link": use_link,
         "top_k": top_k if use_link else None,
+        "max_value_chars": args.max_value_chars,
         "linker": args.linker if use_link else None,
         "linker_model": (cfg["linking"]["model"] if args.linker == "e5" else args.linker) if use_link else None,
         "api_model": getattr(generator, "api_model", None),
