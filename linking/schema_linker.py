@@ -57,35 +57,40 @@ class SchemaLinker:
         if not column_index:
             return schema
         k = top_k if top_k is not None else self.k_for(len(column_index))
-        top_indices = np.argsort(scores)[::-1][:k]
+        return select_top_k(schema, column_index, scores, k)
 
-        # Collect selected tables and always-include PKs
-        selected_tables: dict[str, set[str]] = {}
-        for idx in top_indices:
-            table, col = column_index[idx]
-            selected_tables.setdefault(table.name, set()).add(col.name)
 
-        # Include primary keys of selected tables
-        for table in schema.tables:
-            if table.name in selected_tables:
-                for col in table.columns:
-                    if col.is_primary_key:
-                        selected_tables[table.name].add(col.name)
-                    # Include FK columns to preserve join context
-                    if col.foreign_key_to:
-                        selected_tables[table.name].add(col.name)
+def select_top_k(schema: Schema, column_index: list[tuple[Table, Column]], scores: np.ndarray, k: int) -> Schema:
+    """Keep the k highest-scoring columns, plus PK/FK columns of every table that has a kept column."""
+    top_indices = np.argsort(scores)[::-1][:k]
 
-        # Build filtered schema
-        filtered_tables = []
-        for table in schema.tables:
-            if table.name not in selected_tables:
-                continue
-            selected_cols = selected_tables[table.name]
-            filtered_cols = [c for c in table.columns if c.name in selected_cols]
-            filtered_tables.append(Table(
-                name=table.name,
-                alias_vi=table.alias_vi,
-                columns=filtered_cols,
-            ))
+    # Collect selected tables and always-include PKs
+    selected_tables: dict[str, set[str]] = {}
+    for idx in top_indices:
+        table, col = column_index[idx]
+        selected_tables.setdefault(table.name, set()).add(col.name)
 
-        return Schema(db_id=schema.db_id, tables=filtered_tables)
+    # Include primary keys of selected tables
+    for table in schema.tables:
+        if table.name in selected_tables:
+            for col in table.columns:
+                if col.is_primary_key:
+                    selected_tables[table.name].add(col.name)
+                # Include FK columns to preserve join context
+                if col.foreign_key_to:
+                    selected_tables[table.name].add(col.name)
+
+    # Build filtered schema
+    filtered_tables = []
+    for table in schema.tables:
+        if table.name not in selected_tables:
+            continue
+        selected_cols = selected_tables[table.name]
+        filtered_cols = [c for c in table.columns if c.name in selected_cols]
+        filtered_tables.append(Table(
+            name=table.name,
+            alias_vi=table.alias_vi,
+            columns=filtered_cols,
+        ))
+
+    return Schema(db_id=schema.db_id, tables=filtered_tables)

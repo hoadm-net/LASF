@@ -28,3 +28,4 @@ third_party/
 # Packaged human-task bundles
 revision/*.zip
 logs/
+evaluation/.gold_cache/
