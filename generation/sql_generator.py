@@ -19,10 +19,14 @@ class SQLGenerator:
 
         if self._is_openai:
             from openai import OpenAI
-            api_key = os.environ.get("OPENAI_API_KEY")
+            # OpenRouter (OpenAI-compatible) if its key is set, otherwise the OpenAI API directly
+            api_key = os.environ.get("OPENROUTER_API_KEY") or os.environ.get("OPENAI_API_KEY")
             if not api_key:
-                raise EnvironmentError("OPENAI_API_KEY environment variable is not set.")
-            self._client = OpenAI(api_key=api_key)
+                raise EnvironmentError("Set OPENROUTER_API_KEY or OPENAI_API_KEY in .env.")
+            base_url = os.environ.get("OPENAI_BASE_URL") if os.environ.get("OPENROUTER_API_KEY") else None
+            self._client = OpenAI(api_key=api_key, base_url=base_url)
+            # Model id sent to the API, e.g. "openai/gpt-4.1-mini" on OpenRouter
+            self.api_model = os.environ.get("REFERENCE_MODEL_ID", model_name) if base_url else model_name
         else:
             import torch
             from transformers import AutoTokenizer, AutoModelForCausalLM
@@ -104,11 +108,14 @@ class SQLGenerator:
         return self._extract_sql(raw)
 
     def _generate_openai(self, prompt: str) -> str:
+        # On OpenRouter, pin the provider to OpenAI so all requests hit the same backend
+        extra = {"provider": {"order": ["OpenAI"], "allow_fallbacks": False}} if self.api_model != self.model_name else None
         response = self._client.chat.completions.create(
-            model=self.model_name,
+            model=self.api_model,
             messages=[{"role": "user", "content": prompt}],
             max_tokens=self.max_new_tokens,
             temperature=0.0,
+            extra_body=extra,
         )
         raw = response.choices[0].message.content or ""
         return self._extract_sql(raw)

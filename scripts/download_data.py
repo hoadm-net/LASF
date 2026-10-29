@@ -31,42 +31,33 @@ DATA_DIRS = {
 }
 
 
+# Files to fetch from each HF dataset repo -> local name.
+# The Vietnamese questions live in vispider_dev.json / vibird_dev.json (field `question_vi`);
+# dev.json in the ViSpider repo is the original English Spider dev set.
+HF_FILES = {
+    "spider_vi": {"vispider_dev.json": "dev.json", "tables.json": "tables.json"},
+    "bird_vi": {"vibird_dev.json": "dev.json"},
+}
+
+
 def download_hf_dataset(name: str, hf_repo: str, out_dir: str) -> None:
-    from huggingface_hub import HfApi, hf_hub_download
+    from huggingface_hub import hf_hub_download
 
     print(f"\n[HuggingFace] Downloading {hf_repo} → {out_dir}")
     Path(out_dir).mkdir(parents=True, exist_ok=True)
 
-    api = HfApi()
-    all_files = list(api.list_repo_files(hf_repo, repo_type="dataset"))
-
-    # Find dev and train JSON files — prefer files containing 'dev'/'train' in name
-    def pick_file(keyword: str) -> str | None:
-        # Priority: exact match "dev.json", then anything with keyword in name
-        exact = f"{keyword}.json"
-        if exact in all_files:
-            return exact
-        candidates = [f for f in all_files if keyword in f.lower() and f.endswith(".json")]
-        # Prefer shorter names (less likely to be a variant)
-        return sorted(candidates, key=len)[0] if candidates else None
-
-    splits = {"dev": pick_file("dev"), "train": pick_file("train")}
-
-    for split, filename in splits.items():
-        if filename is None:
-            print(f"  [{split}] No matching file found, skipping.")
-            continue
-        out_path = Path(out_dir) / f"{split}.json"
+    for filename, local_name in HF_FILES[name].items():
+        out_path = Path(out_dir) / local_name
         if out_path.exists():
-            print(f"  [{split}] Already exists, skipping.")
+            print(f"  [{local_name}] Already exists, skipping.")
             continue
-        print(f"  [{split}] Downloading '{filename}' ...")
+        print(f"  [{local_name}] Downloading '{filename}' ...")
         local = hf_hub_download(repo_id=hf_repo, filename=filename, repo_type="dataset")
         with open(local, encoding="utf-8") as f:
             data = json.load(f)
         with open(out_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"  [{split}] Saved {len(data)} examples → {out_path}")
+        print(f"  [{local_name}] Saved {len(data)} entries → {out_path}")
 
 
 def download_databases(out_dir: str = "data") -> None:
@@ -85,6 +76,13 @@ def download_databases(out_dir: str = "data") -> None:
     with zipfile.ZipFile(zip_path, "r") as zf:
         zf.extractall(out_dir)
     print(f"  Extraction complete.")
+
+    # configs/config.yaml expects the Spider databases at data/spider_vi/database
+    link = Path(DATA_DIRS["spider_vi"]) / "database"
+    if not link.exists():
+        link.parent.mkdir(parents=True, exist_ok=True)
+        link.symlink_to(Path("..") / "spider_data" / "database")
+        print(f"  Linked {link} → data/spider_data/database")
 
 
 def download_bird_databases(out_dir: str = "data/bird_vi") -> None:
@@ -129,7 +127,7 @@ def download_bird_databases(out_dir: str = "data/bird_vi") -> None:
         db_name = src.stem  # e.g. "european_football_2"
         dest_dir = db_root / db_name
         dest_dir.mkdir(parents=True, exist_ok=True)
-        dest = dest_dir / src.name
+        dest = dest_dir / f"{db_name}.sqlite"  # loaders expect <db_id>/<db_id>.sqlite
         if not dest.exists():
             shutil.copy2(src, dest)
             print(f"    Copied {src.name} → {dest}")

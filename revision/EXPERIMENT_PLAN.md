@@ -18,9 +18,14 @@
 
 | ID | Việc | Ai | Ghi chú |
 |---|---|---|---|
-| B1 | **Lấy lại `augmentation/augmented_schemas/`** (20 DB ViSpider + 11 DB ViBIRD) từ máy chạy v1 (RTX 3090) | Tác giả | Thư mục này bị `.gitignore` nên máy hiện tại không có. Dùng lại đúng file cũ thì metadata trong bài, trong T2 và trong mọi run sẽ thống nhất. Nếu buộc phải sinh lại thì kết quả sẽ khác bản cũ, vì augmentation dùng `do_sample=True, temperature=0.1`. Khi đó cần ghi seed và chạy lại mọi config có aug |
-| B2 | Dựng môi trường, tải DB Spider và BIRD, tải `vispider_dev.json` / `vibird_dev.json`, cài `third_party/spider` | Máy | |
-| B3 | `OPENAI_API_KEY` trong `.env` | Tác giả | Cho E1 (GPT baseline) và E6 |
+| B1 | ~~Lấy lại `augmented_schemas` cũ~~ → **Đã quyết định sinh lại** (29/10): bản cũ không còn | — | Sinh lại với seed 2026, seed riêng cho từng bảng nên kết quả không phụ thuộc thứ tự chạy. Mọi config có aug đều chạy lại. Metadata trong bài (Table 1, các ví dụ) cần lấy từ bản mới. Bản mới **được commit vào repo** (`augmentation/augmented_schemas/`), kèm `_stats_{dataset}.jsonl` ghi thời gian, VRAM và số token của từng DB (dùng cho E8) |
+| B2 | Môi trường, dữ liệu, DB, Spider eval | ✅ 29/10 | torch 2.6.0+cu124, transformers 5.20.2, RTX 4090. Cần ghi lại phiên bản thư viện, vì v1 chạy với bản khác |
+| B3 | API cho GPT-4.1-mini | ✅ 29/10 | Gọi qua **OpenRouter** (`openai/gpt-4.1-mini`), cố định nhà cung cấp là OpenAI, không fallback. Bài cần ghi rõ cách gọi này |
+
+### Phát hiện thêm khi dựng lại (29/10)
+
+- `download_data.py` lưu DB BIRD với đuôi `.db` trong khi loader tìm `.sqlite`. Mà `sqlite3.connect` gặp đường dẫn không tồn tại thì tạo DB rỗng, không báo lỗi. Đã sửa: lưu `.sqlite`, loader mở DB ở chế độ read-only và báo lỗi nếu thiếu file.
+- v1 đưa cả bảng nội bộ `sqlite_sequence` vào schema/prompt. v2 đã loại ra. Sau khi loại: ViSpider **80 bảng / 439 cột** (Table 2 của bài ghi 81/441, tức đã đếm cả bảng nội bộ); ViBIRD 75 / 798, DB lớn nhất 199 cột, khớp với bài.
 
 ---
 

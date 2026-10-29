@@ -37,43 +37,62 @@ class Example:
     question: str
     gold_sql: str
     evidence: str = ""  # BIRD only
+    difficulty: str = ""  # BIRD: difficulty; Spider: sql_class
 
 
-def load_spider_vi(dev_path: str) -> list[Example]:
+def load_spider_vi(dev_path: str, lang: str = "vi") -> list[Example]:
+    """lang="vi" reads `question_vi`; lang="en" reads the original English `question`."""
     with open(dev_path, encoding="utf-8") as f:
         data = json.load(f)
+    if lang == "vi" and "question_vi" not in data[0]:
+        raise KeyError(f"{dev_path} has no `question_vi` field — is this the ViSpider file?")
     examples = []
     for i, item in enumerate(data):
         examples.append(Example(
             question_id=f"spider_dev_{i:04d}",
             db_id=item["db_id"],
-            question=item["question"],
+            question=item["question_vi"] if lang == "vi" else item["question"],
             gold_sql=item["query"],
+            difficulty=item.get("sql_class", ""),
         ))
     return examples
 
 
-def load_bird_vi(dev_path: str) -> list[Example]:
+def load_bird_vi(dev_path: str, lang: str = "vi") -> list[Example]:
+    """lang="vi" reads `question_vi`/`evidence_vi`; lang="en" reads `question`/`evidence`."""
     with open(dev_path, encoding="utf-8") as f:
         data = json.load(f)
+    suffix = "_vi" if lang == "vi" else ""
     examples = []
     for item in data:
         examples.append(Example(
             question_id=str(item["id"]),
             db_id=item["db_id"],
-            question=item["question_vi"],
+            question=item[f"question{suffix}"],
             gold_sql=item["SQL"],
-            evidence=item.get("evidence_vi", ""),
+            evidence=item.get(f"evidence{suffix}", ""),
+            difficulty=item.get("difficulty", ""),
         ))
     return examples
 
 
+def db_file(db_dir: str, db_id: str) -> str:
+    """Path to <db_dir>/<db_id>/<db_id>.sqlite; raises if missing (sqlite3.connect would silently create it)."""
+    path = Path(db_dir) / db_id / f"{db_id}.sqlite"
+    if not path.exists():
+        raise FileNotFoundError(f"Database not found: {path}")
+    return str(path)
+
+
 def load_schema_from_db(db_path: str, db_id: str) -> Schema:
     """Extract schema directly from SQLite database file."""
-    conn = sqlite3.connect(db_path)
+    if not Path(db_path).exists():
+        raise FileNotFoundError(f"Database not found: {db_path}")
+    conn = sqlite3.connect(f"file:{db_path}?mode=ro", uri=True)
     cursor = conn.cursor()
 
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name")
+    # Skip SQLite-internal tables (e.g. sqlite_sequence), which are not part of the user schema
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite\\_%' ESCAPE '\\' ORDER BY name")
     table_names = [row[0] for row in cursor.fetchall()]
 
     tables = []

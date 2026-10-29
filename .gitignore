@@ -12,7 +12,7 @@ build/
 
 # Data & model cache
 data/
-augmentation/augmented_schemas/
+# augmentation/augmented_schemas/ is committed: regeneration is not bit-reproducible across hardware
 third_party/
 *.sqlite
 
@@ -27,3 +27,4 @@ third_party/
 
 # Packaged human-task bundles
 revision/*.zip
+logs/
