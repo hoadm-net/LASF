@@ -1,0 +1,605 @@
+{
+  "db_id": "real_estate_properties",
+  "tables": [
+    {
+      "name": "Other_Available_Features",
+      "alias_vi": "Đặc_Tính_Khác",
+      "columns": [
+        {
+          "name": "feature_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Dặc_Tính",
+          "synonym": [
+            "ID_Dặc_Tính",
+            "STT_Dặc_Tính"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "4"
+          ],
+          "description": "Mã duy nhất để xác định đặc tính.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "feature_type_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Loại_Dặc_Tính",
+          "synonym": [
+            "Mã_Loại",
+            "Kiểu_Dặc_Tính"
+          ],
+          "sample_values": [
+            "Amenity",
+            "Security"
+          ],
+          "description": "Mã đại diện cho loại đặc tính.",
+          "is_primary_key": false,
+          "foreign_key_to": "Ref_Feature_Types.feature_type_code"
+        },
+        {
+          "name": "feature_name",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Tên_Dặc_Tính",
+          "synonym": [
+            "Tên_Sản_Phẩm",
+            "Tên_Dịch_Vụ"
+          ],
+          "sample_values": [
+            "AirCon",
+            "Pool",
+            "BurglarAlarm"
+          ],
+          "description": "Tên của đặc tính hoặc dịch vụ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "feature_description",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Mô_Tả_Dặc_Tính",
+          "synonym": [
+            "Giải_Thích",
+            "Thông_Tin_Dự_Anh"
+          ],
+          "sample_values": [
+            "Air Conditioning.",
+            "Swimming Pool.",
+            "Burglar Alarm"
+          ],
+          "description": "Mô tả chi tiết về đặc tính hoặc dịch vụ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Other_Property_Features",
+      "alias_vi": "Thông Tin Tiện Ích Khác",
+      "columns": [
+        {
+          "name": "property_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Nhà Thuộc Tính",
+          "synonym": [
+            "ID Nhà",
+            "Mã Nhà Thuộc"
+          ],
+          "sample_values": [
+            "15",
+            "12",
+            "6"
+          ],
+          "description": "Mã duy nhất của nhà thuộc tính.",
+          "is_primary_key": false,
+          "foreign_key_to": "Properties.property_id"
+        },
+        {
+          "name": "feature_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Tiện Ích",
+          "synonym": [
+            "ID Tiện Ích",
+            "Mã Tiện Ích"
+          ],
+          "sample_values": [
+            "3",
+            "4",
+            "2"
+          ],
+          "description": "Mã duy nhất của tiện ích.",
+          "is_primary_key": false,
+          "foreign_key_to": "Other_Available_Features.feature_id"
+        },
+        {
+          "name": "property_feature_description",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Miêu tả Tiện Ích",
+          "synonym": [
+            "Mô Tả Tiện Ích",
+            "Nội Dung Tiện Ích"
+          ],
+          "sample_values": [
+            "dolorem",
+            "earum",
+            "illo"
+          ],
+          "description": "Miêu tả cụ thể về tiện ích của nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Properties",
+      "alias_vi": "Thông Tin Nhà Đất",
+      "columns": [
+        {
+          "name": "property_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Nhà Đất",
+          "synonym": [
+            "ID Nhà Đất",
+            "Số Nhà Đất"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi nhà đất.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "property_type_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Loại Nhà Đất",
+          "synonym": [
+            "Kiểu Nhà Đất",
+            "Loại Hình Nhà Đất"
+          ],
+          "sample_values": [
+            "House",
+            "Other",
+            "Field"
+          ],
+          "description": "Mã đại diện cho loại hình của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": "Ref_Property_Types.property_type_code"
+        },
+        {
+          "name": "date_on_market",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Bán Trong Thị Trường",
+          "synonym": [
+            "Ngày Bắt Đầu Bán",
+            "Ngày Ra Thị Trường"
+          ],
+          "sample_values": [
+            "1991-06-21 23:52:10",
+            "1990-05-25 23:01:51",
+            "1986-11-26 04:12:18"
+          ],
+          "description": "Ngày mà nhà đất được đưa ra thị trường để bán.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_sold",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Bán",
+          "synonym": [
+            "Ngày Giao Dịch",
+            "Ngày Chuyển Nhượng"
+          ],
+          "sample_values": [
+            "1979-05-13 16:58:06",
+            "1990-11-14 19:16:38",
+            "1981-06-26 21:28:28"
+          ],
+          "description": "Ngày mà nhà đất đã được bán.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "property_name",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Tên Nhà Đất",
+          "synonym": [
+            "Tên Dự Án",
+            "Tên Dự Toán"
+          ],
+          "sample_values": [
+            "park",
+            "the cole",
+            "prism"
+          ],
+          "description": "Tên của dự án hoặc khu vực nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "property_address",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Địa Chỉ Nhà Đất",
+          "synonym": [
+            "Địa Chỉ Cụ Thể",
+            "Địa Chỉ Bán"
+          ],
+          "sample_values": [
+            "4745 Emerson Stravenue Suite 829\nSouth Garret, IN 16772-5682",
+            "098 Tremaine Highway Suite 569\nSouth Wilford, NJ 46587-3537",
+            "062 Micaela Court Apt. 707\nMargretville, WV 51628-3617"
+          ],
+          "description": "Địa chỉ cụ thể của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "room_count",
+          "type": "INTEGER",
+          "alias_vi": "Số Phòng",
+          "synonym": [
+            "Số Phòng",
+            "Số Tiếng"
+          ],
+          "sample_values": [
+            "7",
+            "1",
+            "8"
+          ],
+          "description": "Số lượng phòng trong nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "vendor_requested_price",
+          "type": "DECIMAL(19,4)",
+          "alias_vi": "Giá Yêu Cầu Từ Chủ Nhà",
+          "synonym": [
+            "Giá Yêu Cầu",
+            "Giá Đề Xuất"
+          ],
+          "sample_values": [
+            "372652.2909",
+            "661536468.4429",
+            "1337"
+          ],
+          "description": "Giá mà chủ nhà yêu cầu để bán nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buyer_offered_price",
+          "type": "DECIMAL(19,4)",
+          "alias_vi": "Giá Mua Cung Cấp Bằng",
+          "synonym": [
+            "Giá Mua",
+            "Giá Thỏa Thuận"
+          ],
+          "sample_values": [
+            "1.68",
+            "8.7122",
+            "11375259.502"
+          ],
+          "description": "Giá mà người mua đề xuất để mua nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "agreed_selling_price",
+          "type": "DECIMAL(19,4)",
+          "alias_vi": "Giá Bán Thỏa Thuận",
+          "synonym": [
+            "Giá Giao Dịch",
+            "Giá Chấp Nhận"
+          ],
+          "sample_values": [
+            "4201.8",
+            "21769471.8328",
+            "5"
+          ],
+          "description": "Giá cuối cùng mà hai bên đồng ý để bán nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "apt_feature_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tính Năng Nhà Đất 1",
+          "synonym": [
+            "Tính Năng 1",
+            "Đặc Điểm 1"
+          ],
+          "sample_values": [
+            "aut",
+            "est",
+            "ut"
+          ],
+          "description": "Tính năng hoặc đặc điểm thứ nhất của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "apt_feature_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tính Năng Nhà Đất 2",
+          "synonym": [
+            "Tính Năng 2",
+            "Đặc Điểm 2"
+          ],
+          "sample_values": [
+            "suscipit",
+            "est",
+            "et"
+          ],
+          "description": "Tính năng hoặc đặc điểm thứ hai của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "apt_feature_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Căn Hộ",
+          "synonym": [
+            "Đặc Điểm Căn Hộ",
+            "Tính Năng Căn Hộ"
+          ],
+          "sample_values": [],
+          "description": "Mô tả đặc trưng của căn hộ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fld_feature_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Đất",
+          "synonym": [
+            "Đặc Điểm Đất",
+            "Tính Năng Đất"
+          ],
+          "sample_values": [],
+          "description": "Mô tả đặc trưng của khu đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fld_feature_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Đất 2",
+          "synonym": [
+            "Đặc Điểm Đất 2",
+            "Tính Năng Đất 2"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thêm về đặc trưng của khu đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fld_feature_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Đất 3",
+          "synonym": [
+            "Đặc Điểm Đất 3",
+            "Tính Năng Đất 3"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thứ ba về đặc trưng của khu đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hse_feature_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Nhà",
+          "synonym": [
+            "Đặc Điểm Nhà",
+            "Tính Năng Nhà"
+          ],
+          "sample_values": [],
+          "description": "Mô tả đặc trưng của ngôi nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hse_feature_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Nhà 2",
+          "synonym": [
+            "Đặc Điểm Nhà 2",
+            "Tính Năng Nhà 2"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thêm về đặc trưng của ngôi nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hse_feature_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Nhà 3",
+          "synonym": [
+            "Đặc Điểm Nhà 3",
+            "Tính Năng Nhà 3"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thứ ba về đặc trưng của ngôi nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "oth_feature_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Khác",
+          "synonym": [
+            "Đặc Điểm Khác",
+            "Tính Năng Khác"
+          ],
+          "sample_values": [],
+          "description": "Mô tả đặc trưng khác của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "oth_feature_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Khác 2",
+          "synonym": [
+            "Đặc Điểm Khác 2",
+            "Tính Năng Khác 2"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thêm về đặc trưng khác của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "oth_feature_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Khác 3",
+          "synonym": [
+            "Đặc Điểm Khác 3",
+            "Tính Năng Khác 3"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thứ ba về đặc trưng khác của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shp_feature_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Hình Thức",
+          "synonym": [
+            "Đặc Điểm Hình Thức",
+            "Tính Năng Hình Thức"
+          ],
+          "sample_values": [],
+          "description": "Mô tả hình thức của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shp_feature_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng Hình Thức 2",
+          "synonym": [
+            "Đặc Điểm Hình Thức 2",
+            "Tính Năng Hình Thức 2"
+          ],
+          "sample_values": [],
+          "description": "Mô tả thêm về hình thức của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shp_feature_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Đặc Trưng",
+          "synonym": [
+            "Tính Năng",
+            "Phương Tiện"
+          ],
+          "sample_values": [],
+          "description": "Mô tả đặc trưng hoặc phương tiện của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_property_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi Tiết Khác",
+          "synonym": [
+            "Thông Tin Thêm",
+            "Chi Tiết追加信息"
+          ],
+          "sample_values": [],
+          "description": "Ghi chú thêm về thông tin chi tiết của nhà đất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Ref_Feature_Types",
+      "alias_vi": "Loại_Tính_Năng",
+      "columns": [
+        {
+          "name": "feature_type_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Mã_Loại_Tính_Năng",
+          "synonym": [
+            "Mã Loại",
+            "Mã Tính Năng"
+          ],
+          "sample_values": [
+            "Amenity",
+            "Security"
+          ],
+          "description": "Mã đại diện cho loại tính năng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "feature_type_name",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Tên_Loại_Tính_Năng",
+          "synonym": [
+            "Tên Loại",
+            "Tên Tính Năng"
+          ],
+          "sample_values": [
+            "Amenity, eg Pool.",
+            "Securiyt, eg Burglar Alarm."
+          ],
+          "description": "Tên mô tả cụ thể của loại tính năng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Ref_Property_Types",
+      "alias_vi": "Loại_Tài_Sản",
+      "columns": [
+        {
+          "name": "property_type_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Mã_Loại_Tài_Sản",
+          "synonym": [
+            "Mã Loại",
+            "Mã Tài Sản"
+          ],
+          "sample_values": [
+            "Apartment",
+            "Field",
+            "House"
+          ],
+          "description": "Mã đại diện cho loại tài sản như Nhà, Nông trường, Nhà ở.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "property_type_description",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Miêu_Tả_Loại_Tài_Sản",
+          "synonym": [
+            "Miêu tả Loại",
+            "Miêu tả Tài Sản"
+          ],
+          "sample_values": [
+            "House, Bungalow, etc.",
+            "Apartment, Flat, Condo, etc.",
+            "Field, Meadow."
+          ],
+          "description": "Miêu tả chi tiết về loại tài sản như Nhà, Biệt thự, Căn hộ, Nông trường, Vườn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

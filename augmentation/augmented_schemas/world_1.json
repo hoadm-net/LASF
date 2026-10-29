@@ -1,0 +1,430 @@
+{
+  "db_id": "world_1",
+  "tables": [
+    {
+      "name": "city",
+      "alias_vi": "Thành Phố",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã Thành Phố",
+          "synonym": [
+            "Mã TP",
+            "ID Thành Phố"
+          ],
+          "sample_values": [
+            "129",
+            "1",
+            "2"
+          ],
+          "description": "Mã duy nhất xác định mỗi thành phố.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "char(35)",
+          "alias_vi": "Tên Thành Phố",
+          "synonym": [
+            "Tên TP",
+            "Tên"
+          ],
+          "sample_values": [
+            "Kabul",
+            "Qandahar",
+            "Herat"
+          ],
+          "description": "Tên chính thức của thành phố.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CountryCode",
+          "type": "char(3)",
+          "alias_vi": "Mã Quốc Gia",
+          "synonym": [
+            "Mã QG",
+            "Mã"
+          ],
+          "sample_values": [
+            "ABW",
+            "AFG",
+            "AGO"
+          ],
+          "description": "Mã quốc gia mà thành phố thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": "country.Code"
+        },
+        {
+          "name": "District",
+          "type": "char(20)",
+          "alias_vi": "Quận Huyện",
+          "synonym": [
+            "Quận",
+            "Huyện"
+          ],
+          "sample_values": [
+            "Kabol",
+            "Qandahar",
+            "Herat"
+          ],
+          "description": "Tên quận hoặc huyện mà thành phố nằm trong.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Population",
+          "type": "INTEGER",
+          "alias_vi": "Số Lượng Dân Số",
+          "synonym": [
+            "Dân Số",
+            "Số Dân"
+          ],
+          "sample_values": [
+            "1780000",
+            "237500",
+            "186800"
+          ],
+          "description": "Số lượng dân số của thành phố.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "country",
+      "alias_vi": "Quốc gia",
+      "columns": [
+        {
+          "name": "Code",
+          "type": "char(3)",
+          "alias_vi": "Mã quốc gia",
+          "synonym": [
+            "Mã",
+            "Ký hiệu"
+          ],
+          "sample_values": [
+            "ABW",
+            "AFG",
+            "AGO"
+          ],
+          "description": "Mã đại diện cho quốc gia (ví dụ: ABW, AFG, AGO)",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "char(52)",
+          "alias_vi": "Tên quốc gia",
+          "synonym": [
+            "Tên gọi",
+            "Tên chính thức"
+          ],
+          "sample_values": [
+            "Aruba",
+            "Afghanistan",
+            "Angola"
+          ],
+          "description": "Tên đầy đủ của quốc gia (ví dụ: Aruba, Afghanistan, Angola)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Continent",
+          "type": "TEXT",
+          "alias_vi": "Lục địa",
+          "synonym": [
+            "Địa phận",
+            "Vùng lục địa"
+          ],
+          "sample_values": [
+            "North America",
+            "Asia",
+            "Africa"
+          ],
+          "description": "Lục địa mà quốc gia nằm (ví dụ: Bắc Mỹ, Á châu, Phi)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Region",
+          "type": "char(26)",
+          "alias_vi": "Vùng",
+          "synonym": [
+            "Khu vực",
+            "Phân khu"
+          ],
+          "sample_values": [
+            "Caribbean",
+            "Southern and Central Asia",
+            "Central Africa"
+          ],
+          "description": "Vùng hoặc phân khu của quốc gia (ví dụ: Caribe, Nam và Trung Á châu, Trung Phi)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SurfaceArea",
+          "type": "float(10,2)",
+          "alias_vi": "Diện tích",
+          "synonym": [
+            "Diện tích đất liền",
+            "Kích thước"
+          ],
+          "sample_values": [
+            "193.0",
+            "652090.0",
+            "1246700.0"
+          ],
+          "description": "Diện tích đất liền của quốc gia (ví dụ: 193.0, 652090.0, 1246700.0)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IndepYear",
+          "type": "INTEGER",
+          "alias_vi": "Năm độc lập",
+          "synonym": [
+            "Năm tự do",
+            "Năm giải phóng"
+          ],
+          "sample_values": [
+            "1919",
+            "1975",
+            "1912"
+          ],
+          "description": "Năm quốc gia giành được độc lập (ví dụ: 1919, 1975, 1912)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Population",
+          "type": "INTEGER",
+          "alias_vi": "Dân số",
+          "synonym": [
+            "Số dân",
+            "Người dân"
+          ],
+          "sample_values": [
+            "103000",
+            "22720000",
+            "12878000"
+          ],
+          "description": "Số dân của quốc gia (ví dụ: 103000, 22720000, 12878000)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LifeExpectancy",
+          "type": "float(3,1)",
+          "alias_vi": "Tuổi thọ trung bình",
+          "synonym": [
+            "Thời gian sống trung bình",
+            "Tuổi thọ"
+          ],
+          "sample_values": [
+            "78.4",
+            "45.9",
+            "38.3"
+          ],
+          "description": "Tuổi thọ trung bình của người dân trong quốc gia (ví dụ: 78.4, 45.9, 38.3)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GNP",
+          "type": "float(10,2)",
+          "alias_vi": "Tổng sản phẩm quốc nội",
+          "synonym": [
+            "GDP",
+            "Tổng giá trị sản xuất"
+          ],
+          "sample_values": [
+            "828.0",
+            "5976.0",
+            "6648.0"
+          ],
+          "description": "Tổng sản phẩm quốc nội của quốc gia (ví dụ: 828.0, 5976.0, 6648.0)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GNPOld",
+          "type": "float(10,2)",
+          "alias_vi": "Tổng sản phẩm quốc nội cũ",
+          "synonym": [
+            "GDP cũ",
+            "Tổng giá trị sản xuất cũ"
+          ],
+          "sample_values": [
+            "793.0",
+            "7984.0",
+            "2500.0"
+          ],
+          "description": "Tổng sản phẩm quốc nội cũ của quốc gia (ví dụ: 793.0, 7984.0, 2500.0)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LocalName",
+          "type": "char(45)",
+          "alias_vi": "Tên địa phương",
+          "synonym": [
+            "Tên bản địa",
+            "Tên dân gian"
+          ],
+          "sample_values": [
+            "Aruba",
+            "Afganistan/Afqanestan",
+            "Angola"
+          ],
+          "description": "Tên địa phương hoặc tên dân gian của quốc gia (ví dụ: Aruba, Afganistan/Afqanestan, Angola)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GovernmentForm",
+          "type": "char(45)",
+          "alias_vi": "Hình thức chính phủ",
+          "synonym": [
+            "Chính thể",
+            "Hệ thống chính trị"
+          ],
+          "sample_values": [
+            "Nonmetropolitan Territory of The Netherlands",
+            "Islamic Emirate",
+            "Republic"
+          ],
+          "description": "Hình thức chính phủ của quốc gia (ví dụ: Đảo không thuộc liên bang của Hà Lan, Chính quyền Hồi giáo, Cộng hòa)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "HeadOfState",
+          "type": "char(60)",
+          "alias_vi": "Chủ tịch nước",
+          "synonym": [
+            "Người đứng đầu nhà nước",
+            "Thủ tướng"
+          ],
+          "sample_values": [
+            "Beatrix",
+            "Mohammad Omar",
+            "José Eduardo dos Santos"
+          ],
+          "description": "Tên của người đứng đầu nhà nước",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Capital",
+          "type": "INTEGER",
+          "alias_vi": "Kinh đô",
+          "synonym": [
+            "Thủ đô",
+            "Kinh thành"
+          ],
+          "sample_values": [
+            "129",
+            "1",
+            "56"
+          ],
+          "description": "Mã số của kinh đô",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Code2",
+          "type": "char(2)",
+          "alias_vi": "Mã quốc gia",
+          "synonym": [
+            "Mã hai ký tự",
+            "Mã ISO"
+          ],
+          "sample_values": [
+            "AW",
+            "AF",
+            "AO"
+          ],
+          "description": "Mã hai ký tự đại diện cho quốc gia",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "countrylanguage",
+      "alias_vi": "Ngôn_ngữ_quốc_gia",
+      "columns": [
+        {
+          "name": "CountryCode",
+          "type": "char(3)",
+          "alias_vi": "Mã_quốc_gia",
+          "synonym": [
+            "Mã_NQ",
+            "Mã_QG"
+          ],
+          "sample_values": [
+            "ABW",
+            "AFG",
+            "AGO"
+          ],
+          "description": "Mã ký hiệu của quốc gia",
+          "is_primary_key": true,
+          "foreign_key_to": "country.Code"
+        },
+        {
+          "name": "Language",
+          "type": "char(30)",
+          "alias_vi": "Ngôn_ngữ",
+          "synonym": [
+            "Tiếng_nói",
+            "Ngữ_lý"
+          ],
+          "sample_values": [
+            "Dutch",
+            "English",
+            "Papiamento"
+          ],
+          "description": "Tên của ngôn ngữ được sử dụng trong quốc gia",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IsOfficial",
+          "type": "TEXT",
+          "alias_vi": "Là_ngôn_ngữ_chính_thức",
+          "synonym": [
+            "Chính_thức",
+            "Được_dùng"
+          ],
+          "sample_values": [
+            "T",
+            "F"
+          ],
+          "description": "Xác định liệu ngôn ngữ này có phải là ngôn ngữ chính thức hay không",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Percentage",
+          "type": "float(4,1)",
+          "alias_vi": "Tỷ_lệ_sử_dụng",
+          "synonym": [
+            "Phần_tỷ",
+            "Số_lượng"
+          ],
+          "sample_values": [
+            "5.3",
+            "9.5",
+            "76.7"
+          ],
+          "description": "Tỷ lệ phần trăm người sử dụng ngôn ngữ này trong dân số",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

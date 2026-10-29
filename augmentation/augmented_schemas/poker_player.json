@@ -1,0 +1,203 @@
+{
+  "db_id": "poker_player",
+  "tables": [
+    {
+      "name": "people",
+      "alias_vi": "Danh sách người",
+      "columns": [
+        {
+          "name": "People_ID",
+          "type": "INT",
+          "alias_vi": "Mã người",
+          "synonym": [
+            "ID người",
+            "Số người"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi người trong danh sách.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Nationality",
+          "type": "TEXT",
+          "alias_vi": "Quốc tịch",
+          "synonym": [
+            "Quốc gia",
+            "Nhóm dân tộc"
+          ],
+          "sample_values": [
+            "Russia",
+            "Bulgaria"
+          ],
+          "description": "Quốc tịch của người đó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ và tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Aleksey Ostapenko",
+            "Teodor Salparov",
+            "Roman Bragin"
+          ],
+          "description": "Tên đầy đủ của người đó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Birth_Date",
+          "type": "TEXT",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày ra đời",
+            "Ngày sinh nhật"
+          ],
+          "sample_values": [
+            "May 26, 1986",
+            "August 16, 1982",
+            "April 17, 1987"
+          ],
+          "description": "Ngày sinh của người đó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Height",
+          "type": "REAL",
+          "alias_vi": "Chiều cao",
+          "synonym": [
+            "Cao",
+            "Chiều cao cơ thể"
+          ],
+          "sample_values": [
+            "207.0",
+            "182.0",
+            "187.0"
+          ],
+          "description": "Chiều cao của người đó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "poker_player",
+      "alias_vi": "Người chơi poker",
+      "columns": [
+        {
+          "name": "Poker_Player_ID",
+          "type": "INT",
+          "alias_vi": "ID người chơi",
+          "synonym": [
+            "Mã người chơi",
+            "Số ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi người chơi trong bảng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "People_ID",
+          "type": "INT",
+          "alias_vi": "ID cá nhân",
+          "synonym": [
+            "Mã cá nhân",
+            "Số ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định mỗi cá nhân trong hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": "people.People_ID"
+        },
+        {
+          "name": "Final_Table_Made",
+          "type": "REAL",
+          "alias_vi": "Vị trí cuối cùng vào bàn chung",
+          "synonym": [
+            "Vị trí cuối",
+            "Bàn chung"
+          ],
+          "sample_values": [
+            "42.0",
+            "10.0",
+            "21.0"
+          ],
+          "description": "Vị trí mà người chơi đạt được khi vào bàn chung trong một giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Best_Finish",
+          "type": "REAL",
+          "alias_vi": "Vị trí tốt nhất",
+          "synonym": [
+            "Vị trí cao nhất",
+            "Kết quả tốt nhất"
+          ],
+          "sample_values": [
+            "1.0",
+            "2.0",
+            "3.0"
+          ],
+          "description": "Vị trí tốt nhất mà người chơi đạt được trong bất kỳ giải đấu nào.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Money_Rank",
+          "type": "REAL",
+          "alias_vi": "Xếp hạng tiền thưởng",
+          "synonym": [
+            "Xếp hạng tiền",
+            "Xếp hạng giải thưởng"
+          ],
+          "sample_values": [
+            "68.0",
+            "141.0",
+            "166.0"
+          ],
+          "description": "Xếp hạng dựa trên số tiền mà người chơi đã giành được trong các giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Earnings",
+          "type": "REAL",
+          "alias_vi": "Thu nhập",
+          "synonym": [
+            "Lợi nhuận",
+            "Tiền kiếm được"
+          ],
+          "sample_values": [
+            "476090.0",
+            "189233.0",
+            "104871.0"
+          ],
+          "description": "Tổng số tiền mà người chơi đã kiếm được từ các giải đấu poker.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

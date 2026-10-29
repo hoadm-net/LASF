@@ -1,0 +1,317 @@
+{
+  "db_id": "employee_hire_evaluation",
+  "tables": [
+    {
+      "name": "employee",
+      "alias_vi": "Danh sách nhân viên",
+      "columns": [
+        {
+          "name": "Employee_ID",
+          "type": "INT",
+          "alias_vi": "Mã nhân viên",
+          "synonym": [
+            "ID nhân viên",
+            "Số hiệu nhân viên"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi nhân viên",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên nhân viên",
+          "synonym": [
+            "Họ và tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "George Chuter",
+            "Lee Mears",
+            "Mark Regan"
+          ],
+          "description": "Tên đầy đủ của nhân viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INT",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Độ tuổi"
+          ],
+          "sample_values": [
+            "23",
+            "29",
+            "43"
+          ],
+          "description": "Tuổi hiện tại của nhân viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "City",
+          "type": "TEXT",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành phố sinh sống",
+            "Thành phố hiện tại"
+          ],
+          "sample_values": [
+            "Bristol",
+            "Bath",
+            "Wasps"
+          ],
+          "description": "Thành phố nơi nhân viên đang sinh sống hoặc làm việc",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "evaluation",
+      "alias_vi": "Bảng Đánh Giá",
+      "columns": [
+        {
+          "name": "Employee_ID",
+          "type": "TEXT",
+          "alias_vi": "Mã Nhân Viên",
+          "synonym": [
+            "Mã NV",
+            "ID Nhân Viên"
+          ],
+          "sample_values": [
+            "1",
+            "10",
+            "2"
+          ],
+          "description": "Mã định danh cho mỗi nhân viên.",
+          "is_primary_key": true,
+          "foreign_key_to": "employee.Employee_ID"
+        },
+        {
+          "name": "Year_awarded",
+          "type": "TEXT",
+          "alias_vi": "Năm Trúng Giải",
+          "synonym": [
+            "Năm Đạt Thành Tích",
+            "Năm Nhận Khuyến Mãi"
+          ],
+          "sample_values": [
+            "2011",
+            "2016",
+            "2015"
+          ],
+          "description": "Năm nhân viên được trao giải hoặc nhận thưởng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Bonus",
+          "type": "REAL",
+          "alias_vi": "Khuyến Mãi",
+          "synonym": [
+            "Thưởng",
+            "Phụ Cấp"
+          ],
+          "sample_values": [
+            "3000.0",
+            "3200.0",
+            "2900.0"
+          ],
+          "description": "Số tiền thưởng được trao cho nhân viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "hiring",
+      "alias_vi": "Dữ liệu tuyển dụng",
+      "columns": [
+        {
+          "name": "Shop_ID",
+          "type": "INT",
+          "alias_vi": "Mã cửa hàng",
+          "synonym": [
+            "ID cửa hàng",
+            "Mã shop"
+          ],
+          "sample_values": [
+            "1",
+            "8",
+            "4"
+          ],
+          "description": "Mã duy nhất của cửa hàng.",
+          "is_primary_key": false,
+          "foreign_key_to": "shop.Shop_ID"
+        },
+        {
+          "name": "Employee_ID",
+          "type": "INT",
+          "alias_vi": "Mã nhân viên",
+          "synonym": [
+            "ID nhân viên",
+            "Mã NV"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất của nhân viên.",
+          "is_primary_key": true,
+          "foreign_key_to": "employee.Employee_ID"
+        },
+        {
+          "name": "Start_from",
+          "type": "TEXT",
+          "alias_vi": "Ngày bắt đầu làm việc",
+          "synonym": [
+            "Ngày vào công ty",
+            "Ngày làm việc"
+          ],
+          "sample_values": [
+            "2009",
+            "2003",
+            "2011"
+          ],
+          "description": "Ngày mà nhân viên bắt đầu làm việc tại cửa hàng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Is_full_time",
+          "type": "bool",
+          "alias_vi": "Là nhân viên toàn thời gian",
+          "synonym": [
+            "Nhân viên fulltime",
+            "Full time"
+          ],
+          "sample_values": [
+            "T",
+            "F"
+          ],
+          "description": "Xác định nhân viên có là nhân viên toàn thời gian hay không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "shop",
+      "alias_vi": "Cửa hàng",
+      "columns": [
+        {
+          "name": "Shop_ID",
+          "type": "INT",
+          "alias_vi": "Mã cửa hàng",
+          "synonym": [
+            "ID cửa hàng",
+            "Số hiệu cửa hàng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi cửa hàng",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên cửa hàng",
+          "synonym": [
+            "Tên shop",
+            "Tên cửa hàng"
+          ],
+          "sample_values": [
+            "FC Haka",
+            "HJK",
+            "FC Honka"
+          ],
+          "description": "Tên chính thức của cửa hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Location",
+          "type": "TEXT",
+          "alias_vi": "Địa điểm",
+          "synonym": [
+            "Địa chỉ",
+            "Vị trí"
+          ],
+          "sample_values": [
+            "Valkeakoski",
+            "Helsinki",
+            "Espoo"
+          ],
+          "description": "Địa điểm cụ thể của cửa hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "District",
+          "type": "TEXT",
+          "alias_vi": "Quận",
+          "synonym": [
+            "Phường",
+            "Khu vực"
+          ],
+          "sample_values": [
+            "Tehtaan kenttä",
+            "Finnair Stadium",
+            "Tapiolan Urheilupuisto"
+          ],
+          "description": "Quận hoặc khu vực mà cửa hàng nằm trong đó",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Number_products",
+          "type": "INT",
+          "alias_vi": "Số lượng sản phẩm",
+          "synonym": [
+            "Số sản phẩm",
+            "Sản phẩm có sẵn"
+          ],
+          "sample_values": [
+            "3516",
+            "10770",
+            "6000"
+          ],
+          "description": "Số lượng sản phẩm hiện có tại cửa hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Manager_name",
+          "type": "TEXT",
+          "alias_vi": "Tên quản lý",
+          "synonym": [
+            "Tên giám đốc",
+            "Tên người quản lý"
+          ],
+          "sample_values": [
+            "Olli Huttunen",
+            "Antti Muurinen",
+            "Mika Lehkosuo"
+          ],
+          "description": "Tên của người quản lý cửa hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

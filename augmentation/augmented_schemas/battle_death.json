@@ -1,0 +1,329 @@
+{
+  "db_id": "battle_death",
+  "tables": [
+    {
+      "name": "battle",
+      "alias_vi": "Trận chiến",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INT",
+          "alias_vi": "Mã trận",
+          "synonym": [
+            "ID",
+            "Số thứ tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi trận chiến.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên trận",
+          "synonym": [
+            "Tên",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Battle of Adrianople",
+            "Battle of Serres",
+            "Battle of Rusion"
+          ],
+          "description": "Tên chính thức của trận chiến.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date",
+          "type": "TEXT",
+          "alias_vi": "Ngày diễn ra",
+          "synonym": [
+            "Ngày tháng",
+            "Thời gian"
+          ],
+          "sample_values": [
+            "14 April 1205",
+            "June 1205",
+            "31 January 1206"
+          ],
+          "description": "Ngày và tháng diễn ra trận chiến.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "bulgarian_commander",
+          "type": "TEXT",
+          "alias_vi": "Tham mưu Bulgaria",
+          "synonym": [
+            "Tướng Bulgaria",
+            "Lãnh đạo Bulgaria"
+          ],
+          "sample_values": [
+            "Kaloyan",
+            "Unknown",
+            "Boril"
+          ],
+          "description": "Tên của người chỉ huy quân đội Bulgaria trong trận chiến.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "latin_commander",
+          "type": "TEXT",
+          "alias_vi": "Tham mưu Latin",
+          "synonym": [
+            "Tướng Latin",
+            "Lãnh đạo Latin"
+          ],
+          "sample_values": [
+            "Baldwin I",
+            "Unknown",
+            "Thierry de Termond"
+          ],
+          "description": "Tên của người chỉ huy quân đội Latin trong trận chiến.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "result",
+          "type": "TEXT",
+          "alias_vi": "Kết quả",
+          "synonym": [
+            "Quyết định",
+            "Kết cục"
+          ],
+          "sample_values": [
+            "Bulgarian victory",
+            "Latin victory",
+            "Two Year Truce"
+          ],
+          "description": "Kết quả của trận chiến, có thể là chiến thắng của Bulgaria hoặc Latin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "death",
+      "alias_vi": "Danh sách các vụ tử vong",
+      "columns": [
+        {
+          "name": "caused_by_ship_id",
+          "type": "INT",
+          "alias_vi": "Mã tàu gây tai nạn",
+          "synonym": [
+            "Mã tàu",
+            "ID tàu"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất của tàu gây ra vụ tai nạn.",
+          "is_primary_key": false,
+          "foreign_key_to": "ship.id"
+        },
+        {
+          "name": "id",
+          "type": "INT",
+          "alias_vi": "Mã vụ tai nạn",
+          "synonym": [
+            "ID vụ tai nạn",
+            "Số vụ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi vụ tai nạn.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "note",
+          "type": "TEXT",
+          "alias_vi": "Ghi chú",
+          "synonym": [
+            "Lưu ý",
+            "Thông tin thêm"
+          ],
+          "sample_values": [
+            "Dantewada, Chhattisgarh",
+            "Erraboru, Chhattisgarh",
+            "East Champaran, Bihar"
+          ],
+          "description": "Thông tin bổ sung về địa điểm và tỉnh/đô thị liên quan đến vụ tai nạn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "killed",
+          "type": "INT",
+          "alias_vi": "Số người chết",
+          "synonym": [
+            "Người thiệt mạng",
+            "Số người tử vong"
+          ],
+          "sample_values": [
+            "8",
+            "3",
+            "25"
+          ],
+          "description": "Số lượng người đã thiệt mạng trong vụ tai nạn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "injured",
+          "type": "INT",
+          "alias_vi": "Số người bị thương",
+          "synonym": [
+            "Người bị thương",
+            "Số người bị tổn thương"
+          ],
+          "sample_values": [
+            "0",
+            "9",
+            "5"
+          ],
+          "description": "Số lượng người bị thương trong vụ tai nạn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "ship",
+      "alias_vi": "tàu chiến",
+      "columns": [
+        {
+          "name": "lost_in_battle",
+          "type": "INT",
+          "alias_vi": "số_lần_hòa_binh",
+          "synonym": [
+            "số_lần_hòa",
+            "số_lần_hòa_binh"
+          ],
+          "sample_values": [
+            "8",
+            "7",
+            "6"
+          ],
+          "description": "Số lần tàu bị đánh hòa trong trận hải chiến.",
+          "is_primary_key": false,
+          "foreign_key_to": "battle.id"
+        },
+        {
+          "name": "id",
+          "type": "INT",
+          "alias_vi": "mã_tàu",
+          "synonym": [
+            "mã",
+            "số_mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi chiếc tàu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "tên_tàu",
+          "synonym": [
+            "tên",
+            "tên_tàu"
+          ],
+          "sample_values": [
+            "Lettice",
+            "Bon Accord",
+            "Mary"
+          ],
+          "description": "Tên của chiếc tàu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tonnage",
+          "type": "TEXT",
+          "alias_vi": "độ_chóng",
+          "synonym": [
+            "độ_chóng",
+            "kích_thước"
+          ],
+          "sample_values": [
+            "t",
+            "391",
+            "225"
+          ],
+          "description": "Độ chóng hoặc kích thước của tàu theo đơn vị tấn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ship_type",
+          "type": "TEXT",
+          "alias_vi": "loại_tàu",
+          "synonym": [
+            "loại",
+            "kiểu_tàu"
+          ],
+          "sample_values": [
+            "Brig",
+            "18-gun Brig",
+            "8 gun Brig"
+          ],
+          "description": "Kiểu hoặc loại của tàu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "alias_vi": "vị_trí",
+          "synonym": [
+            "địa_chỉ",
+            "vị_trí"
+          ],
+          "sample_values": [
+            "English Channel",
+            "SW Approaches",
+            "Mid-Atlantic"
+          ],
+          "description": "Vị trí hoặc khu vực hoạt động của tàu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "disposition_of_ship",
+          "type": "TEXT",
+          "alias_vi": "trạng_thái_tàu",
+          "synonym": [
+            "trạng_thái",
+            "phân_phối"
+          ],
+          "sample_values": [
+            "Captured",
+            "Wrecked",
+            "Scuttled"
+          ],
+          "description": "Trạng thái hiện tại hoặc kết quả cuối cùng của tàu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

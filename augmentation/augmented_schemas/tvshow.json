@@ -1,0 +1,442 @@
+{
+  "db_id": "tvshow",
+  "tables": [
+    {
+      "name": "Cartoon",
+      "alias_vi": "Phim Anime",
+      "columns": [
+        {
+          "name": "id",
+          "type": "REAL",
+          "alias_vi": "Mã Phim",
+          "synonym": [
+            "ID Phim",
+            "Số Phim"
+          ],
+          "sample_values": [
+            "1.0",
+            "2.0",
+            "3.0"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tập phim.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Title",
+          "type": "TEXT",
+          "alias_vi": "Tiêu Đề",
+          "synonym": [
+            "Tên Phim",
+            "Tiêu Chuẩn"
+          ],
+          "sample_values": [
+            "The Rise of the Blue Beetle!",
+            "Terror on Dinosaur Island!",
+            "Evil Under the Sea!"
+          ],
+          "description": "Tên chính thức của tập phim anime.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Directed_by",
+          "type": "TEXT",
+          "alias_vi": "Đạo Diễn",
+          "synonym": [
+            "Người Đạo Diễn",
+            "Đạo Diễn Phim"
+          ],
+          "sample_values": [
+            "Ben Jones",
+            "Brandon Vietti",
+            "Michael Chang"
+          ],
+          "description": "Tên của đạo diễn đã thực hiện tập phim này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Written_by",
+          "type": "TEXT",
+          "alias_vi": "Viết Bằng",
+          "synonym": [
+            "Người Viết",
+            "Tác Giả"
+          ],
+          "sample_values": [
+            "Michael Jelenic",
+            "Steven Melching",
+            "Joseph Kuhr"
+          ],
+          "description": "Tên của người viết kịch bản cho tập phim này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Original_air_date",
+          "type": "TEXT",
+          "alias_vi": "Ngày Phát Hành Đầu Tiên",
+          "synonym": [
+            "Ngày Phát Hành",
+            "Ngày Ra Mắt"
+          ],
+          "sample_values": [
+            "November14,2008",
+            "November21,2008",
+            "December5,2008"
+          ],
+          "description": "Ngày mà tập phim được phát hành lần đầu tiên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Production_code",
+          "type": "REAL",
+          "alias_vi": "Mã Sản Xuất",
+          "synonym": [
+            "Mã Sản Phẩm",
+            "Mã Sản Xuất"
+          ],
+          "sample_values": [
+            "101.0",
+            "102.0",
+            "103.0"
+          ],
+          "description": "Mã duy nhất để xác định phiên bản sản xuất của tập phim.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Channel",
+          "type": "TEXT",
+          "alias_vi": "Kênh Phát Hành",
+          "synonym": [
+            "Kênh Truyền Hình",
+            "Kênh Phát Hành"
+          ],
+          "sample_values": [
+            "700",
+            "701",
+            "703"
+          ],
+          "description": "Tên kênh truyền hình nơi tập phim được phát hành.",
+          "is_primary_key": false,
+          "foreign_key_to": "TV_Channel.id"
+        }
+      ]
+    },
+    {
+      "name": "TV_Channel",
+      "alias_vi": "Kênh_Tiếng_Nhạc",
+      "columns": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "alias_vi": "Mã_Kênh",
+          "synonym": [
+            "ID_Kênh",
+            "Số_Kênh"
+          ],
+          "sample_values": [
+            "700",
+            "701",
+            "703"
+          ],
+          "description": "Mã duy nhất xác định mỗi kênh truyền hình.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "series_name",
+          "type": "TEXT",
+          "alias_vi": "Tên_Serie",
+          "synonym": [
+            "Tên_Kênh",
+            "Tên_Sản_Phẩm"
+          ],
+          "sample_values": [
+            "Sky Radio",
+            "Sky Music",
+            "Music Box Italia"
+          ],
+          "description": "Tên của chuỗi hoặc sản phẩm truyền hình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc_Gia",
+          "synonym": [
+            "Nước_Cũ",
+            "Nước_Xuất_Xứ"
+          ],
+          "sample_values": [
+            "Italy",
+            "United Kingdom",
+            "Poland"
+          ],
+          "description": "Quốc gia mà kênh truyền hình này phát sóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Language",
+          "type": "TEXT",
+          "alias_vi": "Ngôn_Vựng",
+          "synonym": [
+            "Tiếng_Nói",
+            "Ngữ_Lý"
+          ],
+          "sample_values": [
+            "Italian",
+            "English"
+          ],
+          "description": "Ngôn ngữ được sử dụng trong nội dung của kênh truyền hình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Content",
+          "type": "TEXT",
+          "alias_vi": "Nội_Dung",
+          "synonym": [
+            "Chủ_Topic",
+            "Đề_Tài"
+          ],
+          "sample_values": [
+            "music"
+          ],
+          "description": "Loại nội dung được phát trên kênh truyền hình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Pixel_aspect_ratio_PAR",
+          "type": "TEXT",
+          "alias_vi": "Tỷ_Lệ_Aspect_Pixel",
+          "synonym": [
+            "Tỷ_Lệ_Aspect",
+            "Tỷ_Lệ_Pixel"
+          ],
+          "sample_values": [
+            "4:3",
+            "4:3 / 16:9",
+            "16:9"
+          ],
+          "description": "Tỷ lệ khung hình pixel của kênh truyền hình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Hight_definition_TV",
+          "type": "TEXT",
+          "alias_vi": "Định_Hình_Cao_Độ",
+          "synonym": [
+            "HD",
+            "Định_Hình_Cao"
+          ],
+          "sample_values": [
+            "no",
+            "yes"
+          ],
+          "description": "Xác định liệu kênh có phát sóng ở định hình cao độ hay không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Pay_per_view_PPV",
+          "type": "TEXT",
+          "alias_vi": "Phí_Xem_Lẻ",
+          "synonym": [
+            "PPV",
+            "Phí_Xem"
+          ],
+          "sample_values": [
+            "no"
+          ],
+          "description": "Xác định liệu kênh có cung cấp dịch vụ xem lẻ hay không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Package_Option",
+          "type": "TEXT",
+          "alias_vi": "Phòng_Gói_Tùy_Chọn",
+          "synonym": [
+            "Phòng_Gói",
+            "Tùy_Chọn_Gói"
+          ],
+          "sample_values": [
+            "Sky Famiglia",
+            "no ( FTV )",
+            "Sky Famiglia + Sky HD"
+          ],
+          "description": "Phòng gói tùy chọn mà kênh truyền hình thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "TV_series",
+      "alias_vi": "Danh_sách_phim_tv",
+      "columns": [
+        {
+          "name": "id",
+          "type": "REAL",
+          "alias_vi": "Mã_phim",
+          "synonym": [
+            "ID_phim",
+            "Số_phim"
+          ],
+          "sample_values": [
+            "1.0",
+            "2.0",
+            "3.0"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tập phim.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Episode",
+          "type": "TEXT",
+          "alias_vi": "Tên_tập",
+          "synonym": [
+            "Tên_phần",
+            "Tên_judul"
+          ],
+          "sample_values": [
+            "A Love of a Lifetime",
+            "Friendly Skies",
+            "Game Three"
+          ],
+          "description": "Tên của từng tập phim trong bộ phim truyền hình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Air_Date",
+          "type": "TEXT",
+          "alias_vi": "Ngày_khởi_buộc",
+          "synonym": [
+            "Ngày_phát_hành",
+            "Ngày_lên_kênh"
+          ],
+          "sample_values": [
+            "September 24, 2007",
+            "October 1, 2007",
+            "October 8, 2007"
+          ],
+          "description": "Ngày mà tập phim được phát hành hoặc khởi chiếu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Rating",
+          "type": "TEXT",
+          "alias_vi": "Điểm_chấm",
+          "synonym": [
+            "Điểm_phim",
+            "Điểm_chấm_phim"
+          ],
+          "sample_values": [
+            "5.8",
+            "5.3",
+            "4.4"
+          ],
+          "description": "Điểm chấm tổng thể của tập phim dựa trên đánh giá của khán giả.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Share",
+          "type": "REAL",
+          "alias_vi": "Phần_trăm_khán_thú",
+          "synonym": [
+            "Phần_trăm_khán_giới",
+            "Phần_trăm_khán_thú"
+          ],
+          "sample_values": [
+            "9.0",
+            "7.0",
+            "6.0"
+          ],
+          "description": "Phần trăm khán giả đang xem tập phim tại thời điểm đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "18_49_Rating_Share",
+          "type": "TEXT",
+          "alias_vi": "Điểm_chấm_và_phần_trăm_18_49",
+          "synonym": [
+            "Điểm_chấm_18_49",
+            "Phần_trăm_18_49"
+          ],
+          "sample_values": [
+            "3.5/9",
+            "3.2/8",
+            "2.9/7"
+          ],
+          "description": "Điểm chấm và phần trăm khán giả trong độ tuổi 18-49 xem tập phim.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Viewers_m",
+          "type": "TEXT",
+          "alias_vi": "Số_khán_thú_triệu",
+          "synonym": [
+            "Khán_thú_triệu",
+            "Số_khán_thú"
+          ],
+          "sample_values": [
+            "9.16",
+            "8.23",
+            "6.94"
+          ],
+          "description": "Số lượng khán giả xem tập phim tính theo triệu người.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Weekly_Rank",
+          "type": "REAL",
+          "alias_vi": "Xếp_hạng_tuần",
+          "synonym": [
+            "Xếp_hạng_weekly",
+            "Rang_xep_tuần"
+          ],
+          "sample_values": [
+            "43.0",
+            "50.0",
+            "61.0"
+          ],
+          "description": "Xếp hạng của tập phim trong tuần theo số lượng khán giả.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Channel",
+          "type": "TEXT",
+          "alias_vi": "Kênh_không",
+          "synonym": [
+            "Kênh_phát_hành",
+            "Kênh_tv"
+          ],
+          "sample_values": [
+            "700",
+            "701",
+            "707"
+          ],
+          "description": "Kênh truyền hình mà tập phim được phát sóng.",
+          "is_primary_key": false,
+          "foreign_key_to": "TV_Channel.id"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1104 @@
+{
+  "db_id": "thrombosis_prediction",
+  "tables": [
+    {
+      "name": "Examination",
+      "alias_vi": "Kết quả xét nghiệm",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã xét nghiệm",
+          "synonym": [
+            "Số mẫu",
+            "Mã bệnh nhân"
+          ],
+          "sample_values": [
+            "14872",
+            "48473",
+            "102490"
+          ],
+          "description": "Mã duy nhất để xác định mỗi lần xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": "Patient.ID"
+        },
+        {
+          "name": "Examination Date",
+          "type": "DATE",
+          "alias_vi": "Ngày thực hiện xét nghiệm",
+          "synonym": [
+            "Ngày lấy mẫu",
+            "Ngày xét nghiệm"
+          ],
+          "sample_values": [
+            "1997-05-27",
+            "1992-12-21",
+            "1995-04-20"
+          ],
+          "description": "Ngày khi mẫu xét nghiệm được thu thập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "aCL IgG",
+          "type": "REAL",
+          "alias_vi": "Nồng độ kháng thể kháng nhân tự miễn IgG",
+          "synonym": [
+            "Nồng độ aCL IgG",
+            "Kháng thể tự miễn IgG"
+          ],
+          "sample_values": [
+            "1.3",
+            "4.3",
+            "2.3"
+          ],
+          "description": "Nồng độ của kháng thể kháng nhân tự miễn loại IgG trong mẫu xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "aCL IgM",
+          "type": "REAL",
+          "alias_vi": "Nồng độ kháng thể kháng nhân tự miễn IgM",
+          "synonym": [
+            "Nồng độ aCL IgM",
+            "Kháng thể tự miễn IgM"
+          ],
+          "sample_values": [
+            "1.6",
+            "4.6",
+            "2.5"
+          ],
+          "description": "Nồng độ của kháng thể kháng nhân tự miễn loại IgM trong mẫu xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ANA",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ kháng nhân toàn cầu",
+          "synonym": [
+            "Nồng độ ANA",
+            "Kháng thể kháng nhân toàn cầu"
+          ],
+          "sample_values": [
+            "256",
+            "0",
+            "16"
+          ],
+          "description": "Nồng độ của kháng thể kháng nhân toàn cầu trong mẫu xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ANA Pattern",
+          "type": "TEXT",
+          "alias_vi": "Phân loại kháng thể kháng nhân toàn cầu",
+          "synonym": [
+            "Phân loại ANA",
+            "Kiểu kháng thể ANA"
+          ],
+          "sample_values": [
+            "P",
+            "P,S",
+            "S"
+          ],
+          "description": "Phân loại của kháng thể kháng nhân toàn cầu dựa trên hình ảnh điện tử.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "aCL IgA",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ kháng thể kháng nhân tự miễn IgA",
+          "synonym": [
+            "Nồng độ aCL IgA",
+            "Kháng thể tự miễn IgA"
+          ],
+          "sample_values": [
+            "0",
+            "3",
+            "4"
+          ],
+          "description": "Nồng độ của kháng thể kháng nhân tự miễn loại IgA trong mẫu xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Diagnosis",
+          "type": "TEXT",
+          "alias_vi": "Chẩn đoán",
+          "synonym": [
+            "Điều trị",
+            "Phân tích chẩn đoán"
+          ],
+          "sample_values": [
+            "MCTD, AMI",
+            "SLE",
+            "PSS"
+          ],
+          "description": "Chẩn đoán dựa trên kết quả xét nghiệm và các triệu chứng lâm sàng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "KCT",
+          "type": "TEXT",
+          "alias_vi": "Kết quả xét nghiệm KCT",
+          "synonym": [
+            "Kết quả đông máu",
+            "Kết quả xét nghiệm đông máu"
+          ],
+          "sample_values": [
+            "-",
+            "+"
+          ],
+          "description": "Kết quả của xét nghiệm thời gian đông máu (KCT).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "RVVT",
+          "type": "TEXT",
+          "alias_vi": "Kết quả xét nghiệm RVVT",
+          "synonym": [
+            "Kết quả xét nghiệm thời gian đông máu",
+            "Kết quả xét nghiệm thời gian đông máu tương đối"
+          ],
+          "sample_values": [
+            "-",
+            "+"
+          ],
+          "description": "Kết quả của xét nghiệm thời gian đông máu tương đối (RVVT).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LAC",
+          "type": "TEXT",
+          "alias_vi": "Kết quả xét nghiệm LAC",
+          "synonym": [
+            "Kết quả xét nghiệm thời gian đông máu",
+            "Kết quả xét nghiệm thời gian đông máu tương đối"
+          ],
+          "sample_values": [
+            "-",
+            "+"
+          ],
+          "description": "Kết quả của xét nghiệm thời gian đông máu tương đối (LAC).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Symptoms",
+          "type": "TEXT",
+          "alias_vi": "Triệu chứng",
+          "synonym": [
+            "Triệu chứng lâm sàng",
+            "Triệu chứng bệnh lý"
+          ],
+          "sample_values": [
+            "AMI",
+            "CNS lupus",
+            "thrombophlebitis"
+          ],
+          "description": "Danh sách các triệu chứng lâm sàng liên quan đến kết quả xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Thrombosis",
+          "type": "INTEGER",
+          "alias_vi": "Tắc mạch",
+          "synonym": [
+            "Tắc máu",
+            "Huyết khối"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "2"
+          ],
+          "description": "Trạng thái tắc mạch trong quá trình kiểm tra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Laboratory",
+      "alias_vi": "Kết quả xét nghiệm",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã xét nghiệm",
+          "synonym": [
+            "Mã bệnh nhân",
+            "Số mẫu"
+          ],
+          "sample_values": [
+            "27654",
+            "30609",
+            "43003"
+          ],
+          "description": "Mã duy nhất để xác định mỗi mẫu xét nghiệm.",
+          "is_primary_key": true,
+          "foreign_key_to": "Patient.ID"
+        },
+        {
+          "name": "Date",
+          "type": "DATE",
+          "alias_vi": "Ngày thực hiện",
+          "synonym": [
+            "Ngày xét nghiệm",
+            "Ngày thu mẫu"
+          ],
+          "sample_values": [
+            "1991-09-11",
+            "1991-09-17",
+            "1991-09-19"
+          ],
+          "description": "Ngày khi mẫu xét nghiệm được thu và phân tích.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GOT",
+          "type": "INTEGER",
+          "alias_vi": "AST (GOT)",
+          "synonym": [
+            "Aminotransferaza glutamat-pyruvat",
+            "Aminotransferaza"
+          ],
+          "sample_values": [
+            "34",
+            "29",
+            "26"
+          ],
+          "description": "Nồng độ enzym AST (GOT) trong máu, chỉ thị chức năng gan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GPT",
+          "type": "INTEGER",
+          "alias_vi": "ALT (GPT)",
+          "synonym": [
+            "Aminotransferaza L-glutamat-aminopyruvat",
+            "Aminotransferaza L-glutamat-aminopyruvat"
+          ],
+          "sample_values": [
+            "36",
+            "31",
+            "22"
+          ],
+          "description": "Nồng độ enzym ALT (GPT) trong máu, chỉ thị chức năng gan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LDH",
+          "type": "INTEGER",
+          "alias_vi": "LDH (Lactate dehydrogenase)",
+          "synonym": [
+            "Lactat dehidrogenaza",
+            "LD"
+          ],
+          "sample_values": [
+            "567",
+            "579",
+            "684"
+          ],
+          "description": "Nồng độ enzym LDH trong máu, chỉ thị tổn thương tế bào.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ALP",
+          "type": "INTEGER",
+          "alias_vi": "ALP (Alkaline phosphatase)",
+          "synonym": [
+            "Phosphataza alcalina",
+            "AL"
+          ],
+          "sample_values": [
+            "166",
+            "154",
+            "138"
+          ],
+          "description": "Nồng độ enzym ALP trong máu, chỉ thị chức năng gan và xương.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "TP",
+          "type": "REAL",
+          "alias_vi": "Protein tổng hợp",
+          "synonym": [
+            "Protein toàn phần",
+            "Protein tổng"
+          ],
+          "sample_values": [
+            "4.5",
+            "5.1",
+            "5.5"
+          ],
+          "description": "Nồng độ protein tổng hợp trong huyết thanh, chỉ thị tình trạng dinh dưỡng và chức năng gan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ALB",
+          "type": "REAL",
+          "alias_vi": "Albumin",
+          "synonym": [
+            "Albumin huyết thanh",
+            "Albumin huyết"
+          ],
+          "sample_values": [
+            "3.3",
+            "3.4",
+            "3.6"
+          ],
+          "description": "Nồng độ albumin trong huyết thanh, chỉ thị tình trạng dinh dưỡng và chức năng gan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UA",
+          "type": "REAL",
+          "alias_vi": "Uric acid",
+          "synonym": [
+            "Acid uric",
+            "Uric"
+          ],
+          "sample_values": [
+            "3.8",
+            "4.2",
+            "4.9"
+          ],
+          "description": "Nồng độ axit uric trong máu, chỉ thị chức năng thận và tình trạng chuyển hóa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UN",
+          "type": "INTEGER",
+          "alias_vi": "Urea nitrogen",
+          "synonym": [
+            "Nitrogen urea",
+            "Urea"
+          ],
+          "sample_values": [
+            "29",
+            "36",
+            "34"
+          ],
+          "description": "Nồng độ urea nitrogen trong máu, chỉ thị chức năng thận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CRE",
+          "type": "REAL",
+          "alias_vi": "Creatinine",
+          "synonym": [
+            "Creatin",
+            "Creatinin"
+          ],
+          "sample_values": [
+            "0.8",
+            "0.9",
+            "0.7"
+          ],
+          "description": "Nồng độ creatinine trong máu, chỉ thị chức năng thận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "T-BIL",
+          "type": "REAL",
+          "alias_vi": "Tổng bilirubin",
+          "synonym": [
+            "Bilirubin tổng",
+            "Bilirubin toàn"
+          ],
+          "sample_values": [
+            "0.3",
+            "0.2",
+            "0.4"
+          ],
+          "description": "Nồng độ bilirubin tổng trong huyết thanh, chỉ thị tình trạng chuyển hóa bilirubin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "T-CHO",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ Cholesterol",
+          "synonym": [
+            "Cholesterol",
+            "Chol"
+          ],
+          "sample_values": [
+            "165",
+            "134",
+            "140"
+          ],
+          "description": "Lượng cholesterol trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "TG",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ Triglyceride",
+          "synonym": [
+            "Triglycerid",
+            "TG"
+          ],
+          "sample_values": [
+            "185",
+            "205",
+            "254"
+          ],
+          "description": "Lượng triglyceride trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CPK",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ Creatine Phosphokinase",
+          "synonym": [
+            "CPK",
+            "Creatine Phosphokinase"
+          ],
+          "sample_values": [
+            "9",
+            "10",
+            "11"
+          ],
+          "description": "Lượng creatine phosphokinase trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GLU",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ Glucose",
+          "synonym": [
+            "Glucose",
+            "Đường huyết"
+          ],
+          "sample_values": [
+            "88",
+            "134",
+            "161"
+          ],
+          "description": "Lượng glucose trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "WBC",
+          "type": "REAL",
+          "alias_vi": "Số lượng bạch cầu",
+          "synonym": [
+            "Bạch cầu",
+            "WBC"
+          ],
+          "sample_values": [
+            "5.0",
+            "10.4",
+            "10.5"
+          ],
+          "description": "Số lượng bạch cầu trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "RBC",
+          "type": "REAL",
+          "alias_vi": "Số lượng hồng cầu",
+          "synonym": [
+            "Hồng cầu",
+            "RBC"
+          ],
+          "sample_values": [
+            "2.6",
+            "2.9",
+            "3.4"
+          ],
+          "description": "Số lượng hồng cầu trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "HGB",
+          "type": "REAL",
+          "alias_vi": "Concentration Hemoglobin",
+          "synonym": [
+            "Hemoglobin",
+            "Hgb"
+          ],
+          "sample_values": [
+            "6.4",
+            "6.7",
+            "7.9"
+          ],
+          "description": "Concentration của hemoglobin trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "HCT",
+          "type": "REAL",
+          "alias_vi": "Hematocrit",
+          "synonym": [
+            "Hematocrit",
+            "Hct"
+          ],
+          "sample_values": [
+            "20.3",
+            "21.6",
+            "24.7"
+          ],
+          "description": "Hematocrit của máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PLT",
+          "type": "INTEGER",
+          "alias_vi": "Số lượng tiểu cầu",
+          "synonym": [
+            "Tiểu cầu",
+            "Platelets",
+            "Plt"
+          ],
+          "sample_values": [
+            "227",
+            "242",
+            "233"
+          ],
+          "description": "Số lượng tiểu cầu trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PT",
+          "type": "REAL",
+          "alias_vi": "Thời gian đông máu",
+          "synonym": [
+            "Time to clot",
+            "PT"
+          ],
+          "sample_values": [
+            "11.3",
+            "12.0",
+            "11.8"
+          ],
+          "description": "Thời gian để máu đông được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "APTT",
+          "type": "INTEGER",
+          "alias_vi": "Thời gian APTT",
+          "synonym": [
+            "APTT",
+            "Activated Partial Thromboplastin Time"
+          ],
+          "sample_values": [
+            "108",
+            "84",
+            "76"
+          ],
+          "description": "Thời gian APTT của máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FG",
+          "type": "REAL",
+          "alias_vi": "Nồng độ Fibrinogen",
+          "synonym": [
+            "Fibrinogen",
+            "Fg"
+          ],
+          "sample_values": [
+            "27.0",
+            "38.6",
+            "27.6"
+          ],
+          "description": "Nồng độ fibrinogen trong máu được đo lường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PIC",
+          "type": "INTEGER",
+          "alias_vi": "Mã mẫu",
+          "synonym": [
+            "Mã thử",
+            "Mã xét nghiệm"
+          ],
+          "sample_values": [
+            "320",
+            "513",
+            "284"
+          ],
+          "description": "Mã duy nhất để xác định mẫu xét nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "TAT",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ TAT",
+          "synonym": [
+            "Nồng độ T-Antistreptoligosaccarit",
+            "Nồng độ kháng thể chống streptococcus"
+          ],
+          "sample_values": [
+            "77",
+            "108",
+            "115"
+          ],
+          "description": "Nồng độ của kháng thể chống streptococcus trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "TAT2",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ TAT lần 2",
+          "synonym": [
+            "Nồng độ T-Antistreptoligosaccarit lần 2",
+            "Nồng độ kháng thể chống streptococcus lần 2"
+          ],
+          "sample_values": [
+            "113",
+            "88",
+            "104"
+          ],
+          "description": "Nồng độ của kháng thể chống streptococcus trong máu lần thứ hai.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "U-PRO",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ U-PRO",
+          "synonym": [
+            "Nồng độ uric protein",
+            "Nồng độ uric"
+          ],
+          "sample_values": [
+            "-",
+            "0",
+            "TR"
+          ],
+          "description": "Nồng độ uric protein trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IGG",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ IGG",
+          "synonym": [
+            "Nồng độ IgG",
+            "Nồng độ miễn dịch globulin G"
+          ],
+          "sample_values": [
+            "339",
+            "771",
+            "430"
+          ],
+          "description": "Nồng độ của miễn dịch globulin G trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IGA",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ IGA",
+          "synonym": [
+            "Nồng độ IgA",
+            "Nồng độ miễn dịch globulin A"
+          ],
+          "sample_values": [
+            "145",
+            "188",
+            "118"
+          ],
+          "description": "Nồng độ của miễn dịch globulin A trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IGM",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ IGM",
+          "synonym": [
+            "Nồng độ IgM",
+            "Nồng độ miễn dịch globulin M"
+          ],
+          "sample_values": [
+            "46",
+            "132",
+            "56"
+          ],
+          "description": "Nồng độ của miễn dịch globulin M trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CRP",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ CRP",
+          "synonym": [
+            "Nồng độ C-Reactive Protein",
+            "Nồng độ protein phản ứng với C"
+          ],
+          "sample_values": [
+            "0.6",
+            "2.7",
+            "1.2"
+          ],
+          "description": "Nồng độ protein phản ứng với C trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "RA",
+          "type": "TEXT",
+          "alias_vi": "Kết quả xét nghiệm RA",
+          "synonym": [
+            "Kết quả Rheumatoid Arthritis",
+            "Kết quả viêm khớp dạng thấp"
+          ],
+          "sample_values": [
+            "-",
+            "+",
+            "+-"
+          ],
+          "description": "Kết quả xét nghiệm cho bệnh viêm khớp dạng thấp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "RF",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ RF",
+          "synonym": [
+            "Nồng độ Rheumatoid Factor",
+            "Nồng độ yếu tố viêm khớp dạng thấp"
+          ],
+          "sample_values": [
+            "<20.5",
+            "<20.8",
+            "<40"
+          ],
+          "description": "Nồng độ yếu tố viêm khớp dạng thấp trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "C3",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ C3",
+          "synonym": [
+            "Nồng độ Complement C3",
+            "Nồng độ complement C3"
+          ],
+          "sample_values": [
+            "30",
+            "82",
+            "103"
+          ],
+          "description": "Nồng độ complement C3 trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "C4",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ C4",
+          "synonym": [
+            "Nồng độ Complement C4",
+            "Nồng độ complement C4"
+          ],
+          "sample_values": [
+            "14",
+            "26",
+            "35"
+          ],
+          "description": "Nồng độ complement C4 trong máu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "RNP",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ RNP",
+          "synonym": [
+            "Nồng độ RNA",
+            "RNA"
+          ],
+          "sample_values": [
+            "0",
+            "1",
+            "256"
+          ],
+          "description": "Lượng RNA được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SM",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái SM",
+          "synonym": [
+            "Kết quả SM",
+            "Kết quả"
+          ],
+          "sample_values": [
+            "0",
+            "1",
+            "negative"
+          ],
+          "description": "Kết quả của xét nghiệm SM cho thấy tình trạng sức khỏe của tế bào.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SC170",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ SC170",
+          "synonym": [
+            "Nồng độ protein SC170",
+            "Protein SC170"
+          ],
+          "sample_values": [
+            "16",
+            "1",
+            "0"
+          ],
+          "description": "Lượng protein SC170 được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SSA",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ SSA",
+          "synonym": [
+            "Nồng độ protein SSA",
+            "Protein SSA"
+          ],
+          "sample_values": [
+            "0",
+            "negative",
+            "16"
+          ],
+          "description": "Lượng protein SSA được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SSB",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ SSB",
+          "synonym": [
+            "Nồng độ protein SSB",
+            "Protein SSB"
+          ],
+          "sample_values": [
+            "0",
+            "negative",
+            "1"
+          ],
+          "description": "Lượng protein SSB được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CENTROMEA",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ CENTROMEA",
+          "synonym": [
+            "Nồng độ protein CENTROMEA",
+            "Protein CENTROMEA"
+          ],
+          "sample_values": [
+            "0",
+            "negative"
+          ],
+          "description": "Lượng protein CENTROMEA được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DNA",
+          "type": "TEXT",
+          "alias_vi": "Nồng độ DNA",
+          "synonym": [
+            "Nồng độ ADN",
+            "ADN"
+          ],
+          "sample_values": [
+            "41.9",
+            "18",
+            "4.3"
+          ],
+          "description": "Lượng DNA được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DNA-II",
+          "type": "INTEGER",
+          "alias_vi": "Nồng độ DNA II",
+          "synonym": [
+            "Nồng độ ADN II",
+            "ADN II"
+          ],
+          "sample_values": [],
+          "description": "Lượng DNA II được đo lường trong mẫu thử nghiệm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Patient",
+      "alias_vi": "Bệnh nhân",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã bệnh nhân",
+          "synonym": [
+            "Mã BN",
+            "ID BN"
+          ],
+          "sample_values": [
+            "2110",
+            "11408",
+            "12052"
+          ],
+          "description": "Mã định danh duy nhất cho mỗi bệnh nhân",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SEX",
+          "type": "TEXT",
+          "alias_vi": "Giới tính",
+          "synonym": [
+            "Giới",
+            "Phái"
+          ],
+          "sample_values": [
+            "F",
+            "M",
+            ""
+          ],
+          "description": "Giới tính của bệnh nhân (nam hoặc nữ)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Birthday",
+          "type": "DATE",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày ra đời",
+            "Ngày sinh nhật"
+          ],
+          "sample_values": [
+            "1934-02-13",
+            "1937-05-02",
+            "1956-04-14"
+          ],
+          "description": "Ngày sinh của bệnh nhân",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Description",
+          "type": "DATE",
+          "alias_vi": "Ngày mô tả",
+          "synonym": [
+            "Ngày ghi chú",
+            "Ngày mô tả"
+          ],
+          "sample_values": [
+            "1994-02-14",
+            "1996-12-01",
+            "1991-08-13"
+          ],
+          "description": "Ngày mô tả trong hồ sơ bệnh án",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "First Date",
+          "type": "DATE",
+          "alias_vi": "Ngày đầu tiên",
+          "synonym": [
+            "Ngày bắt đầu",
+            "Ngày đầu"
+          ],
+          "sample_values": [
+            "1993-02-10",
+            "1973-01-01",
+            "1992-02-03"
+          ],
+          "description": "Ngày đầu tiên ghi nhận bệnh lý của bệnh nhân",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Admission",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái nhập viện",
+          "synonym": [
+            "Trạng thái",
+            "Tình trạng"
+          ],
+          "sample_values": [
+            "+",
+            "-",
+            ""
+          ],
+          "description": "Trạng thái nhập viện (+ cho nhập viện, - cho không nhập viện)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Diagnosis",
+          "type": "TEXT",
+          "alias_vi": "Chẩn đoán",
+          "synonym": [
+            "Chẩn đoán ban đầu",
+            "Đề xuất chẩn đoán"
+          ],
+          "sample_values": [
+            "RA susp.",
+            "PSS",
+            "SLE"
+          ],
+          "description": "Chẩn đoán ban đầu hoặc đề xuất chẩn đoán của bệnh nhân",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

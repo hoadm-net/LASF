@@ -1,0 +1,592 @@
+{
+  "db_id": "superhero",
+  "tables": [
+    {
+      "name": "alignment",
+      "alias_vi": "Phân Loại",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Phân Loại",
+          "synonym": [
+            "ID Phân Loại",
+            "Mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi loại phân loại.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "alignment",
+          "type": "TEXT",
+          "alias_vi": "Phân Loại",
+          "synonym": [
+            "Loại",
+            "Phân Loại"
+          ],
+          "sample_values": [
+            "Good",
+            "Bad",
+            "Neutral"
+          ],
+          "description": "Phân loại chất lượng hoặc trạng thái của một đối tượng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "attribute",
+      "alias_vi": "Tính năng",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã",
+          "synonym": [
+            "ID",
+            "Số hiệu"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi tính năng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "attribute_name",
+          "type": "TEXT",
+          "alias_vi": "Tên tính năng",
+          "synonym": [
+            "Tên thuộc tính",
+            "Tên đặc điểm"
+          ],
+          "sample_values": [
+            "Intelligence",
+            "Strength",
+            "Speed"
+          ],
+          "description": "Tên của tính năng hoặc đặc điểm cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "colour",
+      "alias_vi": "Màu sắc",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã màu",
+          "synonym": [
+            "ID màu",
+            "Số mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi màu",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "colour",
+          "type": "TEXT",
+          "alias_vi": "Tên màu",
+          "synonym": [
+            "Tên màu sắc",
+            "Màu"
+          ],
+          "sample_values": [
+            "No Colour",
+            "Amber",
+            "Auburn"
+          ],
+          "description": "Tên của màu sắc được ghi nhận trong hệ thống",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "gender",
+      "alias_vi": "Giới tính",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã giới tính",
+          "synonym": [
+            "ID giới tính",
+            "Số hiệu giới tính"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định giới tính của một người",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gender",
+          "type": "TEXT",
+          "alias_vi": "Giới tính",
+          "synonym": [
+            "Phái",
+            "Giới tính nhân"
+          ],
+          "sample_values": [
+            "Male",
+            "Female",
+            "N/A"
+          ],
+          "description": "Tính chất phái nam hoặc phái nữ của một người",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "hero_attribute",
+      "alias_vi": "Thông số anh hùng",
+      "columns": [
+        {
+          "name": "hero_id",
+          "type": "INTEGER",
+          "alias_vi": "ID anh hùng",
+          "synonym": [
+            "Mã anh hùng",
+            "Số hiệu anh hùng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi anh hùng.",
+          "is_primary_key": false,
+          "foreign_key_to": "superhero.id"
+        },
+        {
+          "name": "attribute_id",
+          "type": "INTEGER",
+          "alias_vi": "ID thông số",
+          "synonym": [
+            "Mã thông số",
+            "Số hiệu thông số"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi loại thông số.",
+          "is_primary_key": false,
+          "foreign_key_to": "attribute.id"
+        },
+        {
+          "name": "attribute_value",
+          "type": "INTEGER",
+          "alias_vi": "Giá trị thông số",
+          "synonym": [
+            "Giá trị",
+            "Số liệu"
+          ],
+          "sample_values": [
+            "80",
+            "75",
+            "95"
+          ],
+          "description": "Giá trị cụ thể của mỗi loại thông số cho từng anh hùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "hero_power",
+      "alias_vi": "Danh_sách_lực_lượng_helden",
+      "columns": [
+        {
+          "name": "hero_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_helden",
+          "synonym": [
+            "ID_helden",
+            "Số_thứ_cứu_tín_helden"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi anh hùng.",
+          "is_primary_key": false,
+          "foreign_key_to": "superhero.id"
+        },
+        {
+          "name": "power_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_lực_lượng",
+          "synonym": [
+            "ID_lực_lượng",
+            "Số_thứ_cứu_lực_lượng"
+          ],
+          "sample_values": [
+            "1",
+            "18",
+            "26"
+          ],
+          "description": "Mã duy nhất xác định mỗi loại lực lượng.",
+          "is_primary_key": false,
+          "foreign_key_to": "superpower.id"
+        }
+      ]
+    },
+    {
+      "name": "publisher",
+      "alias_vi": "Nhà xuất bản",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã nhà xuất bản",
+          "synonym": [
+            "ID nhà xuất bản",
+            "Số nhà xuất bản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi nhà xuất bản.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "publisher_name",
+          "type": "TEXT",
+          "alias_vi": "Tên nhà xuất bản",
+          "synonym": [
+            "Tên công ty xuất bản",
+            "Tên nhà xuất bản sách"
+          ],
+          "sample_values": [
+            "",
+            "ABC Studios",
+            "Dark Horse Comics"
+          ],
+          "description": "Tên của nhà xuất bản hoặc công ty xuất bản.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "race",
+      "alias_vi": "LoạiRace",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "MãLoạiRace",
+          "synonym": [
+            "IDLoạiRace",
+            "SốMã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định loạiRace",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "race",
+          "type": "TEXT",
+          "alias_vi": "TênLoạiRace",
+          "synonym": [
+            "LoạiRace",
+            "PhânLoại"
+          ],
+          "sample_values": [
+            "-",
+            "Alien",
+            "Alpha"
+          ],
+          "description": "Tên hoặc phân loại của loạiRace",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "superhero",
+      "alias_vi": "Anh Hùng Siêu Nhiên",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã ID",
+          "synonym": [
+            "ID",
+            "Số ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi anh hùng siêu nhiên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "superhero_name",
+          "type": "TEXT",
+          "alias_vi": "Tên Anh Hùng Siêu Nhiên",
+          "synonym": [
+            "Tên Siêu Anh Hùng",
+            "Tên Anh Hùng"
+          ],
+          "sample_values": [
+            "3-D Man",
+            "A-Bomb",
+            "Abe Sapien"
+          ],
+          "description": "Tên gọi của anh hùng siêu nhiên trong truyện tranh hoặc phim ảnh.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "full_name",
+          "type": "TEXT",
+          "alias_vi": "Họ và Tên",
+          "synonym": [
+            "Tên Thật",
+            "Tên Đầy Đủ"
+          ],
+          "sample_values": [
+            "Charles Chandler",
+            "Richard Milhouse Jones",
+            "Abraham Sapien"
+          ],
+          "description": "Tên đầy đủ của nhân vật trong thế giới thực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gender_id",
+          "type": "INTEGER",
+          "alias_vi": "Giới Tính",
+          "synonym": [
+            "Giới Tính Nam/Nữ",
+            "Phái"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Giới tính của nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "gender.id"
+        },
+        {
+          "name": "eye_colour_id",
+          "type": "INTEGER",
+          "alias_vi": "Màu Mắt",
+          "synonym": [
+            "Màu Nhìn",
+            "Màu Môi"
+          ],
+          "sample_values": [
+            "9",
+            "33",
+            "7"
+          ],
+          "description": "Màu sắc của mắt nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "colour.id"
+        },
+        {
+          "name": "hair_colour_id",
+          "type": "INTEGER",
+          "alias_vi": "Màu Tóc",
+          "synonym": [
+            "Màu Đầu",
+            "Màu Tóc"
+          ],
+          "sample_values": [
+            "13",
+            "1",
+            "4"
+          ],
+          "description": "Màu sắc của tóc nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "colour.id"
+        },
+        {
+          "name": "skin_colour_id",
+          "type": "INTEGER",
+          "alias_vi": "Màu Da",
+          "synonym": [
+            "Màu Da",
+            "Màu Nước"
+          ],
+          "sample_values": [
+            "1",
+            "7",
+            "23"
+          ],
+          "description": "Màu sắc của da nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "colour.id"
+        },
+        {
+          "name": "race_id",
+          "type": "INTEGER",
+          "alias_vi": "Dân Tộc",
+          "synonym": [
+            "Dân Tộc",
+            "Loài"
+          ],
+          "sample_values": [
+            "1",
+            "24",
+            "33"
+          ],
+          "description": "Dân tộc hoặc loài của nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "race.id"
+        },
+        {
+          "name": "publisher_id",
+          "type": "INTEGER",
+          "alias_vi": "Nhà Xuất Bản",
+          "synonym": [
+            "Nhà Sáng Tạo",
+            "Nhà Sản Xuất"
+          ],
+          "sample_values": [
+            "13",
+            "3",
+            "4"
+          ],
+          "description": "Nhà xuất bản hoặc nhà sản xuất truyện tranh của nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "publisher.id"
+        },
+        {
+          "name": "alignment_id",
+          "type": "INTEGER",
+          "alias_vi": "Tư Tưởng",
+          "synonym": [
+            "Tư Tưởng",
+            "Đạo Đức"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Tư tưởng hoặc đạo đức của nhân vật được chỉ định bằng số ID.",
+          "is_primary_key": false,
+          "foreign_key_to": "alignment.id"
+        },
+        {
+          "name": "height_cm",
+          "type": "INTEGER",
+          "alias_vi": "Chiều Cao (cm)",
+          "synonym": [
+            "Chiều Cao",
+            "Chiều Dài"
+          ],
+          "sample_values": [
+            "188",
+            "203",
+            "191"
+          ],
+          "description": "Chiều cao của nhân vật tính bằng centimet.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "weight_kg",
+          "type": "INTEGER",
+          "alias_vi": "Cân Nặng (kg)",
+          "synonym": [
+            "Cân Nặng",
+            "Trọng Lượng"
+          ],
+          "sample_values": [
+            "90",
+            "441",
+            "65"
+          ],
+          "description": "Cân nặng của nhân vật tính bằng kilogram.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "superpower",
+      "alias_vi": "Sức mạnh siêu nhiên",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã số",
+          "synonym": [
+            "ID",
+            "Số hiệu"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã số duy nhất để xác định mỗi sức mạnh siêu nhiên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "power_name",
+          "type": "TEXT",
+          "alias_vi": "Tên sức mạnh",
+          "synonym": [
+            "Tên năng lực",
+            "Tên siêu năng lực"
+          ],
+          "sample_values": [
+            "Agility",
+            "Accelerated Healing",
+            "Lantern Power Ring"
+          ],
+          "description": "Tên của từng loại sức mạnh hoặc năng lực siêu nhiên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

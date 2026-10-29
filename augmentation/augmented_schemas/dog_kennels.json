@@ -1,0 +1,883 @@
+{
+  "db_id": "dog_kennels",
+  "tables": [
+    {
+      "name": "Breeds",
+      "alias_vi": "Loài chó",
+      "columns": [
+        {
+          "name": "breed_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã loài",
+          "synonym": [
+            "Mã chủng loại",
+            "Mã giống"
+          ],
+          "sample_values": [
+            "BUL",
+            "ESK",
+            "HUS"
+          ],
+          "description": "Mã đại diện cho từng loài chó.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "breed_name",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Tên loài",
+          "synonym": [
+            "Tên giống",
+            "Tên chủng loại"
+          ],
+          "sample_values": [
+            "Eskimo",
+            "Husky",
+            "Bulldog"
+          ],
+          "description": "Tên gọi của từng loài chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Charges",
+      "alias_vi": "Phí",
+      "columns": [
+        {
+          "name": "charge_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã phí",
+          "synonym": [
+            "ID phí",
+            "Số phí"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi loại phí.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "charge_type",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Loại phí",
+          "synonym": [
+            "Kiểu phí",
+            "Phí gì"
+          ],
+          "sample_values": [
+            "Daily Accommodation",
+            "Drugs",
+            "Health Check"
+          ],
+          "description": "Loại phí được áp dụng như chỗ ở hàng ngày, thuốc men, khám sức khỏe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "charge_amount",
+          "type": "DECIMAL(19,4)",
+          "alias_vi": "Số tiền phí",
+          "synonym": [
+            "Số tiền",
+            "Giá phí"
+          ],
+          "sample_values": [
+            "98",
+            "322",
+            "640"
+          ],
+          "description": "Số tiền cụ thể của mỗi loại phí được tính.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Dogs",
+      "alias_vi": "Cá Mèo",
+      "columns": [
+        {
+          "name": "dog_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Cá Mèo",
+          "synonym": [
+            "ID Cá Mèo",
+            "Số Thẻ Cá Mèo"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi con chó.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "owner_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Chủ Cá Mèo",
+          "synonym": [
+            "ID Chủ Cá Mèo",
+            "Số Thẻ Chủ Cá Mèo"
+          ],
+          "sample_values": [
+            "3",
+            "11",
+            "1"
+          ],
+          "description": "Mã duy nhất để xác định chủ sở hữu của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": "Owners.owner_id"
+        },
+        {
+          "name": "abandoned_yn",
+          "type": "VARCHAR(1)",
+          "alias_vi": "Trạng Thái Bỏ Trôi",
+          "synonym": [
+            "Trạng Thái Bỏ",
+            "Trạng Thái Trôi"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Biểu thị trạng thái của con chó có bị bỏ trôi hay không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "breed_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã Loài",
+          "synonym": [
+            "Loài Cáo",
+            "Mã Chủng Loại"
+          ],
+          "sample_values": [
+            "ESK",
+            "BUL",
+            "HUS"
+          ],
+          "description": "Mã đại diện cho giống chó.",
+          "is_primary_key": false,
+          "foreign_key_to": "Breeds.breed_code"
+        },
+        {
+          "name": "size_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã Kích Cỡ",
+          "synonym": [
+            "Kích Cỡ Cáo",
+            "Mã Kích Thước"
+          ],
+          "sample_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ],
+          "description": "Mã đại diện cho kích thước của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": "Sizes.size_code"
+        },
+        {
+          "name": "name",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Tên Cáo",
+          "synonym": [
+            "Tên Cáo",
+            "Tên Chó"
+          ],
+          "sample_values": [
+            "Kacey",
+            "Hipolito",
+            "Mavis"
+          ],
+          "description": "Tên gọi của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "age",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi Cáo",
+            "Tuổi Chó"
+          ],
+          "sample_values": [
+            "6",
+            "9",
+            "8"
+          ],
+          "description": "Tuổi của con chó tính theo năm hoặc tháng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_of_birth",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Sinh",
+          "synonym": [
+            "Ngày Sinh Cáo",
+            "Ngày Sinh Chó"
+          ],
+          "sample_values": [
+            "2012-01-27 05:11:53",
+            "2013-02-13 05:15:21",
+            "2008-05-19 15:54:49"
+          ],
+          "description": "Ngày sinh của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gender",
+          "type": "VARCHAR(1)",
+          "alias_vi": "Giới Tính",
+          "synonym": [
+            "Giới Tính Cáo",
+            "Giới Tính Chó"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Giới tính của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "weight",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Cân Nặng",
+          "synonym": [
+            "Cân Nặng Cáo",
+            "Cân Nặng Chó"
+          ],
+          "sample_values": [
+            "7.57",
+            "1.72",
+            "8.04"
+          ],
+          "description": "Cân nặng của con chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_arrived",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Đến",
+          "synonym": [
+            "Ngày Đến Trung Tâm",
+            "Ngày Đến Trung Tâm Chăm Sóc Cáo"
+          ],
+          "sample_values": [
+            "2017-09-08 20:10:13",
+            "2017-12-22 05:02:02",
+            "2017-06-25 10:14:05"
+          ],
+          "description": "Ngày con chó đến trung tâm chăm sóc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_adopted",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Nhận Cấp",
+          "synonym": [
+            "Ngày Nhận Cấp Cáo",
+            "Ngày Nhận Cấp Chó"
+          ],
+          "sample_values": [
+            "2018-03-06 16:32:11",
+            "2018-03-25 08:12:51",
+            "2018-03-07 21:45:43"
+          ],
+          "description": "Ngày con chó được nhận cấp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_departed",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Ra Đi",
+          "synonym": [
+            "Ngày Kh�i Hành",
+            "Ngày Đã Ra Đi"
+          ],
+          "sample_values": [
+            "2018-03-25 06:58:44",
+            "2018-03-25 02:11:32",
+            "2018-03-25 10:25:46"
+          ],
+          "description": "Ngày và giờ khi con mèo ra đi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Owners",
+      "alias_vi": "Chủ sở hữu",
+      "columns": [
+        {
+          "name": "owner_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã chủ sở hữu",
+          "synonym": [
+            "ID chủ sở hữu",
+            "Số hiệu chủ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi chủ sở hữu",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Tên đệm",
+            "Họ và tên"
+          ],
+          "sample_values": [
+            "Nora",
+            "Melisa",
+            "Jaclyn"
+          ],
+          "description": "Tên đệm của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên thật",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Haley",
+            "DuBuque",
+            "Stoltenberg"
+          ],
+          "description": "Tên thật của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Địa chỉ",
+          "synonym": [
+            "Địa chỉ đường",
+            "Địa chỉ nhà"
+          ],
+          "sample_values": [
+            "0647 Hintz Village Apt. 024",
+            "1204 Mae Highway Apt. 107",
+            "2635 Caitlyn Plains"
+          ],
+          "description": "Địa chỉ cụ thể của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành phố sinh sống",
+            "Thành phố hiện tại"
+          ],
+          "sample_values": [
+            "Lake Tia",
+            "Port Reannamouth",
+            "Barrettburgh"
+          ],
+          "description": "Thành phố nơi chủ sở hữu cư trú",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Tỉnh/Thành phố",
+          "synonym": [
+            "Tỉnh",
+            "Thành phố"
+          ],
+          "sample_values": [
+            "Wisconsin",
+            "Virginia",
+            "Vermont"
+          ],
+          "description": "Tỉnh hoặc thành phố của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "zip_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "93165",
+            "45244",
+            "02647"
+          ],
+          "description": "Mã bưu chính của địa chỉ của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Địa chỉ email",
+          "synonym": [
+            "Email",
+            "Địa chỉ liên lạc"
+          ],
+          "sample_values": [
+            "lynn81@example.org",
+            "ykris@example.com",
+            "hudson.favian@example.com"
+          ],
+          "description": "Địa chỉ email của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_phone",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Số điện thoại nhà",
+          "synonym": [
+            "Điện thoại cố định",
+            "Số điện thoại nhà"
+          ],
+          "sample_values": [
+            "1-682-845-0116x63235",
+            "(799)563-0260x454",
+            "916.976.9480x13851"
+          ],
+          "description": "Số điện thoại nhà của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cell_number",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Số điện thoại di động",
+          "synonym": [
+            "Số điện thoại di động",
+            "Số điện thoại di dộng"
+          ],
+          "sample_values": [
+            "478.978.0729",
+            "(722)768-5439x484",
+            "481-483-9083x37986"
+          ],
+          "description": "Số điện thoại di động của chủ sở hữu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Professionals",
+      "alias_vi": "Người chuyên nghiệp",
+      "columns": [
+        {
+          "name": "professional_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã chuyên viên",
+          "synonym": [
+            "ID chuyên viên",
+            "Mã nhân viên"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi chuyên viên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "role_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã vị trí",
+          "synonym": [
+            "Mã chức vụ",
+            "Mã nghề nghiệp"
+          ],
+          "sample_values": [
+            "Employee",
+            "Veterenarian"
+          ],
+          "description": "Mã đại diện cho vai trò hoặc nghề nghiệp của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Tên đệm",
+            "Tên đầu"
+          ],
+          "sample_values": [
+            "Taryn",
+            "Jayson",
+            "Olaf"
+          ],
+          "description": "Tên đệm hoặc tên đầu của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "street",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Địa chỉ",
+          "synonym": [
+            "Địa chỉ đường",
+            "Địa chỉ nhà"
+          ],
+          "sample_values": [
+            "6915 Oberbrunner Point Suite 491\nGleasonville, LA ",
+            "88665 Terence Lodge Apt. 904\nCorneliusfort, NC 194",
+            "68589 Bradly Manor\nNew Audrey, IN 91497"
+          ],
+          "description": "Địa chỉ cụ thể của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành phố sinh sống",
+            "Thành phố hiện tại"
+          ],
+          "sample_values": [
+            "West Heidi",
+            "North Odellfurt",
+            "Jaceton"
+          ],
+          "description": "Thành phố nơi chuyên viên đang sinh sống hoặc làm việc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Tỉnh/Thành phố",
+          "synonym": [
+            "Tỉnh",
+            "Thành phố"
+          ],
+          "sample_values": [
+            "Indiana",
+            "Connecticut",
+            "Wisconsin"
+          ],
+          "description": "Tỉnh hoặc thành phố nơi chuyên viên đang sinh sống hoặc làm việc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "zip_code",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "06646",
+            "43129",
+            "77129"
+          ],
+          "description": "Mã bưu chính của địa chỉ nơi chuyên viên đang sinh sống hoặc làm việc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên họ",
+            "Tên cuối"
+          ],
+          "sample_values": [
+            "Braun",
+            "Ullrich",
+            "Watsica"
+          ],
+          "description": "Tên họ của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR(50)",
+          "alias_vi": "Địa chỉ email",
+          "synonym": [
+            "Email",
+            "Địa chỉ liên lạc"
+          ],
+          "sample_values": [
+            "deanna.schuster@example.com",
+            "lucile.shanahan@example.org",
+            "uboehm@example.org"
+          ],
+          "description": "Địa chỉ email cá nhân hoặc công việc của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_phone",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Số điện thoại nhà",
+          "synonym": [
+            "Số điện thoại cố định",
+            "Số điện thoại gia đình"
+          ],
+          "sample_values": [
+            "+71(6)2898266914",
+            "+02(1)0259033559",
+            "325-155-0801x7005"
+          ],
+          "description": "Số điện thoại nhà của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cell_number",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Số điện thoại di động",
+          "synonym": [
+            "Số điện thoại di động",
+            "Số điện thoại di dộng"
+          ],
+          "sample_values": [
+            "(275)939-2435x80863",
+            "889-940-2676",
+            "(369)908-7311x065"
+          ],
+          "description": "Số điện thoại di động của chuyên viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Sizes",
+      "alias_vi": "Kích_cỡ",
+      "columns": [
+        {
+          "name": "size_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã_kích_cỡ",
+          "synonym": [
+            "Mã_size",
+            "Ký_tự_kích_cỡ"
+          ],
+          "sample_values": [
+            "LGE",
+            "MED",
+            "SML"
+          ],
+          "description": "Mã đại diện cho kích thước của sản phẩm.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "size_description",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Miêu tả_kích_cỡ",
+          "synonym": [
+            "Miêu_tả_size",
+            "Kích_cỡ_sản_phẩm"
+          ],
+          "sample_values": [
+            "Small",
+            "Medium",
+            "Large"
+          ],
+          "description": "Miêu tả bằng văn bản về kích thước của sản phẩm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Treatment_Types",
+      "alias_vi": "Loại_Chữa_Bệnh",
+      "columns": [
+        {
+          "name": "treatment_type_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Mã_Loại_Chữa_Bệnh",
+          "synonym": [
+            "Mã Loại Chữa Bệnh",
+            "Mã Loại Trị Liệu"
+          ],
+          "sample_values": [
+            "EXAM",
+            "VAC",
+            "WALK"
+          ],
+          "description": "Mã đại diện cho loại hình điều trị.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "treatment_type_description",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Miêu_Tả_Loại_Chữa_Bệnh",
+          "synonym": [
+            "Miêu tả Loại Chữa Bệnh",
+            "Miêu tả Loại Trị Liệu"
+          ],
+          "sample_values": [
+            "Physical examination",
+            "Vaccination",
+            "Take for a Walk"
+          ],
+          "description": "Miêu tả chi tiết về loại hình điều trị.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Treatments",
+      "alias_vi": "Chữa trị",
+      "columns": [
+        {
+          "name": "treatment_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã điều trị",
+          "synonym": [
+            "ID điều trị",
+            "Số điều trị"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi lần điều trị.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "dog_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã chó",
+          "synonym": [
+            "ID chó",
+            "Số chó"
+          ],
+          "sample_values": [
+            "14",
+            "4",
+            "2"
+          ],
+          "description": "Mã duy nhất để xác định mỗi con chó được điều trị.",
+          "is_primary_key": false,
+          "foreign_key_to": "Dogs.dog_id"
+        },
+        {
+          "name": "professional_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã nhân viên y tế",
+          "synonym": [
+            "ID nhân viên",
+            "Số nhân viên"
+          ],
+          "sample_values": [
+            "9",
+            "10",
+            "4"
+          ],
+          "description": "Mã duy nhất để xác định nhân viên y tế thực hiện điều trị.",
+          "is_primary_key": false,
+          "foreign_key_to": "Professionals.professional_id"
+        },
+        {
+          "name": "treatment_type_code",
+          "type": "VARCHAR(10)",
+          "alias_vi": "Loại điều trị",
+          "synonym": [
+            "Kiểu điều trị",
+            "Phương pháp điều trị"
+          ],
+          "sample_values": [
+            "WALK",
+            "VAC",
+            "EXAM"
+          ],
+          "description": "Mã đại diện cho loại điều trị được thực hiện cho chó.",
+          "is_primary_key": false,
+          "foreign_key_to": "Treatment_Types.treatment_type_code"
+        },
+        {
+          "name": "date_of_treatment",
+          "type": "DATETIME",
+          "alias_vi": "Ngày điều trị",
+          "synonym": [
+            "Ngày thực hiện",
+            "Ngày khám"
+          ],
+          "sample_values": [
+            "2018-03-19 04:39:54",
+            "2018-03-15 20:25:34",
+            "2018-03-08 05:26:23"
+          ],
+          "description": "Ngày khi điều trị được thực hiện cho chó.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cost_of_treatment",
+          "type": "DECIMAL(19,4)",
+          "alias_vi": "Chi phí điều trị",
+          "synonym": [
+            "Giá trị điều trị",
+            "Phí điều trị"
+          ],
+          "sample_values": [
+            "567",
+            "147",
+            "429"
+          ],
+          "description": "Chi phí tổng cộng cho dịch vụ điều trị được thực hiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

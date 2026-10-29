@@ -1,0 +1,227 @@
+{
+  "db_id": "museum_visit",
+  "tables": [
+    {
+      "name": "museum",
+      "alias_vi": "Danh sách bảo tàng",
+      "columns": [
+        {
+          "name": "Museum_ID",
+          "type": "INT",
+          "alias_vi": "Mã bảo tàng",
+          "synonym": [
+            "ID bảo tàng",
+            "Số bảo tàng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bảo tàng",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên bảo tàng",
+          "synonym": [
+            "Tên gọi bảo tàng",
+            "Tên bảo tàng"
+          ],
+          "sample_values": [
+            "Plaza Museum",
+            "Capital Plaza Museum",
+            "Jefferson Development Museum"
+          ],
+          "description": "Tên chính thức của bảo tàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Num_of_Staff",
+          "type": "INT",
+          "alias_vi": "Số lượng nhân viên",
+          "synonym": [
+            "Số nhân viên",
+            "Nhân sự"
+          ],
+          "sample_values": [
+            "62",
+            "25",
+            "18"
+          ],
+          "description": "Số lượng nhân viên làm việc tại bảo tàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Open_Year",
+          "type": "TEXT",
+          "alias_vi": "Năm mở cửa",
+          "synonym": [
+            "Năm thành lập",
+            "Năm hoạt động"
+          ],
+          "sample_values": [
+            "2000",
+            "2012",
+            "2010"
+          ],
+          "description": "Năm mà bảo tàng được mở cửa công chúng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "visit",
+      "alias_vi": "Dữ liệu tham quan",
+      "columns": [
+        {
+          "name": "Museum_ID",
+          "type": "INT",
+          "alias_vi": "Mã bảo tàng",
+          "synonym": [
+            "ID bảo tàng",
+            "Số bảo tàng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "4"
+          ],
+          "description": "Mã duy nhất xác định bảo tàng.",
+          "is_primary_key": true,
+          "foreign_key_to": "museum.Museum_ID"
+        },
+        {
+          "name": "visitor_ID",
+          "type": "TEXT",
+          "alias_vi": "Mã khách tham quan",
+          "synonym": [
+            "ID khách tham quan",
+            "Số khách tham quan"
+          ],
+          "sample_values": [
+            "5",
+            "3",
+            "6"
+          ],
+          "description": "Mã duy nhất xác định khách tham quan.",
+          "is_primary_key": true,
+          "foreign_key_to": "visitor.ID"
+        },
+        {
+          "name": "Num_of_Ticket",
+          "type": "INT",
+          "alias_vi": "Số vé",
+          "synonym": [
+            "Số lượng vé",
+            "Đơn vị vé"
+          ],
+          "sample_values": [
+            "20",
+            "4",
+            "10"
+          ],
+          "description": "Số lượng vé được mua trong một lần tham quan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Total_spent",
+          "type": "REAL",
+          "alias_vi": "Tổng tiền đã chi",
+          "synonym": [
+            "Tổng số tiền",
+            "Tiền đã trả"
+          ],
+          "sample_values": [
+            "320.14",
+            "89.98",
+            "320.44"
+          ],
+          "description": "Tổng số tiền đã chi cho vé và các dịch vụ khác trong một lần tham quan.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "visitor",
+      "alias_vi": "Khách tham quan",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INT",
+          "alias_vi": "Mã khách tham quan",
+          "synonym": [
+            "Mã thành viên",
+            "ID khách"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khách tham quan",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên khách tham quan",
+          "synonym": [
+            "Tên thành viên",
+            "Tên người"
+          ],
+          "sample_values": [
+            "Gonzalo Higuaín ",
+            "Guti Midfielder",
+            "Arjen Robben"
+          ],
+          "description": "Tên đầy đủ của khách tham quan",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Level_of_membership",
+          "type": "INT",
+          "alias_vi": "Cấp độ thành viên",
+          "synonym": [
+            "Cấp thành viên",
+            "Trạng thái thành viên"
+          ],
+          "sample_values": [
+            "8",
+            "5",
+            "1"
+          ],
+          "description": "Cấp độ thành viên của khách tham quan",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INT",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Tuổi hiện tại"
+          ],
+          "sample_values": [
+            "35",
+            "28",
+            "27"
+          ],
+          "description": "Tuổi của khách tham quan",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

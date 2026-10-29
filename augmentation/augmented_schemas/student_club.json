@@ -1,0 +1,867 @@
+{
+  "db_id": "student_club",
+  "tables": [
+    {
+      "name": "attendance",
+      "alias_vi": "Danh_sách_tham_gia",
+      "columns": [
+        {
+          "name": "link_to_event",
+          "type": "TEXT",
+          "alias_vi": "Liên_kết_sự_khảo",
+          "synonym": [
+            "Đường_link_sự_khảo",
+            "Liên_kết_sự_khám_phá"
+          ],
+          "sample_values": [
+            "rec2N69DMcrqN9PJC",
+            "rec5XDvJLyxDsGZWc",
+            "recEVTik3MlqbvLFi"
+          ],
+          "description": "Đường liên kết đến sự kiện được tham gia.",
+          "is_primary_key": true,
+          "foreign_key_to": "event.event_id"
+        },
+        {
+          "name": "link_to_member",
+          "type": "TEXT",
+          "alias_vi": "Liên_kết_thành viên",
+          "synonym": [
+            "Đường_link_thành_viên",
+            "Liên_kết_đăng_ký"
+          ],
+          "sample_values": [
+            "recD078PnS3x2doBe",
+            "recP6DJPyi5donvXL",
+            "rec28ORZgcm1dtqBZ"
+          ],
+          "description": "Đường liên kết đến thông tin thành viên tham gia sự kiện.",
+          "is_primary_key": true,
+          "foreign_key_to": "member.member_id"
+        }
+      ]
+    },
+    {
+      "name": "budget",
+      "alias_vi": "Bảng dự toán",
+      "columns": [
+        {
+          "name": "budget_id",
+          "type": "TEXT",
+          "alias_vi": "Mã dự toán",
+          "synonym": [
+            "ID dự toán",
+            "Mã dự toán"
+          ],
+          "sample_values": [
+            "rec0QmEc3cSQFQ6V2",
+            "rec1bG6HSft7XIvTP",
+            "rec1z6ISJU2HdIsVm"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi trong bảng dự toán.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "category",
+          "type": "TEXT",
+          "alias_vi": "Danh mục",
+          "synonym": [
+            "Loại chi tiêu",
+            "Danh mục chi tiêu"
+          ],
+          "sample_values": [
+            "Advertisement",
+            "Food",
+            "Speaker Gifts"
+          ],
+          "description": "Danh mục của khoản chi tiêu trong dự toán.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "spent",
+          "type": "REAL",
+          "alias_vi": "Số tiền đã chi",
+          "synonym": [
+            "Chi phí đã phát sinh",
+            "Số tiền đã sử dụng"
+          ],
+          "sample_values": [
+            "67.81",
+            "121.14",
+            "20.2"
+          ],
+          "description": "Số tiền đã chi tiêu cho danh mục này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "remaining",
+          "type": "REAL",
+          "alias_vi": "Số tiền còn lại",
+          "synonym": [
+            "Số dư",
+            "Số tiền còn"
+          ],
+          "sample_values": [
+            "7.19",
+            "28.86",
+            "-0.199999999999999"
+          ],
+          "description": "Số tiền còn lại trong dự toán sau khi trừ đi số tiền đã chi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER",
+          "alias_vi": "Số tiền dự toán",
+          "synonym": [
+            "Số tiền dự kiến",
+            "Số tiền dự toán"
+          ],
+          "sample_values": [
+            "75",
+            "150",
+            "20"
+          ],
+          "description": "Số tiền được dự kiến sẽ chi tiêu cho danh mục này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "event_status",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái sự kiện",
+          "synonym": [
+            "Trạng thái hoạt động",
+            "Trạng thái tổ chức"
+          ],
+          "sample_values": [
+            "Closed",
+            "Open",
+            "Planning"
+          ],
+          "description": "Trạng thái hiện tại của sự kiện liên quan đến dự toán này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "link_to_event",
+          "type": "TEXT",
+          "alias_vi": "Liên kết sự kiện",
+          "synonym": [
+            "Đường dẫn sự kiện",
+            "Liên kết tổ chức"
+          ],
+          "sample_values": [
+            "recI43CzsZ0Q625ma",
+            "recggMW2eyCYceNcy",
+            "recJ4Witp9tpjaugn"
+          ],
+          "description": "Liên kết đến thông tin chi tiết về sự kiện liên quan đến dự toán này.",
+          "is_primary_key": false,
+          "foreign_key_to": "event.event_id"
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "alias_vi": "Sự Kiện",
+      "columns": [
+        {
+          "name": "event_id",
+          "type": "TEXT",
+          "alias_vi": "Mã Sự Kiện",
+          "synonym": [
+            "ID Sự Kiện",
+            "Số ID Sự Kiện"
+          ],
+          "sample_values": [
+            "rec0Si5cQ4rJRVzd6",
+            "rec0akZnLLpGUloLH",
+            "rec0dZPcWXF0QjNnE"
+          ],
+          "description": "Mã duy nhất xác định mỗi sự kiện.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "event_name",
+          "type": "TEXT",
+          "alias_vi": "Tên Sự Kiện",
+          "synonym": [
+            "Tên Sự Kiện",
+            "Tên Sự Kiện Độc Lập"
+          ],
+          "sample_values": [
+            "March Meeting",
+            "Officers meeting - January",
+            "Spring Elections"
+          ],
+          "description": "Tên chính thức của sự kiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "event_date",
+          "type": "TEXT",
+          "alias_vi": "Ngày Thời Gian Sự Kiện",
+          "synonym": [
+            "Thời Gian Sự Kiện",
+            "Ngày Sự Kiện"
+          ],
+          "sample_values": [
+            "2020-03-10T12:00:00",
+            "2020-01-14T09:30:00",
+            "2019-11-24T09:00:00"
+          ],
+          "description": "Ngày và thời gian diễn ra sự kiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại Sự Kiện",
+          "synonym": [
+            "Kiểu Sự Kiện",
+            "Loại Sự Kiện Độc Lập"
+          ],
+          "sample_values": [
+            "Meeting",
+            "Election",
+            "Game"
+          ],
+          "description": "Loại sự kiện như họp, bầu cử, trò chơi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "alias_vi": "Ghi Chú",
+          "synonym": [
+            "Ghi Chú",
+            "Ghi Chú Sự Kiện"
+          ],
+          "sample_values": [
+            "All active members can vote for new officers between 4pm-8pm.",
+            "Attend Women's soccer game as a group.",
+            "Semester social event. Optional attendance."
+          ],
+          "description": "Thông tin bổ sung về sự kiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "alias_vi": "Địa Điểm",
+          "synonym": [
+            "Địa Điểm Sự Kiện",
+            "Địa Điểm"
+          ],
+          "sample_values": [
+            "MU 215",
+            "Campus Soccer/Lacrosse stadium",
+            "900 E. Washington St."
+          ],
+          "description": "Địa điểm tổ chức sự kiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "alias_vi": "Trạng Thái",
+          "synonym": [
+            "Trạng Thái Sự Kiện",
+            "Trạng Thái"
+          ],
+          "sample_values": [
+            "Open",
+            "Planning",
+            "Closed"
+          ],
+          "description": "Trạng thái hiện tại của sự kiện như mở, đang lên kế hoạch, đã kết thúc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "expense",
+      "alias_vi": "Phiếu chi tiêu",
+      "columns": [
+        {
+          "name": "expense_id",
+          "type": "TEXT",
+          "alias_vi": "Mã phiếu chi tiêu",
+          "synonym": [
+            "ID phiếu chi tiêu",
+            "Mã ghi chú"
+          ],
+          "sample_values": [
+            "rec017x6R3hQqkLAo",
+            "rec1nIjoZKTYayqZ6",
+            "rec1oMgNFt7Y0G40x"
+          ],
+          "description": "Mã duy nhất để xác định mỗi phiếu chi tiêu",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "expense_description",
+          "type": "TEXT",
+          "alias_vi": "Mô tả chi tiêu",
+          "synonym": [
+            "Miêu tả",
+            "Nội dung chi tiêu"
+          ],
+          "sample_values": [
+            "Post Cards, Posters",
+            "Water, Cookies",
+            "Pizza"
+          ],
+          "description": "Mô tả ngắn gọn về mục chi tiêu cụ thể",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "expense_date",
+          "type": "TEXT",
+          "alias_vi": "Ngày chi tiêu",
+          "synonym": [
+            "Ngày ghi chú",
+            "Ngày thực hiện"
+          ],
+          "sample_values": [
+            "2019-08-20",
+            "2019-10-08",
+            "2019-09-10"
+          ],
+          "description": "Ngày khi xảy ra chi tiêu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cost",
+          "type": "REAL",
+          "alias_vi": "Chi phí",
+          "synonym": [
+            "Giá tiền",
+            "Số tiền"
+          ],
+          "sample_values": [
+            "122.06",
+            "20.2",
+            "51.81"
+          ],
+          "description": "Số tiền đã chi tiêu cho mục này",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "approved",
+          "type": "TEXT",
+          "alias_vi": "Được phê duyệt",
+          "synonym": [
+            "Phê duyệt",
+            "Đồng ý"
+          ],
+          "sample_values": [
+            "true"
+          ],
+          "description": "Trạng thái phê duyệt cho phiếu chi tiêu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "link_to_member",
+          "type": "TEXT",
+          "alias_vi": "Liên kết thành viên",
+          "synonym": [
+            "ID thành viên",
+            "Thành viên liên quan"
+          ],
+          "sample_values": [
+            "rec4BLdZHS2Blfp4v",
+            "recro8T1MPMwRadVH",
+            "recD078PnS3x2doBe"
+          ],
+          "description": "ID của thành viên liên quan đến phiếu chi tiêu",
+          "is_primary_key": false,
+          "foreign_key_to": "member.member_id"
+        },
+        {
+          "name": "link_to_budget",
+          "type": "TEXT",
+          "alias_vi": "Liên kết ngân sách",
+          "synonym": [
+            "ID ngân sách",
+            "Ngân sách liên quan"
+          ],
+          "sample_values": [
+            "recvKTAWAFKkVNnXQ",
+            "recy8KY5bUdzF81vv",
+            "recwXIiKoBMjXJsGZ"
+          ],
+          "description": "ID của ngân sách liên quan đến phiếu chi tiêu",
+          "is_primary_key": false,
+          "foreign_key_to": "budget.budget_id"
+        }
+      ]
+    },
+    {
+      "name": "income",
+      "alias_vi": "Thu nhâp",
+      "columns": [
+        {
+          "name": "income_id",
+          "type": "TEXT",
+          "alias_vi": "Mã thu nhâp",
+          "synonym": [
+            "ID thu nhâp",
+            "Mã ghi chép thu nhâp"
+          ],
+          "sample_values": [
+            "rec0s9ZrO15zhzUeE",
+            "rec7f5XMQZexgtQJo",
+            "rec8BUJa8GXUjiglg"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ghi chép thu nhâp.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_received",
+          "type": "TEXT",
+          "alias_vi": "Ngày nhận",
+          "synonym": [
+            "Ngày thu",
+            "Ngày ghi nhận"
+          ],
+          "sample_values": [
+            "2019-10-17",
+            "2019-09-04",
+            "2019-10-08"
+          ],
+          "description": "Ngày mà thu nhập được nhận hoặc ghi chép vào hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER",
+          "alias_vi": "Số tiền",
+          "synonym": [
+            "Tiền thu",
+            "Số tiền nhận"
+          ],
+          "sample_values": [
+            "50",
+            "200",
+            "3000"
+          ],
+          "description": "Số tiền cụ thể của mỗi ghi chép thu nhâp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "source",
+          "type": "TEXT",
+          "alias_vi": "Nguồn gốc",
+          "synonym": [
+            "Nguồn thu",
+            "Nguồn gốc thu nhâp"
+          ],
+          "sample_values": [
+            "Dues",
+            "Fundraising",
+            "School Appropration"
+          ],
+          "description": "Nguồn gốc của thu nhập như phí hội viên, quyên góp, v.v.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "notes",
+          "type": "TEXT",
+          "alias_vi": "Ghi chú",
+          "synonym": [
+            "Lưu ý",
+            "Ghi chú thêm"
+          ],
+          "sample_values": [
+            "Secured donations to help pay for speaker gifts.",
+            "Annual funding from Student Government.",
+            "Ad revenue for use on flyers used to advertise upcoming events."
+          ],
+          "description": "Thông tin bổ sung về nguồn gốc hoặc chi tiết của thu nhập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "link_to_member",
+          "type": "TEXT",
+          "alias_vi": "Liên kết thành viên",
+          "synonym": [
+            "ID thành viên liên kết",
+            "Liên kết với thành viên"
+          ],
+          "sample_values": [
+            "reccW7q1KkhSKZsea",
+            "recTjHY5xXhvkCdVT",
+            "recUdRhbhcEO1Hk5r"
+          ],
+          "description": "Mã liên kết đến hồ sơ thành viên liên quan đến thu nhập này.",
+          "is_primary_key": false,
+          "foreign_key_to": "member.member_id"
+        }
+      ]
+    },
+    {
+      "name": "major",
+      "alias_vi": "Chuyên ngành học",
+      "columns": [
+        {
+          "name": "major_id",
+          "type": "TEXT",
+          "alias_vi": "Mã chuyên ngành",
+          "synonym": [
+            "ID chuyên ngành",
+            "Mã khóa học"
+          ],
+          "sample_values": [
+            "rec06DF6vZ1CyPKpc",
+            "rec09LedkREyskCNv",
+            "rec0Eanv576RhQllI"
+          ],
+          "description": "Mã duy nhất xác định mỗi chuyên ngành học.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "major_name",
+          "type": "TEXT",
+          "alias_vi": "Tên chuyên ngành",
+          "synonym": [
+            "Tên khóa học",
+            "Tên chuyên ngành học"
+          ],
+          "sample_values": [
+            "Outdoor Product Design and Development",
+            "Agricultural Communication",
+            "Fisheries and Aquatic Sciences"
+          ],
+          "description": "Tên đầy đủ của mỗi chuyên ngành học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "department",
+          "type": "TEXT",
+          "alias_vi": "Khoa",
+          "synonym": [
+            "Phòng ban",
+            "Đơn vị học thuật"
+          ],
+          "sample_values": [
+            "School of Applied Sciences, Technology and Education",
+            "Watershed Sciences Department",
+            "Economics and Finance Department"
+          ],
+          "description": "Khoa hoặc đơn vị học thuật quản lý chuyên ngành học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "college",
+          "type": "TEXT",
+          "alias_vi": "Trường",
+          "synonym": [
+            "Khoa học",
+            "Trung tâm học thuật"
+          ],
+          "sample_values": [
+            "College of Agriculture and Applied Sciences",
+            "College of Natural Resources",
+            "School of Business"
+          ],
+          "description": "Trường hoặc trung tâm học thuật nơi chuyên ngành học được giảng dạy.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "member",
+      "alias_vi": "Thành viên",
+      "columns": [
+        {
+          "name": "member_id",
+          "type": "TEXT",
+          "alias_vi": "Mã thành viên",
+          "synonym": [
+            "ID thành viên",
+            "Số thành viên"
+          ],
+          "sample_values": [
+            "rec1x5zBFIqoOuPW8",
+            "rec280Sk7o31iG0Tx",
+            "rec28ORZgcm1dtqBZ"
+          ],
+          "description": "Mã duy nhất xác định mỗi thành viên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "first_name",
+          "type": "TEXT",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Tên đệm",
+            "Họ và tên"
+          ],
+          "sample_values": [
+            "Angela",
+            "Grant",
+            "Luisa"
+          ],
+          "description": "Họ của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "last_name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên thật",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Sanders",
+            "Gilmour",
+            "Guidi"
+          ],
+          "description": "Tên của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "email",
+          "type": "TEXT",
+          "alias_vi": "Email",
+          "synonym": [
+            "Địa chỉ email",
+            "Email liên hệ"
+          ],
+          "sample_values": [
+            "angela.sanders@lpu.edu",
+            "grant.gilmour@lpu.edu",
+            "luisa.guidi@lpu.edu"
+          ],
+          "description": "Địa chỉ email của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "TEXT",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Chức vụ",
+            "Trạng thái"
+          ],
+          "sample_values": [
+            "Member",
+            "Inactive",
+            "President"
+          ],
+          "description": "Vị trí hoặc trạng thái của thành viên trong tổ chức.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "t_shirt_size",
+          "type": "TEXT",
+          "alias_vi": "Kích cỡ áo thun",
+          "synonym": [
+            "Kích cỡ",
+            "Size"
+          ],
+          "sample_values": [
+            "Medium",
+            "X-Large",
+            "Large"
+          ],
+          "description": "Kích cỡ áo thun mà thành viên mặc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "phone",
+          "type": "TEXT",
+          "alias_vi": "Số điện thoại",
+          "synonym": [
+            "Điện thoại",
+            "Số liên lạc"
+          ],
+          "sample_values": [
+            "(651) 928-4507",
+            "403-555-1310",
+            "442-555-5882"
+          ],
+          "description": "Số điện thoại di động của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "zip",
+          "type": "INTEGER",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "55108",
+            "29440",
+            "10002"
+          ],
+          "description": "Mã bưu chính của địa chỉ liên lạc của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "zip_code.zip_code"
+        },
+        {
+          "name": "link_to_major",
+          "type": "TEXT",
+          "alias_vi": "Liên kết đến chuyên ngành",
+          "synonym": [
+            "Liên kết chuyên ngành",
+            "Chuyên ngành"
+          ],
+          "sample_values": [
+            "recxK3MHQFbR9J5uO",
+            "rec7BxKpjJ7bNph3O",
+            "recdIBgeU38UbV2sy"
+          ],
+          "description": "Liên kết đến thông tin về chuyên ngành của thành viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "major.major_id"
+        }
+      ]
+    },
+    {
+      "name": "zip_code",
+      "alias_vi": "Mã bưu chính",
+      "columns": [
+        {
+          "name": "zip_code",
+          "type": "INTEGER",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "501",
+            "544",
+            "601"
+          ],
+          "description": "Mã số bưu chính duy nhất để xác định một địa điểm giao nhận thư.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại mã bưu chính",
+          "synonym": [
+            "Kiểu mã",
+            "Phân loại mã"
+          ],
+          "sample_values": [
+            "Unique",
+            "Standard",
+            "PO Box"
+          ],
+          "description": "Loại mã bưu chính như Mã độc nhất, Mã tiêu chuẩn hoặc Mã hộp thư.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "city",
+          "type": "TEXT",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành thị",
+            "Khu vực thành phố"
+          ],
+          "sample_values": [
+            "Holtsville",
+            "Adjuntas",
+            "Aguada"
+          ],
+          "description": "Tên của thành phố mà mã bưu chính này áp dụng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "county",
+          "type": "TEXT",
+          "alias_vi": "Huyện",
+          "synonym": [
+            "Quận",
+            "Hành chính"
+          ],
+          "sample_values": [
+            "Suffolk County",
+            "Adjuntas Municipio",
+            "Aguada Municipio"
+          ],
+          "description": "Tên của huyện hoặc đơn vị hành chính mà mã bưu chính này áp dụng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state",
+          "type": "TEXT",
+          "alias_vi": "Tỉnh",
+          "synonym": [
+            "Nhà nước",
+            "Địa phương"
+          ],
+          "sample_values": [
+            "New York",
+            "Puerto Rico",
+            "Massachusetts"
+          ],
+          "description": "Tên của tiểu bang hoặc bang mà mã bưu chính này áp dụng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "short_state",
+          "type": "TEXT",
+          "alias_vi": "Tỉnh viết tắt",
+          "synonym": [
+            "Tỉnh abbr",
+            "Tỉnh ký hiệu"
+          ],
+          "sample_values": [
+            "NY",
+            "PR",
+            "MA"
+          ],
+          "description": "Biên dịch viết tắt của tên tiểu bang hoặc bang.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

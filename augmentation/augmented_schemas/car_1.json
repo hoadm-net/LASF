@@ -1,0 +1,432 @@
+{
+  "db_id": "car_1",
+  "tables": [
+    {
+      "name": "car_makers",
+      "alias_vi": "Nhà sản xuất ô tô",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã nhà sản xuất",
+          "synonym": [
+            "ID",
+            "Mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi nhà sản xuất",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Maker",
+          "type": "TEXT",
+          "alias_vi": "Tên viết tắt",
+          "synonym": [
+            "Tên ngắn",
+            "Tên viết tắt nhà sản xuất"
+          ],
+          "sample_values": [
+            "amc",
+            "volkswagen",
+            "bmw"
+          ],
+          "description": "Tên viết tắt hoặc mã ngắn của nhà sản xuất ô tô",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FullName",
+          "type": "TEXT",
+          "alias_vi": "Tên đầy đủ",
+          "synonym": [
+            "Tên chính thức",
+            "Tên đầy đủ nhà sản xuất"
+          ],
+          "sample_values": [
+            "American Motor Company",
+            "Volkswagen",
+            "BMW"
+          ],
+          "description": "Tên đầy đủ của nhà sản xuất ô tô",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước sản xuất",
+            "Quốc gia sản xuất"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Quốc gia mà nhà sản xuất ô tô có trụ sở hoặc sản xuất",
+          "is_primary_key": false,
+          "foreign_key_to": "countries.CountryId"
+        }
+      ]
+    },
+    {
+      "name": "car_names",
+      "alias_vi": "Danh_sách_hãng_xe",
+      "columns": [
+        {
+          "name": "MakeId",
+          "type": "INTEGER",
+          "alias_vi": "Mã_hãng",
+          "synonym": [
+            "ID_hãng",
+            "Số_hãng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất đại diện cho hãng xe.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Model",
+          "type": "TEXT",
+          "alias_vi": "Tên_model",
+          "synonym": [
+            "Tên_xe",
+            "Loại_xe"
+          ],
+          "sample_values": [
+            "chevrolet",
+            "buick",
+            "plymouth"
+          ],
+          "description": "Tên cụ thể của mẫu xe thuộc hãng xe.",
+          "is_primary_key": false,
+          "foreign_key_to": "model_list.Model"
+        },
+        {
+          "name": "Make",
+          "type": "TEXT",
+          "alias_vi": "Hãng_xe",
+          "synonym": [
+            "Nhãn_xe",
+            "Thương_hiệu"
+          ],
+          "sample_values": [
+            "chevrolet chevelle malibu",
+            "buick skylark 320",
+            "plymouth satellite"
+          ],
+          "description": "Tên thương hiệu của hãng sản xuất xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "cars_data",
+      "alias_vi": "Dữ liệu xe hơi",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã xe",
+          "synonym": [
+            "Số hiệu",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi dòng xe trong cơ sở dữ liệu.",
+          "is_primary_key": true,
+          "foreign_key_to": "car_names.MakeId"
+        },
+        {
+          "name": "MPG",
+          "type": "TEXT",
+          "alias_vi": "Hiệu suất nhiên liệu",
+          "synonym": [
+            "Hiệu năng nhiên liệu",
+            "Kilomet/lít"
+          ],
+          "sample_values": [
+            "18",
+            "15",
+            "16"
+          ],
+          "description": "Số kilomet mà một xe có thể đi với một gallon nhiên liệu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Cylinders",
+          "type": "INTEGER",
+          "alias_vi": "Số xi lanh",
+          "synonym": [
+            "Xi lanh",
+            "Động cơ"
+          ],
+          "sample_values": [
+            "8",
+            "4",
+            "6"
+          ],
+          "description": "Số lượng xi lanh trong động cơ của xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Edispl",
+          "type": "REAL",
+          "alias_vi": "Diện tích xilanh",
+          "synonym": [
+            "Diện tích xi lanh",
+            "Kích thước xi lanh"
+          ],
+          "sample_values": [
+            "307.0",
+            "350.0",
+            "318.0"
+          ],
+          "description": "Diện tích xilanh của động cơ xe hơi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Horsepower",
+          "type": "TEXT",
+          "alias_vi": "Mã lực",
+          "synonym": [
+            "Mã lực động cơ",
+            "Mã lực xe"
+          ],
+          "sample_values": [
+            "130",
+            "165",
+            "150"
+          ],
+          "description": "Sức mạnh tối đa mà động cơ xe có thể tạo ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Weight",
+          "type": "INTEGER",
+          "alias_vi": "Trọng lượng",
+          "synonym": [
+            "Khối lượng",
+            "Trọng lượng xe"
+          ],
+          "sample_values": [
+            "3504",
+            "3693",
+            "3436"
+          ],
+          "description": "Trọng lượng tổng thể của xe khi mới rời khỏi nhà máy.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Accelerate",
+          "type": "REAL",
+          "alias_vi": "Thời gian tăng tốc",
+          "synonym": [
+            "Thời gian tăng tốc độ",
+            "Tăng tốc"
+          ],
+          "sample_values": [
+            "12.0",
+            "11.5",
+            "11.0"
+          ],
+          "description": "Thời gian cần thiết để xe tăng từ 0 đến 60 dặm/giờ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Year",
+          "type": "INTEGER",
+          "alias_vi": "Năm sản xuất",
+          "synonym": [
+            "Năm sản xuất",
+            "Năm chế tạo"
+          ],
+          "sample_values": [
+            "1970",
+            "1971",
+            "1972"
+          ],
+          "description": "Năm sản xuất của xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "continents",
+      "alias_vi": "Lục địa",
+      "columns": [
+        {
+          "name": "ContId",
+          "type": "INTEGER",
+          "alias_vi": "Mã lục địa",
+          "synonym": [
+            "ID lục địa",
+            "Số lục địa"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất đại diện cho mỗi lục địa.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Continent",
+          "type": "TEXT",
+          "alias_vi": "Tên lục địa",
+          "synonym": [
+            "Tên khu vực",
+            "Tên châu lục"
+          ],
+          "sample_values": [
+            "america",
+            "europe",
+            "asia"
+          ],
+          "description": "Tên của mỗi lục địa như châu Á, châu Âu, châu Mỹ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "countries",
+      "alias_vi": "Danh_sách_quốc_gia",
+      "columns": [
+        {
+          "name": "CountryId",
+          "type": "INTEGER",
+          "alias_vi": "Mã_quốc_gia",
+          "synonym": [
+            "ID_quốc_gia",
+            "Số_thứ_tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất đại diện cho mỗi quốc gia.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CountryName",
+          "type": "TEXT",
+          "alias_vi": "Tên_quốc_gia",
+          "synonym": [
+            "Tên_dân_tịch",
+            "Tên_nước"
+          ],
+          "sample_values": [
+            "usa",
+            "germany",
+            "france"
+          ],
+          "description": "Tên chính thức của quốc gia.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Continent",
+          "type": "INTEGER",
+          "alias_vi": "Lục_lai",
+          "synonym": [
+            "Địa_vực",
+            "Vùng_lục_lai"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Lục địa mà quốc gia này nằm trong.",
+          "is_primary_key": false,
+          "foreign_key_to": "continents.ContId"
+        }
+      ]
+    },
+    {
+      "name": "model_list",
+      "alias_vi": "Danh_sách_Model",
+      "columns": [
+        {
+          "name": "ModelId",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Model",
+          "synonym": [
+            "ID_Model",
+            "Số_Mã_Model"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi mẫu xe.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Maker",
+          "type": "INTEGER",
+          "alias_vi": "Nhà_Sản_Xuất",
+          "synonym": [
+            "Nhà_Sản_Hàng",
+            "Nhà_Sản_Phẩm"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã hoặc số thứ tự của nhà sản xuất xe.",
+          "is_primary_key": false,
+          "foreign_key_to": "car_makers.Id"
+        },
+        {
+          "name": "Model",
+          "type": "TEXT",
+          "alias_vi": "Tên_Model",
+          "synonym": [
+            "Tên_Xe",
+            "Tên_Sản_Phẩm"
+          ],
+          "sample_values": [
+            "amc",
+            "audi",
+            "bmw"
+          ],
+          "description": "Tên cụ thể của mẫu xe được sản xuất bởi nhà sản xuất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

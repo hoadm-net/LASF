@@ -1,0 +1,988 @@
+{
+  "db_id": "student_transcripts_tracking",
+  "tables": [
+    {
+      "name": "Addresses",
+      "alias_vi": "Địa chỉ",
+      "columns": [
+        {
+          "name": "address_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã địa chỉ",
+          "synonym": [
+            "ID địa chỉ",
+            "Số thứ tự địa chỉ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi địa chỉ.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "line_1",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Số nhà và tên đường",
+          "synonym": [
+            "Địa chỉ 1",
+            "Địa chỉ chính"
+          ],
+          "sample_values": [
+            "2294 Grant Square Apt. 235",
+            "3999 Aufderhar Ways Suite 593",
+            "67942 Carlotta Ferry Apt. 686"
+          ],
+          "description": "Số nhà, tên đường và số lô của địa chỉ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "line_2",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Phần phụ trợ",
+          "synonym": [
+            "Số tầng",
+            "Số căn hộ"
+          ],
+          "sample_values": [
+            "Apt. 370",
+            "Apt. 388",
+            "Apt. 583"
+          ],
+          "description": "Thông tin về tầng hoặc căn hộ nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "line_3",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Phần phụ trợ 2",
+          "synonym": [
+            "Số phòng",
+            "Số cửa hàng"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung về phần phụ trợ khác nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "city",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thị trấn",
+            "Huyện"
+          ],
+          "sample_values": [
+            "Port Chelsea",
+            "Lake Laishafurt",
+            "Goodwinhaven"
+          ],
+          "description": "Tên thành phố nơi địa chỉ nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "zip_postcode",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "148",
+            "943",
+            "541"
+          ],
+          "description": "Mã bưu chính hoặc mã ZIP của địa chỉ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state_province_county",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tỉnh/Trạng/province",
+          "synonym": [
+            "Tỉnh",
+            "Trạng",
+            "Quận"
+          ],
+          "sample_values": [
+            "Virginia",
+            "Kentucky",
+            "Kansas"
+          ],
+          "description": "Tên tỉnh, trạng hoặc quận của địa chỉ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "country",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước",
+            "Nhà nước"
+          ],
+          "sample_values": [
+            "Iceland",
+            "Burundi",
+            "Saudi Arabia"
+          ],
+          "description": "Tên quốc gia của địa chỉ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_address_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi tiết địa chỉ khác",
+          "synonym": [
+            "Thông tin bổ sung",
+            "Ghi chú địa chỉ"
+          ],
+          "sample_values": [],
+          "description": "Thông tin chi tiết khác về địa chỉ nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Courses",
+      "alias_vi": "Danh_sách_Courses",
+      "columns": [
+        {
+          "name": "course_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_học_phần",
+          "synonym": [
+            "ID_học_phần",
+            "STT_học_phần"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi học phần",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "course_name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên_học_phần",
+          "synonym": [
+            "Tên_môn_học",
+            "Tên_khoa_hoc"
+          ],
+          "sample_values": [
+            "ds",
+            "math",
+            "os"
+          ],
+          "description": "Tên của mỗi học phần được giảng dạy",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "course_description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Mô_tả_học_phần",
+          "synonym": [
+            "Giải_thích_học_phần",
+            "Nội_dung_học_phần"
+          ],
+          "sample_values": [
+            "p",
+            "q",
+            "v"
+          ],
+          "description": "Mô tả ngắn gọn về nội dung học phần",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi_tiết_khác",
+          "synonym": [
+            "Thông_tin_khác",
+            "Chi_tiết_thêm"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung liên quan đến học phần",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Degree_Programs",
+      "alias_vi": "Chương_Trình_Chuyên_Nghiệp",
+      "columns": [
+        {
+          "name": "degree_program_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Chương_Trình",
+          "synonym": [
+            "ID_Chương_Trình",
+            "STT_Chương_Trình"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi chương trình chuyên nghiệp.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "department_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Khoa",
+          "synonym": [
+            "ID_Khoa",
+            "STT_Khoa"
+          ],
+          "sample_values": [
+            "13",
+            "2",
+            "8"
+          ],
+          "description": "Mã duy nhất để xác định khoa quản lý chương trình chuyên nghiệp.",
+          "is_primary_key": false,
+          "foreign_key_to": "Departments.department_id"
+        },
+        {
+          "name": "degree_summary_name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên_Chương_Trình",
+          "synonym": [
+            "Tên_Chuyên_Nghiệp",
+            "Tên_Chương_Trình_Chuyên_Nghiệp"
+          ],
+          "sample_values": [
+            "Master",
+            "Bachelor",
+            "PHD"
+          ],
+          "description": "Tên của chương trình chuyên nghiệp như Master, Bachelor, PHD.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "degree_summary_description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Mô_Tả_Chương_Trình",
+          "synonym": [
+            "Giải_THích_Chương_Trình",
+            "Thông_Tin_Chương_Trình"
+          ],
+          "sample_values": [
+            "architecto",
+            "cumque",
+            "placeat"
+          ],
+          "description": "Mô tả ngắn gọn về chương trình chuyên nghiệp như architecto, cumque, placeat.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi_Tiết_Khác",
+          "synonym": [
+            "Thông_Tin_Khác",
+            "Chi_Tiết_Nguyên_Tắc"
+          ],
+          "sample_values": [],
+          "description": "Thông tin chi tiết khác về chương trình chuyên nghiệp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Departments",
+      "alias_vi": "Các Khoa",
+      "columns": [
+        {
+          "name": "department_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Khoa",
+          "synonym": [
+            "ID Khoa",
+            "Số Khoa"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khoa.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "department_name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên Khoa",
+          "synonym": [
+            "Tên Học Khoa",
+            "Khoa Học"
+          ],
+          "sample_values": [
+            "computer science",
+            "history",
+            "art"
+          ],
+          "description": "Tên của mỗi khoa trong trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "department_description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Mô Tả Khoa",
+          "synonym": [
+            "Giải Thích Khoa",
+            "Tóm Tắt Khoa"
+          ],
+          "sample_values": [
+            "error",
+            "nostrum",
+            "aliquam"
+          ],
+          "description": "Mô tả ngắn gọn về nội dung giảng dạy của mỗi khoa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi Tiết Khác",
+          "synonym": [
+            "Thông Tin Khác",
+            "Chi Tiết Thêm"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung liên quan đến khoa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Sections",
+      "alias_vi": "Các phần của khóa học",
+      "columns": [
+        {
+          "name": "section_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã phần",
+          "synonym": [
+            "ID phần",
+            "Số phần"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi phần của khóa học",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "course_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã khóa học",
+          "synonym": [
+            "ID khóa học",
+            "Số khóa học"
+          ],
+          "sample_values": [
+            "9",
+            "2",
+            "8"
+          ],
+          "description": "Mã duy nhất để xác định khóa học liên quan đến phần này",
+          "is_primary_key": false,
+          "foreign_key_to": "Courses.course_id"
+        },
+        {
+          "name": "section_name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên phần",
+          "synonym": [
+            "Tên chương",
+            "Tiêu đề phần"
+          ],
+          "sample_values": [
+            "a",
+            "b",
+            "c"
+          ],
+          "description": "Tên hoặc tiêu đề của từng phần trong khóa học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "section_description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Mô tả phần",
+          "synonym": [
+            "Giải thích phần",
+            "Nội dung phần"
+          ],
+          "sample_values": [
+            "non",
+            "voluptatem",
+            "qui"
+          ],
+          "description": "Mô tả ngắn gọn về nội dung hoặc mục tiêu của phần học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi tiết khác",
+          "synonym": [
+            "Thông tin bổ sung",
+            "Ghi chú"
+          ],
+          "sample_values": [],
+          "description": "Thông tin thêm không cần thiết nhưng có thể hữu ích về phần học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Semesters",
+      "alias_vi": "Học Kỳ",
+      "columns": [
+        {
+          "name": "semester_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Học Kỳ",
+          "synonym": [
+            "ID Học Kỳ",
+            "Số Học Kỳ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi học kỳ.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "semester_name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên Học Kỳ",
+          "synonym": [
+            "Tên Học Kì",
+            "Kỳ Học"
+          ],
+          "sample_values": [
+            "spring 2010",
+            "summer 2010",
+            "fall 2010"
+          ],
+          "description": "Tên của học kỳ, bao gồm mùa và năm học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "semester_description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Miêu Tả Học Kỳ",
+          "synonym": [
+            "Mô Tả Học Kỳ",
+            "Ghi Chú Học Kỳ"
+          ],
+          "sample_values": [
+            "x",
+            "g",
+            "w"
+          ],
+          "description": "Miêu tả ngắn gọn về học kỳ, có thể bao gồm thông tin như thời gian học hoặc đặc điểm đặc biệt.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi Tiết Khác",
+          "synonym": [
+            "Thông Tin Khác",
+            "Chi Tiết Thêm"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung liên quan đến học kỳ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Student_Enrolment",
+      "alias_vi": "Danh_sách_ký_kênh",
+      "columns": [
+        {
+          "name": "student_enrolment_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_ký_kênh",
+          "synonym": [
+            "Mã_ký_nghị",
+            "ID_ký_kênh"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ký kênh của sinh viên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "degree_program_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_chương_trình_chuyên_sâu",
+          "synonym": [
+            "Mã_chương_trình",
+            "ID_chương_trình"
+          ],
+          "sample_values": [
+            "12",
+            "4",
+            "10"
+          ],
+          "description": "Mã duy nhất để xác định chương trình chuyên sâu mà sinh viên đang theo học.",
+          "is_primary_key": false,
+          "foreign_key_to": "Degree_Programs.degree_program_id"
+        },
+        {
+          "name": "semester_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_học_kỳ",
+          "synonym": [
+            "Mã_kỳ_học",
+            "ID_kỳ_học"
+          ],
+          "sample_values": [
+            "13",
+            "2",
+            "15"
+          ],
+          "description": "Mã duy nhất để xác định kỳ học mà sinh viên đã hoặc đang theo học.",
+          "is_primary_key": false,
+          "foreign_key_to": "Semesters.semester_id"
+        },
+        {
+          "name": "student_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_sinh_vien",
+          "synonym": [
+            "Mã_sinh_tố",
+            "ID_sinh_vien"
+          ],
+          "sample_values": [
+            "14",
+            "9",
+            "7"
+          ],
+          "description": "Mã duy nhất để xác định mỗi sinh viên trong hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": "Students.student_id"
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi_tiết_ký_kênh",
+          "synonym": [
+            "Thông_tin_ký_kênh",
+            "Chi_tiết"
+          ],
+          "sample_values": [],
+          "description": "Thông tin chi tiết khác về ký kênh như thời gian bắt đầu, kết thúc, v.v.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Student_Enrolment_Courses",
+      "alias_vi": "Danh_sách_Ký_kênh_học_viện",
+      "columns": [
+        {
+          "name": "student_course_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_ký_kênh_học_viện",
+          "synonym": [
+            "Mã_ký_kênh",
+            "ID_ký_kênh"
+          ],
+          "sample_values": [
+            "0",
+            "1",
+            "2"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ký kết học viện.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "course_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_khoa_học",
+          "synonym": [
+            "Mã_khoa",
+            "ID_khoa_học"
+          ],
+          "sample_values": [
+            "6",
+            "14",
+            "11"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khóa học.",
+          "is_primary_key": false,
+          "foreign_key_to": "Courses.course_id"
+        },
+        {
+          "name": "student_enrolment_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_ký_kênh_học_ví_dụ",
+          "synonym": [
+            "Mã_ký_kênh_ví_dụ",
+            "ID_ký_kênh_học_ví_dụ"
+          ],
+          "sample_values": [
+            "2",
+            "8",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ký kết học ví dụ.",
+          "is_primary_key": false,
+          "foreign_key_to": "Student_Enrolment.student_enrolment_id"
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "alias_vi": "Học Viên",
+      "columns": [
+        {
+          "name": "student_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Học Viên",
+          "synonym": [
+            "ID Học Viên",
+            "Số Học Viên"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi học viên.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "current_address_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Địa Chỉ Hiện Tại",
+          "synonym": [
+            "ID Địa Chỉ Hiện Tại",
+            "Số Địa Chỉ Hiện Tại"
+          ],
+          "sample_values": [
+            "10",
+            "12",
+            "9"
+          ],
+          "description": "Mã duy nhất để xác định địa chỉ hiện tại của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "Addresses.address_id"
+        },
+        {
+          "name": "permanent_address_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Địa Chỉ Thường Trú",
+          "synonym": [
+            "ID Địa Chỉ Thường Trú",
+            "Số Địa Chỉ Thường Trú"
+          ],
+          "sample_values": [
+            "15",
+            "5",
+            "11"
+          ],
+          "description": "Mã duy nhất để xác định địa chỉ thường trú của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "Addresses.address_id"
+        },
+        {
+          "name": "first_name",
+          "type": "VARCHAR(80)",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ Tên",
+            "Tên Đệm"
+          ],
+          "sample_values": [
+            "Timmothy",
+            "Hobart",
+            "Warren"
+          ],
+          "description": "Tên của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "middle_name",
+          "type": "VARCHAR(40)",
+          "alias_vi": "Tên Đệm",
+          "synonym": [
+            "Tên Trung Gian",
+            "Tên Thêm"
+          ],
+          "sample_values": [
+            "Anna",
+            "Lorenz",
+            "Violet"
+          ],
+          "description": "Tên đệm của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "last_name",
+          "type": "VARCHAR(40)",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Họ Học Viên",
+            "Họ Tên Cuối"
+          ],
+          "sample_values": [
+            "Ward",
+            "Balistreri",
+            "Gleichner"
+          ],
+          "description": "Họ của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cell_mobile_number",
+          "type": "VARCHAR(40)",
+          "alias_vi": "Số Điện Thoại Di Động",
+          "synonym": [
+            "Số Điện Thoại Cầm Tay",
+            "Số Điện Thoại Di Động Học Viên"
+          ],
+          "sample_values": [
+            "(096)889-8954x524",
+            "1-009-710-5151",
+            "07661787471"
+          ],
+          "description": "Số điện thoại di động cá nhân của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "email_address",
+          "type": "VARCHAR(40)",
+          "alias_vi": "Địa Chỉ Email",
+          "synonym": [
+            "Email",
+            "Địa Chỉ Liên Hệ"
+          ],
+          "sample_values": [
+            "erwin.zboncak@example.com",
+            "swift.kolby@example.com",
+            "johns.unique@example.net"
+          ],
+          "description": "Địa chỉ email của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ssn",
+          "type": "VARCHAR(40)",
+          "alias_vi": "Số Bảo Hiểm Cá Nhân",
+          "synonym": [
+            "SSN",
+            "Số BHXH"
+          ],
+          "sample_values": [
+            "965",
+            "304246",
+            "3"
+          ],
+          "description": "Số bảo hiểm cá nhân của học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_first_registered",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Đăng Ký Đầu Tiên",
+          "synonym": [
+            "Ngày Đăng Ký",
+            "Ngày Ghi Danh"
+          ],
+          "sample_values": [
+            "1971-02-05 07:28:23",
+            "1976-10-26 02:33:06",
+            "2007-08-29 23:25:41"
+          ],
+          "description": "Ngày học viên đăng ký lần đầu tiên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date_left",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Tạm Nghỉ",
+          "synonym": [
+            "Ngày Tạm Nghỉ",
+            "Ngày Kết Thúc"
+          ],
+          "sample_values": [
+            "1971-05-17 19:28:49",
+            "2013-10-05 17:41:28",
+            "2007-03-31 09:53:19"
+          ],
+          "description": "Ngày học viên tạm nghỉ hoặc kết thúc khóa học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_student_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi Tiết Khác",
+          "synonym": [
+            "Thông Tin Khác",
+            "Chi Tiết Học Viên"
+          ],
+          "sample_values": [
+            "quia",
+            "autem",
+            "facilis"
+          ],
+          "description": "Thông tin khác về học viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Transcript_Contents",
+      "alias_vi": "Nội_Dung_Trac_Nhập",
+      "columns": [
+        {
+          "name": "student_course_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Học_Sinh_Khoa_Học",
+          "synonym": [
+            "Mã HS-KH",
+            "ID HS-KH"
+          ],
+          "sample_values": [
+            "0",
+            "96",
+            "76"
+          ],
+          "description": "Mã duy nhất để xác định học sinh và khóa học.",
+          "is_primary_key": false,
+          "foreign_key_to": "Student_Enrolment_Courses.student_course_id"
+        },
+        {
+          "name": "transcript_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Trac_Nhập",
+          "synonym": [
+            "ID Trắc_Nhập",
+            "Mã TN"
+          ],
+          "sample_values": [
+            "2",
+            "8",
+            "9"
+          ],
+          "description": "Mã duy nhất để xác định bản trắc_nhập cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": "Transcripts.transcript_id"
+        }
+      ]
+    },
+    {
+      "name": "Transcripts",
+      "alias_vi": "Danh sách ghi âm",
+      "columns": [
+        {
+          "name": "transcript_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã ghi âm",
+          "synonym": [
+            "ID ghi âm",
+            "Số ghi âm"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi âm.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "transcript_date",
+          "type": "DATETIME",
+          "alias_vi": "Ngày ghi âm",
+          "synonym": [
+            "Ngày thu âm",
+            "Ngày ghi"
+          ],
+          "sample_values": [
+            "1988-04-30 01:19:47",
+            "1975-10-28 15:16:51",
+            "1984-12-19 00:37:21"
+          ],
+          "description": "Ngày và thời gian khi bản ghi âm được thực hiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "other_details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi tiết khác",
+          "synonym": [
+            "Thông tin bổ sung",
+            "Ghi chú"
+          ],
+          "sample_values": [],
+          "description": "Thông tin thêm liên quan đến bản ghi âm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

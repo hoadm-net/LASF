@@ -1,0 +1,746 @@
+{
+  "db_id": "wta_1",
+  "tables": [
+    {
+      "name": "matches",
+      "alias_vi": "Kết quả trận đấu",
+      "columns": [
+        {
+          "name": "best_of",
+          "type": "INT",
+          "alias_vi": "Số set trong trận đấu",
+          "synonym": [
+            "Số set",
+            "Set trong trận đấu"
+          ],
+          "sample_values": [
+            "3"
+          ],
+          "description": "Số set mà trận đấu được chơi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "draw_size",
+          "type": "INT",
+          "alias_vi": "Kích thước bốc thăm",
+          "synonym": [
+            "Kích thước giải",
+            "Số lượng hạt giống"
+          ],
+          "sample_values": [
+            "4",
+            "32",
+            "128"
+          ],
+          "description": "Số lượng hạt giống hoặc người chơi tham gia giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_age",
+          "type": "FLOAT",
+          "alias_vi": "Tuổi của người thua cuộc",
+          "synonym": [
+            "Tuổi thua cuộc",
+            "Tuổi của người thua"
+          ],
+          "sample_values": [
+            "24.626967830300003",
+            "23.6221765914",
+            "25.7577002053"
+          ],
+          "description": "Tuổi của người chơi thua cuộc trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_entry",
+          "type": "TEXT",
+          "alias_vi": "Thông tin nhập cuộc của người thua",
+          "synonym": [
+            "Thông tin tham dự",
+            "Thông tin đăng ký"
+          ],
+          "sample_values": [
+            ""
+          ],
+          "description": "Thông tin về cách người chơi thua cuộc tham gia giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_hand",
+          "type": "TEXT",
+          "alias_vi": "Tay thuận của người thua",
+          "synonym": [
+            "Tay thuận",
+            "Tay thuận của người thua"
+          ],
+          "sample_values": [
+            "R",
+            "L"
+          ],
+          "description": "Tay thuận của người chơi thua cuộc trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_ht",
+          "type": "INT",
+          "alias_vi": "Chiều cao của người thua",
+          "synonym": [
+            "Chiều cao",
+            "Chiều cao người thua"
+          ],
+          "sample_values": [
+            "170",
+            "183",
+            "173"
+          ],
+          "description": "Chiều cao của người chơi thua cuộc trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_id",
+          "type": "INT",
+          "alias_vi": "Mã người thua",
+          "synonym": [
+            "Mã",
+            "ID người thua"
+          ],
+          "sample_values": [
+            "201474",
+            "201520",
+            "201493"
+          ],
+          "description": "Mã duy nhất xác định người chơi thua cuộc trong giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "players.player_id"
+        },
+        {
+          "name": "loser_ioc",
+          "type": "TEXT",
+          "alias_vi": "Mã IOC của người thua",
+          "synonym": [
+            "Mã IOC",
+            "Mã quốc tịch"
+          ],
+          "sample_values": [
+            "POL",
+            "CZE",
+            "GER"
+          ],
+          "description": "Mã IOC hoặc mã quốc tịch của người chơi thua cuộc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_name",
+          "type": "TEXT",
+          "alias_vi": "Tên của người thua",
+          "synonym": [
+            "Tên",
+            "Tên người thua"
+          ],
+          "sample_values": [
+            "Agnieszka Radwanska",
+            "Petra Kvitova",
+            "Angelique Kerber"
+          ],
+          "description": "Tên đầy đủ của người chơi thua cuộc trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_rank",
+          "type": "INT",
+          "alias_vi": "Xếp hạng của người thua",
+          "synonym": [
+            "Xếp hạng",
+            "Xếp hạng người thua"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "9"
+          ],
+          "description": "Xếp hạng của người chơi thua cuộc trong giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_rank_points",
+          "type": "INT",
+          "alias_vi": "Điểm xếp hạng của người thua",
+          "synonym": [
+            "Điểm xếp hạng",
+            "Điểm người thua"
+          ],
+          "sample_values": [
+            "5890",
+            "4370",
+            "3715"
+          ],
+          "description": "Số điểm xếp hạng của người chơi thua cuộc trong giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loser_seed",
+          "type": "INT",
+          "alias_vi": "Hạt giống của người thua",
+          "synonym": [
+            "Hạt giống",
+            "Hạt giống người thua"
+          ],
+          "sample_values": [
+            "3",
+            "5",
+            "8"
+          ],
+          "description": "Hạt giống của người chơi thua cuộc trong giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "match_num",
+          "type": "INT",
+          "alias_vi": "Số thứ tự trận đấu",
+          "synonym": [
+            "STT trận đấu",
+            "ID trận đấu"
+          ],
+          "sample_values": [
+            "297",
+            "296",
+            "295"
+          ],
+          "description": "Số thứ tự duy nhất của mỗi trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "minutes",
+          "type": "INT",
+          "alias_vi": "Thời gian thi đấu",
+          "synonym": [
+            "Thời gian",
+            "Thời lượng"
+          ],
+          "sample_values": [
+            "82",
+            "72",
+            "64"
+          ],
+          "description": "Thời gian thi đấu trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "round",
+          "type": "TEXT",
+          "alias_vi": "Vòng thi đấu",
+          "synonym": [
+            "Vòng đấu",
+            "Vòng thi"
+          ],
+          "sample_values": [
+            "RR",
+            "SF",
+            "QF"
+          ],
+          "description": "Vòng thi đấu mà trận đấu diễn ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "score",
+          "type": "TEXT",
+          "alias_vi": "Kết quả",
+          "synonym": [
+            "Kết quả thi đấu",
+            "Kết thúc"
+          ],
+          "sample_values": [
+            "6-2 6-4",
+            "6-2 6-3",
+            "6-3 6-1"
+          ],
+          "description": "Kết quả cuối cùng của trận đấu được thể hiện dưới dạng điểm số.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "surface",
+          "type": "TEXT",
+          "alias_vi": "Loại sân",
+          "synonym": [
+            "Sân thi đấu",
+            "Loại mặt sân"
+          ],
+          "sample_values": [
+            "Hard",
+            "Clay",
+            "Grass"
+          ],
+          "description": "Loại sân thi đấu trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tourney_date",
+          "type": "DATE",
+          "alias_vi": "Ngày giải đấu",
+          "synonym": [
+            "Ngày tổ chức",
+            "Ngày giải"
+          ],
+          "sample_values": [
+            "20131021",
+            "20160104",
+            "20160111"
+          ],
+          "description": "Ngày tổ chức giải đấu mà trận đấu diễn ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tourney_id",
+          "type": "TEXT",
+          "alias_vi": "Mã giải đấu",
+          "synonym": [
+            "ID giải đấu",
+            "Mã sự kiện"
+          ],
+          "sample_values": [
+            "2013-W-WT-TUR-01A-2013",
+            "2016-1049",
+            "2016-M020"
+          ],
+          "description": "Mã duy nhất xác định giải đấu cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tourney_level",
+          "type": "TEXT",
+          "alias_vi": "Độ cấp giải",
+          "synonym": [
+            "Cấp độ giải",
+            "Độ cao giải"
+          ],
+          "sample_values": [
+            "W",
+            "I",
+            "G"
+          ],
+          "description": "Độ cấp của giải đấu mà trận đấu diễn ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tourney_name",
+          "type": "TEXT",
+          "alias_vi": "Tên giải đấu",
+          "synonym": [
+            "Tên sự kiện",
+            "Tên giải"
+          ],
+          "sample_values": [
+            "WTA Championships",
+            "Auckland",
+            "Brisbane"
+          ],
+          "description": "Tên của giải đấu mà trận đấu diễn ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_age",
+          "type": "FLOAT",
+          "alias_vi": "Tuổi của người thắng",
+          "synonym": [
+            "Tuổi thắng",
+            "Tuổi người chiến thắng"
+          ],
+          "sample_values": [
+            "32.0684462697",
+            "23.6221765914",
+            "25.7577002053"
+          ],
+          "description": "Tuổi của người thắng trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_entry",
+          "type": "TEXT",
+          "alias_vi": "Nhập cuộc của người thắng",
+          "synonym": [
+            "Nhập cuộc",
+            "Chương trình"
+          ],
+          "sample_values": [
+            ""
+          ],
+          "description": "Thông tin về cách người thắng tham gia vào giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_hand",
+          "type": "TEXT",
+          "alias_vi": "Tay thuận của người thắng",
+          "synonym": [
+            "Tay thuận",
+            "Tay chủ đạo"
+          ],
+          "sample_values": [
+            "R",
+            "L"
+          ],
+          "description": "Tay thuận của người thắng trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_ht",
+          "type": "INT",
+          "alias_vi": "Điểm số thắng trận đầu",
+          "synonym": [
+            "Điểm HT",
+            "Điểm đầu tiên"
+          ],
+          "sample_values": [
+            "175",
+            "183",
+            "173"
+          ],
+          "description": "Điểm số của đội thắng trong hiệp một.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_id",
+          "type": "INT",
+          "alias_vi": "Mã vận động viên",
+          "synonym": [
+            "ID vận động viên",
+            "Mã ID"
+          ],
+          "sample_values": [
+            "200033",
+            "201520",
+            "201493"
+          ],
+          "description": "Mã duy nhất xác định vận động viên thắng cuộc.",
+          "is_primary_key": false,
+          "foreign_key_to": "players.player_id"
+        },
+        {
+          "name": "winner_ioc",
+          "type": "TEXT",
+          "alias_vi": "Mã IOC",
+          "synonym": [
+            "Mã quốc gia IOC",
+            "Mã IOC"
+          ],
+          "sample_values": [
+            "USA",
+            "CZE",
+            "GER"
+          ],
+          "description": "Mã quốc gia theo chuẩn IOC của vận động viên thắng cuộc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_name",
+          "type": "TEXT",
+          "alias_vi": "Tên vận động viên",
+          "synonym": [
+            "Tên vận động viên",
+            "Tên người chiến thắng"
+          ],
+          "sample_values": [
+            "Serena Williams",
+            "Petra Kvitova",
+            "Angelique Kerber"
+          ],
+          "description": "Tên đầy đủ của vận động viên đã giành chiến thắng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_rank",
+          "type": "INT",
+          "alias_vi": "Xếp hạng",
+          "synonym": [
+            "Hạng",
+            "Xếp hạng thi đấu"
+          ],
+          "sample_values": [
+            "1",
+            "6",
+            "9"
+          ],
+          "description": "Xếp hạng của vận động viên trước khi tham dự giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_rank_points",
+          "type": "INT",
+          "alias_vi": "Điểm xếp hạng",
+          "synonym": [
+            "Điểm hạng",
+            "Điểm xếp hạng thi đấu"
+          ],
+          "sample_values": [
+            "12040",
+            "4370",
+            "3715"
+          ],
+          "description": "Số điểm xếp hạng của vận động viên trước khi tham dự giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "winner_seed",
+          "type": "INT",
+          "alias_vi": "Thứ tự hạt giống",
+          "synonym": [
+            "Hạt giống",
+            "Thứ tự hạt giống"
+          ],
+          "sample_values": [
+            "1",
+            "5",
+            "8"
+          ],
+          "description": "Thứ tự hạt giống của vận động viên trong giải đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "year",
+          "type": "INT",
+          "alias_vi": "Năm",
+          "synonym": [
+            "Năm giải đấu",
+            "Năm thi đấu"
+          ],
+          "sample_values": [
+            "2013",
+            "2016",
+            "2017"
+          ],
+          "description": "Năm diễn ra giải đấu mà trận đấu này thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "players",
+      "alias_vi": "Cầu thủ",
+      "columns": [
+        {
+          "name": "player_id",
+          "type": "INT",
+          "alias_vi": "ID cầu thủ",
+          "synonym": [
+            "Mã cầu thủ",
+            "Số ID"
+          ],
+          "sample_values": [
+            "200001",
+            "200002",
+            "200003"
+          ],
+          "description": "Mã duy nhất xác định mỗi cầu thủ",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "first_name",
+          "type": "TEXT",
+          "alias_vi": "Họ tên",
+          "synonym": [
+            "Tên đệm",
+            "Tên"
+          ],
+          "sample_values": [
+            "Martina",
+            "Mirjana",
+            "Justine"
+          ],
+          "description": "Tên đệm hoặc tên của cầu thủ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "last_name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên họ",
+            "Tên cuối"
+          ],
+          "sample_values": [
+            "Hingis",
+            "Lucic",
+            "Henin"
+          ],
+          "description": "Tên hoặc tên họ của cầu thủ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hand",
+          "type": "TEXT",
+          "alias_vi": "Tay thuận",
+          "synonym": [
+            "Tay đánh chính",
+            "Tay thuận bóng"
+          ],
+          "sample_values": [
+            "R",
+            "L",
+            "U"
+          ],
+          "description": "Tay thuận của cầu thủ khi chơi tennis",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "birth_date",
+          "type": "DATE",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày ra đời",
+            "Ngày sinh nhật"
+          ],
+          "sample_values": [
+            "19800930",
+            "19820309",
+            "19820601"
+          ],
+          "description": "Ngày sinh của cầu thủ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "country_code",
+          "type": "TEXT",
+          "alias_vi": "Mã quốc gia",
+          "synonym": [
+            "Mã nước",
+            "Mã vùng"
+          ],
+          "sample_values": [
+            "SUI",
+            "CRO",
+            "BEL"
+          ],
+          "description": "Mã quốc gia của quốc tịch cầu thủ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "rankings",
+      "alias_vi": "Bảng xếp hạng",
+      "columns": [
+        {
+          "name": "ranking_date",
+          "type": "DATE",
+          "alias_vi": "Ngày xếp hạng",
+          "synonym": [
+            "Ngày đánh giá",
+            "Ngày cập nhật"
+          ],
+          "sample_values": [
+            "20000101",
+            "20000103",
+            "20000110"
+          ],
+          "description": "Ngày thực hiện việc xếp hạng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ranking",
+          "type": "INT",
+          "alias_vi": "Hạng",
+          "synonym": [
+            "Số thứ tự",
+            "Số hạng"
+          ],
+          "sample_values": [
+            "3",
+            "4",
+            "28"
+          ],
+          "description": "Thứ tự xếp hạng của cầu thủ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "player_id",
+          "type": "INT",
+          "alias_vi": "Mã cầu thủ",
+          "synonym": [
+            "ID cầu thủ",
+            "Số hiệu cầu thủ"
+          ],
+          "sample_values": [
+            "200748",
+            "200033",
+            "200020"
+          ],
+          "description": "Mã duy nhất xác định cầu thủ trong hệ thống",
+          "is_primary_key": false,
+          "foreign_key_to": "players.player_id"
+        },
+        {
+          "name": "ranking_points",
+          "type": "INT",
+          "alias_vi": "Điểm xếp hạng",
+          "synonym": [
+            "Điểm đánh giá",
+            "Điểm xếp hạng"
+          ],
+          "sample_values": [
+            "4378",
+            "3021",
+            "960"
+          ],
+          "description": "Số điểm được ghi nhận cho cầu thủ trong lần xếp hạng này",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tours",
+          "type": "INT",
+          "alias_vi": "Số trận đấu",
+          "synonym": [
+            "Số lượt thi đấu",
+            "Số lần tham dự"
+          ],
+          "sample_values": [
+            "13",
+            "15",
+            "0"
+          ],
+          "description": "Số lượng trận đấu mà cầu thủ đã tham gia",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

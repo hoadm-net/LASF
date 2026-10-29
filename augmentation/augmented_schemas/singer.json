@@ -1,0 +1,186 @@
+{
+  "db_id": "singer",
+  "tables": [
+    {
+      "name": "singer",
+      "alias_vi": "Ca sĩ nổi tiếng",
+      "columns": [
+        {
+          "name": "Singer_ID",
+          "type": "INT",
+          "alias_vi": "Mã ca sĩ",
+          "synonym": [
+            "ID ca sĩ",
+            "Số hiệu ca sĩ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ca sĩ trong danh sách.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ và tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Liliane Bettencourt",
+            "Christy Walton",
+            "Alice Walton"
+          ],
+          "description": "Tên đầy đủ của ca sĩ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Birth_Year",
+          "type": "REAL",
+          "alias_vi": "Năm sinh",
+          "synonym": [
+            "Tuổi",
+            "Thời điểm sinh"
+          ],
+          "sample_values": [
+            "1944.0",
+            "1948.0",
+            "1949.0"
+          ],
+          "description": "Năm sinh của ca sĩ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Net_Worth_Millions",
+          "type": "REAL",
+          "alias_vi": "Giá trị tài sản (triệu USD)",
+          "synonym": [
+            "Tài sản ròng",
+            "Giá trị net"
+          ],
+          "sample_values": [
+            "30.0",
+            "28.8",
+            "26.3"
+          ],
+          "description": "Giá trị tài sản ròng của ca sĩ tính bằng triệu USD.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Citizenship",
+          "type": "TEXT",
+          "alias_vi": "Quốc tịch",
+          "synonym": [
+            "Thành phần quốc gia",
+            "Quốc tịch hiện tại"
+          ],
+          "sample_values": [
+            "France",
+            "United States",
+            "Chile"
+          ],
+          "description": "Quốc tịch của ca sĩ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "song",
+      "alias_vi": "Bài hát",
+      "columns": [
+        {
+          "name": "Song_ID",
+          "type": "INT",
+          "alias_vi": "Mã bài hát",
+          "synonym": [
+            "ID bài hát",
+            "Số bài hát"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bài hát",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Title",
+          "type": "TEXT",
+          "alias_vi": "Tiêu đề",
+          "synonym": [
+            "Tên bài hát",
+            "Tiếng hát"
+          ],
+          "sample_values": [
+            "Do They Know It's Christmas",
+            "F**k It (I Don't Want You Back)",
+            "Cha Cha Slide"
+          ],
+          "description": "Tên chính thức của bài hát",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Singer_ID",
+          "type": "INT",
+          "alias_vi": "Mã ca sĩ",
+          "synonym": [
+            "ID ca sĩ",
+            "Số ca sĩ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "4"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ca sĩ",
+          "is_primary_key": false,
+          "foreign_key_to": "singer.Singer_ID"
+        },
+        {
+          "name": "Sales",
+          "type": "REAL",
+          "alias_vi": "Doanh số bán",
+          "synonym": [
+            "Lượng bán",
+            "Doanh thu"
+          ],
+          "sample_values": [
+            "1094000.0",
+            "552407.0",
+            "351421.0"
+          ],
+          "description": "Số tiền doanh thu từ việc bán bài hát",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Highest_Position",
+          "type": "REAL",
+          "alias_vi": "Vị trí cao nhất",
+          "synonym": [
+            "Vị trí tốt nhất",
+            "Vị trí đỉnh"
+          ],
+          "sample_values": [
+            "1.0",
+            "3.0"
+          ],
+          "description": "Vị trí cao nhất trong bảng xếp hạng của bài hát",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

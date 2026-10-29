@@ -1,0 +1,1259 @@
+{
+  "db_id": "codebase_community",
+  "tables": [
+    {
+      "name": "badges",
+      "alias_vi": "Huy hiệu",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã huy hiệu",
+          "synonym": [
+            "ID",
+            "Số hiệu"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi huy hiệu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UserId",
+          "type": "INTEGER",
+          "alias_vi": "Mã người dùng",
+          "synonym": [
+            "ID người dùng",
+            "Số người dùng"
+          ],
+          "sample_values": [
+            "5",
+            "6",
+            "8"
+          ],
+          "description": "Mã duy nhất để xác định mỗi người dùng nhận huy hiệu.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên huy hiệu",
+          "synonym": [
+            "Tên",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Teacher",
+            "Student",
+            "Editor"
+          ],
+          "description": "Tên của huy hiệu được trao cho người dùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Date",
+          "type": "DATETIME",
+          "alias_vi": "Ngày cấp huy hiệu",
+          "synonym": [
+            "Ngày cấp",
+            "Ngày trao"
+          ],
+          "sample_values": [
+            "2010-07-19 19:39:07.0",
+            "2010-07-19 19:39:08.0",
+            "2010-07-19 19:39:09.0"
+          ],
+          "description": "Ngày khi huy hiệu được cấp cho người dùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "comments",
+      "alias_vi": "Bình_luận",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_bình_luận",
+          "synonym": [
+            "ID",
+            "Số_bình_luận"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bình luận.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostId",
+          "type": "INTEGER",
+          "alias_vi": "Mã_bài_viết",
+          "synonym": [
+            "ID_bài_viết",
+            "Số_bài_viết"
+          ],
+          "sample_values": [
+            "3",
+            "5",
+            "9"
+          ],
+          "description": "Mã duy nhất để xác định bài viết liên quan đến bình luận này.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "Score",
+          "type": "INTEGER",
+          "alias_vi": "Điểm",
+          "synonym": [
+            "Điểm_chấm",
+            "Điểm_phân_tính"
+          ],
+          "sample_values": [
+            "5",
+            "0",
+            "11"
+          ],
+          "description": "Điểm đánh giá của bình luận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Text",
+          "type": "TEXT",
+          "alias_vi": "Nội_dung",
+          "synonym": [
+            "Nội_dung_bình_luận",
+            "Chữ_ký"
+          ],
+          "sample_values": [
+            "Could be a poster child fo argumentative and subjective.  At the least, need to define 'valuable'.",
+            "Yes, R is nice- but WHY is it 'valuable'.",
+            "Again- why?  How would I convince my boss to use this over, say, Excel."
+          ],
+          "description": "Nội dung cụ thể của bình luận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreationDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày_tạo",
+          "synonym": [
+            "Ngày_bình_luận",
+            "Thời_gian_tạo"
+          ],
+          "sample_values": [
+            "2010-07-19 19:15:52.0",
+            "2010-07-19 19:16:14.0",
+            "2010-07-19 19:18:54.0"
+          ],
+          "description": "Ngày và thời gian khi bình luận được tạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UserId",
+          "type": "INTEGER",
+          "alias_vi": "Mã_người_dùng",
+          "synonym": [
+            "ID_người_dùng",
+            "Số_người_dùng"
+          ],
+          "sample_values": [
+            "13",
+            "37",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định người dùng đã tạo bình luận.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "UserDisplayName",
+          "type": "TEXT",
+          "alias_vi": "Tên_hien_thi",
+          "synonym": [
+            "Tên_hiện_thị",
+            "Tên_họ"
+          ],
+          "sample_values": [
+            "user28",
+            "Statprof",
+            "jjgibaja"
+          ],
+          "description": "Tên hiển thị của người dùng trên trang web hoặc ứng dụng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "postHistory",
+      "alias_vi": "Lịch Sử Bài Viết",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã",
+          "synonym": [
+            "Số ID",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi trong bảng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostHistoryTypeId",
+          "type": "INTEGER",
+          "alias_vi": "Loại Lịch Sử Bài Viết",
+          "synonym": [
+            "Kiểu Lịch Sử",
+            "Loại"
+          ],
+          "sample_values": [
+            "2",
+            "1",
+            "3"
+          ],
+          "description": "Loại lịch sử của bài viết (ví dụ: chỉnh sửa, xóa, v.v.).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Bài Viết",
+          "synonym": [
+            "ID Bài Viết",
+            "Bài Viết"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định bài viết liên quan đến bản ghi này.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "RevisionGUID",
+          "type": "TEXT",
+          "alias_vi": "Điều Khoản Cập Nhật",
+          "synonym": [
+            "Chỉ Số Cập Nhật",
+            "GUID"
+          ],
+          "sample_values": [
+            "e58bf7fd-e60f-4c58-a6e4-dfc91cf98a69",
+            "18bf9150-f1cb-432d-b7b7-26d2f8e33581",
+            "6320bb0f-c792-4a8c-8083-89507c28d375"
+          ],
+          "description": "Mã duy nhất để xác định phiên bản cụ thể của bài viết sau khi được cập nhật.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreationDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Tạo",
+          "synonym": [
+            "Ngày Sửa Đổi",
+            "Ngày Tạo"
+          ],
+          "sample_values": [
+            "2010-07-19 19:12:12.0",
+            "2010-07-19 19:12:57.0",
+            "2010-07-19 19:13:28.0"
+          ],
+          "description": "Ngày và thời gian khi bản ghi này được tạo hoặc cập nhật.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UserId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Người Dùng",
+          "synonym": [
+            "ID Người Dùng",
+            "Người Dùng"
+          ],
+          "sample_values": [
+            "8",
+            "24",
+            "18"
+          ],
+          "description": "Mã duy nhất để xác định người dùng đã tạo hoặc cập nhật bản ghi này.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "Text",
+          "type": "TEXT",
+          "alias_vi": "Nội Dung",
+          "synonym": [
+            "Nội Dung Bài Viết",
+            "Nội Dung Cập Nhật"
+          ],
+          "sample_values": [
+            "How should I elicit prior distributions from experts when fitting a Bayesian model?",
+            "Eliciting priors from experts",
+            "<bayesian><prior><elicitation>"
+          ],
+          "description": "Nội dung của bài viết hoặc cập nhật được thực hiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Comment",
+          "type": "TEXT",
+          "alias_vi": "Ghi Chú",
+          "synonym": [
+            "Phản Hồi",
+            "Ghi Chú Cập Nhật"
+          ],
+          "sample_values": [
+            "",
+            "edited tags",
+            "add content from the comments;"
+          ],
+          "description": "Ghi chú về lý do hoặc thông tin liên quan đến việc cập nhật bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UserDisplayName",
+          "type": "TEXT",
+          "alias_vi": "Tên Hiển Thị Người Dùng",
+          "synonym": [
+            "Tên Người Dùng",
+            "Tên Hiển Thị"
+          ],
+          "sample_values": [
+            "",
+            "user28",
+            "user209"
+          ],
+          "description": "Tên hiển thị của người dùng đã tạo hoặc cập nhật bản ghi này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "postLinks",
+      "alias_vi": "Liên Kết Bài Viết",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Liên Kết",
+          "synonym": [
+            "ID",
+            "Mã Liên Kết Bài Viết"
+          ],
+          "sample_values": [
+            "108",
+            "145",
+            "217"
+          ],
+          "description": "Mã duy nhất để xác định mỗi liên kết bài viết.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreationDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Tạo",
+          "synonym": [
+            "Ngày Tạo Liên Kết",
+            "Ngày Tạo Bài Viết Liên Kết"
+          ],
+          "sample_values": [
+            "2010-07-21 14:47:33.0",
+            "2010-07-23 16:30:41.0",
+            "2010-07-26 20:12:15.0"
+          ],
+          "description": "Ngày và thời gian khi liên kết bài viết được tạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Bài Viết",
+          "synonym": [
+            "ID Bài Viết",
+            "Mã Bài Viết Liên Kết"
+          ],
+          "sample_values": [
+            "395",
+            "548",
+            "375"
+          ],
+          "description": "Mã duy nhất của bài viết nguồn trong liên kết.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "RelatedPostId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Bài Viết Liên Quan",
+          "synonym": [
+            "ID Bài Viết Liên Quan",
+            "Mã Bài Viết Mục Tiêu"
+          ],
+          "sample_values": [
+            "173",
+            "539",
+            "30"
+          ],
+          "description": "Mã duy nhất của bài viết liên quan trong liên kết.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "LinkTypeId",
+          "type": "INTEGER",
+          "alias_vi": "Loại Liên Kết",
+          "synonym": [
+            "Loại Liên Kết Bài Viết",
+            "Kiểu Liên Kết"
+          ],
+          "sample_values": [
+            "1",
+            "3"
+          ],
+          "description": "Loại của liên kết giữa hai bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "posts",
+      "alias_vi": "Bài Viết",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Bài Viết",
+          "synonym": [
+            "ID",
+            "Số Bài Viết"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bài viết.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostTypeId",
+          "type": "INTEGER",
+          "alias_vi": "Loại Bài Viết",
+          "synonym": [
+            "Kiểu Bài Viết",
+            "Loại"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "7"
+          ],
+          "description": "Loại của bài viết, có thể là câu hỏi hoặc trả lời.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AcceptedAnswerId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Trả Lời Đúng",
+          "synonym": [
+            "Trả Lời Đúng",
+            "ID Trả Lời Đúng"
+          ],
+          "sample_values": [
+            "15",
+            "59",
+            "5"
+          ],
+          "description": "Mã của trả lời được chấp nhận cho bài viết này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreaionDate",
+          "type": "DATETIME",
+          "alias_vi": "",
+          "synonym": [],
+          "sample_values": [
+            "2010-07-19 19:12:12.0",
+            "2010-07-19 19:12:57.0",
+            "2010-07-19 19:13:28.0"
+          ],
+          "description": "",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Score",
+          "type": "INTEGER",
+          "alias_vi": "Điểm",
+          "synonym": [
+            "Điểm Thích",
+            "Điểm"
+          ],
+          "sample_values": [
+            "23",
+            "22",
+            "54"
+          ],
+          "description": "Số lượt thích hoặc điểm của bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ViewCount",
+          "type": "INTEGER",
+          "alias_vi": "Số Lượt Xem",
+          "synonym": [
+            "Lượt Xem",
+            "Xem"
+          ],
+          "sample_values": [
+            "1278",
+            "8198",
+            "3613"
+          ],
+          "description": "Số lần bài viết được xem.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Body",
+          "type": "TEXT",
+          "alias_vi": "Nội Dung",
+          "synonym": [
+            "Nội Dung Bài Viết",
+            "Chính Văn"
+          ],
+          "sample_values": [
+            "<p>How should I elicit prior distributions from experts when fitting a Bayesian model?</p>\n",
+            "<p>In many different statistical methods there is an \"assumption of normality\".  What is \"normality\" and how do I know if there is normality?</p>\n",
+            "<p>What are some valuable Statistical Analysis open source projects available right now?</p>\n\n<p>Edit: as pointed out by Sharpie, valuable could mean helping you get things done faster or more cheaply.</p>\n"
+          ],
+          "description": "Nội dung chính của bài viết, thường là câu hỏi hoặc trả lời.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "OwnerUserId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Người Đăng",
+          "synonym": [
+            "Người Đăng",
+            "ID Người Đăng"
+          ],
+          "sample_values": [
+            "8",
+            "24",
+            "18"
+          ],
+          "description": "Mã người dùng đăng bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "LasActivityDate",
+          "type": "DATETIME",
+          "alias_vi": "",
+          "synonym": [],
+          "sample_values": [
+            "2010-09-15 21:08:26.0",
+            "2012-11-12 09:21:54.0",
+            "2013-05-27 14:48:36.0"
+          ],
+          "description": "",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Title",
+          "type": "TEXT",
+          "alias_vi": "Tiêu Đề",
+          "synonym": [
+            "Tiêu Đề Bài Viết",
+            "Tên"
+          ],
+          "sample_values": [
+            "Eliciting priors from experts",
+            "What is normality?",
+            "What are some valuable Statistical Analysis open source projects?"
+          ],
+          "description": "Tiêu đề của bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Tags",
+          "type": "TEXT",
+          "alias_vi": "Nhãn",
+          "synonym": [
+            "Nhãn Bài Viết",
+            "Danh Mục"
+          ],
+          "sample_values": [
+            "<bayesian><prior><elicitation>",
+            "<distributions><normality>",
+            "<software><open-source>"
+          ],
+          "description": "Những từ khóa hoặc nhãn liên quan đến nội dung của bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AnswerCount",
+          "type": "INTEGER",
+          "alias_vi": "Số Trả Lời",
+          "synonym": [
+            "Trả Lời",
+            "Số Trả Lời"
+          ],
+          "sample_values": [
+            "5",
+            "7",
+            "19"
+          ],
+          "description": "Số lượng trả lời đã được cung cấp cho bài viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CommentCount",
+          "type": "INTEGER",
+          "alias_vi": "Số_lượng_bình_luận",
+          "synonym": [
+            "Số_lượng_phản_hồi",
+            "Số_lượng_koment"
+          ],
+          "sample_values": [
+            "1",
+            "4",
+            "2"
+          ],
+          "description": "Số_lượng bình_luận được đăng trên bài_viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FavoriteCount",
+          "type": "INTEGER",
+          "alias_vi": "Số_lượng_yêu_thích",
+          "synonym": [
+            "Số_lượng_like",
+            "Số_lượng_thích"
+          ],
+          "sample_values": [
+            "14",
+            "8",
+            "36"
+          ],
+          "description": "Số_lượng người dùng đã đánh dấu bài_viết là yêu_thích.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LastEditorUserId",
+          "type": "INTEGER",
+          "alias_vi": "ID_Tài_khoản_sửa_chỉnh_đợt_cuối",
+          "synonym": [
+            "ID_sửa_chỉnh_đợt_cuối",
+            "ID_tài_khoản_sửa_chỉnh"
+          ],
+          "sample_values": [
+            "88",
+            "183",
+            "23"
+          ],
+          "description": "ID của tài_khoản người dùng đã thực hiện sửa_chỉnh đợt cuối cùng.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "LastEditDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày_sửa_chỉnh_đợt_cuối",
+          "synonym": [
+            "Ngày_sửa_chỉnh",
+            "Ngày_sửa_chỉnh_cuối"
+          ],
+          "sample_values": [
+            "2010-08-07 17:56:44.0",
+            "2011-02-12 05:50:03.0",
+            "2010-07-19 19:21:15.0"
+          ],
+          "description": "Ngày và giờ khi bài_viết được sửa_chỉnh lần cuối.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CommunityOwnedDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày_bài_viết_trở_thành_cộng_dân",
+          "synonym": [
+            "Ngày_cộng_dân",
+            "Ngày_trở_thành_cộng_dân"
+          ],
+          "sample_values": [
+            "2010-07-19 19:13:28.0",
+            "2010-07-19 19:14:43.0",
+            "2010-08-09 13:05:50.0"
+          ],
+          "description": "Ngày khi bài_viết trở thành sở hữu của cộng_dân.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ParentId",
+          "type": "INTEGER",
+          "alias_vi": "ID_bài_viết_cháy",
+          "synonym": [
+            "ID_bài_viết_mẹ",
+            "ID_cháy"
+          ],
+          "sample_values": [
+            "3",
+            "7",
+            "6"
+          ],
+          "description": "ID của bài_viết cha hoặc bài_viết gốc nếu bài_viết này là một câu_hỏi con.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "ClosedDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày_khóa_bài_viết",
+          "synonym": [
+            "Ngày_khóa",
+            "Ngày_khóa_bài_viết"
+          ],
+          "sample_values": [
+            "2010-07-19 20:19:46.0",
+            "2010-08-05 13:06:12.0",
+            "2014-02-12 01:23:48.0"
+          ],
+          "description": "Ngày và giờ khi bài_viết được khóa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "OwnerDisplayName",
+          "type": "TEXT",
+          "alias_vi": "Tên_họ_chủ_bài_viết",
+          "synonym": [
+            "Tên_chủ_bài_viết",
+            "Tên_họ_tài_khoản_chủ"
+          ],
+          "sample_values": [
+            "user28",
+            "user209",
+            "Michael Bishop"
+          ],
+          "description": "Tên_họ của người dùng chủ sở hữu bài_viết.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LastEditorDisplayName",
+          "type": "TEXT",
+          "alias_vi": "Tên_họ_người_sửa_chỉnh_đợt_cuối",
+          "synonym": [
+            "Tên_họ_sửa_chỉnh_đợt_cuối",
+            "Tên_họ_tài_khoản_sửa_chỉnh"
+          ],
+          "sample_values": [
+            "user28",
+            "user10525",
+            "sjcockell"
+          ],
+          "description": "Tên_họ của người dùng đã thực hiện sửa_chỉnh đợt cuối cùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "tags",
+      "alias_vi": "Nhãn",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã",
+          "synonym": [
+            "Số hiệu",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi nhãn.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "TagName",
+          "type": "TEXT",
+          "alias_vi": "Tên Nhãn",
+          "synonym": [
+            "Tên Tag",
+            "Nhãn"
+          ],
+          "sample_values": [
+            "bayesian",
+            "prior",
+            "elicitation"
+          ],
+          "description": "Tên của mỗi nhãn được sử dụng để phân loại nội dung.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Count",
+          "type": "INTEGER",
+          "alias_vi": "Số Lượng",
+          "synonym": [
+            "Số lần xuất hiện",
+            "Tần suất"
+          ],
+          "sample_values": [
+            "1342",
+            "168",
+            "6"
+          ],
+          "description": "Số lần nhãn này được sử dụng trong toàn bộ dữ liệu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ExcerptPostId",
+          "type": "INTEGER",
+          "alias_vi": "ID Bài Viết Tóm Tắt",
+          "synonym": [
+            "ID Bài Trích",
+            "ID Bài Viết Khái Quát"
+          ],
+          "sample_values": [
+            "20258",
+            "62158",
+            "67815"
+          ],
+          "description": "ID của bài viết tóm tắt liên quan đến nhãn này.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "WikiPostId",
+          "type": "INTEGER",
+          "alias_vi": "ID Bài Viết Wiki",
+          "synonym": [
+            "ID Bài Viết Tự Học",
+            "ID Bài Viết Tham Khảo"
+          ],
+          "sample_values": [
+            "20257",
+            "62157",
+            "67814"
+          ],
+          "description": "ID của bài viết wiki liên quan đến nhãn này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "users",
+      "alias_vi": "Người dùng",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã người dùng",
+          "synonym": [
+            "ID",
+            "Số người dùng"
+          ],
+          "sample_values": [
+            "-1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi người dùng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Reputation",
+          "type": "INTEGER",
+          "alias_vi": "Điểm uy tín",
+          "synonym": [
+            "Điểm tin cậy",
+            "Điểm uy tín"
+          ],
+          "sample_values": [
+            "1",
+            "101",
+            "6792"
+          ],
+          "description": "Số điểm thể hiện mức độ uy tín của người dùng trên hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreationDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày tạo",
+          "synonym": [
+            "Ngày đăng ký",
+            "Ngày tạo tài khoản"
+          ],
+          "sample_values": [
+            "2010-07-19 06:55:26.0",
+            "2010-07-19 14:01:36.0",
+            "2010-07-19 15:34:50.0"
+          ],
+          "description": "Ngày và giờ khi tài khoản người dùng được tạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DisplayName",
+          "type": "TEXT",
+          "alias_vi": "Tên hiển thị",
+          "synonym": [
+            "Tên hiển thị",
+            "Tên người dùng"
+          ],
+          "sample_values": [
+            "Community",
+            "Geoff Dalgas",
+            "Jarrod Dixon"
+          ],
+          "description": "Tên mà người dùng chọn để hiển thị trên hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LastAccessDate",
+          "type": "DATETIME",
+          "alias_vi": "Ngày truy cập cuối cùng",
+          "synonym": [
+            "Ngày cuối cùng truy cập",
+            "Ngày truy cập gần đây"
+          ],
+          "sample_values": [
+            "2010-07-19 06:55:26.0",
+            "2013-11-12 22:07:23.0",
+            "2014-08-08 06:42:58.0"
+          ],
+          "description": "Ngày và giờ khi người dùng cuối cùng truy cập vào hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "WebsiteUrl",
+          "type": "TEXT",
+          "alias_vi": "Địa chỉ trang web",
+          "synonym": [
+            "URL trang web",
+            "Trang web"
+          ],
+          "sample_values": [
+            "http://meta.stackexchange.com/",
+            "http://stackoverflow.com",
+            "http://minesweeperonline.com"
+          ],
+          "description": "Địa chỉ URL của trang web cá nhân hoặc liên kết đến trang web của người dùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Location",
+          "type": "TEXT",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Nơi ở",
+            "Địa điểm"
+          ],
+          "sample_values": [
+            "on the server farm",
+            "Corvallis, OR",
+            "New York, NY"
+          ],
+          "description": "Thông tin về vị trí hoặc địa điểm của người dùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AboutMe",
+          "type": "TEXT",
+          "alias_vi": "Giới thiệu về tôi",
+          "synonym": [
+            "Giới thiệu",
+            "Thông tin về tôi"
+          ],
+          "sample_values": [
+            "<p>Hi, I'm not really a person.</p>\n\n<p>I'm a background process that helps keep this site clean!</p>\n\n<p>I do things like</p>\n\n<ul>\n<li>Randomly poke old unanswered questions every hour so they get some attention</li>\n<li>Own community questions and answers so nobody gets unnecessary reputation from them</li>\n<li>Own downvotes on spam/evil posts that get permanently deleted</li>\n<li>Own suggested edits from anonymous users</li>\n<li><a href=\"http://meta.stackexchange.com/a/92006\">Remove abandoned questions</a></li>\n</ul>\n",
+            "<p>Developer on the StackOverflow team.  Find me on</p>\n\n<p><a href=\"http://www.twitter.com/SuperDalgas\" rel=\"nofollow\">Twitter</a>\n<br><br>\n<a href=\"http://blog.stackoverflow.com/2009/05/welcome-stack-overflow-valued-associate-00003/\">Stack Overflow Valued Associate #00003</a></p>\n",
+            "<p><a href=\"http://blog.stackoverflow.com/2009/01/welcome-stack-overflow-valued-associate-00002/\">Developer on the Stack Overflow team</a>.</p>\n\n<p>Was dubbed <strong>SALTY SAILOR</strong> by Jeff Atwood, as filth and flarn would oft-times fly when dealing with a particularly nasty bug!</p>\n\n<ul>\n<li>Twitter me: <a href=\"http://twitter.com/jarrod_dixon\" rel=\"nofollow\">jarrod_dixon</a></li>\n<li>Email me: jarrod.m.dixon@gmail.com</li>\n</ul>\n"
+          ],
+          "description": "Thông tin chi tiết về bản thân người dùng, thường bao gồm công việc, sở thích, v.v.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Views",
+          "type": "INTEGER",
+          "alias_vi": "Lượt xem",
+          "synonym": [
+            "Lượt xem",
+            "Số lần xem"
+          ],
+          "sample_values": [
+            "0",
+            "25",
+            "22"
+          ],
+          "description": "Số lần nội dung của người dùng được xem.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UpVotes",
+          "type": "INTEGER",
+          "alias_vi": "Số lượt up vote",
+          "synonym": [
+            "Lượt up vote",
+            "Số lượt thích"
+          ],
+          "sample_values": [
+            "5007",
+            "3",
+            "19"
+          ],
+          "description": "Số lượt up vote mà nội dung của người dùng nhận được.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DownVotes",
+          "type": "INTEGER",
+          "alias_vi": "Số lượt down vote",
+          "synonym": [
+            "Lượt down vote",
+            "Số lượt không thích"
+          ],
+          "sample_values": [
+            "1920",
+            "0",
+            "5"
+          ],
+          "description": "Số lượt down vote mà nội dung của người dùng nhận được.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AccountId",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài khoản",
+          "synonym": [
+            "ID tài khoản",
+            "Số tài khoản"
+          ],
+          "sample_values": [
+            "-1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định tài khoản liên quan đến người dùng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INTEGER",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Độ tuổi"
+          ],
+          "sample_values": [
+            "37",
+            "35",
+            "28"
+          ],
+          "description": "Lớn tuổi của người dùng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ProfileImageUrl",
+          "type": "TEXT",
+          "alias_vi": "Đường dẫn hình ảnh hồ sơ",
+          "synonym": [
+            "Đường dẫn hình đại diện",
+            "Hình đại diện"
+          ],
+          "sample_values": [
+            "http://i.stack.imgur.com/d1oHX.jpg",
+            "http://i.stack.imgur.com/km1pr.jpg",
+            "http://i.stack.imgur.com/wSfuj.png"
+          ],
+          "description": "Địa chỉ URL của hình ảnh hồ sơ người dùng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "votes",
+      "alias_vi": "Đánh giá",
+      "columns": [
+        {
+          "name": "Id",
+          "type": "INTEGER",
+          "alias_vi": "Mã đánh giá",
+          "synonym": [
+            "ID",
+            "Mã",
+            "Số thứ tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi trong bảng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PostId",
+          "type": "INTEGER",
+          "alias_vi": "Mã bài viết",
+          "synonym": [
+            "ID bài viết",
+            "Mã bài",
+            "Số bài"
+          ],
+          "sample_values": [
+            "3",
+            "2",
+            "5"
+          ],
+          "description": "Mã duy nhất của bài viết được đánh giá.",
+          "is_primary_key": false,
+          "foreign_key_to": "posts.Id"
+        },
+        {
+          "name": "VoteTypeId",
+          "type": "INTEGER",
+          "alias_vi": "Loại đánh giá",
+          "synonym": [
+            "Kiểu đánh giá",
+            "Loại",
+            "Kiểu"
+          ],
+          "sample_values": [
+            "2",
+            "5",
+            "3"
+          ],
+          "description": "Loại đánh giá (ví dụ: upvote, downvote).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CreationDate",
+          "type": "DATE",
+          "alias_vi": "Ngày tạo",
+          "synonym": [
+            "Ngày tạo ra",
+            "Ngày tạo",
+            "Ngày đăng"
+          ],
+          "sample_values": [
+            "2010-07-19",
+            "2010-07-20",
+            "2010-07-21"
+          ],
+          "description": "Ngày và giờ khi đánh giá được tạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "UserId",
+          "type": "INTEGER",
+          "alias_vi": "Mã người dùng",
+          "synonym": [
+            "ID người dùng",
+            "Mã thành viên",
+            "Số thành viên"
+          ],
+          "sample_values": [
+            "58",
+            "6",
+            "66"
+          ],
+          "description": "Mã duy nhất của người dùng thực hiện đánh giá.",
+          "is_primary_key": false,
+          "foreign_key_to": "users.Id"
+        },
+        {
+          "name": "BountyAmount",
+          "type": "INTEGER",
+          "alias_vi": "Số tiền thưởng",
+          "synonym": [
+            "Tiền thưởng",
+            "Số tiền",
+            "Số tiền bồi dưỡng"
+          ],
+          "sample_values": [
+            "50",
+            "25",
+            "0"
+          ],
+          "description": "Số tiền thưởng liên quan đến đánh giá này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

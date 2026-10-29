@@ -1,0 +1,176 @@
+{
+  "db_id": "voter_1",
+  "tables": [
+    {
+      "name": "AREA_CODE_STATE",
+      "alias_vi": "Mã_Khu_Vực_Tỉnh_Thành",
+      "columns": [
+        {
+          "name": "area_code",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Khu_Vực",
+          "synonym": [
+            "Mã_Diện_Tử",
+            "Số_Khu_Vực"
+          ],
+          "sample_values": [
+            "201",
+            "202",
+            "203"
+          ],
+          "description": "Mã khu vực điện thoại được sử dụng để xác định vùng gọi.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state",
+          "type": "varchar(2)",
+          "alias_vi": "Tỉnh_Thành",
+          "synonym": [
+            "Địa_Phương",
+            "Khu_Vực"
+          ],
+          "sample_values": [
+            "NJ",
+            "DC",
+            "CT"
+          ],
+          "description": "Tên hoặc mã của tiểu bang hoặc thành phố tương ứng với mã khu vực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "CONTESTANTS",
+      "alias_vi": "Các thí sinh",
+      "columns": [
+        {
+          "name": "contestant_number",
+          "type": "INTEGER",
+          "alias_vi": "Số thứ tự thí sinh",
+          "synonym": [
+            "STT thí sinh",
+            "Thứ tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Số thứ tự của thí sinh trong cuộc thi",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "contestant_name",
+          "type": "varchar(50)",
+          "alias_vi": "Tên thí sinh",
+          "synonym": [
+            "Tên của thí sinh",
+            "Họ và tên"
+          ],
+          "sample_values": [
+            "Edwina Burnam",
+            "Tabatha Gehling",
+            "Kelly Clauss"
+          ],
+          "description": "Tên đầy đủ của thí sinh tham gia cuộc thi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "VOTES",
+      "alias_vi": "ĐIỂM NGHÍA",
+      "columns": [
+        {
+          "name": "vote_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Đánh Giá",
+          "synonym": [
+            "ID Đánh Giá",
+            "Số Đánh Giá"
+          ],
+          "sample_values": [
+            "5",
+            "3",
+            "2"
+          ],
+          "description": "Mã duy nhất để xác định mỗi phiếu bầu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "phone_number",
+          "type": "INTEGER",
+          "alias_vi": "Số Điện Thoại",
+          "synonym": [
+            "Số Liên Hệ",
+            "Số Điện Thoại Người Bầu"
+          ],
+          "sample_values": [
+            "5112677315",
+            "6209222712",
+            "7148407040"
+          ],
+          "description": "Số điện thoại của người đã bỏ phiếu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "state",
+          "type": "varchar(2)",
+          "alias_vi": "Tỉnh/Thành Phố",
+          "synonym": [
+            "Tỉnh",
+            "Thành Phố"
+          ],
+          "sample_values": [
+            "NY",
+            "CA",
+            "NJ\n"
+          ],
+          "description": "Tỉnh hoặc thành phố nơi người bầu cử sống.",
+          "is_primary_key": false,
+          "foreign_key_to": "AREA_CODE_STATE.state"
+        },
+        {
+          "name": "contestant_number",
+          "type": "INTEGER",
+          "alias_vi": "Số Cử Tri",
+          "synonym": [
+            "Số Cử Tri",
+            "Số Đơn Vị"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "5"
+          ],
+          "description": "Số thứ tự của người được bầu.",
+          "is_primary_key": false,
+          "foreign_key_to": "CONTESTANTS.contestant_number"
+        },
+        {
+          "name": "created",
+          "type": "timestamp",
+          "alias_vi": "Thời Gian Tạo",
+          "synonym": [
+            "Thời Gian Bỏ Phiếu",
+            "Thời Gian Ghi Dấu"
+          ],
+          "sample_values": [
+            "2018-03-09 19:03:21",
+            "2018-03-09 19:03:36",
+            "2018-03-09 19:03:39"
+          ],
+          "description": "Thời gian khi phiếu bầu được tạo hoặc gửi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

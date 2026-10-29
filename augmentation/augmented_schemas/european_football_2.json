@@ -1,0 +1,3419 @@
+{
+  "db_id": "european_football_2",
+  "tables": [
+    {
+      "name": "Country",
+      "alias_vi": "Quốc gia",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã quốc gia",
+          "synonym": [
+            "ID",
+            "Mã"
+          ],
+          "sample_values": [
+            "1",
+            "1729",
+            "4769"
+          ],
+          "description": "Mã duy nhất để xác định mỗi quốc gia",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên quốc gia",
+          "synonym": [
+            "Tên",
+            "Tên gọi"
+          ],
+          "sample_values": [
+            "Belgium",
+            "England",
+            "France"
+          ],
+          "description": "Tên chính thức của quốc gia",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "alias_vi": "Liên Đoàn Bóng Đá",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Liên Đoàn",
+          "synonym": [
+            "ID Liên Đoàn",
+            "Số Liên Đoàn"
+          ],
+          "sample_values": [
+            "1",
+            "1729",
+            "4769"
+          ],
+          "description": "Mã duy nhất xác định mỗi liên đoàn bóng đá.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "country_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Quốc Gia",
+          "synonym": [
+            "ID Quốc Gia",
+            "Số Quốc Gia"
+          ],
+          "sample_values": [
+            "1",
+            "1729",
+            "4769"
+          ],
+          "description": "Mã duy nhất xác định quốc gia mà liên đoàn bóng đá thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": "country.id"
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên Liên Đoàn",
+          "synonym": [
+            "Tên Liên Đoàn Bóng Đá",
+            "Tên Liên Đoàn"
+          ],
+          "sample_values": [
+            "Belgium Jupiler League",
+            "England Premier League",
+            "France Ligue 1"
+          ],
+          "description": "Tên chính thức của liên đoàn bóng đá.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Match",
+      "alias_vi": "Dấu Hiệu Trận Đấu",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Trận Đấu",
+          "synonym": [
+            "ID Trận Đấu",
+            "Số Trận Đấu"
+          ],
+          "sample_values": [
+            "4769",
+            "4770",
+            "4771"
+          ],
+          "description": "Mã duy nhất để xác định mỗi trận đấu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "country_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Quốc Gia",
+          "synonym": [
+            "ID Quốc Gia",
+            "Số Quốc Gia"
+          ],
+          "sample_values": [
+            "1",
+            "1729",
+            "4769"
+          ],
+          "description": "Mã duy nhất để xác định quốc gia của trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Country.None"
+        },
+        {
+          "name": "league_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Liên Đoàn",
+          "synonym": [
+            "ID Liên Đoàn",
+            "Số Liên Đoàn"
+          ],
+          "sample_values": [
+            "1",
+            "1729",
+            "4769"
+          ],
+          "description": "Mã duy nhất để xác định liên đoàn bóng đá của trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "League.None"
+        },
+        {
+          "name": "season",
+          "type": "TEXT",
+          "alias_vi": "Hạng Mục Hèm",
+          "synonym": [
+            "Hạng Mục Giải",
+            "Hạng Mục Năm"
+          ],
+          "sample_values": [
+            "2008/2009",
+            "2009/2010",
+            "2010/2011"
+          ],
+          "description": "Hạng mục hoặc mùa giải mà trận đấu thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "stage",
+          "type": "INTEGER",
+          "alias_vi": "Bước Thăng Tiến",
+          "synonym": [
+            "Bước Thăng",
+            "Bước Tiến"
+          ],
+          "sample_values": [
+            "1",
+            "10",
+            "11"
+          ],
+          "description": "Bước tiến trong giải đấu mà trận đấu diễn ra.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date",
+          "type": "TEXT",
+          "alias_vi": "Ngày Trận Đấu",
+          "synonym": [
+            "Ngày Đấu",
+            "Ngày Thi Đấu"
+          ],
+          "sample_values": [
+            "2008-08-17 00:00:00",
+            "2008-08-16 00:00:00",
+            "2008-09-24 00:00:00"
+          ],
+          "description": "Ngày mà trận đấu được tổ chức.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "match_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API Trận Đấu",
+          "synonym": [
+            "ID API Trận Đấu",
+            "Số API Trận Đấu"
+          ],
+          "sample_values": [
+            "483129",
+            "483130",
+            "483131"
+          ],
+          "description": "Mã duy nhất để xác định trận đấu trong API.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_team_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API Đội Nhà",
+          "synonym": [
+            "ID API Đội Nhà",
+            "Số API Đội Nhà"
+          ],
+          "sample_values": [
+            "9987",
+            "10000",
+            "9984"
+          ],
+          "description": "Mã duy nhất để xác định đội nhà trong API.",
+          "is_primary_key": false,
+          "foreign_key_to": "Team.team_api_id"
+        },
+        {
+          "name": "away_team_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API Đội Khách",
+          "synonym": [
+            "ID API Đội Khách",
+            "Số API Đội Khách"
+          ],
+          "sample_values": [
+            "9993",
+            "9994",
+            "8635"
+          ],
+          "description": "Mã duy nhất để xác định đội khách trong API.",
+          "is_primary_key": false,
+          "foreign_key_to": "Team.team_api_id"
+        },
+        {
+          "name": "home_team_goal",
+          "type": "INTEGER",
+          "alias_vi": "Số Bàn Thắng Đội Nhà",
+          "synonym": [
+            "Bàn Thắng Đội Nhà",
+            "Số Bàn Đội Nhà"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "5"
+          ],
+          "description": "Số bàn thắng ghi được bởi đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_team_goal",
+          "type": "INTEGER",
+          "alias_vi": "Số Bàn Thắng Đội Khách",
+          "synonym": [
+            "Bàn Thắng Đội Khách",
+            "Số Bàn Đội Khách"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "3"
+          ],
+          "description": "Số bàn thắng ghi được bởi đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X1",
+          "type": "INTEGER",
+          "alias_vi": "Số Đội Hình Đội Nhà",
+          "synonym": [
+            "Đội Hình Đội Nhà",
+            "Số Đội Hình Nhà"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "0"
+          ],
+          "description": "Số thứ tự của cầu thủ trong đội hình xuất phát của đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X2",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X2",
+          "synonym": [
+            "Người chơi đội chủ nhà X2",
+            "Người chơi đội nhà X2"
+          ],
+          "sample_values": [
+            "2",
+            "4",
+            "3"
+          ],
+          "description": "Số ID của người chơi trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X3",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X3",
+          "synonym": [
+            "Người chơi đội nhà X3",
+            "Người chơi đội chủ nhà X3"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "8"
+          ],
+          "description": "Số ID của người chơi thứ 3 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X4",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X4",
+          "synonym": [
+            "Người chơi đội nhà X4",
+            "Người chơi đội chủ nhà X4"
+          ],
+          "sample_values": [
+            "6",
+            "8",
+            "4"
+          ],
+          "description": "Số ID của người chơi thứ 4 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X5",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X5",
+          "synonym": [
+            "Người chơi đội nhà X5",
+            "Người chơi đội chủ nhà X5"
+          ],
+          "sample_values": [
+            "8",
+            "6",
+            "2"
+          ],
+          "description": "Số ID của người chơi thứ 5 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X6",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X6",
+          "synonym": [
+            "Người chơi đội nhà X6",
+            "Người chơi đội chủ nhà X6"
+          ],
+          "sample_values": [
+            "2",
+            "6",
+            "4"
+          ],
+          "description": "Số ID của người chơi thứ 6 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X7",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X7",
+          "synonym": [
+            "Người chơi đội nhà X7",
+            "Người chơi đội chủ nhà X7"
+          ],
+          "sample_values": [
+            "4",
+            "8",
+            "6"
+          ],
+          "description": "Số ID của người chơi thứ 7 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X8",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X8",
+          "synonym": [
+            "Người chơi đội nhà X8",
+            "Người chơi đội chủ nhà X8"
+          ],
+          "sample_values": [
+            "6",
+            "2",
+            "8"
+          ],
+          "description": "Số ID của người chơi thứ 8 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X9",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X9",
+          "synonym": [
+            "Người chơi đội nhà X9",
+            "Người chơi đội chủ nhà X9"
+          ],
+          "sample_values": [
+            "8",
+            "4",
+            "2"
+          ],
+          "description": "Số ID của người chơi thứ 9 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X10",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X10",
+          "synonym": [
+            "Người chơi đội nhà X10",
+            "Người chơi đội chủ nhà X10"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "9"
+          ],
+          "description": "Số ID của người chơi thứ 10 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_X11",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà X11",
+          "synonym": [
+            "Người chơi đội nhà X11",
+            "Người chơi đội chủ nhà X11"
+          ],
+          "sample_values": [
+            "6",
+            "4",
+            "5"
+          ],
+          "description": "Số ID của người chơi thứ 11 trên đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X1",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách X1",
+          "synonym": [
+            "Người chơi đội khách X1",
+            "Người chơi đội đối thủ X1"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "6"
+          ],
+          "description": "Số ID của người chơi trên đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X2",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách X2",
+          "synonym": [
+            "Người chơi đội khách X2",
+            "Người chơi đội đối thủ X2"
+          ],
+          "sample_values": [
+            "2",
+            "4",
+            "3"
+          ],
+          "description": "Số ID của người chơi thứ 2 trên đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X3",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X3",
+          "synonym": [
+            "Người chơi đối thủ X3",
+            "Người chơi bên kia X3"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "5"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X4",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X4",
+          "synonym": [
+            "Người chơi đối thủ X4",
+            "Người chơi bên kia X4"
+          ],
+          "sample_values": [
+            "6",
+            "8",
+            "2"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X5",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X5",
+          "synonym": [
+            "Người chơi đối thủ X5",
+            "Người chơi bên kia X5"
+          ],
+          "sample_values": [
+            "8",
+            "6",
+            "4"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X6",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X6",
+          "synonym": [
+            "Người chơi đối thủ X6",
+            "Người chơi bên kia X6"
+          ],
+          "sample_values": [
+            "2",
+            "4",
+            "3"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X7",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X7",
+          "synonym": [
+            "Người chơi đối thủ X7",
+            "Người chơi bên kia X7"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "5"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X8",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X8",
+          "synonym": [
+            "Người chơi đối thủ X8",
+            "Người chơi bên kia X8"
+          ],
+          "sample_values": [
+            "6",
+            "8",
+            "7"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X9",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X9",
+          "synonym": [
+            "Người chơi đối thủ X9",
+            "Người chơi bên kia X9"
+          ],
+          "sample_values": [
+            "8",
+            "2",
+            "6"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X10",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X10",
+          "synonym": [
+            "Người chơi đối thủ X10",
+            "Người chơi bên kia X10"
+          ],
+          "sample_values": [
+            "4",
+            "6",
+            "7"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_X11",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội khách X11",
+          "synonym": [
+            "Người chơi đối thủ X11",
+            "Người chơi bên kia X11"
+          ],
+          "sample_values": [
+            "6",
+            "4",
+            "3"
+          ],
+          "description": "Số hiệu của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y1",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội nhà Y1",
+          "synonym": [
+            "Người chơi chủ nhà Y1",
+            "Người chơi đội nhà Y1"
+          ],
+          "sample_values": [
+            "1",
+            "3",
+            "0"
+          ],
+          "description": "Số hiệu của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y2",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội nhà Y2",
+          "synonym": [
+            "Người chơi chủ nhà Y2",
+            "Người chơi đội nhà Y2"
+          ],
+          "sample_values": [
+            "3",
+            "0"
+          ],
+          "description": "Số hiệu của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y3",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi đội nhà Y3",
+          "synonym": [
+            "Người chơi chủ nhà Y3",
+            "Người chơi đội nhà Y3"
+          ],
+          "sample_values": [
+            "3",
+            "5"
+          ],
+          "description": "Số hiệu của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y4",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y4",
+          "synonym": [
+            "Người chơi đội chủ nhà 4",
+            "Đội nhà vị trí 4"
+          ],
+          "sample_values": [
+            "3",
+            "5"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 4 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y5",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y5",
+          "synonym": [
+            "Người chơi đội nhà 5",
+            "Đội nhà vị trí 5"
+          ],
+          "sample_values": [
+            "3",
+            "7",
+            "6"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 5 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y6",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y6",
+          "synonym": [
+            "Người chơi đội nhà 6",
+            "Đội nhà vị trí 6"
+          ],
+          "sample_values": [
+            "7",
+            "3",
+            "6"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 6 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y7",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y7",
+          "synonym": [
+            "Người chơi đội nhà 7",
+            "Đội nhà vị trí 7"
+          ],
+          "sample_values": [
+            "7",
+            "6",
+            "8"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 7 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y8",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y8",
+          "synonym": [
+            "Người chơi đội nhà 8",
+            "Đội nhà vị trí 8"
+          ],
+          "sample_values": [
+            "7",
+            "8",
+            "6"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 8 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y9",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y9",
+          "synonym": [
+            "Người chơi đội nhà 9",
+            "Đội nhà vị trí 9"
+          ],
+          "sample_values": [
+            "7",
+            "10",
+            "8"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 9 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y10",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y10",
+          "synonym": [
+            "Người chơi đội nhà 10",
+            "Đội nhà vị trí 10"
+          ],
+          "sample_values": [
+            "10",
+            "7",
+            "8"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 10 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_Y11",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà Y11",
+          "synonym": [
+            "Người chơi đội nhà 11",
+            "Đội nhà vị trí 11"
+          ],
+          "sample_values": [
+            "10",
+            "11",
+            "1"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 11 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y1",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y1",
+          "synonym": [
+            "Người chơi đội khách 1",
+            "Đội khách vị trí 1"
+          ],
+          "sample_values": [
+            "1",
+            "3"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 1 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y2",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y2",
+          "synonym": [
+            "Người chơi đội khách 2",
+            "Đội khách vị trí 2"
+          ],
+          "sample_values": [
+            "3"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 2 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y3",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y3",
+          "synonym": [
+            "Người chơi đội khách 3",
+            "Đội khách vị trí 3"
+          ],
+          "sample_values": [
+            "3",
+            "7"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 3 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y4",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y4",
+          "synonym": [
+            "Người chơi đội khách 4",
+            "Đội khách vị trí 4"
+          ],
+          "sample_values": [
+            "3",
+            "5",
+            "7"
+          ],
+          "description": "ID của người chơi ở vị trí thứ 4 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y5",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y5",
+          "synonym": [
+            "Người chơi đội khách Y5",
+            "Đội khách Y5"
+          ],
+          "sample_values": [
+            "3",
+            "7",
+            "6"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y6",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y6",
+          "synonym": [
+            "Người chơi đội khách Y6",
+            "Đội khách Y6"
+          ],
+          "sample_values": [
+            "7",
+            "3",
+            "6"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y7",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y7",
+          "synonym": [
+            "Người chơi đội khách Y7",
+            "Đội khách Y7"
+          ],
+          "sample_values": [
+            "7",
+            "6",
+            "8"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y8",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y8",
+          "synonym": [
+            "Người chơi đội khách Y8",
+            "Đội khách Y8"
+          ],
+          "sample_values": [
+            "7",
+            "8",
+            "6"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y9",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y9",
+          "synonym": [
+            "Người chơi đội khách Y9",
+            "Đội khách Y9"
+          ],
+          "sample_values": [
+            "7",
+            "10",
+            "8"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y10",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y10",
+          "synonym": [
+            "Người chơi đội khách Y10",
+            "Đội khách Y10"
+          ],
+          "sample_values": [
+            "10",
+            "7",
+            "8"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "away_player_Y11",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi khách Y11",
+          "synonym": [
+            "Người chơi đội khách Y11",
+            "Đội khách Y11"
+          ],
+          "sample_values": [
+            "10",
+            "11",
+            "8"
+          ],
+          "description": "Mã số của người chơi từ đội khách trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "home_player_1",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà 1",
+          "synonym": [
+            "Người chơi đội nhà 1",
+            "Đội nhà 1"
+          ],
+          "sample_values": [
+            "39890",
+            "38327",
+            "95597"
+          ],
+          "description": "Mã số của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_2",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà 2",
+          "synonym": [
+            "Người chơi đội nhà 2",
+            "Đội nhà 2"
+          ],
+          "sample_values": [
+            "67950",
+            "39580",
+            "38292"
+          ],
+          "description": "Mã số của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_3",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà 3",
+          "synonym": [
+            "Người chơi đội nhà 3",
+            "Đội nhà 3"
+          ],
+          "sample_values": [
+            "38788",
+            "67958",
+            "30692"
+          ],
+          "description": "Mã số của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_4",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà 4",
+          "synonym": [
+            "Người chơi đội nhà 4",
+            "Đội nhà 4"
+          ],
+          "sample_values": [
+            "38312",
+            "67959",
+            "38435"
+          ],
+          "description": "Mã số của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_5",
+          "type": "INTEGER",
+          "alias_vi": "Người chơi nhà 5",
+          "synonym": [
+            "Người chơi đội nhà 5",
+            "Đội nhà 5"
+          ],
+          "sample_values": [
+            "26235",
+            "37112",
+            "94462"
+          ],
+          "description": "Mã số của người chơi từ đội nhà trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_6",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 6",
+          "synonym": [
+            "Người Chơi Nhà 6",
+            "Đội Nhà 6"
+          ],
+          "sample_values": [
+            "36393",
+            "46004",
+            "119117"
+          ],
+          "description": "ID của người chơi số 6 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_7",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 7",
+          "synonym": [
+            "Người Chơi Nhà 7",
+            "Đội Nhà 7"
+          ],
+          "sample_values": [
+            "148286",
+            "164732",
+            "35412"
+          ],
+          "description": "ID của người chơi số 7 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_8",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 8",
+          "synonym": [
+            "Người Chơi Nhà 8",
+            "Đội Nhà 8"
+          ],
+          "sample_values": [
+            "67898",
+            "39631",
+            "95609"
+          ],
+          "description": "ID của người chơi số 8 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_9",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 9",
+          "synonym": [
+            "Người Chơi Nhà 9",
+            "Đội Nhà 9"
+          ],
+          "sample_values": [
+            "26916",
+            "164352",
+            "38246"
+          ],
+          "description": "ID của người chơi số 9 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_10",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 10",
+          "synonym": [
+            "Người Chơi Nhà 10",
+            "Đội Nhà 10"
+          ],
+          "sample_values": [
+            "38801",
+            "38423",
+            "25957"
+          ],
+          "description": "ID của người chơi số 10 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "home_player_11",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Nhà Số 11",
+          "synonym": [
+            "Người Chơi Nhà 11",
+            "Đội Nhà 11"
+          ],
+          "sample_values": [
+            "94289",
+            "26502",
+            "38419"
+          ],
+          "description": "ID của người chơi số 11 trong đội nhà.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_1",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 1",
+          "synonym": [
+            "Người Chơi Khách 1",
+            "Đội Khách 1"
+          ],
+          "sample_values": [
+            "34480",
+            "37937",
+            "38252"
+          ],
+          "description": "ID của người chơi số 1 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_2",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 2",
+          "synonym": [
+            "Người Chơi Khách 2",
+            "Đội Khách 2"
+          ],
+          "sample_values": [
+            "38388",
+            "38293",
+            "39156"
+          ],
+          "description": "ID của người chơi số 2 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_3",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 3",
+          "synonym": [
+            "Người Chơi Khách 3",
+            "Đội Khách 3"
+          ],
+          "sample_values": [
+            "26458",
+            "148313",
+            "39151"
+          ],
+          "description": "ID của người chơi số 3 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_4",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 4",
+          "synonym": [
+            "Người Chơi Khách 4",
+            "Đội Khách 4"
+          ],
+          "sample_values": [
+            "13423",
+            "104411",
+            "166554"
+          ],
+          "description": "ID của người chơi số 4 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_5",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 5",
+          "synonym": [
+            "Người Chơi Khách 5",
+            "Đội Khách 5"
+          ],
+          "sample_values": [
+            "38389",
+            "148314",
+            "15652"
+          ],
+          "description": "ID của người chơi số 5 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_6",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Khách Số 6",
+          "synonym": [
+            "Người Chơi Khách 6",
+            "Đội Khách 6"
+          ],
+          "sample_values": [
+            "38798",
+            "37202",
+            "39145"
+          ],
+          "description": "ID của người chơi số 6 trong đội khách.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_7",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Trận Đấu 7 Đội Khách",
+          "synonym": [
+            "Người Chơi 7",
+            "Đội Khách 7"
+          ],
+          "sample_values": [
+            "30949",
+            "43158",
+            "46890"
+          ],
+          "description": "Mã số của người chơi thứ 7 trong đội khách",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_8",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Trận Đấu 8 Đội Khách",
+          "synonym": [
+            "Người Chơi 8",
+            "Đội Khách 8"
+          ],
+          "sample_values": [
+            "38253",
+            "9307",
+            "38947"
+          ],
+          "description": "Mã số của người chơi thứ 8 trong đội khách",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_9",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Trận Đấu 9 Đội Khách",
+          "synonym": [
+            "Người Chơi 9",
+            "Đội Khách 9"
+          ],
+          "sample_values": [
+            "106013",
+            "42153",
+            "46881"
+          ],
+          "description": "Mã số của người chơi thứ 9 trong đội khách",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_10",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Trận Đấu 10 Đội Khách",
+          "synonym": [
+            "Người Chơi 10",
+            "Đội Khách 10"
+          ],
+          "sample_values": [
+            "38383",
+            "32690",
+            "39158"
+          ],
+          "description": "Mã số của người chơi thứ 10 trong đội khách",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "away_player_11",
+          "type": "INTEGER",
+          "alias_vi": "Người Chơi Trận Đấu 11 Đội Khách",
+          "synonym": [
+            "Người Chơi 11",
+            "Đội Khách 11"
+          ],
+          "sample_values": [
+            "46552",
+            "38782",
+            "119118"
+          ],
+          "description": "Mã số của người chơi thứ 11 trong đội khách",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "goal",
+          "type": "TEXT",
+          "alias_vi": "Bàn Thắng",
+          "synonym": [
+            "Bàn Thắng",
+            "Bàn Đấu"
+          ],
+          "sample_values": [
+            "<goal><value><comment>n</comment><stats><goals>1</goals><shoton>1</shoton></stats><event_incident_typefk>406</event_incident_typefk><elapsed>22</elapsed><player2>38807</player2><subtype>header</subtype><player1>37799</player1><sortorder>5</sortorder><team>10261</team><id>378998</id><n>295</n><type>goal</type><goal_type>n</goal_type></value><value><comment>n</comment><stats><goals>1</goals><shoton>1</shoton></stats><event_incident_typefk>393</event_incident_typefk><elapsed>24</elapsed><player2>24154</player2><subtype>shot</subtype><player1>24148</player1><sortorder>4</sortorder><team>10260</team><id>379019</id><n>298</n><type>goal</type><goal_type>n</goal_type></value></goal>",
+            "<goal><value><comment>n</comment><stats><goals>1</goals><shoton>1</shoton></stats><event_incident_typefk>393</event_incident_typefk><elapsed>4</elapsed><player2>39297</player2><subtype>shot</subtype><player1>26181</player1><sortorder>2</sortorder><team>9825</team><id>375546</id><n>231</n><type>goal</type><goal_type>n</goal_type></value></goal>",
+            "<goal><value><comment>n</comment><stats><goals>1</goals><shoton>1</shoton></stats><event_incident_typefk>407</event_incident_typefk><elapsed>83</elapsed><player2>30889</player2><subtype>distance</subtype><player1>30853</player1><sortorder>0</sortorder><team>8650</team><id>378041</id><n>344</n><type>goal</type><goal_type>n</goal_type></value></goal>"
+          ],
+          "description": "Thông tin về các bàn thắng trong trận đấu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shoton",
+          "type": "TEXT",
+          "alias_vi": "Tiếng Gọi Bắn",
+          "synonym": [
+            "Tiếng Gọi Bắn",
+            "Tiếng Gọi Bóng"
+          ],
+          "sample_values": [
+            "<shoton><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>3</elapsed><subtype>blocked_shot</subtype><player1>24154</player1><sortorder>0</sortorder><team>10260</team><n>253</n><type>shoton</type><id>378828</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>154</event_incident_typefk><elapsed>7</elapsed><subtype>header</subtype><player1>24157</player1><sortorder>2</sortorder><team>10260</team><n>258</n><type>shoton</type><id>378866</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>153</event_incident_typefk><elapsed>14</elapsed><subtype>shot</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>274</n><type>shoton</type><id>378922</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>153</event_incident_typefk><elapsed>14</elapsed><subtype>shot</subtype><player1>30373</player1><sortorder>2</sortorder><team>10260</team><n>279</n><type>shoton</type><id>378923</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>137</event_incident_typefk><elapsed>17</elapsed><subtype>distance</subtype><player1>30373</player1><sortorder>3</sortorder><team>10260</team><n>272</n><type>shoton</type><id>378951</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>43</elapsed><subtype>blocked_shot</subtype><player1>24154</player1><sortorder>0</sortorder><team>10260</team><n>296</n><type>shoton</type><id>379204</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>137</event_incident_typefk><elapsed>50</elapsed><subtype>distance</subtype><player1>37799</player1><sortorder>0</sortorder><team>10261</team><n>302</n><type>shoton</type><id>379363</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>149</event_incident_typefk><elapsed>58</elapsed><subtype>distance</subtype><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>310</n><type>shoton</type><id>379401</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>58</elapsed><subtype>blocked_shot</subtype><player1>24157</player1><sortorder>4</sortorder><team>10260</team><n>311</n><type>shoton</type><id>379406</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>60</elapsed><subtype>blocked_shot</subtype><player1>30829</player1><sortorder>0</sortorder><team>10260</team><n>314</n><type>shoton</type><id>379414</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>136</event_incident_typefk><elapsed>64</elapsed><subtype>header</subtype><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>319</n><type>shoton</type><id>379426</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>75</elapsed><subtype>blocked_shot</subtype><player1>30829</player1><sortorder>5</sortorder><team>10260</team><n>338</n><type>shoton</type><id>379466</id></value></shoton>",
+            "<shoton><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>7</elapsed><subtype>blocked_shot</subtype><player1>31013</player1><sortorder>1</sortorder><team>9825</team><n>235</n><type>shoton</type><id>375556</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>137</event_incident_typefk><elapsed>7</elapsed><subtype>distance</subtype><player1>30960</player1><sortorder>2</sortorder><team>9825</team><n>236</n><type>shoton</type><id>375557</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>9</elapsed><subtype>blocked_shot</subtype><player1>26111</player1><sortorder>3</sortorder><team>9825</team><n>240</n><type>shoton</type><id>375563</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>135</event_incident_typefk><elapsed>23</elapsed><subtype>shot</subtype><player1>36410</player1><sortorder>1</sortorder><team>9825</team><n>253</n><type>shoton</type><id>375596</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>136</event_incident_typefk><elapsed>32</elapsed><subtype>header</subtype><player1>26111</player1><sortorder>0</sortorder><team>9825</team><n>267</n><type>shoton</type><id>375628</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>137</event_incident_typefk><elapsed>42</elapsed><subtype>distance</subtype><player1>26181</player1><sortorder>1</sortorder><team>9825</team><n>273</n><type>shoton</type><id>375651</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>44</elapsed><subtype>blocked_shot</subtype><player1>30960</player1><sortorder>0</sortorder><team>9825</team><n>279</n><type>shoton</type><id>375654</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>153</event_incident_typefk><elapsed>50</elapsed><subtype>shot</subtype><player1>27267</player1><sortorder>2</sortorder><team>8659</team><n>282</n><type>shoton</type><id>375680</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>59</elapsed><subtype>blocked_shot</subtype><player1>36410</player1><sortorder>3</sortorder><team>9825</team><n>296</n><type>shoton</type><id>375717</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>66</elapsed><subtype>blocked_shot</subtype><player1>31013</player1><sortorder>1</sortorder><team>9825</team><n>297</n><type>shoton</type><id>375740</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>76</elapsed><subtype>blocked_shot</subtype><player1>31088</player1><sortorder>0</sortorder><team>8659</team><n>305</n><type>shoton</type><id>375795</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>79</elapsed><subtype>blocked_shot</subtype><player1>30935</player1><sortorder>0</sortorder><team>9825</team><n>310</n><type>shoton</type><id>375816</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>136</event_incident_typefk><elapsed>82</elapsed><subtype>header</subtype><player1>30843</player1><sortorder>1</sortorder><team>9825</team><n>314</n><type>shoton</type><id>375831</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>89</elapsed><subtype>blocked_shot</subtype><player1>26181</player1><sortorder>1</sortorder><team>9825</team><n>321</n><type>shoton</type><id>375880</id></value></shoton>",
+            "<shoton><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>5</elapsed><subtype>blocked_shot</subtype><player1>23927</player1><sortorder>0</sortorder><team>8472</team><n>269</n><type>shoton</type><id>377771</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>136</event_incident_typefk><elapsed>13</elapsed><subtype>header</subtype><player1>24410</player1><sortorder>0</sortorder><team>8472</team><n>278</n><type>shoton</type><id>377823</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>18</elapsed><subtype>blocked_shot</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>282</n><type>shoton</type><id>377845</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>34</elapsed><subtype>blocked_shot</subtype><player1>30618</player1><sortorder>1</sortorder><team>8650</team><n>297</n><type>shoton</type><id>377901</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>37</elapsed><subtype>blocked_shot</subtype><player1>37139</player1><sortorder>2</sortorder><team>8650</team><n>305</n><type>shoton</type><id>377918</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>40</elapsed><subtype>blocked_shot</subtype><player1>37139</player1><sortorder>0</sortorder><team>8650</team><n>307</n><type>shoton</type><id>377924</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>135</event_incident_typefk><elapsed>54</elapsed><subtype>shot</subtype><player1>23927</player1><sortorder>2</sortorder><team>8472</team><n>322</n><type>shoton</type><id>377967</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>155</event_incident_typefk><elapsed>55</elapsed><subtype>distance</subtype><player1>24800</player1><sortorder>2</sortorder><team>8650</team><n>323</n><type>shoton</type><id>377970</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>59</elapsed><subtype>blocked_shot</subtype><player1>30618</player1><sortorder>1</sortorder><team>8650</team><n>328</n><type>shoton</type><id>377980</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>135</event_incident_typefk><elapsed>59</elapsed><subtype>shot</subtype><player1>24410</player1><sortorder>3</sortorder><team>8472</team><n>329</n><type>shoton</type><id>377982</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>72</elapsed><subtype>blocked_shot</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>339</n><type>shoton</type><id>378013</id></value><value><stats><shoton>1</shoton></stats><event_incident_typefk>155</event_incident_typefk><elapsed>73</elapsed><subtype>distance</subtype><player1>37139</player1><sortorder>0</sortorder><team>8650</team><n>336</n><type>shoton</type><id>378014</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>73</elapsed><subtype>blocked_shot</subtype><player1>30853</player1><sortorder>1</sortorder><team>8650</team><n>337</n><type>shoton</type><id>378015</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>88</elapsed><subtype>blocked_shot</subtype><player1>37139</player1><sortorder>3</sortorder><team>8650</team><n>349</n><type>shoton</type><id>378053</id></value><value><stats><blocked>1</blocked></stats><event_incident_typefk>61</event_incident_typefk><elapsed>90</elapsed><subtype>blocked_shot</subtype><player1>30853</player1><sortorder>1</sortorder><team>8650</team><n>351</n><type>shoton</type><id>378058</id></value></shoton>"
+          ],
+          "description": "Thông tin về các lần bắn bóng vào khung thành",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shotoff",
+          "type": "TEXT",
+          "alias_vi": "Tiếng Gọi Bắn Không Thành Công",
+          "synonym": [
+            "Tiếng Gọi Bắn Không Thành Công",
+            "Tiếng Gọi Bóng Không Thành Công"
+          ],
+          "sample_values": [
+            "<shotoff><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>4</elapsed><subtype>distance</subtype><player1>30373</player1><sortorder>1</sortorder><team>10260</team><n>264</n><type>shotoff</type><id>378835</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>5</elapsed><subtype>distance</subtype><player1>37799</player1><sortorder>2</sortorder><team>10261</team><n>257</n><type>shotoff</type><id>378845</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>22</elapsed><subtype>deflected</subtype><player1>24228</player1><sortorder>3</sortorder><team>10261</team><n>269</n><type>shotoff</type><id>378995</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>31</elapsed><subtype>distance</subtype><player1>38807</player1><sortorder>0</sortorder><team>10261</team><n>278</n><type>shotoff</type><id>379075</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>47</event_incident_typefk><elapsed>34</elapsed><subtype>header</subtype><player1>24154</player1><sortorder>2</sortorder><team>10260</team><n>281</n><type>shotoff</type><id>379111</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>37</elapsed><subtype>distance</subtype><player1>30373</player1><sortorder>2</sortorder><team>10260</team><n>291</n><type>shotoff</type><id>379140</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>53</elapsed><subtype>distance</subtype><player1>40565</player1><sortorder>1</sortorder><team>10261</team><n>320</n><type>shotoff</type><id>379378</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>60</elapsed><subtype>distance</subtype><player1>37799</player1><sortorder>1</sortorder><team>10261</team><n>315</n><type>shotoff</type><id>379415</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>62</elapsed><subtype>deflected</subtype><player1>38807</player1><sortorder>1</sortorder><team>10261</team><n>316</n><type>shotoff</type><id>379419</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>47</event_incident_typefk><elapsed>62</elapsed><subtype>header</subtype><player1>37799</player1><sortorder>3</sortorder><team>10261</team><n>318</n><type>shotoff</type><id>379421</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>66</elapsed><subtype>distance</subtype><player1>33852</player1><sortorder>3</sortorder><team>10261</team><n>323</n><type>shotoff</type><id>379431</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>67</elapsed><subtype>distance</subtype><player1>30373</player1><sortorder>3</sortorder><team>10260</team><n>327</n><type>shotoff</type><id>379438</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>73</elapsed><subtype>deflected</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>332</n><type>shotoff</type><id>379451</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>55</event_incident_typefk><elapsed>74</elapsed><subtype>crossbar</subtype><player1>30865</player1><sortorder>0</sortorder><team>10260</team><n>334</n><type>shotoff</type><id>379453</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>74</elapsed><subtype>deflected</subtype><player1>32569</player1><sortorder>1</sortorder><team>10260</team><n>335</n><type>shotoff</type><id>379454</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>81</event_incident_typefk><elapsed>82</elapsed><subtype>direct_freekick</subtype><player1>38807</player1><sortorder>2</sortorder><team>10261</team><n>347</n><type>shotoff</type><id>379504</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>84</elapsed><subtype>distance</subtype><player1>30829</player1><sortorder>0</sortorder><team>10260</team><n>349</n><type>shotoff</type><id>379515</id></value><value><stats><shotoff>1</shotoff></stats><elapsed_plus>1</elapsed_plus><event_incident_typefk>46</event_incident_typefk><elapsed>90</elapsed><subtype>shot</subtype><player1>32569</player1><sortorder>5</sortorder><team>10260</team><n>354</n><type>shotoff</type><id>379560</id></value><value><stats><shotoff>1</shotoff></stats><elapsed_plus>4</elapsed_plus><event_incident_typefk>81</event_incident_typefk><elapsed>90</elapsed><subtype>direct_freekick</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>356</n><type>shotoff</type><id>379573</id></value></shotoff>",
+            "<shotoff><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>81</event_incident_typefk><elapsed>6</elapsed><subtype>direct_freekick</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>234</n><type>shotoff</type><id>375553</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>9</elapsed><subtype>deflected</subtype><player1>26181</player1><sortorder>1</sortorder><team>9825</team><n>237</n><type>shotoff</type><id>375561</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>11</elapsed><subtype>distance</subtype><player1>38835</player1><sortorder>4</sortorder><team>9825</team><n>245</n><type>shotoff</type><id>375572</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>19</elapsed><subtype>deflected</subtype><player1>26111</player1><sortorder>0</sortorder><team>9825</team><n>247</n><type>shotoff</type><id>375585</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>47</event_incident_typefk><elapsed>25</elapsed><subtype>header</subtype><player1>36410</player1><sortorder>1</sortorder><team>9825</team><n>255</n><type>shotoff</type><id>375603</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>30</elapsed><subtype>deflected</subtype><player1>31088</player1><sortorder>2</sortorder><team>8659</team><n>262</n><type>shotoff</type><id>375620</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>35</elapsed><subtype>distance</subtype><player1>30935</player1><sortorder>0</sortorder><team>9825</team><n>268</n><type>shotoff</type><id>375633</id></value><value><stats><shotoff>1</shotoff></stats><elapsed_plus>1</elapsed_plus><event_incident_typefk>9</event_incident_typefk><elapsed>45</elapsed><subtype>distance</subtype><player1>39297</player1><sortorder>1</sortorder><team>9825</team><n>277</n><type>shotoff</type><id>375660</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>46</event_incident_typefk><elapsed>49</elapsed><subtype>shot</subtype><player1>30960</player1><sortorder>1</sortorder><team>9825</team><n>285</n><type>shotoff</type><id>375674</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>50</elapsed><subtype>deflected</subtype><player1>23257</player1><sortorder>3</sortorder><team>8659</team><n>283</n><type>shotoff</type><id>375681</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>46</event_incident_typefk><elapsed>52</elapsed><subtype>shot</subtype><player1>30960</player1><sortorder>1</sortorder><team>9825</team><n>284</n><type>shotoff</type><id>375685</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>53</elapsed><subtype>distance</subtype><player1>30935</player1><sortorder>3</sortorder><team>9825</team><n>289</n><type>shotoff</type><id>375690</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>65</elapsed><subtype>distance</subtype><player1>30935</player1><sortorder>1</sortorder><team>9825</team><n>298</n><type>shotoff</type><id>375735</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>46</event_incident_typefk><elapsed>80</elapsed><subtype>shot</subtype><player1>38835</player1><sortorder>0</sortorder><team>9825</team><n>312</n><type>shotoff</type><id>375820</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>85</elapsed><subtype>distance</subtype><player1>30843</player1><sortorder>3</sortorder><team>9825</team><n>318</n><type>shotoff</type><id>375857</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>46</event_incident_typefk><elapsed>87</elapsed><subtype>shot</subtype><player1>30843</player1><sortorder>1</sortorder><team>9825</team><n>320</n><type>shotoff</type><id>375870</id></value></shotoff>",
+            "<shotoff><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>10</elapsed><subtype>distance</subtype><player1>30352</player1><sortorder>3</sortorder><team>8472</team><n>274</n><type>shotoff</type><id>377805</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>46</event_incident_typefk><elapsed>27</elapsed><subtype>shot</subtype><player1>23927</player1><sortorder>1</sortorder><team>8472</team><n>291</n><type>shotoff</type><id>377884</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>35</elapsed><subtype>deflected</subtype><player1>30618</player1><sortorder>1</sortorder><team>8650</team><n>298</n><type>shotoff</type><id>377905</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>43</elapsed><subtype>distance</subtype><player1>24635</player1><sortorder>1</sortorder><team>8650</team><n>313</n><type>shotoff</type><id>377935</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>53</elapsed><subtype>distance</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>320</n><type>shotoff</type><id>377963</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>317</event_incident_typefk><elapsed>56</elapsed><subtype>deflected</subtype><player1>24635</player1><sortorder>0</sortorder><team>8650</team><n>324</n><type>shotoff</type><id>377971</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>81</elapsed><subtype>distance</subtype><player1>30889</player1><sortorder>0</sortorder><team>8650</team><n>343</n><type>shotoff</type><id>378034</id></value><value><stats><shotoff>1</shotoff></stats><event_incident_typefk>9</event_incident_typefk><elapsed>89</elapsed><subtype>distance</subtype><player1>30352</player1><sortorder>0</sortorder><team>8472</team><n>350</n><type>shotoff</type><id>378055</id></value></shotoff>"
+          ],
+          "description": "Thông tin về các lần bắn bóng không thành công",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "foulcommit",
+          "type": "TEXT",
+          "alias_vi": "Vi Phạm",
+          "synonym": [
+            "Vi Phạm",
+            "Phạm Quyền"
+          ],
+          "sample_values": [
+            "<foulcommit><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>1</elapsed><player2>32569</player2><player1>25518</player1><sortorder>1</sortorder><team>10261</team><n>267</n><type>foulcommit</type><id>378824</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>2</elapsed><player2>24157</player2><player1>30929</player1><sortorder>0</sortorder><team>10261</team><n>277</n><type>foulcommit</type><id>378826</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>3</elapsed><player2>24148</player2><player1>29581</player1><sortorder>1</sortorder><team>10261</team><n>254</n><type>foulcommit</type><id>378830</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>5</elapsed><player2>40565</player2><player1>30373</player1><sortorder>0</sortorder><team>10260</team><n>256</n><type>foulcommit</type><id>378841</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>10</elapsed><player2>30829</player2><subtype>pushing</subtype><player1>29581</player1><sortorder>0</sortorder><team>10261</team><n>275</n><type>foulcommit</type><id>378894</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>13</elapsed><player2>25518</player2><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>261</n><type>foulcommit</type><id>378913</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>19</elapsed><player2>30362</player2><player1>24228</player1><sortorder>6</sortorder><team>10261</team><n>260</n><type>foulcommit</type><id>378974</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>27</elapsed><player2>30360</player2><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>268</n><type>foulcommit</type><id>379035</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>27</elapsed><player2>38807</player2><player1>24154</player1><sortorder>2</sortorder><team>10260</team><n>282</n><type>foulcommit</type><id>379044</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>18</event_incident_typefk><elapsed>33</elapsed><player2>32569</player2><subtype>shirt_pull</subtype><player1>34574</player1><sortorder>1</sortorder><team>10261</team><n>283</n><type>foulcommit</type><id>379100</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>36</elapsed><player2>32569</player2><subtype>pushing</subtype><player1>37799</player1><sortorder>0</sortorder><team>10261</team><n>286</n><type>foulcommit</type><id>379126</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>38</elapsed><player2>33852</player2><subtype>from_behind</subtype><player1>30620</player1><sortorder>0</sortorder><team>10260</team><n>287</n><type>foulcommit</type><id>379154</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>39</elapsed><player2>34574</player2><subtype>from_behind</subtype><player1>32569</player1><sortorder>2</sortorder><team>10260</team><n>290</n><type>foulcommit</type><id>379171</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>42</elapsed><player2>24157</player2><player1>30929</player1><sortorder>0</sortorder><team>10261</team><n>308</n><type>foulcommit</type><id>379195</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>53</elapsed><player2>33852</player2><subtype>pushing</subtype><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>304</n><type>foulcommit</type><id>379377</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>56</elapsed><player2>34574</player2><subtype>from_behind</subtype><player1>30865</player1><sortorder>0</sortorder><team>10260</team><n>321</n><type>foulcommit</type><id>379390</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>59</elapsed><player2>37799</player2><subtype>from_behind</subtype><player1>30865</player1><sortorder>3</sortorder><team>10260</team><n>313</n><type>foulcommit</type><id>379413</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>3</event_incident_typefk><elapsed>68</elapsed><subtype>hands</subtype><player1>24157</player1><sortorder>1</sortorder><team>10260</team><n>328</n><type>foulcommit</type><id>379440</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>70</elapsed><player2>29581</player2><player1>30362</player1><sortorder>1</sortorder><team>10260</team><n>329</n><type>foulcommit</type><id>379444</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>72</elapsed><player2>24148</player2><player1>29581</player1><sortorder>0</sortorder><team>10261</team><n>331</n><type>foulcommit</type><id>379449</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>76</elapsed><player2>32569</player2><subtype>pushing</subtype><player1>29581</player1><sortorder>0</sortorder><team>10261</team><n>339</n><type>foulcommit</type><id>379468</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>5</event_incident_typefk><elapsed>78</elapsed><player2>30929</player2><subtype>serious_foul</subtype><player1>24157</player1><sortorder>0</sortorder><team>10260</team><n>341</n><type>foulcommit</type><id>379479</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>80</elapsed><player2>38807</player2><player1>24150</player1><sortorder>0</sortorder><team>10260</team><n>343</n><type>foulcommit</type><id>379488</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>5</event_incident_typefk><elapsed>82</elapsed><player2>29581</player2><subtype>serious_foul</subtype><player1>30362</player1><sortorder>0</sortorder><team>10260</team><n>345</n><type>foulcommit</type><id>379502</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>83</elapsed><player2>30929</player2><player1>30829</player1><sortorder>0</sortorder><team>10260</team><n>348</n><type>foulcommit</type><id>379509</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>89</elapsed><player2>24228</player2><player1>30829</player1><sortorder>2</sortorder><team>10260</team><n>352</n><type>foulcommit</type><id>379542</id></value><value><stats><foulscommitted>1</foulscommitted></stats><elapsed_plus>4</elapsed_plus><event_incident_typefk>37</event_incident_typefk><elapsed>90</elapsed><player2>38994</player2><player1>30360</player1><sortorder>0</sortorder><team>10261</team><n>355</n><type>foulcommit</type><id>379571</id></value></foulcommit>",
+            "<foulcommit><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>2</elapsed><player2>26181</player2><player1>36832</player1><sortorder>0</sortorder><team>8659</team><n>227</n><type>foulcommit</type><id>375531</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>3</elapsed><player2>23257</player2><player1>31291</player1><sortorder>5</sortorder><team>9825</team><n>230</n><type>foulcommit</type><id>375541</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>5</elapsed><player2>31088</player2><subtype>pushing</subtype><player1>30935</player1><sortorder>0</sortorder><team>9825</team><n>232</n><type>foulcommit</type><id>375551</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>18</event_incident_typefk><elapsed>10</elapsed><player2>24171</player2><subtype>shirt_pull</subtype><player1>30960</player1><sortorder>0</sortorder><team>9825</team><n>239</n><type>foulcommit</type><id>375564</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>18</event_incident_typefk><elapsed>17</elapsed><player2>23115</player2><subtype>shirt_pull</subtype><player1>30960</player1><sortorder>1</sortorder><team>9825</team><n>251</n><type>foulcommit</type><id>375581</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>22</elapsed><player2>31088</player2><player1>39297</player1><sortorder>1</sortorder><team>9825</team><n>252</n><type>foulcommit</type><id>375593</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>33</elapsed><player2>30986</player2><subtype>pushing</subtype><player1>27267</player1><sortorder>0</sortorder><team>8659</team><n>266</n><type>foulcommit</type><id>375631</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>39</elapsed><player2>31291</player2><player1>25922</player1><sortorder>0</sortorder><team>8659</team><n>272</n><type>foulcommit</type><id>375643</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>40</elapsed><player2>30935</player2><player1>31088</player1><sortorder>0</sortorder><team>8659</team><n>270</n><type>foulcommit</type><id>375648</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>48</elapsed><player2>24664</player2><subtype>pushing</subtype><player1>31013</player1><sortorder>0</sortorder><team>9825</team><n>286</n><type>foulcommit</type><id>375672</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>53</elapsed><player2>26181</player2><player1>24171</player1><sortorder>1</sortorder><team>8659</team><n>287</n><type>foulcommit</type><id>375688</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>54</elapsed><player2>26111</player2><subtype>pushing</subtype><player1>27267</player1><sortorder>1</sortorder><team>8659</team><n>291</n><type>foulcommit</type><id>375692</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>56</elapsed><player2>31088</player2><player1>31291</player1><sortorder>1</sortorder><team>9825</team><n>293</n><type>foulcommit</type><id>375704</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>18</event_incident_typefk><elapsed>57</elapsed><player2>26181</player2><subtype>shirt_pull</subtype><player1>25922</player1><sortorder>0</sortorder><team>8659</team><n>292</n><type>foulcommit</type><id>375709</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>73</elapsed><player2>31088</player2><subtype>pushing</subtype><player1>30843</player1><sortorder>2</sortorder><team>9825</team><n>303</n><type>foulcommit</type><id>375782</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>76</elapsed><player2>24728</player2><subtype>pushing</subtype><player1>30843</player1><sortorder>1</sortorder><team>9825</team><n>306</n><type>foulcommit</type><id>375796</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>77</elapsed><player2>23115</player2><subtype>pushing</subtype><player1>30960</player1><sortorder>0</sortorder><team>9825</team><n>307</n><type>foulcommit</type><id>375799</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>82</elapsed><player2>26181</player2><player1>31088</player1><sortorder>2</sortorder><team>8659</team><n>315</n><type>foulcommit</type><id>375832</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>90</elapsed><player2>30935</player2><subtype>from_behind</subtype><player1>24728</player1><sortorder>2</sortorder><team>8659</team><n>322</n><type>foulcommit</type><id>375889</id></value><value><stats><foulscommitted>1</foulscommitted></stats><elapsed_plus>1</elapsed_plus><event_incident_typefk>320</event_incident_typefk><elapsed>90</elapsed><player2>24171</player2><subtype>pushing</subtype><player1>30935</player1><sortorder>1</sortorder><team>9825</team><n>323</n><type>foulcommit</type><id>375898</id></value></foulcommit>",
+            "<foulcommit><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>12</elapsed><player2>38802</player2><player1>39647</player1><sortorder>0</sortorder><team>8650</team><n>275</n><type>foulcommit</type><id>377817</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>15</elapsed><player2>24134</player2><player1>23927</player1><sortorder>1</sortorder><team>8472</team><n>280</n><type>foulcommit</type><id>377834</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>16</elapsed><player2>24408</player2><player1>30853</player1><sortorder>0</sortorder><team>8650</team><n>281</n><type>foulcommit</type><id>377837</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>19</elapsed><player2>30617</player2><player1>23927</player1><sortorder>1</sortorder><team>8472</team><n>283</n><type>foulcommit</type><id>377853</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>18</event_incident_typefk><elapsed>24</elapsed><player2>36786</player2><subtype>shirt_pull</subtype><player1>37442</player1><sortorder>0</sortorder><team>8650</team><n>286</n><type>foulcommit</type><id>377872</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>24</elapsed><player2>24134</player2><player1>30352</player1><sortorder>3</sortorder><team>8472</team><n>288</n><type>foulcommit</type><id>377875</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>28</elapsed><player2>30853</player2><subtype>pushing</subtype><player1>36786</player1><sortorder>0</sortorder><team>8472</team><n>292</n><type>foulcommit</type><id>377887</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>33</elapsed><player2>30618</player2><player1>24446</player1><sortorder>2</sortorder><team>8472</team><n>296</n><type>foulcommit</type><id>377899</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>38</elapsed><player2>24446</player2><player1>24635</player1><sortorder>1</sortorder><team>8650</team><n>306</n><type>foulcommit</type><id>377921</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>40</elapsed><player2>24635</player2><subtype>from_behind</subtype><player1>24446</player1><sortorder>2</sortorder><team>8472</team><n>309</n><type>foulcommit</type><id>377926</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>41</elapsed><player2>23927</player2><player1>24134</player1><sortorder>0</sortorder><team>8650</team><n>311</n><type>foulcommit</type><id>377927</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>48</elapsed><player2>23927</player2><player1>37442</player1><sortorder>0</sortorder><team>8650</team><n>317</n><type>foulcommit</type><id>377952</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>51</elapsed><player2>38836</player2><subtype>from_behind</subtype><player1>30853</player1><sortorder>0</sortorder><team>8650</team><n>318</n><type>foulcommit</type><id>377958</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>5</event_incident_typefk><elapsed>56</elapsed><player2>30352</player2><subtype>serious_foul</subtype><player1>37442</player1><sortorder>4</sortorder><team>8650</team><n>326</n><type>foulcommit</type><id>377975</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>60</elapsed><player2>38836</player2><player1>30853</player1><sortorder>0</sortorder><team>8650</team><n>330</n><type>foulcommit</type><id>377983</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>62</elapsed><player2>30889</player2><player1>17866</player1><sortorder>1</sortorder><team>8472</team><n>331</n><type>foulcommit</type><id>377990</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>64</elapsed><player2>24410</player2><player1>39647</player1><sortorder>1</sortorder><team>8650</team><n>332</n><type>foulcommit</type><id>377993</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>68</elapsed><player2>30618</player2><player1>23927</player1><sortorder>0</sortorder><team>8472</team><n>334</n><type>foulcommit</type><id>378006</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>19</event_incident_typefk><elapsed>71</elapsed><player2>24800</player2><subtype>from_behind</subtype><player1>38836</player1><sortorder>0</sortorder><team>8472</team><n>335</n><type>foulcommit</type><id>378012</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>80</elapsed><player2>30889</player2><player1>17866</player1><sortorder>0</sortorder><team>8472</team><n>342</n><type>foulcommit</type><id>378031</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>85</elapsed><player2>30954</player2><player1>39647</player1><sortorder>0</sortorder><team>8650</team><n>345</n><type>foulcommit</type><id>378044</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>88</elapsed><player2>30660</player2><player1>33316</player1><sortorder>0</sortorder><team>8472</team><n>348</n><type>foulcommit</type><id>378050</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>320</event_incident_typefk><elapsed>90</elapsed><player2>36786</player2><subtype>pushing</subtype><player1>46621</player1><sortorder>2</sortorder><team>8650</team><n>352</n><type>foulcommit</type><id>378059</id></value><value><stats><foulscommitted>1</foulscommitted></stats><event_incident_typefk>37</event_incident_typefk><elapsed>90</elapsed><player2>30889</player2><player1>17866</player1><sortorder>4</sortorder><team>8472</team><n>354</n><type>foulcommit</type><id>378061</id></value><value><stats><foulscommitted>1</foulscommitted></stats><elapsed_plus>4</elapsed_plus><event_incident_typefk>37</event_incident_typefk><elapsed>90</elapsed><player2>46621</player2><player1>17866</player1><sortorder>0</sortorder><team>8472</team><n>357</n><type>foulcommit</type><id>378068</id></value></foulcommit>"
+          ],
+          "description": "Thông tin về các vi phạm trong trận đấu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "card",
+          "type": "TEXT",
+          "alias_vi": "Thẻ",
+          "synonym": [
+            "Thẻ",
+            "Thẻ Cảnh Báo"
+          ],
+          "sample_values": [
+            "<card><value><comment>y</comment><stats><ycards>1</ycards></stats><event_incident_typefk>73</event_incident_typefk><elapsed>78</elapsed><card_type>y</card_type><subtype>serious_fouls</subtype><player1>24157</player1><sortorder>1</sortorder><team>10260</team><n>342</n><type>card</type><id>379481</id></value><value><comment>y</comment><stats><ycards>1</ycards></stats><event_incident_typefk>73</event_incident_typefk><elapsed>82</elapsed><card_type>y</card_type><subtype>serious_fouls</subtype><player1>30362</player1><sortorder>1</sortorder><team>10260</team><n>346</n><type>card</type><id>379503</id></value><value><comment>y</comment><stats><ycards>1</ycards></stats><event_incident_typefk>70</event_incident_typefk><elapsed>90</elapsed><card_type>y</card_type><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>353</n><type>card</type><id>379547</id></value></card>",
+            "<card />",
+            "<card><value><comment>y</comment><stats><ycards>1</ycards></stats><event_incident_typefk>73</event_incident_typefk><elapsed>56</elapsed><card_type>y</card_type><subtype>serious_fouls</subtype><player1>37442</player1><sortorder>5</sortorder><team>8650</team><n>327</n><type>card</type><id>377978</id></value><value><comment>y</comment><stats><ycards>1</ycards></stats><event_incident_typefk>25</event_incident_typefk><elapsed>90</elapsed><card_type>y</card_type><subtype>stall_time</subtype><player1>46621</player1><sortorder>3</sortorder><team>8650</team><n>353</n><type>card</type><id>378060</id></value></card>"
+          ],
+          "description": "Thông tin về thẻ phạt trong trận đấu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cross",
+          "type": "TEXT",
+          "alias_vi": "Cầu Vồng",
+          "synonym": [
+            "Cầu Vồng",
+            "Cầu Bóng"
+          ],
+          "sample_values": [
+            "<cross><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>7</elapsed><subtype>cross</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>265</n><type>cross</type><id>378863</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>14</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>0</sortorder><team>10260</team><n>255</n><type>cross</type><id>378921</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>19</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>0</sortorder><team>10261</team><n>280</n><type>corner</type><id>378960</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>19</elapsed><subtype>cross</subtype><player1>30929</player1><sortorder>5</sortorder><team>10261</team><n>292</n><type>cross</type><id>378970</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>20</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>0</sortorder><team>10260</team><n>259</n><type>cross</type><id>378978</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>22</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>1</sortorder><team>10261</team><n>262</n><type>cross</type><id>378993</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>22</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>4</sortorder><team>10261</team><n>293</n><type>corner</type><id>378996</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>24</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>0</sortorder><team>10260</team><n>273</n><type>cross</type><id>379012</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>24</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>3</sortorder><team>10260</team><n>266</n><type>cross</type><id>379018</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>28</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>2</sortorder><team>10261</team><n>288</n><type>cross</type><id>379068</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>30</elapsed><subtype>cross</subtype><player1>33852</player1><sortorder>0</sortorder><team>10261</team><n>276</n><type>cross</type><id>379072</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>34</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>284</n><type>cross</type><id>379109</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>1</sortorder><team>10260</team><n>305</n><type>cross</type><id>379128</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>37</elapsed><subtype>cross</subtype><player1>32569</player1><sortorder>0</sortorder><team>10260</team><n>285</n><type>cross</type><id>379138</id></value><value><stats><crosses>1</crosses></stats><elapsed_plus>1</elapsed_plus><event_incident_typefk>7</event_incident_typefk><elapsed>45</elapsed><subtype>cross</subtype><player1>30362</player1><sortorder>2</sortorder><team>10260</team><n>297</n><type>cross</type><id>379247</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>48</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>0</sortorder><team>10260</team><n>299</n><type>cross</type><id>379350</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>48</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>2</sortorder><team>10260</team><n>300</n><type>corner</type><id>379352</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>49</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>0</sortorder><team>10260</team><n>303</n><type>cross</type><id>379358</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>51</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>0</sortorder><team>10261</team><n>301</n><type>corner</type><id>379366</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>55</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>1</sortorder><team>10260</team><n>312</n><type>cross</type><id>379385</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>58</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>307</n><type>corner</type><id>379403</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>58</elapsed><subtype>cross</subtype><player1>30362</player1><sortorder>3</sortorder><team>10260</team><n>306</n><type>cross</type><id>379405</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>62</elapsed><subtype>cross</subtype><player1>40565</player1><sortorder>2</sortorder><team>10261</team><n>317</n><type>corner</type><id>379420</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>63</elapsed><subtype>cross</subtype><player1>32569</player1><sortorder>2</sortorder><team>10260</team><n>324</n><type>cross</type><id>379425</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>66</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>1</sortorder><team>10261</team><n>322</n><type>corner</type><id>379429</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>67</elapsed><subtype>cross</subtype><player1>30362</player1><sortorder>0</sortorder><team>10260</team><n>325</n><type>cross</type><id>379434</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>67</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>326</n><type>corner</type><id>379435</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>71</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>330</n><type>cross</type><id>379447</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>73</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>2</sortorder><team>10260</team><n>333</n><type>corner</type><id>379452</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>75</elapsed><subtype>cross</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>336</n><type>corner</type><id>379460</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>75</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>4</sortorder><team>10260</team><n>337</n><type>cross</type><id>379464</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>88</elapsed><subtype>cross</subtype><player1>30362</player1><sortorder>0</sortorder><team>10260</team><n>350</n><type>cross</type><id>379529</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>89</elapsed><subtype>cross</subtype><player1>30362</player1><sortorder>1</sortorder><team>10260</team><n>351</n><type>cross</type><id>379540</id></value></cross>",
+            "<cross><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>3</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>1</sortorder><team>9825</team><n>233</n><type>cross</type><id>375536</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>3</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>3</sortorder><team>9825</team><n>229</n><type>corner</type><id>375538</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>10</elapsed><subtype>cross</subtype><player1>31291</player1><sortorder>2</sortorder><team>9825</team><n>243</n><type>cross</type><id>375566</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>11</elapsed><subtype>cross</subtype><player1>26111</player1><sortorder>0</sortorder><team>9825</team><n>242</n><type>cross</type><id>375568</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>11</elapsed><subtype>cross</subtype><player1>31291</player1><sortorder>2</sortorder><team>9825</team><n>244</n><type>cross</type><id>375570</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>18</elapsed><subtype>cross</subtype><player1>31291</player1><sortorder>1</sortorder><team>9825</team><n>250</n><type>cross</type><id>375583</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>19</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>1</sortorder><team>9825</team><n>248</n><type>corner</type><id>375586</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>24</elapsed><subtype>cross</subtype><player1>26111</player1><sortorder>1</sortorder><team>9825</team><n>254</n><type>cross</type><id>375600</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>25</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>0</sortorder><team>9825</team><n>256</n><type>corner</type><id>375602</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>26</elapsed><subtype>cross</subtype><player1>31013</player1><sortorder>0</sortorder><team>9825</team><n>258</n><type>cross</type><id>375606</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>28</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>259</n><type>corner</type><id>375609</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>28</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>2</sortorder><team>8659</team><n>260</n><type>cross</type><id>375612</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>29</elapsed><subtype>cross</subtype><player1>36410</player1><sortorder>0</sortorder><team>9825</team><n>261</n><type>cross</type><id>375614</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>31</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>263</n><type>corner</type><id>375621</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>31</elapsed><subtype>cross</subtype><player1>26111</player1><sortorder>3</sortorder><team>9825</team><n>265</n><type>cross</type><id>375624</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>31</elapsed><subtype>cross</subtype><player1>26181</player1><sortorder>5</sortorder><team>9825</team><n>264</n><type>corner</type><id>375626</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>39</elapsed><subtype>cross</subtype><player1>26111</player1><sortorder>3</sortorder><team>9825</team><n>271</n><type>cross</type><id>375646</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>41</elapsed><subtype>cross</subtype><player1>31013</player1><sortorder>0</sortorder><team>9825</team><n>274</n><type>cross</type><id>375649</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>45</elapsed><subtype>cross</subtype><player1>31088</player1><sortorder>0</sortorder><team>8659</team><n>278</n><type>corner</type><id>375657</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>47</elapsed><subtype>cross</subtype><player1>26181</player1><sortorder>0</sortorder><team>9825</team><n>280</n><type>cross</type><id>375668</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>51</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>288</n><type>corner</type><id>375682</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>67</elapsed><subtype>cross</subtype><player1>26111</player1><sortorder>0</sortorder><team>9825</team><n>299</n><type>cross</type><id>375746</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>72</elapsed><subtype>cross</subtype><player1>31291</player1><sortorder>0</sortorder><team>9825</team><n>302</n><type>cross</type><id>375771</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>74</elapsed><subtype>cross</subtype><player1>36832</player1><sortorder>0</sortorder><team>8659</team><n>304</n><type>cross</type><id>375783</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>79</elapsed><subtype>cross</subtype><player1>30843</player1><sortorder>2</sortorder><team>9825</team><n>311</n><type>corner</type><id>375818</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>82</elapsed><subtype>cross</subtype><player1>30960</player1><sortorder>0</sortorder><team>9825</team><n>313</n><type>cross</type><id>375828</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>85</elapsed><subtype>cross</subtype><player1>24664</player1><sortorder>0</sortorder><team>8659</team><n>317</n><type>corner</type><id>375853</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>86</elapsed><subtype>cross</subtype><player1>30960</player1><sortorder>1</sortorder><team>9825</team><n>319</n><type>cross</type><id>375863</id></value></cross>",
+            "<cross><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>7</elapsed><subtype>cross</subtype><player1>24410</player1><sortorder>0</sortorder><team>8472</team><n>270</n><type>cross</type><id>377780</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>7</elapsed><subtype>cross</subtype><player1>23927</player1><sortorder>2</sortorder><team>8472</team><n>271</n><type>cross</type><id>377784</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>9</elapsed><subtype>cross</subtype><player1>37139</player1><sortorder>1</sortorder><team>8650</team><n>272</n><type>cross</type><id>377798</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>10</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>273</n><type>cross</type><id>377802</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>12</elapsed><subtype>cross</subtype><player1>30352</player1><sortorder>1</sortorder><team>8472</team><n>276</n><type>cross</type><id>377818</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>12</elapsed><subtype>cross</subtype><player1>23927</player1><sortorder>3</sortorder><team>8472</team><n>277</n><type>cross</type><id>377821</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>14</elapsed><subtype>cross</subtype><player1>23927</player1><sortorder>2</sortorder><team>8472</team><n>279</n><type>cross</type><id>377832</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>23</elapsed><subtype>cross</subtype><player1>17866</player1><sortorder>0</sortorder><team>8472</team><n>284</n><type>cross</type><id>377867</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>23</elapsed><subtype>cross</subtype><player1>37442</player1><sortorder>2</sortorder><team>8650</team><n>285</n><type>cross</type><id>377870</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>25</elapsed><subtype>cross</subtype><player1>24635</player1><sortorder>1</sortorder><team>8650</team><n>289</n><type>cross</type><id>377877</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>26</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>290</n><type>corner</type><id>377879</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>30</elapsed><subtype>cross</subtype><player1>38802</player1><sortorder>2</sortorder><team>8472</team><n>293</n><type>corner</type><id>377892</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>33</elapsed><subtype>cross</subtype><player1>30853</player1><sortorder>0</sortorder><team>8650</team><n>295</n><type>cross</type><id>377897</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>35</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>299</n><type>corner</type><id>377906</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>35</elapsed><subtype>cross</subtype><player1>37139</player1><sortorder>4</sortorder><team>8650</team><n>300</n><type>cross</type><id>377908</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>301</n><type>corner</type><id>377910</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>303</n><type>cross</type><id>377912</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>4</sortorder><team>8650</team><n>302</n><type>corner</type><id>377914</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>37</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>304</n><type>cross</type><id>377916</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>39</elapsed><subtype>cross</subtype><player1>36786</player1><sortorder>0</sortorder><team>8472</team><n>308</n><type>cross</type><id>377922</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>42</elapsed><subtype>cross</subtype><player1>39647</player1><sortorder>0</sortorder><team>8650</team><n>310</n><type>cross</type><id>377929</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>42</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>312</n><type>corner</type><id>377931</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>44</elapsed><subtype>cross</subtype><player1>23927</player1><sortorder>0</sortorder><team>8472</team><n>314</n><type>cross</type><id>377937</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>46</elapsed><subtype>cross</subtype><player1>23927</player1><sortorder>3</sortorder><team>8472</team><n>316</n><type>cross</type><id>377949</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>52</elapsed><subtype>cross</subtype><player1>39647</player1><sortorder>1</sortorder><team>8650</team><n>319</n><type>cross</type><id>377961</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>54</elapsed><subtype>cross</subtype><player1>24410</player1><sortorder>1</sortorder><team>8472</team><n>321</n><type>cross</type><id>377966</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>56</elapsed><subtype>cross</subtype><player1>30889</player1><sortorder>1</sortorder><team>8650</team><n>325</n><type>corner</type><id>377972</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>66</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>333</n><type>corner</type><id>378001</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>75</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>338</n><type>corner</type><id>378019</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>76</elapsed><subtype>cross</subtype><player1>36786</player1><sortorder>1</sortorder><team>8472</team><n>340</n><type>cross</type><id>378023</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>78</elapsed><subtype>cross</subtype><player1>46621</player1><sortorder>0</sortorder><team>8650</team><n>341</n><type>cross</type><id>378027</id></value><value><stats><crosses>1</crosses></stats><event_incident_typefk>7</event_incident_typefk><elapsed>87</elapsed><subtype>cross</subtype><player1>24410</player1><sortorder>1</sortorder><team>8472</team><n>347</n><type>cross</type><id>378048</id></value><value><stats><crosses>1</crosses></stats><elapsed_plus>1</elapsed_plus><event_incident_typefk>7</event_incident_typefk><elapsed>90</elapsed><subtype>cross</subtype><player1>30352</player1><sortorder>1</sortorder><team>8472</team><n>355</n><type>cross</type><id>378063</id></value><value><stats><crosses>1</crosses></stats><elapsed_plus>2</elapsed_plus><event_incident_typefk>7</event_incident_typefk><elapsed>90</elapsed><subtype>cross</subtype><player1>30954</player1><sortorder>2</sortorder><team>8472</team><n>356</n><type>cross</type><id>378066</id></value></cross>"
+          ],
+          "description": "Thông tin về các cú chuyền bóng qua đầu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "corner",
+          "type": "TEXT",
+          "alias_vi": "Góc Bóng",
+          "synonym": [
+            "Góc Bóng",
+            "Góc Phạt Bóng"
+          ],
+          "sample_values": [
+            "<corner><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>19</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>0</sortorder><team>10261</team><n>280</n><type>corner</type><id>378960</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>330</event_incident_typefk><elapsed>22</elapsed><subtype>short</subtype><player1>40565</player1><sortorder>0</sortorder><team>10261</team><n>263</n><type>corner</type><id>378992</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>22</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>4</sortorder><team>10261</team><n>293</n><type>corner</type><id>378996</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>48</elapsed><subtype>cross</subtype><player1>24154</player1><sortorder>2</sortorder><team>10260</team><n>300</n><type>corner</type><id>379352</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>51</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>0</sortorder><team>10261</team><n>301</n><type>corner</type><id>379366</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>58</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>307</n><type>corner</type><id>379403</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>330</event_incident_typefk><elapsed>59</elapsed><subtype>short</subtype><player1>24148</player1><sortorder>2</sortorder><team>10260</team><n>309</n><type>corner</type><id>379411</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>62</elapsed><subtype>cross</subtype><player1>40565</player1><sortorder>2</sortorder><team>10261</team><n>317</n><type>corner</type><id>379420</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>66</elapsed><subtype>cross</subtype><player1>38807</player1><sortorder>1</sortorder><team>10261</team><n>322</n><type>corner</type><id>379429</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>67</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>1</sortorder><team>10260</team><n>326</n><type>corner</type><id>379435</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>73</elapsed><subtype>cross</subtype><player1>24148</player1><sortorder>2</sortorder><team>10260</team><n>333</n><type>corner</type><id>379452</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>75</elapsed><subtype>cross</subtype><player1>30829</player1><sortorder>1</sortorder><team>10260</team><n>336</n><type>corner</type><id>379460</id></value></corner>",
+            "<corner><value><stats><corners>1</corners></stats><event_incident_typefk>330</event_incident_typefk><elapsed>3</elapsed><subtype>short</subtype><player1>39297</player1><sortorder>0</sortorder><team>9825</team><n>228</n><type>corner</type><id>375535</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>3</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>3</sortorder><team>9825</team><n>229</n><type>corner</type><id>375538</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>330</event_incident_typefk><elapsed>9</elapsed><subtype>short</subtype><player1>30960</player1><sortorder>2</sortorder><team>9825</team><n>238</n><type>corner</type><id>375562</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>19</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>1</sortorder><team>9825</team><n>248</n><type>corner</type><id>375586</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>25</elapsed><subtype>cross</subtype><player1>39297</player1><sortorder>0</sortorder><team>9825</team><n>256</n><type>corner</type><id>375602</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>28</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>259</n><type>corner</type><id>375609</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>31</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>263</n><type>corner</type><id>375621</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>31</elapsed><subtype>cross</subtype><player1>26181</player1><sortorder>5</sortorder><team>9825</team><n>264</n><type>corner</type><id>375626</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>45</elapsed><subtype>cross</subtype><player1>31088</player1><sortorder>0</sortorder><team>8659</team><n>278</n><type>corner</type><id>375657</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>51</elapsed><subtype>cross</subtype><player1>23257</player1><sortorder>0</sortorder><team>8659</team><n>288</n><type>corner</type><id>375682</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>79</elapsed><subtype>cross</subtype><player1>30843</player1><sortorder>2</sortorder><team>9825</team><n>311</n><type>corner</type><id>375818</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>85</elapsed><subtype>cross</subtype><player1>24664</player1><sortorder>0</sortorder><team>8659</team><n>317</n><type>corner</type><id>375853</id></value></corner>",
+            "<corner><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>26</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>290</n><type>corner</type><id>377879</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>30</elapsed><subtype>cross</subtype><player1>38802</player1><sortorder>2</sortorder><team>8472</team><n>293</n><type>corner</type><id>377892</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>35</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>299</n><type>corner</type><id>377906</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>301</n><type>corner</type><id>377910</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>36</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>4</sortorder><team>8650</team><n>302</n><type>corner</type><id>377914</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>42</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>312</n><type>corner</type><id>377931</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>56</elapsed><subtype>cross</subtype><player1>30889</player1><sortorder>1</sortorder><team>8650</team><n>325</n><type>corner</type><id>377972</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>66</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>2</sortorder><team>8650</team><n>333</n><type>corner</type><id>378001</id></value><value><stats><corners>1</corners></stats><event_incident_typefk>329</event_incident_typefk><elapsed>75</elapsed><subtype>cross</subtype><player1>30618</player1><sortorder>0</sortorder><team>8650</team><n>338</n><type>corner</type><id>378019</id></value></corner>"
+          ],
+          "description": "Thông tin về các quả đá góc trong trận đấu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "possession",
+          "type": "TEXT",
+          "alias_vi": "Sở hữu bóng",
+          "synonym": [
+            "Sở hữu",
+            "Đối soát"
+          ],
+          "sample_values": [
+            "<possession><value><comment>56</comment><event_incident_typefk>352</event_incident_typefk><elapsed>25</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>44</awaypos><homepos>56</homepos><n>68</n><type>special</type><id>379029</id></value><value><comment>54</comment><elapsed_plus>1</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>45</elapsed><subtype>possession</subtype><sortorder>4</sortorder><awaypos>46</awaypos><homepos>54</homepos><n>117</n><type>special</type><id>379251</id></value><value><comment>54</comment><event_incident_typefk>352</event_incident_typefk><elapsed>70</elapsed><subtype>possession</subtype><sortorder>0</sortorder><awaypos>46</awaypos><homepos>54</homepos><n>190</n><type>special</type><id>379443</id></value><value><comment>55</comment><elapsed_plus>5</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>90</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>45</awaypos><homepos>55</homepos><n>252</n><type>special</type><id>379575</id></value></possession>",
+            "<possession><value><comment>65</comment><event_incident_typefk>352</event_incident_typefk><elapsed>27</elapsed><subtype>possession</subtype><sortorder>0</sortorder><awaypos>35</awaypos><homepos>65</homepos><n>67</n><type>special</type><id>375608</id></value><value><comment>61</comment><elapsed_plus>2</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>45</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>39</awaypos><homepos>61</homepos><n>114</n><type>special</type><id>375663</id></value><value><comment>65</comment><event_incident_typefk>352</event_incident_typefk><elapsed>74</elapsed><subtype>possession</subtype><sortorder>3</sortorder><awaypos>35</awaypos><homepos>65</homepos><n>177</n><type>special</type><id>375787</id></value><value><comment>66</comment><elapsed_plus>3</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>90</elapsed><subtype>possession</subtype><sortorder>2</sortorder><awaypos>34</awaypos><homepos>66</homepos><n>199</n><type>special</type><id>375909</id></value></possession>",
+            "<possession><value><comment>45</comment><event_incident_typefk>352</event_incident_typefk><elapsed>25</elapsed><subtype>possession</subtype><sortorder>0</sortorder><awaypos>55</awaypos><homepos>45</homepos><n>85</n><type>special</type><id>377876</id></value><value><comment>43</comment><elapsed_plus>1</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>45</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>57</awaypos><homepos>43</homepos><n>144</n><type>special</type><id>377944</id></value><value><comment>48</comment><event_incident_typefk>352</event_incident_typefk><elapsed>70</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>52</awaypos><homepos>48</homepos><n>196</n><type>special</type><id>378011</id></value><value><comment>46</comment><elapsed_plus>4</elapsed_plus><event_incident_typefk>352</event_incident_typefk><elapsed>90</elapsed><subtype>possession</subtype><sortorder>1</sortorder><awaypos>54</awaypos><homepos>46</homepos><n>264</n><type>special</type><id>378069</id></value></possession>"
+          ],
+          "description": "Thời gian đội sở hữu bóng trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "B365H",
+          "type": "REAL",
+          "alias_vi": "Odds_B365_Home",
+          "synonym": [
+            "Odds_Home",
+            "Xác suất_home"
+          ],
+          "sample_values": [
+            "1.73",
+            "1.95",
+            "2.38"
+          ],
+          "description": "Xác suất đội nhà thắng theo công ty cá cược B365.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "B365D",
+          "type": "REAL",
+          "alias_vi": "Odds_B365_Draw",
+          "synonym": [
+            "Odds_Draw",
+            "Xác suất_draw"
+          ],
+          "sample_values": [
+            "3.4",
+            "3.2",
+            "3.3"
+          ],
+          "description": "Xác suất hòa theo công ty cá cược B365.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "B365A",
+          "type": "REAL",
+          "alias_vi": "Odds_B365_Away",
+          "synonym": [
+            "Odds_Away",
+            "Xác suất_away"
+          ],
+          "sample_values": [
+            "5.0",
+            "3.6",
+            "2.75"
+          ],
+          "description": "Xác suất đội khách thắng theo công ty cá cược B365.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BWH",
+          "type": "REAL",
+          "alias_vi": "Odds_Bwin_Home",
+          "synonym": [
+            "Odds_Home_Bwin",
+            "Xác suất_home_Bwin"
+          ],
+          "sample_values": [
+            "1.75",
+            "1.8",
+            "2.4"
+          ],
+          "description": "Xác suất đội nhà thắng theo công ty cá cược Bwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BWD",
+          "type": "REAL",
+          "alias_vi": "Odds_Bwin_Draw",
+          "synonym": [
+            "Odds_Draw_Bwin",
+            "Xác suất_draw_Bwin"
+          ],
+          "sample_values": [
+            "3.35",
+            "3.3",
+            "4.0"
+          ],
+          "description": "Xác suất hòa theo công ty cá cược Bwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BWA",
+          "type": "REAL",
+          "alias_vi": "Odds_Bwin_Away",
+          "synonym": [
+            "Odds_Away_Bwin",
+            "Xác suất_away_Bwin"
+          ],
+          "sample_values": [
+            "4.2",
+            "3.95",
+            "2.55"
+          ],
+          "description": "Xác suất đội khách thắng theo công ty cá cược Bwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IWH",
+          "type": "REAL",
+          "alias_vi": "Odds_Ibw_Home",
+          "synonym": [
+            "Odds_Home_Ibw",
+            "Xác suất_home_Ibw"
+          ],
+          "sample_values": [
+            "1.85",
+            "1.9",
+            "2.6"
+          ],
+          "description": "Xác suất đội nhà thắng theo công ty cá cược Ibwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IWD",
+          "type": "REAL",
+          "alias_vi": "Odds_Ibw_Draw",
+          "synonym": [
+            "Odds_Draw_Ibw",
+            "Xác suất_draw_Ibw"
+          ],
+          "sample_values": [
+            "3.2",
+            "3.1",
+            "3.9"
+          ],
+          "description": "Xác suất hòa theo công ty cá cược Ibwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IWA",
+          "type": "REAL",
+          "alias_vi": "Odds_Ibw_Away",
+          "synonym": [
+            "Odds_Away_Ibw",
+            "Xác suất_away_Ibw"
+          ],
+          "sample_values": [
+            "3.5",
+            "2.3",
+            "6.0"
+          ],
+          "description": "Xác suất đội khách thắng theo công ty cá cược Ibwin.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LBH",
+          "type": "REAL",
+          "alias_vi": "Odds_Ladbrokes_Home",
+          "synonym": [
+            "Odds_Home_Ladbrokes",
+            "Xác suất_home_Ladbrokes"
+          ],
+          "sample_values": [
+            "1.8",
+            "1.9",
+            "2.5"
+          ],
+          "description": "Xác suất đội nhà thắng theo công ty cá cược Ladbrokes.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LBD",
+          "type": "REAL",
+          "alias_vi": "Odds_Ladbrokes_Draw",
+          "synonym": [
+            "Odds_Draw_Ladbrokes",
+            "Xác suất_draw_Ladbrokes"
+          ],
+          "sample_values": [
+            "3.3",
+            "3.2",
+            "3.6"
+          ],
+          "description": "Xác suất hòa theo công ty cá cược Ladbrokes.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LBA",
+          "type": "REAL",
+          "alias_vi": "Điểm cược thắng",
+          "synonym": [
+            "Điểm cược chiến thắng",
+            "Điểm cược thắng trận"
+          ],
+          "sample_values": [
+            "3.75",
+            "3.5",
+            "2.5"
+          ],
+          "description": "Điểm cược cho đội thắng trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PSH",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa",
+          "synonym": [
+            "Điểm cược hòa trận",
+            "Điểm cược hòa đấu"
+          ],
+          "sample_values": [
+            "5.1",
+            "2.48",
+            "1.83"
+          ],
+          "description": "Điểm cược cho kết quả hòa trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PSD",
+          "type": "REAL",
+          "alias_vi": "Điểm cược thua",
+          "synonym": [
+            "Điểm cược thua trận",
+            "Điểm cược thua đấu"
+          ],
+          "sample_values": [
+            "3.82",
+            "3.52",
+            "3.79"
+          ],
+          "description": "Điểm cược cho đội thua trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PSA",
+          "type": "REAL",
+          "alias_vi": "Điểm cược tổng bàn thắng chẵn",
+          "synonym": [
+            "Điểm cược tổng bàn chẵn",
+            "Điểm cược tổng bàn thắng chẵn đấu"
+          ],
+          "sample_values": [
+            "1.76",
+            "2.96",
+            "4.63"
+          ],
+          "description": "Điểm cược cho tổng số bàn thắng là số chẵn trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "WHH",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa cả hai",
+          "synonym": [
+            "Điểm cược hòa cả hai đội",
+            "Điểm cược hòa cả hai trận"
+          ],
+          "sample_values": [
+            "1.7",
+            "1.83",
+            "2.5"
+          ],
+          "description": "Điểm cược cho cả hai đội hòa nhau trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "WHD",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa trên",
+          "synonym": [
+            "Điểm cược hòa trên trận",
+            "Điểm cược hòa trên đấu"
+          ],
+          "sample_values": [
+            "3.3",
+            "3.25",
+            "3.75"
+          ],
+          "description": "Điểm cược cho đội trên hòa đội dưới trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "WHA",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa dưới",
+          "synonym": [
+            "Điểm cược hòa dưới trận",
+            "Điểm cược hòa dưới đấu"
+          ],
+          "sample_values": [
+            "4.33",
+            "3.6",
+            "2.4"
+          ],
+          "description": "Điểm cược cho đội dưới hòa đội trên trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SJH",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa cả hai",
+          "synonym": [
+            "Điểm cược hòa cả hai đội",
+            "Điểm cược hòa cả hai trận"
+          ],
+          "sample_values": [
+            "1.9",
+            "1.95",
+            "2.63"
+          ],
+          "description": "Điểm cược cho cả hai đội hòa nhau trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SJD",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa trên",
+          "synonym": [
+            "Điểm cược hòa trên trận",
+            "Điểm cược hòa trên đấu"
+          ],
+          "sample_values": [
+            "3.3",
+            "4.0",
+            "3.5"
+          ],
+          "description": "Điểm cược cho đội trên hòa đội dưới trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SJA",
+          "type": "REAL",
+          "alias_vi": "Điểm cược hòa dưới",
+          "synonym": [
+            "Điểm cược hòa dưới trận",
+            "Điểm cược hòa dưới đấu"
+          ],
+          "sample_values": [
+            "4.0",
+            "3.8",
+            "2.5"
+          ],
+          "description": "Điểm cược cho đội dưới hòa đội trên trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "VCH",
+          "type": "REAL",
+          "alias_vi": "Điểm cược tổng bàn thắng lẻ",
+          "synonym": [
+            "Điểm cược tổng bàn lẻ",
+            "Điểm cược tổng bàn thắng lẻ đấu"
+          ],
+          "sample_values": [
+            "1.65",
+            "2.0",
+            "2.35"
+          ],
+          "description": "Điểm cược cho tổng số bàn thắng là số lẻ trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "VCD",
+          "type": "REAL",
+          "alias_vi": "Điểm cược tổng bàn thắng",
+          "synonym": [
+            "Điểm cược tổng bàn đấu",
+            "Điểm cược tổng bàn thắng đấu"
+          ],
+          "sample_values": [
+            "3.4",
+            "3.25",
+            "3.75"
+          ],
+          "description": "Điểm cược cho tổng số bàn thắng trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "VCA",
+          "type": "REAL",
+          "alias_vi": "Odds_1",
+          "synonym": [
+            "Xác Suất Thắng_1",
+            "Odds_Thắng_1"
+          ],
+          "sample_values": [
+            "4.5",
+            "3.25",
+            "2.65"
+          ],
+          "description": "Xác suất đội nhà thắng trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GBH",
+          "type": "REAL",
+          "alias_vi": "Odds_X",
+          "synonym": [
+            "Xác Suất Hòa",
+            "Odds_Hòa"
+          ],
+          "sample_values": [
+            "1.78",
+            "1.85",
+            "2.5"
+          ],
+          "description": "Xác suất trận đấu kết thúc với kết quả hòa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GBD",
+          "type": "REAL",
+          "alias_vi": "Odds_2",
+          "synonym": [
+            "Xác Suất Thắng_2",
+            "Odds_Thắng_2"
+          ],
+          "sample_values": [
+            "3.25",
+            "3.2",
+            "3.75"
+          ],
+          "description": "Xác suất đội khách thắng trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GBA",
+          "type": "REAL",
+          "alias_vi": "Odds_Tài",
+          "synonym": [
+            "Xác Suất Tài",
+            "Odds_Tài"
+          ],
+          "sample_values": [
+            "4.0",
+            "3.75",
+            "2.5"
+          ],
+          "description": "Xác suất tổng số bàn thắng trong trận đấu lớn hơn hoặc bằng 2.5.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BSH",
+          "type": "REAL",
+          "alias_vi": "Odd_Under",
+          "synonym": [
+            "Xác Suất Dưới",
+            "Odds_Dưới"
+          ],
+          "sample_values": [
+            "1.73",
+            "1.91",
+            "2.3"
+          ],
+          "description": "Xác suất tổng số bàn thắng trong trận đấu nhỏ hơn 2.5.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BSD",
+          "type": "REAL",
+          "alias_vi": "Odd_Draw",
+          "synonym": [
+            "Xác Suất Hòa",
+            "Odds_Hòa"
+          ],
+          "sample_values": [
+            "3.4",
+            "3.25",
+            "3.2"
+          ],
+          "description": "Xác suất trận đấu kết thúc với kết quả hòa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "BSA",
+          "type": "REAL",
+          "alias_vi": "Odd_Over",
+          "synonym": [
+            "Xác Suativity_Suất Lớn",
+            "Odds_Lớn"
+          ],
+          "sample_values": [
+            "4.2",
+            "3.6",
+            "2.75"
+          ],
+          "description": "Xác suất tổng số bàn thắng trong trận đấu lớn hơn 2.5.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "alias_vi": "Người chơi",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã người chơi",
+          "synonym": [
+            "ID",
+            "Mã"
+          ],
+          "sample_values": [
+            "3879",
+            "401",
+            "9179"
+          ],
+          "description": "Mã duy nhất để xác định người chơi",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "player_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API người chơi",
+          "synonym": [
+            "API ID",
+            "Mã API"
+          ],
+          "sample_values": [
+            "2625",
+            "2752",
+            "2768"
+          ],
+          "description": "Mã duy nhất từ API để xác định người chơi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "player_name",
+          "type": "TEXT",
+          "alias_vi": "Tên người chơi",
+          "synonym": [
+            "Tên",
+            "Họ và tên"
+          ],
+          "sample_values": [
+            "Aaron Appindangoye",
+            "Aaron Cresswell",
+            "Aaron Doran"
+          ],
+          "description": "Tên đầy đủ của người chơi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "player_fifa_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API FIFA người chơi",
+          "synonym": [
+            "FIFA API ID",
+            "Mã FIFA API"
+          ],
+          "sample_values": [
+            "2",
+            "6",
+            "11"
+          ],
+          "description": "Mã duy nhất từ API FIFA để xác định người chơi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "birthday",
+          "type": "TEXT",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày sinh nhật",
+            "Sinh nhật"
+          ],
+          "sample_values": [
+            "1992-02-29 00:00:00",
+            "1989-12-15 00:00:00",
+            "1991-05-13 00:00:00"
+          ],
+          "description": "Ngày sinh của người chơi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "height",
+          "type": "INTEGER",
+          "alias_vi": "Chiều cao",
+          "synonym": [
+            "Chiều cao người chơi",
+            "Chiều cao"
+          ],
+          "sample_values": [
+            "182",
+            "170",
+            "172"
+          ],
+          "description": "Chiều cao của người chơi (trong cm)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "weight",
+          "type": "INTEGER",
+          "alias_vi": "Cân nặng",
+          "synonym": [
+            "Cân nặng người chơi",
+            "Cân nặng"
+          ],
+          "sample_values": [
+            "187",
+            "146",
+            "163"
+          ],
+          "description": "Cân nặng của người chơi (trong kg)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Player_Attributes",
+      "alias_vi": "Thông Tin Đội Thuyền Viên",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã ID",
+          "synonym": [
+            "Mã",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi trong bảng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "player_fifa_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API FIFA của Đội Thuyền Viên",
+          "synonym": [
+            "Mã API FIFA",
+            "ID API FIFA"
+          ],
+          "sample_values": [
+            "218353",
+            "189615",
+            "186170"
+          ],
+          "description": "Mã duy nhất được cấp bởi FIFA để xác định đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_fifa_api_id"
+        },
+        {
+          "name": "player_api_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã API của Đội Thuyền Viên",
+          "synonym": [
+            "Mã API",
+            "ID API"
+          ],
+          "sample_values": [
+            "505942",
+            "155782",
+            "162549"
+          ],
+          "description": "Mã duy nhất được cấp bởi API để xác định đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "Player.player_api_id"
+        },
+        {
+          "name": "date",
+          "type": "TEXT",
+          "alias_vi": "Ngày",
+          "synonym": [
+            "Ngày cập nhật",
+            "Ngày ghi nhận"
+          ],
+          "sample_values": [
+            "2016-02-18 00:00:00",
+            "2015-11-19 00:00:00",
+            "2015-09-21 00:00:00"
+          ],
+          "description": "Ngày khi thông tin về đội thuyền viên được cập nhật hoặc ghi nhận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "overall_rating",
+          "type": "INTEGER",
+          "alias_vi": "Đánh giá chung",
+          "synonym": [
+            "Đánh giá tổng thể",
+            "Điểm chung"
+          ],
+          "sample_values": [
+            "67",
+            "62",
+            "61"
+          ],
+          "description": "Điểm đánh giá tổng thể về kỹ năng và phong cách chơi của đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "potential",
+          "type": "INTEGER",
+          "alias_vi": "Tiềm năng",
+          "synonym": [
+            "Năng lực tiềm tàng",
+            "Tiềm năng phát triển"
+          ],
+          "sample_values": [
+            "71",
+            "66",
+            "65"
+          ],
+          "description": "Điểm đánh giá tiềm năng phát triển kỹ năng của đội thuyền viên trong tương lai.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "preferred_foot",
+          "type": "TEXT",
+          "alias_vi": "Chân thuận lợi",
+          "synonym": [
+            "Chân thuận",
+            "Chân mạnh"
+          ],
+          "sample_values": [
+            "right",
+            "left"
+          ],
+          "description": "Chân thuận lợi của đội thuyền viên khi thực hiện các kỹ thuật bóng đá.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "attacking_work_rate",
+          "type": "TEXT",
+          "alias_vi": "Tỷ lệ làm việc tấn công",
+          "synonym": [
+            "Tỷ lệ tấn công",
+            "Tốc độ tấn công"
+          ],
+          "sample_values": [
+            "medium",
+            "high",
+            "low"
+          ],
+          "description": "Tỷ lệ làm việc tấn công của đội thuyền viên trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defensive_work_rate",
+          "type": "TEXT",
+          "alias_vi": "Tỷ lệ làm việc phòng ngự",
+          "synonym": [
+            "Tỷ lệ phòng ngự",
+            "Tốc độ phòng ngự"
+          ],
+          "sample_values": [
+            "medium",
+            "high",
+            "low"
+          ],
+          "description": "Tỷ lệ làm việc phòng ngự của đội thuyền viên trong trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "crossing",
+          "type": "INTEGER",
+          "alias_vi": "Phản xạ",
+          "synonym": [
+            "Phản xạ bóng",
+            "Kỹ năng chuyền bóng qua người"
+          ],
+          "sample_values": [
+            "49",
+            "48",
+            "80"
+          ],
+          "description": "Điểm đánh giá kỹ năng phản xạ và chuyền bóng qua người của đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "finishing",
+          "type": "INTEGER",
+          "alias_vi": "Kỹ năng dứt điểm",
+          "synonym": [
+            "Kỹ năng ghi bàn",
+            "Kỹ năng kết thúc"
+          ],
+          "sample_values": [
+            "44",
+            "43",
+            "53"
+          ],
+          "description": "Điểm đánh giá kỹ năng dứt điểm và ghi bàn của đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "heading_accuracy",
+          "type": "INTEGER",
+          "alias_vi": "Độ chính xác đánh đầu",
+          "synonym": [
+            "Độ chính xác đánh đầu bóng",
+            "Kỹ năng đánh đầu"
+          ],
+          "sample_values": [
+            "71",
+            "70",
+            "58"
+          ],
+          "description": "Điểm đánh giá độ chính xác khi đánh đầu bóng của đội thuyền viên.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "short_passing",
+          "type": "INTEGER",
+          "alias_vi": "Đánh Dấu Khoảng Cách Ngắn",
+          "synonym": [
+            "Đánh Dấu Khoảng Cách Nhỏ",
+            "Đánh Dấu Short"
+          ],
+          "sample_values": [
+            "61",
+            "60",
+            "71"
+          ],
+          "description": "Tỉ lệ đánh dấu khoảnh cách ngắn của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "volleys",
+          "type": "INTEGER",
+          "alias_vi": "Tiếng Gọi",
+          "synonym": [
+            "Tiếng Gọi Tự Do",
+            "Tiếng Gọi Volleys"
+          ],
+          "sample_values": [
+            "44",
+            "43",
+            "40"
+          ],
+          "description": "Tỉ lệ thực hiện tiếng gọi thành công của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "dribbling",
+          "type": "INTEGER",
+          "alias_vi": "Đi Trượt",
+          "synonym": [
+            "Đi Trượt Cầu Thủ",
+            "Đi Trượt Dribbling"
+          ],
+          "sample_values": [
+            "51",
+            "50",
+            "73"
+          ],
+          "description": "Tỉ lệ đi trượt thành công của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "curve",
+          "type": "INTEGER",
+          "alias_vi": "Điểm Uốn",
+          "synonym": [
+            "Điểm Uốn Bóng",
+            "Điểm Uốn Bola"
+          ],
+          "sample_values": [
+            "45",
+            "44",
+            "70"
+          ],
+          "description": "Tỉ lệ uốn bóng thành công của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "free_kick_accuracy",
+          "type": "INTEGER",
+          "alias_vi": "Tỉ Lệ Đảm Bảo Từ Hậu",
+          "synonym": [
+            "Tỉ Lệ Từ Hậu",
+            "Tỉ Lệ Free Kick"
+          ],
+          "sample_values": [
+            "39",
+            "38",
+            "69"
+          ],
+          "description": "Tỉ lệ ghi bàn từ các tình huống đá phạt trực tiếp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "long_passing",
+          "type": "INTEGER",
+          "alias_vi": "Đánh Dấu Khoảng Cách Dài",
+          "synonym": [
+            "Đánh Dấu Khoảng Cách Lớn",
+            "Đánh Dấu Long"
+          ],
+          "sample_values": [
+            "64",
+            "63",
+            "68"
+          ],
+          "description": "Tỉ lệ đánh dấu khoảnh cách dài của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ball_control",
+          "type": "INTEGER",
+          "alias_vi": "Kỹ Năng Kiểm Soát Bóng",
+          "synonym": [
+            "Kiểm Soát Bóng",
+            "Kỹ Năng Kiểm Soát"
+          ],
+          "sample_values": [
+            "49",
+            "48",
+            "71"
+          ],
+          "description": "Tỉ lệ kiểm soát bóng của cầu thủ trong khi di chuyển.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "acceleration",
+          "type": "INTEGER",
+          "alias_vi": "Tăng Cường",
+          "synonym": [
+            "Tăng Cường Di Chuyển",
+            "Tăng Cường Acceleration"
+          ],
+          "sample_values": [
+            "60",
+            "79",
+            "80"
+          ],
+          "description": "Tốc độ tăng tốc của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "sprint_speed",
+          "type": "INTEGER",
+          "alias_vi": "Vận Động Nhanh",
+          "synonym": [
+            "Vận Động Nhanh Chạy",
+            "Vận Động Sprint"
+          ],
+          "sample_values": [
+            "64",
+            "78",
+            "82"
+          ],
+          "description": "Tốc độ chạy nhanh nhất của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "agility",
+          "type": "INTEGER",
+          "alias_vi": "Khéo Léo",
+          "synonym": [
+            "Khéo Léo Di Chuyển",
+            "Khéo Léo Agility"
+          ],
+          "sample_values": [
+            "59",
+            "78",
+            "79"
+          ],
+          "description": "Năng lực di chuyển linh hoạt và khéo léo của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "reactions",
+          "type": "INTEGER",
+          "alias_vi": "Tác Hành",
+          "synonym": [
+            "Tác Hành Nhanh",
+            "Tác Hành Reactions"
+          ],
+          "sample_values": [
+            "47",
+            "46",
+            "67"
+          ],
+          "description": "Năng lực phản ứng nhanh của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "balance",
+          "type": "INTEGER",
+          "alias_vi": "Bình Thận",
+          "synonym": [
+            "Bình Thận Bóng",
+            "Bình Thận Balance"
+          ],
+          "sample_values": [
+            "65",
+            "90",
+            "87"
+          ],
+          "description": "Năng lực giữ thăng bằng khi di chuyển hoặc dừng lại.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "shot_power",
+          "type": "INTEGER",
+          "alias_vi": "Sức Nổ Tiếng Gọi",
+          "synonym": [
+            "Sức Nổ",
+            "Sức Mạnh Tiếng Gọi"
+          ],
+          "sample_values": [
+            "55",
+            "54",
+            "71"
+          ],
+          "description": "Độ mạnh khi thực hiện các pha dứt điểm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "jumping",
+          "type": "INTEGER",
+          "alias_vi": "Nâng Tầm",
+          "synonym": [
+            "Nâng Tầm",
+            "Nâng Dốc"
+          ],
+          "sample_values": [
+            "58",
+            "85",
+            "84"
+          ],
+          "description": "Khả năng nhảy cao của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "stamina",
+          "type": "INTEGER",
+          "alias_vi": "Kháng Cứng",
+          "synonym": [
+            "Kháng Cứng",
+            "Kháng Lực"
+          ],
+          "sample_values": [
+            "54",
+            "79",
+            "80"
+          ],
+          "description": "Khả năng duy trì thể lực trong suốt trận đấu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "strength",
+          "type": "INTEGER",
+          "alias_vi": "Sức Mạnh",
+          "synonym": [
+            "Sức Mạnh",
+            "Dũng Lực"
+          ],
+          "sample_values": [
+            "76",
+            "56",
+            "50"
+          ],
+          "description": "Khả năng chịu đựng và sức mạnh cơ bắp của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "long_shots",
+          "type": "INTEGER",
+          "alias_vi": "Tiếng Gọi Từ Khoảng Cách xa",
+          "synonym": [
+            "Tiếng Gọi xa",
+            "Tiếng Gọi từ xa"
+          ],
+          "sample_values": [
+            "35",
+            "34",
+            "62"
+          ],
+          "description": "Khả năng thực hiện các pha dứt điểm từ xa.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "aggression",
+          "type": "INTEGER",
+          "alias_vi": "Trách Nhiệm",
+          "synonym": [
+            "Trách Nhiệm",
+            "Tinh Thần Chiến Thắng"
+          ],
+          "sample_values": [
+            "71",
+            "63",
+            "62"
+          ],
+          "description": "Khả năng tấn công và quyết tâm của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "interceptions",
+          "type": "INTEGER",
+          "alias_vi": "Phản Phản",
+          "synonym": [
+            "Phản Phản",
+            "Phản Xạ"
+          ],
+          "sample_values": [
+            "70",
+            "41",
+            "40"
+          ],
+          "description": "Khả năng cướp bóng của cầu thủ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "positioning",
+          "type": "INTEGER",
+          "alias_vi": "Vị Trí",
+          "synonym": [
+            "Vị Trí",
+            "Đặt Vị Trí"
+          ],
+          "sample_values": [
+            "45",
+            "44",
+            "60"
+          ],
+          "description": "Khả năng định vị chính xác trên sân.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "vision",
+          "type": "INTEGER",
+          "alias_vi": "Hiểu Biết",
+          "synonym": [
+            "Hiểu Biết",
+            "Hiểu Quan"
+          ],
+          "sample_values": [
+            "54",
+            "53",
+            "66"
+          ],
+          "description": "Khả năng nhìn nhận và phân tích tình huống trên sân.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "penalties",
+          "type": "INTEGER",
+          "alias_vi": "Tiếng Gọi Trên Đấu Trường",
+          "synonym": [
+            "Tiếng Gọi Trên Đấu Trường",
+            "Tiếng Gọi Phạt"
+          ],
+          "sample_values": [
+            "48",
+            "47",
+            "59"
+          ],
+          "description": "Khả năng thực hiện các quả phạt đền.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "marking",
+          "type": "INTEGER",
+          "alias_vi": "Theo Dõi",
+          "synonym": [
+            "Theo Dõi",
+            "Theo Theo"
+          ],
+          "sample_values": [
+            "65",
+            "62",
+            "76"
+          ],
+          "description": "Khả năng theo dõi và ngăn chặn đối phương.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "standing_tackle",
+          "type": "INTEGER",
+          "alias_vi": "Bắt Đỡ Khi Đứng",
+          "synonym": [
+            "Bắt Đỡ Khi Đứng",
+            "Bắt Đỡ"
+          ],
+          "sample_values": [
+            "69",
+            "66",
+            "63"
+          ],
+          "description": "Khả năng bắt đỡ bóng khi đứng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "sliding_tackle",
+          "type": "INTEGER",
+          "alias_vi": "Đánh Bóng",
+          "synonym": [
+            "Đánh bóng",
+            "Đánh chặn"
+          ],
+          "sample_values": [
+            "69",
+            "66",
+            "78"
+          ],
+          "description": "Độ chính xác khi đánh bóng ra khỏi chân đối phương.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gk_diving",
+          "type": "INTEGER",
+          "alias_vi": "Đi Diving",
+          "synonym": [
+            "Đi lượn",
+            "Đi lăng"
+          ],
+          "sample_values": [
+            "6",
+            "5",
+            "14"
+          ],
+          "description": "Kỹ năng nhảy múa của thủ môn khi bắt bóng từ trên đầu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gk_handling",
+          "type": "INTEGER",
+          "alias_vi": "Xử Lý Bóng",
+          "synonym": [
+            "Xử lý",
+            "Thao tác"
+          ],
+          "sample_values": [
+            "11",
+            "10",
+            "7"
+          ],
+          "description": "Kỹ năng xử lý bóng bằng tay của thủ môn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gk_kicking",
+          "type": "INTEGER",
+          "alias_vi": "Bắn Bóng",
+          "synonym": [
+            "Gửi bóng",
+            "Bắn ra"
+          ],
+          "sample_values": [
+            "10",
+            "9",
+            "8"
+          ],
+          "description": "Kỹ năng đá bóng bằng chân của thủ môn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gk_positioning",
+          "type": "INTEGER",
+          "alias_vi": "Vị Trí",
+          "synonym": [
+            "Đặt vị trí",
+            "Đặt chỗ"
+          ],
+          "sample_values": [
+            "8",
+            "7",
+            "9"
+          ],
+          "description": "Kỹ năng đặt vị trí của thủ môn trong khung thành.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gk_reflexes",
+          "type": "INTEGER",
+          "alias_vi": "Tư Duy Nhanh",
+          "synonym": [
+            "Tư duy nhanh",
+            "Tư duy phản xạ"
+          ],
+          "sample_values": [
+            "8",
+            "7",
+            "12"
+          ],
+          "description": "Năng lực phản xạ nhanh của thủ môn khi bắt bóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Team",
+      "alias_vi": "Đội bóng",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã đội",
+          "synonym": [
+            "ID đội",
+            "Mã nhận dạng"
+          ],
+          "sample_values": [
+            "31446",
+            "1513",
+            "31456"
+          ],
+          "description": "Mã duy nhất để nhận diện mỗi đội bóng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "team_api_id",
+          "type": "INTEGER",
+          "alias_vi": "API ID đội",
+          "synonym": [
+            "ID API đội",
+            "Mã API"
+          ],
+          "sample_values": [
+            "1601",
+            "1773",
+            "1957"
+          ],
+          "description": "Mã duy nhất được sử dụng trong API để tham chiếu đến mỗi đội bóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "team_fifa_api_id",
+          "type": "INTEGER",
+          "alias_vi": "FIFA API ID đội",
+          "synonym": [
+            "ID FIFA API đội",
+            "Mã FIFA API"
+          ],
+          "sample_values": [
+            "673",
+            "675",
+            "15005"
+          ],
+          "description": "Mã duy nhất được FIFA sử dụng trong API để tham chiếu đến mỗi đội bóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "team_long_name",
+          "type": "TEXT",
+          "alias_vi": "Tên đầy đủ đội",
+          "synonym": [
+            "Tên dài đội",
+            "Tên chính thức đội"
+          ],
+          "sample_values": [
+            "KRC Genk",
+            "Beerschot AC",
+            "SV Zulte-Waregem"
+          ],
+          "description": "Tên đầy đủ và chính thức của đội bóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "team_short_name",
+          "type": "TEXT",
+          "alias_vi": "Tên ngắn đội",
+          "synonym": [
+            "Tên viết tắt đội",
+            "Tên tắt đội"
+          ],
+          "sample_values": [
+            "GEN",
+            "BAC",
+            "ZUL"
+          ],
+          "description": "Tên viết tắt hoặc tắt của đội bóng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Team_Attributes",
+      "alias_vi": "Thông Tin Đội Thuyền",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Đội",
+          "synonym": [
+            "ID Đội",
+            "Số Đội"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi đội",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "team_fifa_api_id",
+          "type": "INTEGER",
+          "alias_vi": "ID API FIFA Đội",
+          "synonym": [
+            "ID API Đội",
+            "Mã API FIFA"
+          ],
+          "sample_values": [
+            "434",
+            "77",
+            "614"
+          ],
+          "description": "ID duy nhất từ API FIFA để xác định đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": "Team.team_fifa_api_id"
+        },
+        {
+          "name": "team_api_id",
+          "type": "INTEGER",
+          "alias_vi": "ID API Đội",
+          "synonym": [
+            "Mã API",
+            "ID API"
+          ],
+          "sample_values": [
+            "9930",
+            "8485",
+            "8576"
+          ],
+          "description": "ID duy nhất từ API để xác định đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": "Team.team_api_id"
+        },
+        {
+          "name": "date",
+          "type": "TEXT",
+          "alias_vi": "Ngày",
+          "synonym": [
+            "Ngày Ghi",
+            "Ngày Thống Kê"
+          ],
+          "sample_values": [
+            "2010-02-22 00:00:00",
+            "2014-09-19 00:00:00",
+            "2015-09-10 00:00:00"
+          ],
+          "description": "Ngày khi thông tin về đội được ghi lại",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlaySpeed",
+          "type": "INTEGER",
+          "alias_vi": "Tốc Độ Xây Dựng Cuộc Chơi",
+          "synonym": [
+            "Tốc Độ Xây Dựng",
+            "Xây Dựng Nhanh"
+          ],
+          "sample_values": [
+            "60",
+            "52",
+            "47"
+          ],
+          "description": "Tốc độ xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlaySpeedClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Tốc Độ Xây Dựng",
+          "synonym": [
+            "Loại Tốc Độ",
+            "Tốc Độ Loại"
+          ],
+          "sample_values": [
+            "Balanced",
+            "Fast",
+            "Slow"
+          ],
+          "description": "Lớp mô tả tốc độ xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlayDribbling",
+          "type": "INTEGER",
+          "alias_vi": "Kỹ Năng Dribbling Xây Dựng",
+          "synonym": [
+            "Dribbling Xây Dựng",
+            "Kỹ Năng Dribbling"
+          ],
+          "sample_values": [
+            "48",
+            "41",
+            "64"
+          ],
+          "description": "Kỹ năng dribbling trong quá trình xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlayDribblingClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Kỹ Năng Dribbling Xây Dựng",
+          "synonym": [
+            "Loại Kỹ Năng Dribbling",
+            "Dribbling Loại"
+          ],
+          "sample_values": [
+            "Little",
+            "Normal",
+            "Lots"
+          ],
+          "description": "Lớp mô tả kỹ năng dribbling trong quá trình xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlayPassing",
+          "type": "INTEGER",
+          "alias_vi": "Kỹ Năng Passing Xây Dựng",
+          "synonym": [
+            "Passing Xây Dựng",
+            "Kỹ Năng Passing"
+          ],
+          "sample_values": [
+            "50",
+            "56",
+            "54"
+          ],
+          "description": "Kỹ năng passing trong quá trình xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlayPassingClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Kỹ Năng Passing Xây Dựng",
+          "synonym": [
+            "Loại Kỹ Năng Passing",
+            "Passing Loại"
+          ],
+          "sample_values": [
+            "Mixed",
+            "Long",
+            "Short"
+          ],
+          "description": "Lớp mô tả kỹ năng passing trong quá trình xây dựng cuộc chơi của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "buildUpPlayPositioningClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Phân Bố Đội Hình Xây Dựng",
+          "synonym": [
+            "Phân Bố Đội Hình",
+            "Đội Hình Loại"
+          ],
+          "sample_values": [
+            "Organised",
+            "Free Form"
+          ],
+          "description": "Lớp mô tả cách đội hình phân bố trong quá trình xây dựng cuộc chơi",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationPassing",
+          "type": "INTEGER",
+          "alias_vi": "Kỹ Năng Passing Tạo Cơ Hội",
+          "synonym": [
+            "Passing Tạo Cơ Hội",
+            "Kỹ Năng Tạo Cơ Hội"
+          ],
+          "sample_values": [
+            "60",
+            "54",
+            "70"
+          ],
+          "description": "Kỹ năng passing tạo cơ hội ghi bàn của đội bóng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationPassingClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Phong Cách Tạo Cơ Hội Qua Bóng",
+          "synonym": [
+            "Phong Cách Tạo Cơ Hội",
+            "Kiểu Tạo Cơ Hội"
+          ],
+          "sample_values": [
+            "Normal",
+            "Risky",
+            "Safe"
+          ],
+          "description": "Phong cách tạo cơ hội qua bóng của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationCrossing",
+          "type": "INTEGER",
+          "alias_vi": "Tần Suất Tạo Cơ Hội Qua Cầu Chéo",
+          "synonym": [
+            "Tạo Cơ Hội Qua Cầu Chéo",
+            "Cầu Chéo"
+          ],
+          "sample_values": [
+            "65",
+            "63",
+            "70"
+          ],
+          "description": "Tần suất cầu chéo để tạo cơ hội ghi bàn của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationCrossingClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Phong Cách Tạo Cơ Hội Qua Cầu Chéo",
+          "synonym": [
+            "Phong Cách Tạo Cơ Hội Qua Cầu Chéo",
+            "Kiểu Tạo Cơ Hội Qua Cầu Chéo"
+          ],
+          "sample_values": [
+            "Normal",
+            "Lots",
+            "Little"
+          ],
+          "description": "Phong cách tạo cơ hội qua cầu chéo của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationShooting",
+          "type": "INTEGER",
+          "alias_vi": "Tần Suất Tạo Cơ Hội Từ Bóng Dứt Điểm",
+          "synonym": [
+            "Tạo Cơ Hội Từ Bóng Dứt Điểm",
+            "Bóng Dứt Điểm"
+          ],
+          "sample_values": [
+            "55",
+            "64",
+            "70"
+          ],
+          "description": "Tần suất bóng dứt điểm để tạo cơ hội ghi bàn của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationShootingClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Phong Cách Tạo Cơ Hội Từ Bóng Dứt Điểm",
+          "synonym": [
+            "Phong Cách Tạo Cơ Hội Từ Bóng Dứt Điểm",
+            "Kiểu Tạo Cơ Hội Từ Bóng Dứt Điểm"
+          ],
+          "sample_values": [
+            "Normal",
+            "Lots",
+            "Little"
+          ],
+          "description": "Phong cách tạo cơ hội từ bóng dứt điểm của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "chanceCreationPositioningClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Phong Cách Tạo Cơ Hội Từ Vị Trí",
+          "synonym": [
+            "Phong Cách Tạo Cơ Hội Từ Vị Trí",
+            "Kiểu Tạo Cơ Hội Từ Vị Trí"
+          ],
+          "sample_values": [
+            "Organised",
+            "Free Form"
+          ],
+          "description": "Phong cách tạo cơ hội từ vị trí của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defencePressure",
+          "type": "INTEGER",
+          "alias_vi": "Áp Lực Phòng Ngự",
+          "synonym": [
+            "Áp Lực",
+            "Độ Áp Lực"
+          ],
+          "sample_values": [
+            "50",
+            "47",
+            "60"
+          ],
+          "description": "Độ áp lực phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defencePressureClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Áp Lực Phòng Ngự",
+          "synonym": [
+            "Áp Lực Phòng Ngự",
+            "Kiểu Áp Lực Phòng Ngự"
+          ],
+          "sample_values": [
+            "Medium",
+            "Deep",
+            "High"
+          ],
+          "description": "Loại áp lực phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defenceAggression",
+          "type": "INTEGER",
+          "alias_vi": "Độ Khát Chiến Phòng Ngự",
+          "synonym": [
+            "Khát Chiến",
+            "Độ Khát Chiến"
+          ],
+          "sample_values": [
+            "55",
+            "44",
+            "70"
+          ],
+          "description": "Độ khát chiến trong phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defenceAggressionClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Độ Khát Chiến Phòng Ngự",
+          "synonym": [
+            "Độ Khát Chiến Phòng Ngự",
+            "Kiểu Độ Khát Chiến Phòng Ngự"
+          ],
+          "sample_values": [
+            "Press",
+            "Double",
+            "Contain"
+          ],
+          "description": "Loại độ khát chiến trong phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defenceTeamWidth",
+          "type": "INTEGER",
+          "alias_vi": "Độ Rộng Đội Trong Phòng Ngự",
+          "synonym": [
+            "Độ Rộng Đội",
+            "Độ Rộng"
+          ],
+          "sample_values": [
+            "45",
+            "54",
+            "70"
+          ],
+          "description": "Độ rộng đội trong phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defenceTeamWidthClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Độ Rộng Đội Trong Phòng Ngự",
+          "synonym": [
+            "Độ Rộng Đội Trong Phòng Ngự",
+            "Kiểu Độ Rộng Đội Trong Phòng Ngự"
+          ],
+          "sample_values": [
+            "Normal",
+            "Wide",
+            "Narrow"
+          ],
+          "description": "Loại độ rộng đội trong phòng ngự của đội.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "defenceDefenderLineClass",
+          "type": "TEXT",
+          "alias_vi": "Lớp Hậu vệ",
+          "synonym": [
+            "Lớp Trung vệ",
+            "Hậu vệ"
+          ],
+          "sample_values": [
+            "Cover",
+            "Offside Trap"
+          ],
+          "description": "Phương pháp phòng ngự của hàng hậu vệ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

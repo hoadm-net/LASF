@@ -1,0 +1,1976 @@
+{
+  "db_id": "card_games",
+  "tables": [
+    {
+      "name": "cards",
+      "alias_vi": "Thẻ Bài",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã Thẻ",
+          "synonym": [
+            "ID",
+            "Số Thẻ"
+          ],
+          "sample_values": [
+            "41138",
+            "1349",
+            "23810"
+          ],
+          "description": "Mã duy nhất xác định mỗi thẻ bài.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "artist",
+          "type": "TEXT",
+          "alias_vi": "Tác Giả",
+          "synonym": [
+            "Người Hoạ Tác",
+            "Nhà Thiết Kế"
+          ],
+          "sample_values": [
+            "Pete Venters",
+            "Volkan Baǵa",
+            "Justin Sweet"
+          ],
+          "description": "Tên của người hoạ tác hoặc thiết kế thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "asciiName",
+          "type": "TEXT",
+          "alias_vi": "Tên ASCII",
+          "synonym": [
+            "Tên ASCII",
+            "Tên Đơn Thuần"
+          ],
+          "sample_values": [
+            "El-Hajjaj",
+            "Junun Efreet",
+            "Dandan"
+          ],
+          "description": "Tên của thẻ bài được viết dưới dạng chữ cái thường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "availability",
+          "type": "TEXT",
+          "alias_vi": "Có Mặt Tại",
+          "synonym": [
+            "Được Sử Dụng Trên",
+            "Có Trong"
+          ],
+          "sample_values": [
+            "mtgo,paper",
+            "paper",
+            "arena"
+          ],
+          "description": "Nơi thẻ bài có mặt như MTGO, Paper, Arena.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "borderColor",
+          "type": "TEXT",
+          "alias_vi": "Màu Rìa",
+          "synonym": [
+            "Màu Rìm",
+            "Màu Gian"
+          ],
+          "sample_values": [
+            "black",
+            "white",
+            "borderless"
+          ],
+          "description": "Màu sắc của rìa hoặc viền của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cardKingdomFoilId",
+          "type": "TEXT",
+          "alias_vi": "Mã Thẻ Kính Pha Lê",
+          "synonym": [
+            "Mã Kính Pha Lê",
+            "Mã Thẻ Kính"
+          ],
+          "sample_values": [
+            "123094",
+            "123095",
+            "123096"
+          ],
+          "description": "Mã duy nhất cho phiên bản kín pha lê trên Card Kingdom.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cardKingdomId",
+          "type": "TEXT",
+          "alias_vi": "Mã Thẻ",
+          "synonym": [
+            "Mã Card Kingdom",
+            "ID Card Kingdom"
+          ],
+          "sample_values": [
+            "122719",
+            "122720",
+            "122725"
+          ],
+          "description": "Mã duy nhất xác định mỗi thẻ bài trên Card Kingdom.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "colorIdentity",
+          "type": "TEXT",
+          "alias_vi": "Màu Nhập Thể",
+          "synonym": [
+            "Màu Nhập",
+            "Màu Nhập Thể"
+          ],
+          "sample_values": [
+            "W",
+            "B",
+            "U"
+          ],
+          "description": "Mảng màu đại diện cho thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "colorIndicator",
+          "type": "TEXT",
+          "alias_vi": "Biểu Chỉ Màu",
+          "synonym": [
+            "Biểu Chỉ",
+            "Biểu Chỉ Màu"
+          ],
+          "sample_values": [
+            "U",
+            "G",
+            "R"
+          ],
+          "description": "Biểu tượng màu chỉ định màu của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "colors",
+          "type": "TEXT",
+          "alias_vi": "Màu",
+          "synonym": [
+            "Dải Màu",
+            "Mảng Màu"
+          ],
+          "sample_values": [
+            "W",
+            "B",
+            "U"
+          ],
+          "description": "Danh sách các màu của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "convertedManaCost",
+          "type": "REAL",
+          "alias_vi": "Chi Phí Mana Đổi Hợp",
+          "synonym": [
+            "Chi Phí Mana",
+            "Chi Phí Mana Đổi"
+          ],
+          "sample_values": [
+            "7.0",
+            "5.0",
+            "4.0"
+          ],
+          "description": "Chi phí mana tổng hợp của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "duelDeck",
+          "type": "TEXT",
+          "alias_vi": "Kết Hợp Đấu",
+          "synonym": [
+            "Kết Hợp",
+            "Đấu Kết Hợp"
+          ],
+          "sample_values": [
+            "a",
+            "b"
+          ],
+          "description": "Tên của kết hợp đấu mà thẻ bài thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "edhrecRank",
+          "type": "INTEGER",
+          "alias_vi": "Xếp_hạng_EDHREC",
+          "synonym": [
+            "Xếp_hạng",
+            "Rang_rất"
+          ],
+          "sample_values": [
+            "15650",
+            "12702",
+            "11081"
+          ],
+          "description": "Xếp hạng của thẻ trên trang EDHREC.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "faceConvertedManaCost",
+          "type": "REAL",
+          "alias_vi": "Chi_phí_mana_hợp_lệ",
+          "synonym": [
+            "Chi_phí_mana",
+            "Chi_phí_hợp_lệ"
+          ],
+          "sample_values": [
+            "4.0",
+            "5.0",
+            "6.0"
+          ],
+          "description": "Chi phí mana hợp lệ của thẻ khi được sử dụng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "faceName",
+          "type": "TEXT",
+          "alias_vi": "Tên_thẻ",
+          "synonym": [
+            "Tên",
+            "Tiêu_d/Internal"
+          ],
+          "sample_values": [
+            "Dusk",
+            "Dawn",
+            "Commit"
+          ],
+          "description": "Tên chính thức của thẻ trong game.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "flavorName",
+          "type": "TEXT",
+          "alias_vi": "Tên_flavor",
+          "synonym": [
+            "Tên_flavor",
+            "Tên_thêm"
+          ],
+          "sample_values": [
+            "Godzilla, King of the Monsters",
+            "King Caesar, Ancient Guardian",
+            "Mothra, Supersonic Queen"
+          ],
+          "description": "Tên flavor hoặc tên thay thế cho thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "flavorText",
+          "type": "TEXT",
+          "alias_vi": "Nội_dung_flavor",
+          "synonym": [
+            "Nội_dung_flavor",
+            "Nội_dung_thêm"
+          ],
+          "sample_values": [
+            "Every tear shed is a drop of immortality.",
+            "The perfect antidote for a tightly packed formation.",
+            "Life is measured in inches. To a healer, every one of those inches is precious."
+          ],
+          "description": "Nội dung flavor hoặc thông điệp bổ sung cho thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "frameEffects",
+          "type": "TEXT",
+          "alias_vi": "Hiệu_quả_khung",
+          "synonym": [
+            "Hiệu_quả",
+            "Khung_thẻ"
+          ],
+          "sample_values": [
+            "legendary",
+            "nyxtouched",
+            "miracle"
+          ],
+          "description": "Hiệu quả hoặc đặc điểm riêng biệt của khung thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "frameVersion",
+          "type": "TEXT",
+          "alias_vi": "Phiên_bản_khung",
+          "synonym": [
+            "Phiên_bản",
+            "Khung_thẻ"
+          ],
+          "sample_values": [
+            "2003",
+            "1993",
+            "2015"
+          ],
+          "description": "Phiên bản khung của thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hand",
+          "type": "TEXT",
+          "alias_vi": "Tay",
+          "synonym": [
+            "Tay",
+            "Số_thẻ"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "-2"
+          ],
+          "description": "Số lượng thẻ trong tay của người chơi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hasAlternativeDeckLimit",
+          "type": "INTEGER",
+          "alias_vi": "Có_giới_hạn_deck_thay_thân",
+          "synonym": [
+            "Giới_hạn_deck",
+            "Deck_thay_thân"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Trường hợp có giới hạn deck thay thế cho thẻ này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hasContentWarning",
+          "type": "INTEGER",
+          "alias_vi": "Cảnh_caution",
+          "synonym": [
+            "Cảnh_caution",
+            "Nội_dung_cảnh_báo"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Trường hợp có cảnh báo nội dung cho thẻ này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hasFoil",
+          "type": "INTEGER",
+          "alias_vi": "Có_Foil",
+          "synonym": [
+            "Foil",
+            "Loại_Foil"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Trường hợp thẻ có dạng Foil.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "hasNonFoil",
+          "type": "INTEGER",
+          "alias_vi": "Có_non-Foil",
+          "synonym": [
+            "non-Foil",
+            "Loại_non-Foil"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Trường hợp thẻ có dạng non-Foil.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isAlternative",
+          "type": "INTEGER",
+          "alias_vi": "Là thay thế",
+          "synonym": [
+            "Là phiên bản thay thế",
+            "Là phiên bản khác"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is an alternative version.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isFullArt",
+          "type": "INTEGER",
+          "alias_vi": "Có hình ảnh toàn bộ",
+          "synonym": [
+            "Có hình ảnh đầy đủ",
+            "Có hình ảnh toàn diện"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card has full artwork.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isOnlineOnly",
+          "type": "INTEGER",
+          "alias_vi": "Chỉ có thể mua online",
+          "synonym": [
+            "Chỉ bán trực tuyến",
+            "Không có sẵn tại cửa hàng"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card can only be purchased online.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isOversized",
+          "type": "INTEGER",
+          "alias_vi": "Lớn hơn bình thường",
+          "synonym": [
+            "Lớn hơn",
+            "Độ lớn lớn hơn"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is oversized.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isPromo",
+          "type": "INTEGER",
+          "alias_vi": "Là khuyến mãi",
+          "synonym": [
+            "Là thẻ khuyến mãi",
+            "Là thẻ quảng cáo"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is a promotional card.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isReprint",
+          "type": "INTEGER",
+          "alias_vi": "Là bản tái bản",
+          "synonym": [
+            "Là bản tái xuất",
+            "Là bản tái phát hành"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Indicates whether the card is a reprint of an older card.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isReserved",
+          "type": "INTEGER",
+          "alias_vi": "Được giữ lại",
+          "synonym": [
+            "Được giữ riêng",
+            "Được giữ dành riêng"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is reserved for special purposes.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isStarter",
+          "type": "INTEGER",
+          "alias_vi": "Là thẻ bắt đầu",
+          "synonym": [
+            "Là thẻ khởi đầu",
+            "Là thẻ bắt đầu bộ sưu tập"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is a starter card in a set.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isStorySpotlight",
+          "type": "INTEGER",
+          "alias_vi": "Là điểm nhấn câu chuyện",
+          "synonym": [
+            "Là điểm nhấn câu chuyện",
+            "Là thẻ nổi bật trong câu chuyện"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is a story spotlight card.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isTextless",
+          "type": "INTEGER",
+          "alias_vi": "Không có văn bản",
+          "synonym": [
+            "Không có chữ",
+            "Không có nội dung văn bản"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card has no text on it.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isTimeshifted",
+          "type": "INTEGER",
+          "alias_vi": "Là thẻ thời gian dịch chuyển",
+          "synonym": [
+            "Là thẻ thời gian di chuyển",
+            "Là thẻ thời gian chuyển đổi"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the card is a timeshifted card.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "keywords",
+          "type": "TEXT",
+          "alias_vi": "Tu từ",
+          "synonym": [
+            "Tu từ",
+            "Từ khóa"
+          ],
+          "sample_values": [
+            "First strike",
+            "Flying",
+            "First strike,Flash"
+          ],
+          "description": "Comma-separated list of keywords describing the card.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "layout",
+          "type": "TEXT",
+          "alias_vi": "Kiểu_Layout",
+          "synonym": [
+            "Kiểu",
+            "Phong_cách"
+          ],
+          "sample_values": [
+            "normal",
+            "aftermath",
+            "split"
+          ],
+          "description": "Kiểu bố cục của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "leadershipSkills",
+          "type": "TEXT",
+          "alias_vi": "Kỹ_Năng_Lãnh_Dẫn",
+          "synonym": [
+            "Kỹ_năng",
+            "Năng_lực"
+          ],
+          "sample_values": [
+            "{'brawl': False, 'commander': True, 'oathbreaker': False}",
+            "{'brawl': False, 'commander': False, 'oathbreaker': True}",
+            "{'brawl': False, 'commander': True, 'oathbreaker': True}"
+          ],
+          "description": "Danh sách kỹ năng lãnh đạo của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "life",
+          "type": "TEXT",
+          "alias_vi": "Sức_Mạnh",
+          "synonym": [
+            "Mạnh_mẽ",
+            "Sức_kháng"
+          ],
+          "sample_values": [
+            "-5",
+            "-1",
+            "2"
+          ],
+          "description": "Số điểm sức mạnh của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "loyalty",
+          "type": "TEXT",
+          "alias_vi": "Trung_Thân",
+          "synonym": [
+            "Tín_trung",
+            "Trung_ích"
+          ],
+          "sample_values": [
+            "6",
+            "3",
+            "4"
+          ],
+          "description": "Số điểm trung thành của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "manaCost",
+          "type": "TEXT",
+          "alias_vi": "Chi_phí_Mana",
+          "synonym": [
+            "Chi_phí",
+            "Tốn_man"
+          ],
+          "sample_values": [
+            "{5}{W}{W}",
+            "{4}{W}",
+            "{3}{W}"
+          ],
+          "description": "Chi phí mana cần thiết để sử dụng thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mcmId",
+          "type": "TEXT",
+          "alias_vi": "ID_MCM",
+          "synonym": [
+            "Mã",
+            "ID"
+          ],
+          "sample_values": [
+            "16165",
+            "16166",
+            "16171"
+          ],
+          "description": "Mã duy nhất trong cơ sở dữ liệu MCM.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mcmMetaId",
+          "type": "TEXT",
+          "alias_vi": "ID_MetaData_MCM",
+          "synonym": [
+            "Mã_MetaData",
+            "ID_MetaData"
+          ],
+          "sample_values": [
+            "156",
+            "176",
+            "368"
+          ],
+          "description": "Mã meta duy nhất trong cơ sở dữ liệu MCM.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mtgArenaId",
+          "type": "TEXT",
+          "alias_vi": "ID_Arena_MTG",
+          "synonym": [
+            "ID_Arena",
+            "ID_MTG"
+          ],
+          "sample_values": [
+            "74983",
+            "74986",
+            "74987"
+          ],
+          "description": "Mã duy nhất trong hệ thống Arena MTG.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mtgjsonV4Id",
+          "type": "TEXT",
+          "alias_vi": "ID_MTGJSON_V4",
+          "synonym": [
+            "ID_MTGJSON",
+            "ID_V4"
+          ],
+          "sample_values": [
+            "ad41be73-582f-58ed-abd4-a88c1f616ac3",
+            "9eb2e54c-a12b-5e88-a9c0-d8c84c52d59c",
+            "c0de6fd8-367a-50fb-b2f4-2b8fa5aeb7d9"
+          ],
+          "description": "Mã duy nhất trong cơ sở dữ liệu MTGJSON V4.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mtgoFoilId",
+          "type": "TEXT",
+          "alias_vi": "ID_Foil_MTGO",
+          "synonym": [
+            "ID_Foil",
+            "ID_MTGO"
+          ],
+          "sample_values": [
+            "27501",
+            "26993",
+            "27473"
+          ],
+          "description": "Mã duy nhất cho phiên bản lấp lánh trong MTGO.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mtgoId",
+          "type": "TEXT",
+          "alias_vi": "ID_MTGO",
+          "synonym": [
+            "ID_MTGO",
+            "Mã_MTGO"
+          ],
+          "sample_values": [
+            "27500",
+            "26992",
+            "27472"
+          ],
+          "description": "Mã duy nhất trong hệ thống MTGO.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "multiverseId",
+          "type": "TEXT",
+          "alias_vi": "ID_Multiverse",
+          "synonym": [
+            "ID_Multiverse",
+            "Mã_Multiverse"
+          ],
+          "sample_values": [
+            "130550",
+            "129465",
+            "129470"
+          ],
+          "description": "Mã duy nhất trong vũ trụ Magic: The Gathering.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Ancestor's Chosen",
+            "Angel of Mercy",
+            "Aven Cloudchaser"
+          ],
+          "description": "Tên của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "number",
+          "type": "TEXT",
+          "alias_vi": "Số_thứ_tự",
+          "synonym": [
+            "Số hiệu",
+            "Mã số"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "7"
+          ],
+          "description": "Số thứ tự của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "originalReleaseDate",
+          "type": "TEXT",
+          "alias_vi": "Ngày_ban_hành",
+          "synonym": [
+            "Ngày phát hành",
+            "Ngày xuất bản"
+          ],
+          "sample_values": [
+            "2012/12/1",
+            "2006/12/1",
+            "2007/12/1"
+          ],
+          "description": "Ngày ban hành đầu tiên của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "originalText",
+          "type": "TEXT",
+          "alias_vi": "Nội_dung",
+          "synonym": [
+            "Nội dung gốc",
+            "Phát biểu"
+          ],
+          "sample_values": [
+            "First strike (This creature deals combat damage before creatures without first strike.)\nWhen Ancestor's Chosen comes into play, you gain 1 life for each card in your graveyard.",
+            "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhen Angel of Mercy comes into play, you gain 3 life.",
+            "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhen Aven Cloudchaser comes into play, destroy target enchantment."
+          ],
+          "description": "Nội dung hoặc mô tả của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "originalType",
+          "type": "TEXT",
+          "alias_vi": "Loại",
+          "synonym": [
+            "Kiểu",
+            "Loại thẻ"
+          ],
+          "sample_values": [
+            "Creature - Human Cleric",
+            "Creature - Angel",
+            "Creature - Bird Soldier"
+          ],
+          "description": "Kiểu hoặc loại của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "otherFaceIds",
+          "type": "TEXT",
+          "alias_vi": "ID_Khía_cạnh_khác",
+          "synonym": [
+            "ID Khía cạnh khác",
+            "ID Mặt sau"
+          ],
+          "sample_values": [
+            "87f0062a-8321-5c16-960e-a12ce1df5839",
+            "f9f10d34-071c-57a6-b58c-7553abad5c20",
+            "95a37a67-eac8-5ae2-9a50-31f81f810f18"
+          ],
+          "description": "ID của khía cạnh khác của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "power",
+          "type": "TEXT",
+          "alias_vi": "Lực_lượng",
+          "synonym": [
+            "Sức mạnh",
+            "Độ mạnh"
+          ],
+          "sample_values": [
+            "4",
+            "3",
+            "2"
+          ],
+          "description": "Lực lượng của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "printings",
+          "type": "TEXT",
+          "alias_vi": "In_ấn",
+          "synonym": [
+            "In ấn",
+            "Bản in"
+          ],
+          "sample_values": [
+            "10E,JUD,UMA",
+            "10E,8ED,9ED,DDC,DVD,IMA,INV,JMP,MB1,P02,PS11,PSAL,S99",
+            "10E,8ED,9ED,ODY"
+          ],
+          "description": "Danh sách các bộ in ấn mà thẻ bài xuất hiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "promoTypes",
+          "type": "TEXT",
+          "alias_vi": "Loại_khuyến_trị",
+          "synonym": [
+            "Khuyến mãi",
+            "Loại khuyến mãi"
+          ],
+          "sample_values": [
+            "boxtopper,boosterfun",
+            "boosterfun",
+            "release,buyabox"
+          ],
+          "description": "Loại khuyến mãi liên quan đến thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "purchaseUrls",
+          "type": "TEXT",
+          "alias_vi": "Địa_chỉ_mua_hàng",
+          "synonym": [
+            "Địa chỉ mua",
+            "Liên kết mua hàng"
+          ],
+          "sample_values": [
+            "{'cardKingdom': 'https://mtgjson.com/links/9fb51af0ad6f0736', 'cardmarket': 'https://mtgjson.com/links/ace8861194ee0b6a', 'tcgplayer': 'https://mtgjson.com/links/4843cea124a0d515'}",
+            "{'cardKingdom': 'https://mtgjson.com/links/027095d094e58f5b', 'cardmarket': 'https://mtgjson.com/links/f6fb5098e1cd1b1e', 'tcgplayer': 'https://mtgjson.com/links/56c4b57293f350ef'}",
+            "{'cardKingdom': 'https://mtgjson.com/links/9246105d88032a9f', 'cardmarket': 'https://mtgjson.com/links/dcdfe48e6a8f9e1e', 'tcgplayer': 'https://mtgjson.com/links/3ce595aabe276f80'}"
+          ],
+          "description": "Liên kết để mua thẻ bài từ các nhà cung cấp khác nhau.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "rarity",
+          "type": "TEXT",
+          "alias_vi": "Kỳ_quân",
+          "synonym": [
+            "Kỳ hiếm",
+            "Loại hiếm"
+          ],
+          "sample_values": [
+            "uncommon",
+            "common",
+            "rare"
+          ],
+          "description": "Kỳ hiếm của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "scryfallId",
+          "type": "TEXT",
+          "alias_vi": "ID_Scarfellow",
+          "synonym": [
+            "ID Scarfellow",
+            "ID Scarfellow"
+          ],
+          "sample_values": [
+            "7a5cd03c-4227-4551-aa4b-7d119f0468b5",
+            "8f7980d4-da43-4d6d-ad16-14b8a34ae91d",
+            "407110e9-19af-4ff5-97b2-c03225031a73"
+          ],
+          "description": "ID duy nhất của thẻ bài trên Scarfellow.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "scryfallIllustrationId",
+          "type": "TEXT",
+          "alias_vi": "Mã_Ảnh_Szłay_Forum",
+          "synonym": [
+            "Mã_Ảnh",
+            "ID_Ảnh"
+          ],
+          "sample_values": [
+            "be2f7173-c8b7-4172-a388-9b2c6b3c16e5",
+            "e4d6c53f-e936-4be8-8b70-47c2be863b20",
+            "2eb663cd-020a-46d8-a6d9-bb63d4b5c848"
+          ],
+          "description": "Mã duy nhất để chỉ định hình ảnh của thẻ trong Szlay Forum.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "scryfallOracleId",
+          "type": "TEXT",
+          "alias_vi": "Mã_Oracle_Szelfay",
+          "synonym": [
+            "Mã_Oracle",
+            "ID_Oracle"
+          ],
+          "sample_values": [
+            "fc2ccab7-cab1-4463-b73d-898070136d74",
+            "a2daaf32-dbfe-4618-892e-0da24f63a44a",
+            "48bda7dd-d023-41e8-8c28-e0cfda0d07ca"
+          ],
+          "description": "Mã duy nhất để chỉ định thông tin Oracle của thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "setCode",
+          "type": "TEXT",
+          "alias_vi": "Mã_Serie",
+          "synonym": [
+            "Mã_Serie",
+            "Mã_Sản_Phẩm"
+          ],
+          "sample_values": [
+            "10E",
+            "2ED",
+            "2XM"
+          ],
+          "description": "Mã duy nhất chỉ định bộ sưu tập của thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "side",
+          "type": "TEXT",
+          "alias_vi": "Phía",
+          "synonym": [
+            "Phía_A",
+            "Phía_B"
+          ],
+          "sample_values": [
+            "a",
+            "b",
+            "c"
+          ],
+          "description": "Phía của thẻ khi nó được sử dụng trong trò chơi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "subtypes",
+          "type": "TEXT",
+          "alias_vi": "Loại_Kiểu_Tiểu",
+          "synonym": [
+            "Kiểu_Tiểu",
+            "Loại_Tiểu"
+          ],
+          "sample_values": [
+            "Human,Cleric",
+            "Angel",
+            "Bird,Soldier"
+          ],
+          "description": "Kiểu cụ thể của thẻ, nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "supertypes",
+          "type": "TEXT",
+          "alias_vi": "Loại_Kiểu_Ngoại",
+          "synonym": [
+            "Kiểu_Ngoại",
+            "Loại_Ngoại"
+          ],
+          "sample_values": [
+            "Legendary",
+            "Basic",
+            "Legendary,Snow"
+          ],
+          "description": "Kiểu tổng quát của thẻ, nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tcgplayerProductId",
+          "type": "TEXT",
+          "alias_vi": "Mã_Sản_Phẩm_TCGPlayer",
+          "synonym": [
+            "Mã_Sản_Phẩm",
+            "ID_Sản_Phẩm"
+          ],
+          "sample_values": [
+            "15032",
+            "15033",
+            "15045"
+          ],
+          "description": "Mã duy nhất để chỉ định sản phẩm trên TCGPlayer.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "text",
+          "type": "TEXT",
+          "alias_vi": "Nội_Dung",
+          "synonym": [
+            "Chú_Thích",
+            "Thông_Tin"
+          ],
+          "sample_values": [
+            "First strike (This creature deals combat damage before creatures without first strike.)\nWhen Ancestor's Chosen enters the battlefield, you gain 1 life for each card in your graveyard.",
+            "Flying\nWhen Angel of Mercy enters the battlefield, you gain 3 life.",
+            "Flying (This creature can't be blocked except by creatures with flying or reach.)\nWhen Aven Cloudchaser enters the battlefield, destroy target enchantment."
+          ],
+          "description": "Nội dung văn bản mô tả năng lực và hiệu ứng của thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "toughness",
+          "type": "TEXT",
+          "alias_vi": "Độ_Dẻo_Giòn",
+          "synonym": [
+            "Độ_Dẻo",
+            "Độ_Giòn"
+          ],
+          "sample_values": [
+            "4",
+            "3",
+            "2"
+          ],
+          "description": "Số điểm sức mạnh mà thẻ có thể chịu đựng trước khi bị phá hủy.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Kiểu",
+          "synonym": [
+            "Kiểu_Card",
+            "Loại_Card"
+          ],
+          "sample_values": [
+            "Creature — Human Cleric",
+            "Creature — Angel",
+            "Creature — Bird Soldier"
+          ],
+          "description": "Kiểu chính của thẻ, ví dụ: sinh vật, phép thuật, v.v.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "types",
+          "type": "TEXT",
+          "alias_vi": "Loại",
+          "synonym": [
+            "Kiểu",
+            "Loại_Card"
+          ],
+          "sample_values": [
+            "Creature",
+            "Instant",
+            "Enchantment"
+          ],
+          "description": "Loại tổng quát của thẻ, ví dụ: sinh vật, phép thuật, v.v.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "uuid",
+          "type": "TEXT",
+          "alias_vi": "Mã_ID_Universal",
+          "synonym": [
+            "Mã_ID",
+            "UUID"
+          ],
+          "sample_values": [
+            "00010d56-fe38-5e35-8aed-518019aa36a5",
+            "0001e0d0-2dcd-5640-aadc-a84765cf5fc9",
+            "0003caab-9ff5-5d1a-bc06-976dd0457f19"
+          ],
+          "description": "Mã duy nhất toàn cầu để chỉ định thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "variations",
+          "type": "TEXT",
+          "alias_vi": "Phiên bản",
+          "synonym": [
+            "Loại",
+            "Kiểu"
+          ],
+          "sample_values": [
+            "b7c19924-b4bf-56fc-aa73-f586e940bd42",
+            "8fd4e2eb-3eb4-50ea-856b-ef638fa47f8a",
+            "6adaf14d-43e3-521a-adf1-960c808e5b1a"
+          ],
+          "description": "Danh sách các phiên bản của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "watermark",
+          "type": "TEXT",
+          "alias_vi": "Nhãn hiệu",
+          "synonym": [
+            "Biển hiệu",
+            "Đánh dấu"
+          ],
+          "sample_values": [
+            "set (HOU)",
+            "set (LGN)",
+            "set (ONS)"
+          ],
+          "description": "Thông tin về bộ sưu tập hoặc nguồn gốc của thẻ bài.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "foreign_data",
+      "alias_vi": "Dữ liệu nước ngoài",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã ID",
+          "synonym": [
+            "Mã",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi dòng dữ liệu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "flavorText",
+          "type": "TEXT",
+          "alias_vi": "Nội dung phong cách",
+          "synonym": [
+            "Nội dung",
+            "Phong cách"
+          ],
+          "sample_values": [
+            "„Es ist der Wille aller, und meine Hand, die ihn ausführt.\"",
+            "\"La voluntad de todos, realizada por mi mano.\"",
+            "« La volonté de tous passe par ma main. »"
+          ],
+          "description": "Nội dung văn bản mang tính chất mô tả hoặc bổ sung cho mục tiêu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "language",
+          "type": "TEXT",
+          "alias_vi": "Ngôn ngữ",
+          "synonym": [
+            "Tiếng",
+            "Ngôn ngữ nói"
+          ],
+          "sample_values": [
+            "German",
+            "Spanish",
+            "French"
+          ],
+          "description": "Ngôn ngữ của nội dung văn bản được mô tả.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "multiverseid",
+          "type": "INTEGER",
+          "alias_vi": "Mã đa vũ trụ",
+          "synonym": [
+            "Mã đa",
+            "Vũ trụ"
+          ],
+          "sample_values": [
+            "148411",
+            "150317",
+            "149934"
+          ],
+          "description": "Mã duy nhất để xác định một đối tượng trong nhiều vũ trụ khác nhau.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tên"
+          ],
+          "sample_values": [
+            "Ausgewählter der Ahnfrau",
+            "Elegido de la Antepasada",
+            "Élu de l'Ancêtre"
+          ],
+          "description": "Tên chính thức của đối tượng được mô tả.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "text",
+          "type": "TEXT",
+          "alias_vi": "Nội dung",
+          "synonym": [
+            "Nội dung",
+            "Chính văn"
+          ],
+          "sample_values": [
+            "Erstschlag (Diese Kreatur fügt Kampfschaden vor Kreaturen ohne Erstschlag zu.)\nWenn der Ausgewählte der Ahnfrau ins Spiel kommt, erhältst du 1 Lebenspunkt für jede Karte in deinem Friedhof dazu.",
+            "Daña primero. (Esta criatura hace daño de combate antes que las criaturas sin la habilidad de dañar primero.)\nCuando el Elegido de la Antepasada entre en juego, ganas 1 vida por cada carta en tu cementerio.",
+            "Initiative (Cette créature inflige des blessures de combat avant les créatures sans l'initiative.)\nQuand l'Élu de l'Ancêtre arrive en jeu, vous gagnez 1 point de vie pour chaque carte dans votre cimetière."
+          ],
+          "description": "Nội dung chính của đối tượng, thường là mô tả hoặc hiệu ứng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại",
+          "synonym": [
+            "Kiểu",
+            "Loại"
+          ],
+          "sample_values": [
+            "Kreatur — Mensch, Kleriker",
+            "Criatura — Clérigo humano",
+            "Créature : humain et clerc"
+          ],
+          "description": "Loại của đối tượng được mô tả.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "uuid",
+          "type": "TEXT",
+          "alias_vi": "Mã UUID",
+          "synonym": [
+            "Mã",
+            "UUID"
+          ],
+          "sample_values": [
+            "5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c",
+            "57aaebc1-850c-503d-9f6e-bb8d00d8bf7c",
+            "8ac972b5-9f6e-5cc8-91c3-b9a40a98232e"
+          ],
+          "description": "Mã duy nhất toàn cầu để xác định mỗi đối tượng.",
+          "is_primary_key": false,
+          "foreign_key_to": "cards.uuid"
+        }
+      ]
+    },
+    {
+      "name": "legalities",
+      "alias_vi": "Luật lệ",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã ID",
+          "synonym": [
+            "Mã số",
+            "ID"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã định danh duy nhất cho mỗi quy định.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "format",
+          "type": "TEXT",
+          "alias_vi": "Định dạng",
+          "synonym": [
+            "Kiểu đấu",
+            "Loại đấu"
+          ],
+          "sample_values": [
+            "commander",
+            "duel",
+            "legacy"
+          ],
+          "description": "Loại hình đấu tranh được quy định trong luật lệ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái",
+          "synonym": [
+            "Tình trạng",
+            "Situación"
+          ],
+          "sample_values": [
+            "Legal",
+            "Banned",
+            "Restricted"
+          ],
+          "description": "Trạng thái pháp lý của luật lệ như hợp pháp, cấm hay giới hạn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "uuid",
+          "type": "TEXT",
+          "alias_vi": "UUID",
+          "synonym": [
+            "Unique ID",
+            "Mã định danh độc đáo"
+          ],
+          "sample_values": [
+            "5f8287b1-5bb6-5f4c-ad17-316a40d5bb0c",
+            "57aaebc1-850c-503d-9f6e-bb8d00d8bf7c",
+            "8ac972b5-9f6e-5cc8-91c3-b9a40a98232e"
+          ],
+          "description": "Mã định danh duy nhất không thể thay đổi để xác định một bản ghi.",
+          "is_primary_key": false,
+          "foreign_key_to": "cards.uuid"
+        }
+      ]
+    },
+    {
+      "name": "rulings",
+      "alias_vi": "Quyết định",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã quyết định",
+          "synonym": [
+            "ID",
+            "Số quyết định"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi quyết định.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date",
+          "type": "DATE",
+          "alias_vi": "Ngày",
+          "synonym": [
+            "Ngày ra quyết định",
+            "Ngày hiệu lực"
+          ],
+          "sample_values": [
+            "2007-07-15",
+            "2007-02-01",
+            "2010-08-15"
+          ],
+          "description": "Ngày mà quyết định được đưa ra hoặc có hiệu lực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "text",
+          "type": "TEXT",
+          "alias_vi": "Nội dung quyết định",
+          "synonym": [
+            "Nội dung",
+            "Lời giải thích"
+          ],
+          "sample_values": [
+            "You draw the card when Bandage resolves, not when the damage is actually prevented.",
+            "If you double a negative life total, you do the real math. A life total of -10 becomes -20.",
+            "Beacon of Immortality’s effect counts as life gain (or life loss, if the life total was negative) for effects that trigger on or replace life gain (or life loss)."
+          ],
+          "description": "Nội dung chính của quyết định, bao gồm các hướng dẫn và giải thích.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "uuid",
+          "type": "TEXT",
+          "alias_vi": "Mã duy nhất",
+          "synonym": [
+            "ID duy nhất",
+            "UUID"
+          ],
+          "sample_values": [
+            "6d268c95-c176-5766-9a46-c14f739aba1c",
+            "56f4935b-f6c5-59b9-88bf-9bcce20247ce",
+            "7fef665c-36a1-5f7a-9299-cf8938708710"
+          ],
+          "description": "Mã duy nhất được sử dụng để xác định bản ghi này trong hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": "cards.uuid"
+        }
+      ]
+    },
+    {
+      "name": "set_translations",
+      "alias_vi": "Dịch_vụ_collection",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_id",
+          "synonym": [
+            "ID",
+            "Mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản dịch.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "language",
+          "type": "TEXT",
+          "alias_vi": "Ngôn_ngữ",
+          "synonym": [
+            "Tiếng_nhận",
+            "Ngữ_lý"
+          ],
+          "sample_values": [
+            "Chinese Simplified",
+            "Chinese Traditional",
+            "French"
+          ],
+          "description": "Ngôn ngữ được sử dụng trong bản dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "setCode",
+          "type": "TEXT",
+          "alias_vi": "Mã_collection",
+          "synonym": [
+            "Mã_set",
+            "Mã_sản_phẩm"
+          ],
+          "sample_values": [
+            "10E",
+            "4ED",
+            "5DN"
+          ],
+          "description": "Mã duy nhất đại diện cho bộ sưu tập hoặc phiên bản cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": "sets.code"
+        },
+        {
+          "name": "translation",
+          "type": "TEXT",
+          "alias_vi": "Bản_dịch",
+          "synonym": [
+            "Dịch_vụ",
+            "Tựa_titre"
+          ],
+          "sample_values": [
+            "核心系列第十版",
+            "Dixième édition",
+            "Hauptset Zehnte Edition"
+          ],
+          "description": "Nội dung bản dịch từ bản gốc sang ngôn ngữ mục tiêu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "sets",
+      "alias_vi": "Hộp sưu tập",
+      "columns": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "alias_vi": "Mã hộp sưu tập",
+          "synonym": [
+            "ID",
+            "Mã",
+            "Số mã"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi hộp sưu tập.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "baseSetSize",
+          "type": "INTEGER",
+          "alias_vi": "Kích thước cơ bản",
+          "synonym": [
+            "Kích thước",
+            "Số lượng"
+          ],
+          "sample_values": [
+            "383",
+            "302",
+            "332"
+          ],
+          "description": "Số lượng thẻ trong hộp sưu tập cơ bản.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "block",
+          "type": "TEXT",
+          "alias_vi": "Blok",
+          "synonym": [
+            "Dòng",
+            "Phân loại"
+          ],
+          "sample_values": [
+            "Core Set",
+            "Mirrodin",
+            "Kaladesh"
+          ],
+          "description": "Tên của blok hoặc set block chứa hộp sưu tập này.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "booster",
+          "type": "TEXT",
+          "alias_vi": "Booster",
+          "synonym": [
+            "Bộ tăng cường",
+            "Bộ mở hộp"
+          ],
+          "sample_values": [
+            "{'default': {'boosters': [{'contents': {'basic': 1, 'common': 10, 'rare': 1, 'uncommon': 3}, 'weight': 1913922}, {'contents': {'basic': 1, 'common': 9, 'foilCommon': 1, 'rare': 1, 'uncommon': 3}, 'weight': 318987}, {'contents': {'basic': 1, 'common': 10, ",
+            "{'default': {'boosters': [{'contents': {'common': 11, 'rare': 1, 'uncommon': 3}, 'weight': 1}], 'boostersTotalWeight': 1, 'sheets': {'common': {'cards': {'0ab4e3e6-f9fe-5fdc-9697-fd20690a0e15': 1, '0b326a61-0389-54e2-ac58-7bb47ca88202': 1, '0f099574-e9f7-",
+            "{'default': {'boosters': [{'contents': {'common': 8, 'dedicatedFoil2xm': 2, 'rareMythic': 2, 'uncommon': 3}, 'weight': 1}], 'boostersTotalWeight': 1, 'sheets': {'common': {'balanceColors': True, 'cards': {'01df4e32-7fe4-5b8d-9460-0f08fa29153e': 1, '032c60"
+          ],
+          "description": "Thông tin về nội dung của bộ mở hộp, bao gồm các loại thẻ và số lượng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "code",
+          "type": "TEXT",
+          "alias_vi": "Mã hộp sưu tập",
+          "synonym": [
+            "Mã",
+            "Số mã"
+          ],
+          "sample_values": [
+            "10E",
+            "2ED",
+            "2XM"
+          ],
+          "description": "Mã ngắn đại diện cho hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isFoilOnly",
+          "type": "INTEGER",
+          "alias_vi": "Chỉ có Foil",
+          "synonym": [
+            "Chỉ Foil",
+            "Chỉ có giấy bóng"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "1 nếu hộp sưu tập chỉ chứa các thẻ Foil, 0 nếu không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isForeignOnly",
+          "type": "INTEGER",
+          "alias_vi": "Chỉ ngoại quốc",
+          "synonym": [
+            "Chỉ ngoại văn",
+            "Chỉ ngôn ngữ khác"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "1 nếu hộp sưu tập chỉ chứa các thẻ ngoại quốc, 0 nếu không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isNonFoilOnly",
+          "type": "INTEGER",
+          "alias_vi": "Chỉ không Foil",
+          "synonym": [
+            "Chỉ giấy thường",
+            "Chỉ không bóng"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "1 nếu hộp sưu tập chỉ chứa các thẻ không Foil, 0 nếu không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isOnlineOnly",
+          "type": "INTEGER",
+          "alias_vi": "Chỉ trực tuyến",
+          "synonym": [
+            "Chỉ online",
+            "Chỉ trực tuyến"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "1 nếu hộp sưu tập chỉ có thể mua trực tuyến, 0 nếu không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "isPartialPreview",
+          "type": "INTEGER",
+          "alias_vi": "Xem trước không đầy đủ",
+          "synonym": [
+            "Xem trước hạn chế",
+            "Xem trước không hoàn chỉnh"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "1 nếu hộp sưu tập là xem trước không đầy đủ, 0 nếu không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "keyruneCode",
+          "type": "TEXT",
+          "alias_vi": "Mã Keyrune",
+          "synonym": [
+            "Mã Keyrune",
+            "Mã đặc biệt"
+          ],
+          "sample_values": [
+            "10E",
+            "2ED",
+            "2XM"
+          ],
+          "description": "Mã đặc biệt liên quan đến Keyrune của hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mcmId",
+          "type": "INTEGER",
+          "alias_vi": "MCM ID",
+          "synonym": [
+            "Mã MCM",
+            "ID MCM"
+          ],
+          "sample_values": [
+            "74",
+            "3204",
+            "10"
+          ],
+          "description": "Mã duy nhất của hộp sưu tập trên MCM (Magic Card Market).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mcmIdExtras",
+          "type": "INTEGER",
+          "alias_vi": "Mã bổ sung",
+          "synonym": [
+            "ID bổ sung",
+            "Mã phụ"
+          ],
+          "sample_values": [
+            "3209",
+            "3459",
+            "2587"
+          ],
+          "description": "Mã duy nhất để xác định các mục bổ sung trong hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mcmName",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Tenth Edition",
+            "Double Masters",
+            "Fourth Edition"
+          ],
+          "description": "Tên chính thức của hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "mtgoCode",
+          "type": "TEXT",
+          "alias_vi": "Mã MTGO",
+          "synonym": [
+            "Mã MTG Online",
+            "Mã MTGO"
+          ],
+          "sample_values": [
+            "10E",
+            "2XM",
+            "5DN"
+          ],
+          "description": "Mã ngắn được sử dụng trên nền tảng MTGO để đại diện cho hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Tenth Edition",
+            "Unlimited Edition",
+            "Double Masters"
+          ],
+          "description": "Tên chính thức của hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "parentCode",
+          "type": "TEXT",
+          "alias_vi": "Mã cha",
+          "synonym": [
+            "Mã tổ tiên",
+            "Mã cấp cao"
+          ],
+          "sample_values": [
+            "JMP",
+            "MH1",
+            "ZNR"
+          ],
+          "description": "Mã đại diện cho hộp sưu tập mẹ hoặc hộp sưu tập gốc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "releaseDate",
+          "type": "DATE",
+          "alias_vi": "Ngày phát hành",
+          "synonym": [
+            "Ngày công bố",
+            "Ngày ra mắt"
+          ],
+          "sample_values": [
+            "2007-07-13",
+            "1993-12-01",
+            "2020-08-07"
+          ],
+          "description": "Ngày mà hộp sưu tập được phát hành chính thức.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "tcgplayerGroupId",
+          "type": "INTEGER",
+          "alias_vi": "Nhóm ID TCGPlayer",
+          "synonym": [
+            "ID nhóm TCGPlayer",
+            "Nhóm ID"
+          ],
+          "sample_values": [
+            "1",
+            "115",
+            "2655"
+          ],
+          "description": "ID duy nhất của nhóm sản phẩm trên trang web TCGPlayer.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "totalSetSize",
+          "type": "INTEGER",
+          "alias_vi": "Kích thước tổng cộng",
+          "synonym": [
+            "Số lượng tổng cộng",
+            "Kích thước bộ sưu tập"
+          ],
+          "sample_values": [
+            "508",
+            "302",
+            "384"
+          ],
+          "description": "Số lượng thẻ trong hộp sưu tập.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại",
+          "synonym": [
+            "Kiểu",
+            "Loại hình"
+          ],
+          "sample_values": [
+            "core",
+            "masters",
+            "expansion"
+          ],
+          "description": "Loại của hộp sưu tập, có thể là core, masters, hoặc expansion.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "db_id": "cre_Doc_Template_Mgt",
+  "tables": [
+    {
+      "name": "Documents",
+      "alias_vi": "Dữ liệu văn bản",
+      "columns": [
+        {
+          "name": "Document_ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài liệu",
+          "synonym": [
+            "ID tài liệu",
+            "Số tài liệu"
+          ],
+          "sample_values": [
+            "0",
+            "1",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài liệu",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Template_ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã mẫu",
+          "synonym": [
+            "ID mẫu",
+            "Số mẫu"
+          ],
+          "sample_values": [
+            "7",
+            "25",
+            "6"
+          ],
+          "description": "Mã duy nhất để xác định mẫu tài liệu liên quan",
+          "is_primary_key": false,
+          "foreign_key_to": "Templates.Template_ID"
+        },
+        {
+          "name": "Document_Name",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Tên tài liệu",
+          "synonym": [
+            "Tên gọi",
+            "Tiêu đề"
+          ],
+          "sample_values": [
+            "Introduction of OS",
+            "Understanding DB",
+            "Summer Show"
+          ],
+          "description": "Tên hoặc tiêu đề của tài liệu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Document_Description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Mô tả tài liệu",
+          "synonym": [
+            "Miêu tả",
+            "Giải thích"
+          ],
+          "sample_values": [
+            "n",
+            "y",
+            "u"
+          ],
+          "description": "Mô tả ngắn gọn về nội dung của tài liệu",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Other_Details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi tiết khác",
+          "synonym": [
+            "Thông tin thêm",
+            "Chi tiết bổ sung"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung không nằm trong các trường khác",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Paragraphs",
+      "alias_vi": "Các đoạn văn",
+      "columns": [
+        {
+          "name": "Paragraph_ID",
+          "type": "INTEGER",
+          "alias_vi": "ID của đoạn văn",
+          "synonym": [
+            "Mã đoạn văn",
+            "Số đoạn văn"
+          ],
+          "sample_values": [
+            "7",
+            "9",
+            "65"
+          ],
+          "description": "Mã duy nhất xác định mỗi đoạn văn",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Document_ID",
+          "type": "INTEGER",
+          "alias_vi": "ID của tài liệu",
+          "synonym": [
+            "Mã tài liệu",
+            "Số tài liệu"
+          ],
+          "sample_values": [
+            "2394",
+            "3",
+            "50123"
+          ],
+          "description": "Mã duy nhất xác định mỗi tài liệu",
+          "is_primary_key": false,
+          "foreign_key_to": "Documents.Document_ID"
+        },
+        {
+          "name": "Paragraph_Text",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Nội dung của đoạn văn",
+          "synonym": [
+            "Chủ đề đoạn văn",
+            "Nội dung văn bản"
+          ],
+          "sample_values": [
+            "Korea",
+            "Somalia",
+            "Palestinian Territory"
+          ],
+          "description": "Nội dung chính của mỗi đoạn văn",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Other_Details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi tiết khác",
+          "synonym": [
+            "Thông tin bổ sung",
+            "Chi tiết thêm"
+          ],
+          "sample_values": [],
+          "description": "Thông tin bổ sung liên quan đến đoạn văn",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Ref_Template_Types",
+      "alias_vi": "Loại_Mẫu_Bản_Ghi",
+      "columns": [
+        {
+          "name": "Template_Type_Code",
+          "type": "CHAR(15)",
+          "alias_vi": "Mã_Loại_Mẫu",
+          "synonym": [
+            "Mã Loại",
+            "Ký_Tự_Loại"
+          ],
+          "sample_values": [
+            "AD",
+            "BK",
+            "CV"
+          ],
+          "description": "Mã đại diện cho loại mẫu bản ghi.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Template_Type_Description",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Miêu_Tả_Loại_Mẫu",
+          "synonym": [
+            "Miêu tả Loại",
+            "Nội_Dung_Loại"
+          ],
+          "sample_values": [
+            "Presentation",
+            "CV",
+            "Advertisement"
+          ],
+          "description": "Miêu tả chi tiết về loại mẫu bản ghi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Templates",
+      "alias_vi": "Mẫu",
+      "columns": [
+        {
+          "name": "Template_ID",
+          "type": "INTEGER",
+          "alias_vi": "Mã Mẫu",
+          "synonym": [
+            "ID Mẫu",
+            "Số Mẫu"
+          ],
+          "sample_values": [
+            "0",
+            "1",
+            "4"
+          ],
+          "description": "Mã duy nhất để xác định mỗi mẫu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Version_Number",
+          "type": "INTEGER",
+          "alias_vi": "Số Phiên Bản",
+          "synonym": [
+            "Phiên Bản",
+            "Số Lần Cập Nhật"
+          ],
+          "sample_values": [
+            "5",
+            "9",
+            "4"
+          ],
+          "description": "Số phiên bản của mẫu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Template_Type_Code",
+          "type": "CHAR(15)",
+          "alias_vi": "Mã Loại Mẫu",
+          "synonym": [
+            "Loại Mẫu",
+            "Mã Mẫu Loại"
+          ],
+          "sample_values": [
+            "PP",
+            "BK",
+            "PPT"
+          ],
+          "description": "Mã đại diện cho loại mẫu.",
+          "is_primary_key": false,
+          "foreign_key_to": "Ref_Template_Types.Template_Type_Code"
+        },
+        {
+          "name": "Date_Effective_From",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Hành Động Từ",
+          "synonym": [
+            "Ngày Bắt Đầu",
+            "Ngày Có Hiệu Lực Từ"
+          ],
+          "sample_values": [
+            "2005-11-12 07:09:48",
+            "2010-09-24 01:15:11",
+            "2002-03-02 14:39:49"
+          ],
+          "description": "Ngày bắt đầu hiệu lực của mẫu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Date_Effective_To",
+          "type": "DATETIME",
+          "alias_vi": "Ngày Hành Động Đến",
+          "synonym": [
+            "Ngày Kết Thúc",
+            "Ngày Hết Hiệu Lực"
+          ],
+          "sample_values": [
+            "2008-01-05 14:19:28",
+            "1999-07-08 03:31:04",
+            "2001-04-18 09:29:52"
+          ],
+          "description": "Ngày kết thúc hiệu lực của mẫu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Template_Details",
+          "type": "VARCHAR(255)",
+          "alias_vi": "Chi Tiết Mẫu",
+          "synonym": [
+            "Thông Tin Mẫu",
+            "Nội Dung Mẫu"
+          ],
+          "sample_values": [
+            ""
+          ],
+          "description": "Chi tiết hoặc nội dung của mẫu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

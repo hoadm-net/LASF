@@ -1,0 +1,390 @@
+{
+  "db_id": "debit_card_specializing",
+  "tables": [
+    {
+      "name": "customers",
+      "alias_vi": "Khách hàng",
+      "columns": [
+        {
+          "name": "CustomerID",
+          "type": "INTEGER",
+          "alias_vi": "Mã khách hàng",
+          "synonym": [
+            "ID khách hàng",
+            "Số khách hàng"
+          ],
+          "sample_values": [
+            "3",
+            "5",
+            "6"
+          ],
+          "description": "Mã duy nhất xác định mỗi khách hàng",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Segment",
+          "type": "TEXT",
+          "alias_vi": "Phân khúc",
+          "synonym": [
+            "Nhóm khách hàng",
+            "Loại khách hàng"
+          ],
+          "sample_values": [
+            "SME",
+            "LAM",
+            "KAM"
+          ],
+          "description": "Phân loại khách hàng dựa trên đặc điểm kinh doanh",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Currency",
+          "type": "TEXT",
+          "alias_vi": "Đơn vị tiền tệ",
+          "synonym": [
+            "Tiền tệ",
+            "ĐVT tiền tệ"
+          ],
+          "sample_values": [
+            "EUR",
+            "CZK"
+          ],
+          "description": "Loại tiền tệ được sử dụng trong giao dịch với khách hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "gasstations",
+      "alias_vi": "Cửa hàng xăng dầu",
+      "columns": [
+        {
+          "name": "GasStationID",
+          "type": "INTEGER",
+          "alias_vi": "Mã cửa hàng xăng dầu",
+          "synonym": [
+            "Mã CHXD",
+            "ID CHXD"
+          ],
+          "sample_values": [
+            "44",
+            "45",
+            "46"
+          ],
+          "description": "Mã duy nhất xác định mỗi cửa hàng xăng dầu.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ChainID",
+          "type": "INTEGER",
+          "alias_vi": "Mã chuỗi cửa hàng",
+          "synonym": [
+            "Mã chuỗi",
+            "ID chuỗi"
+          ],
+          "sample_values": [
+            "13",
+            "6",
+            "23"
+          ],
+          "description": "Mã duy nhất xác định chuỗi cửa hàng xăng dầu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước",
+            "Quốc gia kinh doanh"
+          ],
+          "sample_values": [
+            "CZE",
+            "SVK"
+          ],
+          "description": "Tên quốc gia nơi cửa hàng xăng dầu hoạt động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Segment",
+          "type": "TEXT",
+          "alias_vi": "Phân khúc",
+          "synonym": [
+            "Phân khúc thị trường",
+            "Nhóm sản phẩm"
+          ],
+          "sample_values": [
+            "Value for money",
+            "Premium",
+            "Other"
+          ],
+          "description": "Phân loại phân khúc mà cửa hàng xăng dầu thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "alias_vi": "Sản phẩm",
+      "columns": [
+        {
+          "name": "ProductID",
+          "type": "INTEGER",
+          "alias_vi": "Mã sản phẩm",
+          "synonym": [
+            "ID sản phẩm",
+            "Số hiệu sản phẩm"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi sản phẩm",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Description",
+          "type": "TEXT",
+          "alias_vi": "Mô tả",
+          "synonym": [
+            "Giải thích",
+            "Tóm tắt"
+          ],
+          "sample_values": [
+            "Rucní zadání",
+            "Nafta",
+            "Special"
+          ],
+          "description": "Mô tả ngắn gọn về tính năng hoặc loại sản phẩm",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "transactions_1k",
+      "alias_vi": "Giao_dịch_1000",
+      "columns": [
+        {
+          "name": "TransactionID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_giao_dịch",
+          "synonym": [
+            "Mã giao dịch",
+            "ID giao dịch"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giao dịch",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Date",
+          "type": "DATE",
+          "alias_vi": "Ngày",
+          "synonym": [
+            "Ngày giao dịch",
+            "Ngày thực hiện"
+          ],
+          "sample_values": [
+            "2012-08-24",
+            "2012-08-23",
+            "2012-08-25"
+          ],
+          "description": "Ngày thực hiện giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Time",
+          "type": "TEXT",
+          "alias_vi": "Thời_gian",
+          "synonym": [
+            "Giờ",
+            "Thời điểm"
+          ],
+          "sample_values": [
+            "09:41:00",
+            "10:03:00",
+            "13:53:00"
+          ],
+          "description": "Thời gian thực hiện giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CustomerID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_khách_hàng",
+          "synonym": [
+            "Mã khách",
+            "ID khách hàng"
+          ],
+          "sample_values": [
+            "31543",
+            "46707",
+            "7654"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khách hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CardID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_thẻ",
+          "synonym": [
+            "Mã thẻ tín dụng",
+            "Mã thẻ ghi nợ"
+          ],
+          "sample_values": [
+            "486621",
+            "550134",
+            "684220"
+          ],
+          "description": "Mã thẻ được sử dụng trong giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GasStationID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_phân_xưởng",
+          "synonym": [
+            "Mã xăng dầu",
+            "Mã phân xưởng"
+          ],
+          "sample_values": [
+            "3704",
+            "656",
+            "741"
+          ],
+          "description": "Mã phân xưởng nơi giao dịch được thực hiện",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ProductID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_sản_phẩm",
+          "synonym": [
+            "Mã sản phẩm",
+            "ID sản phẩm"
+          ],
+          "sample_values": [
+            "2",
+            "23",
+            "5"
+          ],
+          "description": "Mã sản phẩm được mua trong giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Amount",
+          "type": "INTEGER",
+          "alias_vi": "Số_lượng",
+          "synonym": [
+            "Số lượng mua",
+            "Số lượng sản phẩm"
+          ],
+          "sample_values": [
+            "28",
+            "18",
+            "1"
+          ],
+          "description": "Số lượng sản phẩm được mua trong giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Price",
+          "type": "REAL",
+          "alias_vi": "Giá",
+          "synonym": [
+            "Giá tiền",
+            "Giá bán"
+          ],
+          "sample_values": [
+            "672.64",
+            "430.72",
+            "121.99"
+          ],
+          "description": "Giá của sản phẩm trong giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "yearmonth",
+      "alias_vi": "Tháng_Năm",
+      "columns": [
+        {
+          "name": "CustomerID",
+          "type": "INTEGER",
+          "alias_vi": "MãKháchHàng",
+          "synonym": [
+            "IDKháchHàng",
+            "KHID"
+          ],
+          "sample_values": [
+            "39",
+            "63",
+            "172"
+          ],
+          "description": "Mã duy nhất xác định khách hàng trong hệ thống.",
+          "is_primary_key": true,
+          "foreign_key_to": "customers.None"
+        },
+        {
+          "name": "Date",
+          "type": "TEXT",
+          "alias_vi": "NgàyTháng",
+          "synonym": [
+            "ThángNăm",
+            "Thời Gian"
+          ],
+          "sample_values": [
+            "201112",
+            "201201",
+            "201202"
+          ],
+          "description": "Ký hiệu năm tháng (ví dụ: 201112 cho tháng 12 năm 2011).",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Consumption",
+          "type": "REAL",
+          "alias_vi": "SửDụng",
+          "synonym": [
+            "Tiêu thụ",
+            "Dùng"
+          ],
+          "sample_values": [
+            "528.3",
+            "1598.28",
+            "1931.36"
+          ],
+          "description": "Số lượng tiêu thụ hoặc sử dụng trong đơn vị đo lường tương ứng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

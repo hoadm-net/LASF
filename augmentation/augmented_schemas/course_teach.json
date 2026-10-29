@@ -1,0 +1,193 @@
+{
+  "db_id": "course_teach",
+  "tables": [
+    {
+      "name": "course",
+      "alias_vi": "Danh_sách_học_khoá",
+      "columns": [
+        {
+          "name": "Course_ID",
+          "type": "INT",
+          "alias_vi": "Mã_học_khoá",
+          "synonym": [
+            "ID_học_khoá",
+            "Số_học_khoá"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi học khoá.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Staring_Date",
+          "type": "TEXT",
+          "alias_vi": "Ngày_bắt đầu",
+          "synonym": [
+            "Ngày_khai_trình",
+            "Ngày_bắt_gốc"
+          ],
+          "sample_values": [
+            "5 May",
+            "6 May",
+            "7 May"
+          ],
+          "description": "Ngày bắt đầu của học khoá.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Course",
+          "type": "TEXT",
+          "alias_vi": "Tên_học_khoá",
+          "synonym": [
+            "Tên_môn_học",
+            "Tên_khoa_học"
+          ],
+          "sample_values": [
+            "Language Arts",
+            "Math",
+            "Science"
+          ],
+          "description": "Tên của học khoá hoặc môn học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "course_arrange",
+      "alias_vi": "Lịch Khóa Học",
+      "columns": [
+        {
+          "name": "Course_ID",
+          "type": "INT",
+          "alias_vi": "Mã Khóa Học",
+          "synonym": [
+            "ID Khóa Học",
+            "Số Khóa Học"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "4"
+          ],
+          "description": "Mã duy nhất xác định một khóa học cụ thể.",
+          "is_primary_key": true,
+          "foreign_key_to": "course.Course_ID"
+        },
+        {
+          "name": "Teacher_ID",
+          "type": "INT",
+          "alias_vi": "Mã Giảng Viên",
+          "synonym": [
+            "ID Giảng Viên",
+            "Số Giảng Viên"
+          ],
+          "sample_values": [
+            "5",
+            "3",
+            "2"
+          ],
+          "description": "Mã duy nhất xác định một giảng viên cụ thể.",
+          "is_primary_key": true,
+          "foreign_key_to": "teacher.Teacher_ID"
+        },
+        {
+          "name": "Grade",
+          "type": "INT",
+          "alias_vi": "Khối Lớp",
+          "synonym": [
+            "Khối Học",
+            "Lớp Học"
+          ],
+          "sample_values": [
+            "1",
+            "3",
+            "5"
+          ],
+          "description": "Khối lớp mà khóa học được tổ chức cho.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "teacher",
+      "alias_vi": "giáo viên",
+      "columns": [
+        {
+          "name": "Teacher_ID",
+          "type": "INT",
+          "alias_vi": "Mã giáo viên",
+          "synonym": [
+            "ID giáo viên",
+            "Số hiệu giáo viên"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giáo viên",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên giáo viên",
+          "synonym": [
+            "Tên đầy đủ",
+            "Họ và tên"
+          ],
+          "sample_values": [
+            "Joseph Huts",
+            "Gustaaf Deloor",
+            "Vicente Carretero"
+          ],
+          "description": "Tên đầy đủ của giáo viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "TEXT",
+          "alias_vi": "Tuổi giáo viên",
+          "synonym": [
+            "Tuổi",
+            "Độ tuổi"
+          ],
+          "sample_values": [
+            "32",
+            "29",
+            "26"
+          ],
+          "description": "Tuổi của giáo viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Hometown",
+          "type": "TEXT",
+          "alias_vi": "Quê hương",
+          "synonym": [
+            "Ngày sinh",
+            "Nơi sinh"
+          ],
+          "sample_values": [
+            "Blackrod Urban District",
+            "Bolton County Borough",
+            "Farnworth Municipal Borough"
+          ],
+          "description": "Quê quán của giáo viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

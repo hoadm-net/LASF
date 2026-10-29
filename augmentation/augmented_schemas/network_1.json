@@ -1,0 +1,142 @@
+{
+  "db_id": "network_1",
+  "tables": [
+    {
+      "name": "Friend",
+      "alias_vi": "Danh sach bạn bè",
+      "columns": [
+        {
+          "name": "student_id",
+          "type": "INT",
+          "alias_vi": "Mã sinh viên",
+          "synonym": [
+            "ID sinh viên",
+            "Số sinh viên"
+          ],
+          "sample_values": [
+            "1101",
+            "1247",
+            "1304"
+          ],
+          "description": "Mã duy nhất xác định một sinh viên.",
+          "is_primary_key": true,
+          "foreign_key_to": "Highschooler.ID"
+        },
+        {
+          "name": "friend_id",
+          "type": "INT",
+          "alias_vi": "Mã bạn bè",
+          "synonym": [
+            "ID bạn bè",
+            "Số bạn bè"
+          ],
+          "sample_values": [
+            "1381",
+            "1689",
+            "1709"
+          ],
+          "description": "Mã duy nhất xác định một bạn bè của sinh viên.",
+          "is_primary_key": true,
+          "foreign_key_to": "Highschooler.ID"
+        }
+      ]
+    },
+    {
+      "name": "Highschooler",
+      "alias_vi": "Học sinh",
+      "columns": [
+        {
+          "name": "ID",
+          "type": "INT",
+          "alias_vi": "Mã học sinh",
+          "synonym": [
+            "Mã HS",
+            "ID HS"
+          ],
+          "sample_values": [
+            "1025",
+            "1101",
+            "1247"
+          ],
+          "description": "Mã định danh duy nhất của mỗi học sinh",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ và tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Jordan",
+            "Gabriel",
+            "Tiffany"
+          ],
+          "description": "Tên đầy đủ của học sinh",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "grade",
+          "type": "INT",
+          "alias_vi": "Lớp",
+          "synonym": [
+            "Khóa học",
+            "Lớp học"
+          ],
+          "sample_values": [
+            "9",
+            "10",
+            "11"
+          ],
+          "description": "Lớp học mà học sinh đang theo học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Likes",
+      "alias_vi": "Yêu Thích",
+      "columns": [
+        {
+          "name": "student_id",
+          "type": "INT",
+          "alias_vi": "Mã Học Sinh",
+          "synonym": [
+            "ID Học Sinh",
+            "Số Học Bạ"
+          ],
+          "sample_values": [
+            "1025",
+            "1247",
+            "1316"
+          ],
+          "description": "Mã duy nhất xác định học sinh trong hệ thống.",
+          "is_primary_key": true,
+          "foreign_key_to": "Highschooler.ID"
+        },
+        {
+          "name": "liked_id",
+          "type": "INT",
+          "alias_vi": "Mã Nội Dung Yêu Thích",
+          "synonym": [
+            "ID Nội Dung",
+            "Số ID"
+          ],
+          "sample_values": [
+            "1709",
+            "1689",
+            "1247"
+          ],
+          "description": "Mã duy nhất xác định nội dung được yêu thích trong hệ thống.",
+          "is_primary_key": true,
+          "foreign_key_to": "Highschooler.ID"
+        }
+      ]
+    }
+  ]
+}

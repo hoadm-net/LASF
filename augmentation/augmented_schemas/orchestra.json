@@ -1,0 +1,419 @@
+{
+  "db_id": "orchestra",
+  "tables": [
+    {
+      "name": "conductor",
+      "alias_vi": "Nhạc Đạo",
+      "columns": [
+        {
+          "name": "Conductor_ID",
+          "type": "INT",
+          "alias_vi": "Mã Nhạc Đạo",
+          "synonym": [
+            "ID Nhạc Đạo",
+            "Số Nhạc Đạo"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi nhạc đạo.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ và Tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Antal Doráti",
+            "Igor Stravinsky",
+            "Colin Davis"
+          ],
+          "description": "Tên đầy đủ của nhạc đạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INT",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Lứa tuổi"
+          ],
+          "sample_values": [
+            "40",
+            "41",
+            "42"
+          ],
+          "description": "Tuổi của nhạc đạo khi ghi nhận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Nationality",
+          "type": "TEXT",
+          "alias_vi": "Quốc tịch",
+          "synonym": [
+            "Quốc gia",
+            "Nước"
+          ],
+          "sample_values": [
+            "USA",
+            "UK",
+            "France"
+          ],
+          "description": "Quốc tịch của nhạc đạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Year_of_Work",
+          "type": "INT",
+          "alias_vi": "Năm làm việc",
+          "synonym": [
+            "Năm hoạt động",
+            "Năm công tác"
+          ],
+          "sample_values": [
+            "10",
+            "11",
+            "6"
+          ],
+          "description": "Năm bắt đầu công việc của nhạc đạo.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "orchestra",
+      "alias_vi": "Nhạc đoàn",
+      "columns": [
+        {
+          "name": "Orchestra_ID",
+          "type": "INT",
+          "alias_vi": "Mã nhạc đoàn",
+          "synonym": [
+            "ID nhạc đoàn",
+            "Số hiệu nhạc đoàn"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi nhạc đoàn",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Orchestra",
+          "type": "TEXT",
+          "alias_vi": "Tên nhạc đoàn",
+          "synonym": [
+            "Tên gọi nhạc đoàn",
+            "Tiêu đề nhạc đoàn"
+          ],
+          "sample_values": [
+            "London Symphony Orchestra",
+            "Columbia Symphony Orchestra",
+            "Royal Concertgebouw Orchestra"
+          ],
+          "description": "Tên đầy đủ của nhạc đoàn",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Conductor_ID",
+          "type": "INT",
+          "alias_vi": "Mã chỉ huy",
+          "synonym": [
+            "ID chỉ huy",
+            "Số hiệu chỉ huy"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi chỉ huy nhạc",
+          "is_primary_key": false,
+          "foreign_key_to": "conductor.Conductor_ID"
+        },
+        {
+          "name": "Record_Company",
+          "type": "TEXT",
+          "alias_vi": "Công ty thu âm",
+          "synonym": [
+            "Nhà sản xuất",
+            "Nhà thu âm"
+          ],
+          "sample_values": [
+            "Mercury Records",
+            "Columbia Masterworks",
+            "Philips"
+          ],
+          "description": "Tên công ty hoặc nhà sản xuất album của nhạc đoàn",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Year_of_Founded",
+          "type": "REAL",
+          "alias_vi": "Năm thành lập",
+          "synonym": [
+            "Năm thành lập",
+            "Năm thành lập nhạc đoàn"
+          ],
+          "sample_values": [
+            "2003.0",
+            "2009.0",
+            "2008.0"
+          ],
+          "description": "Năm mà nhạc đoàn được thành lập",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Major_Record_Format",
+          "type": "TEXT",
+          "alias_vi": "Định dạng thu âm chính",
+          "synonym": [
+            "Định dạng chính",
+            "Định dạng thu âm"
+          ],
+          "sample_values": [
+            "CD",
+            "CD / LP",
+            "DVD"
+          ],
+          "description": "Định dạng thu âm chính mà nhạc đoàn sử dụng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "performance",
+      "alias_vi": "Kết quả biểu diễn",
+      "columns": [
+        {
+          "name": "Performance_ID",
+          "type": "INT",
+          "alias_vi": "Mã biểu diễn",
+          "synonym": [
+            "ID biểu diễn",
+            "Số hiệu biểu diễn"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi cuộc biểu diễn.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Orchestra_ID",
+          "type": "INT",
+          "alias_vi": "Mã dàn nhạc",
+          "synonym": [
+            "ID dàn nhạc",
+            "Số hiệu dàn nhạc"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi dàn nhạc tham gia biểu diễn.",
+          "is_primary_key": false,
+          "foreign_key_to": "orchestra.Orchestra_ID"
+        },
+        {
+          "name": "Type",
+          "type": "TEXT",
+          "alias_vi": "Loại biểu diễn",
+          "synonym": [
+            "Kiểu biểu diễn",
+            "Loại sự kiện"
+          ],
+          "sample_values": [
+            "Auditions 1",
+            "Auditions 2",
+            "Auditions 3"
+          ],
+          "description": "Loại biểu diễn hoặc sự kiện mà dàn nhạc đã tham gia.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Date",
+          "type": "TEXT",
+          "alias_vi": "Ngày biểu diễn",
+          "synonym": [
+            "Ngày diễn ra",
+            "Ngày sự kiện"
+          ],
+          "sample_values": [
+            "9 June",
+            "10 June",
+            "11 June"
+          ],
+          "description": "Ngày cụ thể của cuộc biểu diễn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Official_ratings_(millions)",
+          "type": "REAL",
+          "alias_vi": "Đánh giá chính thức (triệu lượt xem)",
+          "synonym": [
+            "Đánh giá chính thức",
+            "Lượt xem chính thức"
+          ],
+          "sample_values": [
+            "5.2",
+            "6.73",
+            "7.28"
+          ],
+          "description": "Số lượng người xem chính thức được đánh giá trong triệu lượt.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Weekly_rank",
+          "type": "TEXT",
+          "alias_vi": "Xếp hạng tuần",
+          "synonym": [
+            "Xếp hạng hàng tuần",
+            "Hạng tuần"
+          ],
+          "sample_values": [
+            "12",
+            "8",
+            "15"
+          ],
+          "description": "Xếp hạng của dàn nhạc trong tuần đó theo số lượng người xem.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Share",
+          "type": "TEXT",
+          "alias_vi": "Phần trăm thị phần",
+          "synonym": [
+            "Thị phần",
+            "Phần trăm thị trường"
+          ],
+          "sample_values": [
+            "22.7%",
+            "28.0%",
+            "29.4%"
+          ],
+          "description": "Phần trăm tổng số người xem so với tổng thị trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "alias_vi": "Danh sách biểu diễn",
+      "columns": [
+        {
+          "name": "Show_ID",
+          "type": "INT",
+          "alias_vi": "Mã biểu diễn",
+          "synonym": [
+            "ID biểu diễn",
+            "Số hiệu biểu diễn"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi cuộc biểu diễn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Performance_ID",
+          "type": "INT",
+          "alias_vi": "Mã trình diễn",
+          "synonym": [
+            "ID trình diễn",
+            "Số hiệu trình diễn"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi buổi trình diễn.",
+          "is_primary_key": false,
+          "foreign_key_to": "performance.Performance_ID"
+        },
+        {
+          "name": "If_first_show",
+          "type": "bool",
+          "alias_vi": "Là buổi biểu diễn đầu tiên",
+          "synonym": [
+            "Đây là buổi đầu",
+            "Buổi biểu diễn lần đầu"
+          ],
+          "sample_values": [
+            "Glebe Park",
+            "Fir Park",
+            "St. Mirren Park"
+          ],
+          "description": "Indicates whether the performance is the first one at the venue.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Result",
+          "type": "TEXT",
+          "alias_vi": "Kết quả",
+          "synonym": [
+            "Kết luận",
+            "Quyết định"
+          ],
+          "sample_values": [
+            "T",
+            "F"
+          ],
+          "description": "Kết quả của buổi biểu diễn, có thể là T (Thành công) hoặc F (Không thành công).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Attendance",
+          "type": "REAL",
+          "alias_vi": "Số lượng khán giả",
+          "synonym": [
+            "Số người tham dự",
+            "Khán giả"
+          ],
+          "sample_values": [
+            "1026.0",
+            "695.0",
+            "555.0"
+          ],
+          "description": "Số lượng khán giả tham dự buổi biểu diễn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

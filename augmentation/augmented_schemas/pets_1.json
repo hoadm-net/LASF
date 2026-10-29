@@ -1,0 +1,258 @@
+{
+  "db_id": "pets_1",
+  "tables": [
+    {
+      "name": "Has_Pet",
+      "alias_vi": "Có_Chi_Tiểu",
+      "columns": [
+        {
+          "name": "StuID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Sinh_Viên",
+          "synonym": [
+            "Mã SV",
+            "ID_SV"
+          ],
+          "sample_values": [
+            "1001",
+            "1002"
+          ],
+          "description": "Mã định danh của sinh viên.",
+          "is_primary_key": false,
+          "foreign_key_to": "Student.StuID"
+        },
+        {
+          "name": "PetID",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Chi_Tiểu",
+          "synonym": [
+            "Mã Chi",
+            "ID_Chi"
+          ],
+          "sample_values": [
+            "2001",
+            "2002",
+            "2003"
+          ],
+          "description": "Mã định danh của thú cưng.",
+          "is_primary_key": false,
+          "foreign_key_to": "Pets.PetID"
+        }
+      ]
+    },
+    {
+      "name": "Pets",
+      "alias_vi": "Các con vật cưng",
+      "columns": [
+        {
+          "name": "PetID",
+          "type": "INTEGER",
+          "alias_vi": "Mã số con vật cưng",
+          "synonym": [
+            "Số hiệu",
+            "ID"
+          ],
+          "sample_values": [
+            "2001",
+            "2002",
+            "2003"
+          ],
+          "description": "Mã số duy nhất để xác định mỗi con vật cưng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "PetType",
+          "type": "VARCHAR(20)",
+          "alias_vi": "Kiểu con vật cưng",
+          "synonym": [
+            "Động vật",
+            "Species"
+          ],
+          "sample_values": [
+            "cat",
+            "dog"
+          ],
+          "description": "Kiểu hoặc loài của con vật cưng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "pet_age",
+          "type": "INTEGER",
+          "alias_vi": "Tuổi con vật cưng",
+          "synonym": [
+            "Tuổi",
+            "Lứa tuổi"
+          ],
+          "sample_values": [
+            "3",
+            "2",
+            "1"
+          ],
+          "description": "Tuổi hiện tại của con vật cưng tính theo năm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "weight",
+          "type": "REAL",
+          "alias_vi": "Trọng lượng con vật cưng",
+          "synonym": [
+            "Khối lượng",
+            "Cân nặng"
+          ],
+          "sample_values": [
+            "12.0",
+            "13.4",
+            "9.3"
+          ],
+          "description": "Trọng lượng hiện tại của con vật cưng tính theo kilogram.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "Student",
+      "alias_vi": "Sinh viên",
+      "columns": [
+        {
+          "name": "StuID",
+          "type": "INTEGER",
+          "alias_vi": "Mã số sinh viên",
+          "synonym": [
+            "Mã SV",
+            "ID SV"
+          ],
+          "sample_values": [
+            "1001",
+            "1002",
+            "1003"
+          ],
+          "description": "Mã số duy nhất để xác định mỗi sinh viên",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LName",
+          "type": "VARCHAR(12)",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Họ tên",
+            "Tên đệm"
+          ],
+          "sample_values": [
+            "Smith",
+            "Kim",
+            "Jones"
+          ],
+          "description": "Họ của sinh viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Fname",
+          "type": "VARCHAR(12)",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tên chính"
+          ],
+          "sample_values": [
+            "Linda",
+            "Tracy",
+            "Shiela"
+          ],
+          "description": "Tên chính của sinh viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INTEGER",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Tuổi hiện tại"
+          ],
+          "sample_values": [
+            "18",
+            "19",
+            "21"
+          ],
+          "description": "Tuổi của sinh viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Sex",
+          "type": "VARCHAR(1)",
+          "alias_vi": "Giới tính",
+          "synonym": [
+            "Giới tính",
+            "Phái"
+          ],
+          "sample_values": [
+            "F",
+            "M"
+          ],
+          "description": "Giới tính của sinh viên (nam hoặc nữ)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Major",
+          "type": "INTEGER",
+          "alias_vi": "Chuyên ngành",
+          "synonym": [
+            "Ngành học",
+            "Chuyên ngành học"
+          ],
+          "sample_values": [
+            "600",
+            "520",
+            "540"
+          ],
+          "description": "Chuyên ngành mà sinh viên đang theo học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Advisor",
+          "type": "INTEGER",
+          "alias_vi": "Giáo viên hướng dẫn",
+          "synonym": [
+            "Giảng viên hướng dẫn",
+            "Thầy/Giáo sư hướng dẫn"
+          ],
+          "sample_values": [
+            "1121",
+            "7712",
+            "7792"
+          ],
+          "description": "Mã số giáo viên hướng dẫn của sinh viên",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "city_code",
+          "type": "VARCHAR(3)",
+          "alias_vi": "Mã thành phố",
+          "synonym": [
+            "Mã khu vực",
+            "Mã địa phương"
+          ],
+          "sample_values": [
+            "BAL",
+            "HKG",
+            "WAS"
+          ],
+          "description": "Mã thành phố nơi sinh viên đăng ký học",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

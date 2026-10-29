@@ -1,0 +1,384 @@
+{
+  "db_id": "concert_singer",
+  "tables": [
+    {
+      "name": "concert",
+      "alias_vi": "Dự Thi Nhạc",
+      "columns": [
+        {
+          "name": "concert_ID",
+          "type": "INT",
+          "alias_vi": "ID Dự Thi",
+          "synonym": [
+            "Mã Dự Thi",
+            "Số Dự Thi"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để nhận diện mỗi cuộc thi nhạc.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "concert_Name",
+          "type": "TEXT",
+          "alias_vi": "Tên Cuộc Thi",
+          "synonym": [
+            "Tên Dự Thi",
+            "Tên Cuộc Thi Nhạc"
+          ],
+          "sample_values": [
+            "Auditions",
+            "Super bootcamp",
+            "Home Visits"
+          ],
+          "description": "Tên của cuộc thi nhạc cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Theme",
+          "type": "TEXT",
+          "alias_vi": "Chủ Đề",
+          "synonym": [
+            "Chủ Đề Cuộc Thi",
+            "Chủ Đề Nhạc"
+          ],
+          "sample_values": [
+            "Free choice",
+            "Free choice 2",
+            "Bleeding Love"
+          ],
+          "description": "Chủ đề hoặc chủ đề chính của cuộc thi nhạc.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Stadium_ID",
+          "type": "TEXT",
+          "alias_vi": "ID Sân Khấu",
+          "synonym": [
+            "Mã Sân Khấu",
+            "ID Sân"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "10"
+          ],
+          "description": "Mã duy nhất để nhận diện mỗi sân khấu tổ chức cuộc thi.",
+          "is_primary_key": false,
+          "foreign_key_to": "stadium.Stadium_ID"
+        },
+        {
+          "name": "Year",
+          "type": "TEXT",
+          "alias_vi": "Năm",
+          "synonym": [
+            "Năm Tổ Chức",
+            "Năm Cuộc Thi"
+          ],
+          "sample_values": [
+            "2014",
+            "2015"
+          ],
+          "description": "Năm tổ chức cuộc thi nhạc cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "singer",
+      "alias_vi": "Ca sĩ",
+      "columns": [
+        {
+          "name": "Singer_ID",
+          "type": "INT",
+          "alias_vi": "Mã ca sĩ",
+          "synonym": [
+            "ID ca sĩ",
+            "Số hiệu ca sĩ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi ca sĩ",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Họ và tên",
+            "Tên đầy đủ"
+          ],
+          "sample_values": [
+            "Joe Sharp",
+            "Timbaland",
+            "Justin Brown"
+          ],
+          "description": "Tên đầy đủ của ca sĩ",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước sinh",
+            "Quốc tịch"
+          ],
+          "sample_values": [
+            "Netherlands",
+            "United States",
+            "France"
+          ],
+          "description": "Quốc gia mà ca sĩ sinh ra hoặc có quốc tịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Song_Name",
+          "type": "TEXT",
+          "alias_vi": "Tên bài hát",
+          "synonym": [
+            "Tiêu đề bài hát",
+            "Tên ca khúc"
+          ],
+          "sample_values": [
+            "You",
+            "Dangerous",
+            "Hey Oh"
+          ],
+          "description": "Tên của bài hát được ca sĩ thể hiện",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Song_release_year",
+          "type": "TEXT",
+          "alias_vi": "Năm phát hành bài hát",
+          "synonym": [
+            "Năm phát hành",
+            "Năm ra mắt"
+          ],
+          "sample_values": [
+            "1992",
+            "2008",
+            "2013"
+          ],
+          "description": "Năm phát hành của bài hát",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Age",
+          "type": "INT",
+          "alias_vi": "Tuổi",
+          "synonym": [
+            "Tuổi tác",
+            "Tuổi hiện tại"
+          ],
+          "sample_values": [
+            "52",
+            "32",
+            "29"
+          ],
+          "description": "Tuổi của ca sĩ tính đến thời điểm hiện tại",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Is_male",
+          "type": "bool",
+          "alias_vi": "Giới tính",
+          "synonym": [
+            "Giới tính nam",
+            "Nam giới"
+          ],
+          "sample_values": [
+            "F",
+            "T"
+          ],
+          "description": "Xác định giới tính của ca sĩ (True cho nam, False cho nữ)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "singer_in_concert",
+      "alias_vi": "Danh_sach_ca_sinh_trong_cong_thức",
+      "columns": [
+        {
+          "name": "concert_ID",
+          "type": "INT",
+          "alias_vi": "ID_cong_thức",
+          "synonym": [
+            "Mã_cong_thức",
+            "STT_cong_thức"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để nhận biết mỗi buổi công thức.",
+          "is_primary_key": true,
+          "foreign_key_to": "concert.concert_ID"
+        },
+        {
+          "name": "Singer_ID",
+          "type": "TEXT",
+          "alias_vi": "ID_ca_sinh",
+          "synonym": [
+            "Mã_ca_sinh",
+            "STT_ca_sinh"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "5"
+          ],
+          "description": "Mã duy nhất để nhận biết mỗi ca sĩ.",
+          "is_primary_key": true,
+          "foreign_key_to": "singer.Singer_ID"
+        }
+      ]
+    },
+    {
+      "name": "stadium",
+      "alias_vi": "Công viên thể thao",
+      "columns": [
+        {
+          "name": "Stadium_ID",
+          "type": "INT",
+          "alias_vi": "Mã sân vận động",
+          "synonym": [
+            "ID sân",
+            "Số hiệu sân"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi sân vận động.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Location",
+          "type": "TEXT",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Địa điểm",
+            "Nơi đặt"
+          ],
+          "sample_values": [
+            "Raith Rovers",
+            "Ayr United",
+            "East Fife"
+          ],
+          "description": "Tên của địa điểm nơi sân vận động nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Name",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên gọi",
+            "Tên sân"
+          ],
+          "sample_values": [
+            "Stark's Park",
+            "Somerset Park",
+            "Bayview Stadium"
+          ],
+          "description": "Tên chính thức của sân vận động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Capacity",
+          "type": "INT",
+          "alias_vi": "Khách ngồi tối đa",
+          "synonym": [
+            "Sức chứa",
+            "Số chỗ ngồi"
+          ],
+          "sample_values": [
+            "10104",
+            "11998",
+            "2000"
+          ],
+          "description": "Số lượng khán giả có thể ngồi trong sân vận động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Highest",
+          "type": "INT",
+          "alias_vi": "Chiều cao trung bình",
+          "synonym": [
+            "Chiều cao lớn nhất",
+            "Chiều cao đỉnh"
+          ],
+          "sample_values": [
+            "4812",
+            "2363",
+            "1980"
+          ],
+          "description": "Chiều cao trung bình của khán đài trong sân vận động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Lowest",
+          "type": "INT",
+          "alias_vi": "Chiều cao thấp nhất",
+          "synonym": [
+            "Chiều cao nhỏ nhất",
+            "Chiều cao đáy"
+          ],
+          "sample_values": [
+            "1294",
+            "1057",
+            "533"
+          ],
+          "description": "Chiều cao thấp nhất của khán đài trong sân vận động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Average",
+          "type": "INT",
+          "alias_vi": "Chiều cao trung bình",
+          "synonym": [
+            "Chiều cao trung bình",
+            "Chiều cao phổ biến"
+          ],
+          "sample_values": [
+            "2106",
+            "1477",
+            "864"
+          ],
+          "description": "Chiều cao trung bình của khán đài trong sân vận động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

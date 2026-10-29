@@ -1,0 +1,239 @@
+{
+  "db_id": "flight_2",
+  "tables": [
+    {
+      "name": "airlines",
+      "alias_vi": "Các hãng hàng không",
+      "columns": [
+        {
+          "name": "uid",
+          "type": "INTEGER",
+          "alias_vi": "Mã hãng hàng không",
+          "synonym": [
+            "ID hãng hàng không",
+            "Số hiệu hãng hàng không"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi hãng hàng không",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Airline",
+          "type": "TEXT",
+          "alias_vi": "Tên hãng hàng không",
+          "synonym": [
+            "Hãng hàng không",
+            "Tên công ty hàng không"
+          ],
+          "sample_values": [
+            "United Airlines",
+            "US Airways",
+            "Delta Airlines"
+          ],
+          "description": "Tên đầy đủ của hãng hàng không",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Abbreviation",
+          "type": "TEXT",
+          "alias_vi": "Đơn vị viết tắt",
+          "synonym": [
+            "Viết tắt",
+            "Ký hiệu"
+          ],
+          "sample_values": [
+            "UAL",
+            "USAir",
+            "Delta"
+          ],
+          "description": "Đơn vị viết tắt hoặc ký hiệu của hãng hàng không",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước",
+            "Quốc gia thành lập"
+          ],
+          "sample_values": [
+            "USA"
+          ],
+          "description": "Quốc gia mà hãng hàng không hoạt động chính thức",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "airports",
+      "alias_vi": "Các sân bay",
+      "columns": [
+        {
+          "name": "City",
+          "type": "TEXT",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành thị",
+            "Khu vực"
+          ],
+          "sample_values": [
+            "Aberdeen ",
+            "Abilene ",
+            "Abingdon "
+          ],
+          "description": "Tên thành phố nơi sân bay nằm",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AirportCode",
+          "type": "TEXT",
+          "alias_vi": "Mã sân bay",
+          "synonym": [
+            "Mã IATA",
+            "Mã mã"
+          ],
+          "sample_values": [
+            "AAF",
+            "ABI",
+            "ABL"
+          ],
+          "description": "Mã định danh của sân bay theo chuẩn quốc tế",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AirportName",
+          "type": "TEXT",
+          "alias_vi": "Tên sân bay",
+          "synonym": [
+            "Tên chính thức",
+            "Tên gọi"
+          ],
+          "sample_values": [
+            "Phillips AAF ",
+            "Municipal ",
+            "Dyess AFB "
+          ],
+          "description": "Tên chính thức của sân bay",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước",
+            "Quốc phong"
+          ],
+          "sample_values": [
+            "United States "
+          ],
+          "description": "Quốc gia mà sân bay nằm trong đó",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CountryAbbrev",
+          "type": "TEXT",
+          "alias_vi": "Từ viết tắt quốc gia",
+          "synonym": [
+            "Từ viết tắt",
+            "Biên mã"
+          ],
+          "sample_values": [
+            "US ",
+            "US"
+          ],
+          "description": "Viết tắt của quốc gia theo chuẩn quốc tế",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "flights",
+      "alias_vi": "Hành trình máy bay",
+      "columns": [
+        {
+          "name": "Airline",
+          "type": "INTEGER",
+          "alias_vi": "Hãng hàng không",
+          "synonym": [
+            "Công ty hàng không",
+            "Hãng bay"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã số của hãng hàng không.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FlightNo",
+          "type": "INTEGER",
+          "alias_vi": "Số chuyến bay",
+          "synonym": [
+            "Số chuyến",
+            "Mã chuyến bay"
+          ],
+          "sample_values": [
+            "28",
+            "29",
+            "44"
+          ],
+          "description": "Số hiệu chuyến bay của hãng hàng không.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SourceAirport",
+          "type": "TEXT",
+          "alias_vi": "Sân bay xuất phát",
+          "synonym": [
+            "Sân bay đi",
+            "Sân bay xuất phát"
+          ],
+          "sample_values": [
+            " APG",
+            " ASY",
+            " CVO"
+          ],
+          "description": "Tên hoặc mã của sân bay nơi chuyến bay xuất phát.",
+          "is_primary_key": false,
+          "foreign_key_to": "airports.AirportCode"
+        },
+        {
+          "name": "DestAirport",
+          "type": "TEXT",
+          "alias_vi": "Sân bay đến",
+          "synonym": [
+            "Sân bay đến",
+            "Sân bay đích"
+          ],
+          "sample_values": [
+            " ASY",
+            " APG",
+            " ACV"
+          ],
+          "description": "Tên hoặc mã của sân bay nơi chuyến bay đến.",
+          "is_primary_key": false,
+          "foreign_key_to": "airports.AirportCode"
+        }
+      ]
+    }
+  ]
+}

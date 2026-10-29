@@ -1,0 +1,215 @@
+{
+  "db_id": "toxicology",
+  "tables": [
+    {
+      "name": "atom",
+      "alias_vi": "Cơ Sở Nguyên Tử",
+      "columns": [
+        {
+          "name": "atom_id",
+          "type": "TEXT",
+          "alias_vi": "Mã Nguyên Tử",
+          "synonym": [
+            "Mã Nguyên tử",
+            "ID Nguyên tử"
+          ],
+          "sample_values": [
+            "TR000_1",
+            "TR000_2",
+            "TR000_3"
+          ],
+          "description": "Mã duy nhất xác định mỗi nguyên tử.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "molecule_id",
+          "type": "TEXT",
+          "alias_vi": "Mã Mô Phỏng",
+          "synonym": [
+            "Mã Mô phỏng",
+            "ID Mô phỏng"
+          ],
+          "sample_values": [
+            "TR000",
+            "TR001",
+            "TR002"
+          ],
+          "description": "Mã duy nhất xác định mô phỏng phân tử chứa nguyên tử này.",
+          "is_primary_key": false,
+          "foreign_key_to": "molecule.molecule_id"
+        },
+        {
+          "name": "element",
+          "type": "TEXT",
+          "alias_vi": "Phân Tích Hóa Học",
+          "synonym": [
+            "Phân tích hóa học",
+            "Loại nguyên tử"
+          ],
+          "sample_values": [
+            "cl",
+            "c",
+            "h"
+          ],
+          "description": "Tên hoặc ký hiệu hóa học của nguyên tố trong nguyên tử.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "bond",
+      "alias_vi": "Bonds",
+      "columns": [
+        {
+          "name": "bond_id",
+          "type": "TEXT",
+          "alias_vi": "MãBond",
+          "synonym": [
+            "IDBond",
+            "MãBond"
+          ],
+          "sample_values": [
+            "TR000_1_2",
+            "TR000_2_3",
+            "TR000_2_4"
+          ],
+          "description": "Mã duy nhất xác định mỗi liên kết hóa học.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "molecule_id",
+          "type": "TEXT",
+          "alias_vi": "MãChấtHợp",
+          "synonym": [
+            "IDChấtHợp",
+            "MãPhân tử"
+          ],
+          "sample_values": [
+            "TR000",
+            "TR001",
+            "TR002"
+          ],
+          "description": "Mã duy nhất xác định mỗi chất hợp trong phân tích.",
+          "is_primary_key": false,
+          "foreign_key_to": "molecule.molecule_id"
+        },
+        {
+          "name": "bond_type",
+          "type": "TEXT",
+          "alias_vi": "LoạiLiênKết",
+          "synonym": [
+            "KiểuLiênKết",
+            "LoạiBond"
+          ],
+          "sample_values": [
+            "-",
+            "=",
+            "#"
+          ],
+          "description": "Kiểu của liên kết hóa học giữa các nguyên tử trong phân tử.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "connected",
+      "alias_vi": "Bonds_and_Atoms",
+      "columns": [
+        {
+          "name": "atom_id",
+          "type": "TEXT",
+          "alias_vi": "Mã_Atom_1",
+          "synonym": [
+            "ID_Atom_1",
+            "Atom_ID_1"
+          ],
+          "sample_values": [
+            "TR000_1",
+            "TR000_2",
+            "TR000_3"
+          ],
+          "description": "Mã duy nhất của atom đầu tiên trong liên kết hóa học.",
+          "is_primary_key": true,
+          "foreign_key_to": "atom.atom_id"
+        },
+        {
+          "name": "atom_id2",
+          "type": "TEXT",
+          "alias_vi": "Mã_Atom_2",
+          "synonym": [
+            "ID_Atom_2",
+            "Atom_ID_2"
+          ],
+          "sample_values": [
+            "TR000_2",
+            "TR000_1",
+            "TR000_3"
+          ],
+          "description": "Mã duy nhất của atom thứ hai trong liên kết hóa học.",
+          "is_primary_key": true,
+          "foreign_key_to": "atom.atom_id"
+        },
+        {
+          "name": "bond_id",
+          "type": "TEXT",
+          "alias_vi": "Mã_Liên_Kết",
+          "synonym": [
+            "ID_Liên_Kết",
+            "Bond_ID"
+          ],
+          "sample_values": [
+            "TR000_1_2",
+            "TR000_2_3",
+            "TR000_2_4"
+          ],
+          "description": "Mã duy nhất của liên kết hóa học giữa hai atom.",
+          "is_primary_key": false,
+          "foreign_key_to": "bond.bond_id"
+        }
+      ]
+    },
+    {
+      "name": "molecule",
+      "alias_vi": "Bản ghi phân tử",
+      "columns": [
+        {
+          "name": "molecule_id",
+          "type": "TEXT",
+          "alias_vi": "Mã phân tử",
+          "synonym": [
+            "ID phân tử",
+            "Số hiệu phân tử"
+          ],
+          "sample_values": [
+            "TR000",
+            "TR001",
+            "TR002"
+          ],
+          "description": "Mã duy nhất để xác định phân tử.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "label",
+          "type": "TEXT",
+          "alias_vi": "Nhãn",
+          "synonym": [
+            "Biến thể",
+            "Tâm trạng"
+          ],
+          "sample_values": [
+            "+",
+            "-"
+          ],
+          "description": "Biểu thị trạng thái hoặc đặc điểm của phân tử.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

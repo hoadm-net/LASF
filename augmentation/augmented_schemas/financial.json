@@ -1,0 +1,986 @@
+{
+  "db_id": "financial",
+  "tables": [
+    {
+      "name": "account",
+      "alias_vi": "Tài_Khoản",
+      "columns": [
+        {
+          "name": "account_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Tài_Khoản",
+          "synonym": [
+            "ID_Tài_Khoản",
+            "Số_Tài_Khoản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định tài khoản.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "district_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Huyện",
+          "synonym": [
+            "ID_Huyện",
+            "Số_Huyện"
+          ],
+          "sample_values": [
+            "18",
+            "1",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định huyện liên quan đến tài khoản.",
+          "is_primary_key": false,
+          "foreign_key_to": "district.district_id"
+        },
+        {
+          "name": "frequency",
+          "type": "TEXT",
+          "alias_vi": "Tần_Suy_Dung",
+          "synonym": [
+            "Tần_Suất_Duy_Nhập",
+            "Khung_Giá"
+          ],
+          "sample_values": [
+            "POPLATEK MESICNE",
+            "POPLATEK TYDNE",
+            "POPLATEK PO OBRATU"
+          ],
+          "description": "Tần suất hoặc khung giá cho việc thanh toán.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date",
+          "type": "DATE",
+          "alias_vi": "Ngày",
+          "synonym": [
+            "Ngày_Ghi_Chú",
+            "Ngày_Thực_Hành"
+          ],
+          "sample_values": [
+            "1995-03-24",
+            "1993-02-26",
+            "1997-07-07"
+          ],
+          "description": "Ngày được ghi chú hoặc thực hiện trong cơ sở dữ liệu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "alias_vi": "Thẻ",
+      "columns": [
+        {
+          "name": "card_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã thẻ",
+          "synonym": [
+            "ID thẻ",
+            "Số thẻ"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi thẻ.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "disp_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã hiển thị",
+          "synonym": [
+            "ID hiển thị",
+            "Số hiển thị"
+          ],
+          "sample_values": [
+            "9",
+            "19",
+            "41"
+          ],
+          "description": "Mã được sử dụng để hiển thị hoặc phân loại thẻ.",
+          "is_primary_key": false,
+          "foreign_key_to": "disp.disp_id"
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại thẻ",
+          "synonym": [
+            "Kiểu thẻ",
+            "Phân loại thẻ"
+          ],
+          "sample_values": [
+            "gold",
+            "classic",
+            "junior"
+          ],
+          "description": "Loại của thẻ như gold, classic, junior.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "issued",
+          "type": "DATE",
+          "alias_vi": "Ngày phát hành",
+          "synonym": [
+            "Ngày cấp",
+            "Ngày phát hành"
+          ],
+          "sample_values": [
+            "1998-10-16",
+            "1998-03-13",
+            "1995-09-03"
+          ],
+          "description": "Ngày khi thẻ được phát hành hoặc cấp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "client",
+      "alias_vi": "Khách hàng",
+      "columns": [
+        {
+          "name": "client_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã khách hàng",
+          "synonym": [
+            "ID khách hàng",
+            "Số khách hàng"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khách hàng",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "gender",
+          "type": "TEXT",
+          "alias_vi": "Giới tính",
+          "synonym": [
+            "Phái",
+            "Giới tính khách hàng"
+          ],
+          "sample_values": [
+            "F",
+            "M"
+          ],
+          "description": "Giới tính của khách hàng (nam hoặc nữ)",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "birth_date",
+          "type": "DATE",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày sinh nhật",
+            "Ngày ra đời"
+          ],
+          "sample_values": [
+            "1970-12-13",
+            "1945-02-04",
+            "1940-10-09"
+          ],
+          "description": "Ngày sinh của khách hàng",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "district_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã quận",
+          "synonym": [
+            "ID quận",
+            "Mã khu vực"
+          ],
+          "sample_values": [
+            "18",
+            "1",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định quận của khách hàng",
+          "is_primary_key": false,
+          "foreign_key_to": "district.district_id"
+        }
+      ]
+    },
+    {
+      "name": "disp",
+      "alias_vi": "Dữ liệu phân phối",
+      "columns": [
+        {
+          "name": "disp_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã phân phối",
+          "synonym": [
+            "ID phân phối",
+            "Mã DP"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi bản ghi phân phối.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "client_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã khách hàng",
+          "synonym": [
+            "ID khách hàng",
+            "Mã KH"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi khách hàng trong hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": "client.client_id"
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài khoản",
+          "synonym": [
+            "ID tài khoản",
+            "Mã TK"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài khoản trong hệ thống.",
+          "is_primary_key": false,
+          "foreign_key_to": "account.account_id"
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại",
+          "synonym": [
+            "Kiểu",
+            "Loại phân phối"
+          ],
+          "sample_values": [
+            "OWNER",
+            "DISPONENT"
+          ],
+          "description": "Loại phân phối có thể là chủ sở hữu hoặc đối tác phân phối.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "district",
+      "alias_vi": "Quận_Huyện",
+      "columns": [
+        {
+          "name": "district_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã_Quận",
+          "synonym": [
+            "Mã_QH",
+            "ID_Quận"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi quận hoặc huyện.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A2",
+          "type": "TEXT",
+          "alias_vi": "Tên_Quận",
+          "synonym": [
+            "Tên_QH",
+            "Tên_Huyện"
+          ],
+          "sample_values": [
+            "Hl.m. Praha",
+            "Benesov",
+            "Beroun"
+          ],
+          "description": "Tên đầy đủ của quận hoặc huyện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A3",
+          "type": "TEXT",
+          "alias_vi": "Tỉnh_Quận",
+          "synonym": [
+            "Tỉnh_QH",
+            "Tỉnh_Huyện"
+          ],
+          "sample_values": [
+            "Prague",
+            "central Bohemia",
+            "south Bohemia"
+          ],
+          "description": "Tên tỉnh hoặc khu vực mà quận hoặc huyện thuộc về.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A4",
+          "type": "TEXT",
+          "alias_vi": "Mã_Tỉnh_Quận",
+          "synonym": [
+            "Mã_Tỉnh",
+            "Mã_Khu_Vực"
+          ],
+          "sample_values": [
+            "1204953",
+            "88884",
+            "75232"
+          ],
+          "description": "Mã số duy nhất xác định tỉnh hoặc khu vực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A5",
+          "type": "TEXT",
+          "alias_vi": "Mã_Địa_Phương",
+          "synonym": [
+            "Mã_Phân_Chiều",
+            "Mã_Địa_Phương"
+          ],
+          "sample_values": [
+            "0",
+            "80",
+            "55"
+          ],
+          "description": "Mã địa phương được sử dụng để phân biệt các quận hoặc huyện trong cùng một tỉnh.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A6",
+          "type": "TEXT",
+          "alias_vi": "Mã_Địa_Phương_2",
+          "synonym": [
+            "Mã_Địa_Phương_2",
+            "Mã_Phân_Chiều_2"
+          ],
+          "sample_values": [
+            "0",
+            "26",
+            "29"
+          ],
+          "description": "Mã thứ hai dùng để phân biệt các quận hoặc huyện trong cùng một tỉnh.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A7",
+          "type": "TEXT",
+          "alias_vi": "Mã_Địa_Phương_3",
+          "synonym": [
+            "Mã_Địa_Phương_3",
+            "Mã_Phân_Chiều_3"
+          ],
+          "sample_values": [
+            "0",
+            "6",
+            "4"
+          ],
+          "description": "Mã thứ ba dùng để phân biệt các quận hoặc huyện trong cùng một tỉnh.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A8",
+          "type": "INTEGER",
+          "alias_vi": "Số_Phân_Chiều",
+          "synonym": [
+            "Số_Phân_Chiều",
+            "Số_Địa_Phương"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Số thứ tự của quận hoặc huyện trong danh sách các quận hoặc huyện của cùng một tỉnh.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A9",
+          "type": "INTEGER",
+          "alias_vi": "Số_Phân_Chiều_2",
+          "synonym": [
+            "Số_Phân_Chiều_2",
+            "Số_Địa_Phương_2"
+          ],
+          "sample_values": [
+            "1",
+            "5",
+            "6"
+          ],
+          "description": "Số thứ tự của quận hoặc huyện trong danh sách các quận hoặc huyện của cùng một tỉnh, sử dụng mã thứ hai.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A10",
+          "type": "REAL",
+          "alias_vi": "Diện_Tích",
+          "synonym": [
+            "Diện_Tích_Quận",
+            "Diện_Tích_Huyện"
+          ],
+          "sample_values": [
+            "100.0",
+            "46.7",
+            "41.7"
+          ],
+          "description": "Diện tích của quận hoặc huyện tính bằng hecta.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A11",
+          "type": "INTEGER",
+          "alias_vi": "Dân_Số",
+          "synonym": [
+            "Số_Người",
+            "Dân_Số_Quận"
+          ],
+          "sample_values": [
+            "12541",
+            "8507",
+            "8980"
+          ],
+          "description": "Số dân của quận hoặc huyện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A12",
+          "type": "REAL",
+          "alias_vi": "Chi_Số_Dân_Số",
+          "synonym": [
+            "Chi_Số_Điểm",
+            "Chi_Số_Dân_Số"
+          ],
+          "sample_values": [
+            "0.2",
+            "1.6",
+            "1.9"
+          ],
+          "description": "Chi số dân số tính theo một đơn vị cụ thể.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A13",
+          "type": "REAL",
+          "alias_vi": "Dữ liệu thực số",
+          "synonym": [
+            "Dữ liệu thực",
+            "Số thực"
+          ],
+          "sample_values": [
+            "0.43",
+            "1.85",
+            "2.21"
+          ],
+          "description": "Giá trị số thực được ghi nhận trong quận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A14",
+          "type": "INTEGER",
+          "alias_vi": "Số nguyên",
+          "synonym": [
+            "Số nguyên tố",
+            "Số nguyên"
+          ],
+          "sample_values": [
+            "167",
+            "132",
+            "111"
+          ],
+          "description": "Giá trị số nguyên được ghi nhận trong quận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A15",
+          "type": "INTEGER",
+          "alias_vi": "Số dân",
+          "synonym": [
+            "Dân số",
+            "Số người"
+          ],
+          "sample_values": [
+            "85677",
+            "2159",
+            "2824"
+          ],
+          "description": "Số lượng người dân trong quận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "A16",
+          "type": "INTEGER",
+          "alias_vi": "Diện tích",
+          "synonym": [
+            "Kích thước",
+            "Phần diện tích"
+          ],
+          "sample_values": [
+            "99107",
+            "2674",
+            "2813"
+          ],
+          "description": "Diện tích khu vực của quận.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "loan",
+      "alias_vi": "Hóa đơn vay",
+      "columns": [
+        {
+          "name": "loan_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã hóa đơn vay",
+          "synonym": [
+            "Mã vay",
+            "ID vay"
+          ],
+          "sample_values": [
+            "4959",
+            "4961",
+            "4962"
+          ],
+          "description": "Mã duy nhất để xác định mỗi hóa đơn vay.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài khoản",
+          "synonym": [
+            "ID tài khoản",
+            "Số tài khoản"
+          ],
+          "sample_values": [
+            "2",
+            "19",
+            "25"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài khoản khách hàng.",
+          "is_primary_key": false,
+          "foreign_key_to": "account.account_id"
+        },
+        {
+          "name": "date",
+          "type": "DATE",
+          "alias_vi": "Ngày phát hành",
+          "synonym": [
+            "Ngày vay",
+            "Ngày cấp"
+          ],
+          "sample_values": [
+            "1994-01-05",
+            "1996-04-29",
+            "1997-12-08"
+          ],
+          "description": "Ngày khi hóa đơn vay được phát hành hoặc cấp cho khách hàng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER",
+          "alias_vi": "Số tiền vay",
+          "synonym": [
+            "Tổng số tiền",
+            "Số tiền"
+          ],
+          "sample_values": [
+            "80952",
+            "30276",
+            "318480"
+          ],
+          "description": "Số tiền mà khách hàng đã vay theo hóa đơn vay.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "duration",
+          "type": "INTEGER",
+          "alias_vi": "Thời gian trả nợ",
+          "synonym": [
+            "Thời hạn",
+            "Thời gian trả"
+          ],
+          "sample_values": [
+            "24",
+            "12",
+            "60"
+          ],
+          "description": "Thời gian (trong tháng) mà khách hàng phải trả hết số tiền vay.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "payments",
+          "type": "REAL",
+          "alias_vi": "Số tiền mỗi kỳ thanh toán",
+          "synonym": [
+            "Tiền thanh toán",
+            "Số tiền mỗi lần"
+          ],
+          "sample_values": [
+            "3373.0",
+            "2523.0",
+            "5308.0"
+          ],
+          "description": "Số tiền cần thanh toán mỗi kỳ theo hóa đơn vay.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái",
+          "synonym": [
+            "Tình trạng",
+            "Trạng thái vay"
+          ],
+          "sample_values": [
+            "A",
+            "B",
+            "D"
+          ],
+          "description": "Trạng thái hiện tại của hóa đơn vay (ví dụ: A, B, D).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "order",
+      "alias_vi": "Dữ liệu đơn hàng",
+      "columns": [
+        {
+          "name": "order_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã đơn hàng",
+          "synonym": [
+            "ID đơn hàng",
+            "Số đơn hàng"
+          ],
+          "sample_values": [
+            "29401",
+            "29402",
+            "29403"
+          ],
+          "description": "Mã duy nhất để xác định mỗi đơn hàng",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài khoản",
+          "synonym": [
+            "ID tài khoản",
+            "Số tài khoản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài khoản khách hàng",
+          "is_primary_key": false,
+          "foreign_key_to": "account.account_id"
+        },
+        {
+          "name": "bank_to",
+          "type": "TEXT",
+          "alias_vi": "Ngân hàng nhận",
+          "synonym": [
+            "Ngân hàng đến",
+            "Ngân hàng nhận tiền"
+          ],
+          "sample_values": [
+            "YZ",
+            "ST",
+            "QR"
+          ],
+          "description": "Tên hoặc mã ngân hàng nơi nhận tiền",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "account_to",
+          "type": "INTEGER",
+          "alias_vi": "Tài khoản nhận",
+          "synonym": [
+            "Số tài khoản nhận",
+            "Tài khoản đến"
+          ],
+          "sample_values": [
+            "87144583",
+            "89597016",
+            "13943797"
+          ],
+          "description": "Số tài khoản nơi nhận tiền",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "amount",
+          "type": "REAL",
+          "alias_vi": "Số tiền",
+          "synonym": [
+            "Số tiền giao dịch",
+            "Số tiền chuyển"
+          ],
+          "sample_values": [
+            "2452.0",
+            "3372.7",
+            "7266.0"
+          ],
+          "description": "Số tiền được chuyển trong mỗi giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "k_symbol",
+          "type": "TEXT",
+          "alias_vi": " Mã chứng khoán",
+          "synonym": [
+            " Mã cổ phiếu",
+            " Mã tài sản"
+          ],
+          "sample_values": [
+            "SIPO",
+            "UVER",
+            ""
+          ],
+          "description": "Mã chứng khoán liên quan đến giao dịch",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "trans",
+      "alias_vi": "Giao Dich",
+      "columns": [
+        {
+          "name": "trans_id",
+          "type": "INTEGER",
+          "alias_vi": "ID Giao Dich",
+          "synonym": [
+            "Mã Giao Dịch",
+            "Số Giao Dịch"
+          ],
+          "sample_values": [
+            "1",
+            "5",
+            "6"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giao dịch.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "account_id",
+          "type": "INTEGER",
+          "alias_vi": "ID Tài Khoản",
+          "synonym": [
+            "Mã Tài Khoản",
+            "Số Tài Khoản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định tài khoản liên quan đến giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": "account.account_id"
+        },
+        {
+          "name": "date",
+          "type": "DATE",
+          "alias_vi": "Ngày Giao Dich",
+          "synonym": [
+            "Ngày Thanh Toán",
+            "Ngày Ghi Chép"
+          ],
+          "sample_values": [
+            "1995-03-24",
+            "1995-04-13",
+            "1995-05-13"
+          ],
+          "description": "Ngày thực hiện giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "type",
+          "type": "TEXT",
+          "alias_vi": "Loại Giao Dich",
+          "synonym": [
+            "Kiểu Giao Dịch",
+            "Phân Loại Giao Dịch"
+          ],
+          "sample_values": [
+            "PRIJEM",
+            "VYDAJ",
+            "VYBER"
+          ],
+          "description": "Loại giao dịch (nhập, xuất, rút).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "operation",
+          "type": "TEXT",
+          "alias_vi": "Hoạt Động Giao Dich",
+          "synonym": [
+            "Thao Tác Giao Dịch",
+            "Phương Pháp Giao Dịch"
+          ],
+          "sample_values": [
+            "VKLAD",
+            "PREVOD Z UCTU",
+            "PREVOD NA UCET"
+          ],
+          "description": "Hoạt động cụ thể trong giao dịch (nạp tiền, chuyển khoản, rút tiền).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "amount",
+          "type": "INTEGER",
+          "alias_vi": "Số Tiền",
+          "synonym": [
+            "Tổng Số Tiền",
+            "Số Tiền Giao Dịch"
+          ],
+          "sample_values": [
+            "1000",
+            "3679",
+            "2452"
+          ],
+          "description": "Số tiền liên quan đến giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "balance",
+          "type": "INTEGER",
+          "alias_vi": "Số dư",
+          "synonym": [
+            "Dư Số",
+            "Số Dư Tài Khoản"
+          ],
+          "sample_values": [
+            "1000",
+            "4679",
+            "20977"
+          ],
+          "description": "Số dư tài khoản sau khi thực hiện giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "k_symbol",
+          "type": "TEXT",
+          "alias_vi": "Ký Tự",
+          "synonym": [
+            "Ký Hiệu",
+            "Mã Ký Tự"
+          ],
+          "sample_values": [
+            "SIPO",
+            "SLUZBY",
+            "UVER"
+          ],
+          "description": "Ký tự hoặc mã liên quan đến loại giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "bank",
+          "type": "TEXT",
+          "alias_vi": "Ngân Hàng",
+          "synonym": [
+            "Tên Ngân Hàng",
+            "Ngân Hàng Thực Hiện"
+          ],
+          "sample_values": [
+            "AB",
+            "YZ",
+            "ST"
+          ],
+          "description": "Tên ngân hàng thực hiện giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "account",
+          "type": "INTEGER",
+          "alias_vi": "Số Tài Khoản",
+          "synonym": [
+            "Mã Tài Khoản",
+            "Tài Khoản Giao Dịch"
+          ],
+          "sample_values": [
+            "41403269",
+            "87144583",
+            "66487163"
+          ],
+          "description": "Số tài khoản liên quan đến giao dịch.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

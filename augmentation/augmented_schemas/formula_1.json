@@ -1,0 +1,1675 @@
+{
+  "db_id": "formula_1",
+  "tables": [
+    {
+      "name": "circuits",
+      "alias_vi": "Các Tracula",
+      "columns": [
+        {
+          "name": "circuitId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Tracula",
+          "synonym": [
+            "ID Tracula",
+            "Số Tracula"
+          ],
+          "sample_values": [
+            "23",
+            "61",
+            "29"
+          ],
+          "description": "Mã duy nhất xác định mỗi tracula đua xe.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "circuitRef",
+          "type": "TEXT",
+          "alias_vi": "Tham chiếu Tracula",
+          "synonym": [
+            "Tracula Tham chiếu",
+            "Mã Tracula"
+          ],
+          "sample_values": [
+            "sepang",
+            "bahrain",
+            "catalunya"
+          ],
+          "description": "Mã tham chiếu ngắn gọn cho mỗi tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên Tracula",
+          "synonym": [
+            "Tên gọi Tracula",
+            "Tên tracula"
+          ],
+          "sample_values": [
+            "Sepang International Circuit",
+            "Bahrain International Circuit",
+            "Circuit de Barcelona-Catalunya"
+          ],
+          "description": "Tên đầy đủ của tracula đua xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "location",
+          "type": "TEXT",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Địa điểm",
+            "Nơi ở"
+          ],
+          "sample_values": [
+            "Kuala Lumpur",
+            "Sakhir",
+            "Montmeló"
+          ],
+          "description": "Địa điểm cụ thể của tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "country",
+          "type": "TEXT",
+          "alias_vi": "Quốc gia",
+          "synonym": [
+            "Nước",
+            "Quốc gia tổ chức"
+          ],
+          "sample_values": [
+            "Malaysia",
+            "Bahrain",
+            "Spain"
+          ],
+          "description": "Quốc gia nơi tracula nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "lat",
+          "type": "REAL",
+          "alias_vi": "Kinh độ",
+          "synonym": [
+            "Kinh độ",
+            "Kinh độ tọa độ"
+          ],
+          "sample_values": [
+            "2.76083",
+            "26.0325",
+            "41.57"
+          ],
+          "description": "Kinh độ tọa độ của tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "lng",
+          "type": "REAL",
+          "alias_vi": "Vĩ độ",
+          "synonym": [
+            "Vĩ độ",
+            "Vĩ độ tọa độ"
+          ],
+          "sample_values": [
+            "101.738",
+            "50.5106",
+            "2.26111"
+          ],
+          "description": "Vĩ độ tọa độ của tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "alt",
+          "type": "INTEGER",
+          "alias_vi": "Chiều cao",
+          "synonym": [
+            "Chiều cao",
+            "Chiều cao tọa độ"
+          ],
+          "sample_values": [],
+          "description": "Chiều cao tọa độ của tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "url",
+          "type": "TEXT",
+          "alias_vi": "Đường link",
+          "synonym": [
+            "Đường link",
+            "Website"
+          ],
+          "sample_values": [
+            "http://en.wikipedia.org/wiki/A1-Ring",
+            "http://en.wikipedia.org/wiki/AVUS",
+            "http://en.wikipedia.org/wiki/Adelaide_Street_Circuit"
+          ],
+          "description": "Đường link đến trang web thông tin về tracula.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "constructorResults",
+      "alias_vi": "Kết Quả Xe Xây Dựng",
+      "columns": [
+        {
+          "name": "constructorResultsId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Kết Quả Xe Xây Dựng",
+          "synonym": [
+            "ID Kết Quả Xe Xây Dựng",
+            "Mã Kết Quả"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi kết quả xe xây dựng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Giải Đua",
+          "synonym": [
+            "ID Giải Đua",
+            "Mã Giải"
+          ],
+          "sample_values": [
+            "18",
+            "19",
+            "20"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giải đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Xe Xây Dựng",
+          "synonym": [
+            "ID Xe Xây Dựng",
+            "Mã Xe"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi loại xe xây dựng.",
+          "is_primary_key": false,
+          "foreign_key_to": "constructors.constructorId"
+        },
+        {
+          "name": "points",
+          "type": "REAL",
+          "alias_vi": "Điểm",
+          "synonym": [
+            "Điểm Số",
+            "Số Điểm"
+          ],
+          "sample_values": [
+            "14.0",
+            "8.0",
+            "9.0"
+          ],
+          "description": "Số điểm mà đội xe nhận được trong cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "alias_vi": "Trạng Thái",
+          "synonym": [
+            "Tình Trạng",
+            "Trạng Thái Kết Quả"
+          ],
+          "sample_values": [
+            "D"
+          ],
+          "description": "Trạng thái của kết quả đua, thường là ký tự đơn như 'D' cho Đạt.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "constructorStandings",
+      "alias_vi": "Bảng Xếp Hạng Constructors",
+      "columns": [
+        {
+          "name": "constructorStandingsId",
+          "type": "INTEGER",
+          "alias_vi": "ID Xếp Hạng Constructor",
+          "synonym": [
+            "Mã Xếp Hạng Constructor",
+            "ID Constructor"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi dòng trong bảng xếp hạng constructor.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "ID Giải Đua",
+          "synonym": [
+            "Mã Giải Đua",
+            "ID Giải"
+          ],
+          "sample_values": [
+            "18",
+            "19",
+            "20"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giải đua trong bảng xếp hạng.",
+          "is_primary_key": false,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER",
+          "alias_vi": "ID Constructor",
+          "synonym": [
+            "Mã Constructor",
+            "ID Xe"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi đội đua trong bảng xếp hạng.",
+          "is_primary_key": false,
+          "foreign_key_to": "constructors.constructorId"
+        },
+        {
+          "name": "points",
+          "type": "REAL",
+          "alias_vi": "Điểm",
+          "synonym": [
+            "Điểm Số",
+            "Số Điểm"
+          ],
+          "sample_values": [
+            "14.0",
+            "8.0",
+            "9.0"
+          ],
+          "description": "Tổng số điểm mà constructor đã giành được sau các cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "INTEGER",
+          "alias_vi": "Vị Trí",
+          "synonym": [
+            "Vị Trí Xếp Hạng",
+            "Số Vị Trí"
+          ],
+          "sample_values": [
+            "1",
+            "3",
+            "2"
+          ],
+          "description": "Vị trí của constructor trong bảng xếp hạng sau các cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "positionText",
+          "type": "TEXT",
+          "alias_vi": "Vị Trí Văn Bản",
+          "synonym": [
+            "Vị Trí Xếp Hạng Văn Bản",
+            "Số Vị Trí Văn Bản"
+          ],
+          "sample_values": [
+            "1",
+            "3",
+            "2"
+          ],
+          "description": "Biểu diễn vị trí của constructor dưới dạng văn bản (ví dụ: 1, 2, 3).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER",
+          "alias_vi": "Số Lần Thắng",
+          "synonym": [
+            "Lần Thắng",
+            "Số Thắng"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "2"
+          ],
+          "description": "Số lần constructor đã giành chiến thắng trong các cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "constructors",
+      "alias_vi": "Nhà sản xuất xe đua",
+      "columns": [
+        {
+          "name": "constructorId",
+          "type": "INTEGER",
+          "alias_vi": "Mã nhà sản xuất",
+          "synonym": [
+            "ID nhà sản xuất",
+            "Ký hiệu nhà sản xuất"
+          ],
+          "sample_values": [
+            "147",
+            "39",
+            "54"
+          ],
+          "description": "Mã duy nhất xác định mỗi nhà sản xuất xe đua.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "constructorRef",
+          "type": "TEXT",
+          "alias_vi": "Ký hiệu nhà sản xuất",
+          "synonym": [
+            "Tên ký hiệu",
+            "Biên號"
+          ],
+          "sample_values": [
+            "mclaren",
+            "bmw_sauber",
+            "williams"
+          ],
+          "description": "Ký hiệu hoặc tên viết tắt của nhà sản xuất xe đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên nhà sản xuất",
+          "synonym": [
+            "Tên gọi",
+            "Tên chính thức"
+          ],
+          "sample_values": [
+            "AFM",
+            "AGS",
+            "ATS"
+          ],
+          "description": "Tên đầy đủ của nhà sản xuất xe đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "nationality",
+          "type": "TEXT",
+          "alias_vi": "Quốc tịch",
+          "synonym": [
+            "Quốc gia",
+            "Nước"
+          ],
+          "sample_values": [
+            "British",
+            "German",
+            "French"
+          ],
+          "description": "Quốc tịch hoặc quốc gia mà nhà sản xuất xe đua đại diện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "url",
+          "type": "TEXT",
+          "alias_vi": "Đường dẫn URL",
+          "synonym": [
+            "Liên kết URL",
+            "Địa chỉ web"
+          ],
+          "sample_values": [
+            "http://en.wikipedia.org/wiki/McLaren",
+            "http://en.wikipedia.org/wiki/BMW_Sauber",
+            "http://en.wikipedia.org/wiki/Williams_Grand_Prix_Engineering"
+          ],
+          "description": "Đường dẫn URL đến trang web chính thức của nhà sản xuất xe đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "driverStandings",
+      "alias_vi": "Lịch Sử Kết Quả Đua Xe",
+      "columns": [
+        {
+          "name": "driverStandingsId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Lịch Sử Kết Quả",
+          "synonym": [
+            "ID Lịch Sử Kết Quả",
+            "Mã Kết Quả"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi dòng lịch sử kết quả.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Giải Đua",
+          "synonym": [
+            "ID Giải Đua",
+            "Mã Giải"
+          ],
+          "sample_values": [
+            "18",
+            "19",
+            "20"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giải đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Tài Xế",
+          "synonym": [
+            "ID Tài Xế",
+            "Mã Tài"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": "drivers.driverId"
+        },
+        {
+          "name": "points",
+          "type": "REAL",
+          "alias_vi": "Số Điểm",
+          "synonym": [
+            "Điểm",
+            "Điểm Số"
+          ],
+          "sample_values": [
+            "10.0",
+            "8.0",
+            "6.0"
+          ],
+          "description": "Số điểm mà tài xế đã giành được sau mỗi cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "INTEGER",
+          "alias_vi": "Vị Trí",
+          "synonym": [
+            "Thứ Tự",
+            "Vị Trí Đua"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Vị trí của tài xế trong cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "positionText",
+          "type": "TEXT",
+          "alias_vi": "Vị Trí Văn Bản",
+          "synonym": [
+            "Thứ Tự Văn Bản",
+            "Vị Trí Đua Văn Bản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Biểu diễn văn bản của vị trí của tài xế trong cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "wins",
+          "type": "INTEGER",
+          "alias_vi": "Số Lần Đua Thắng",
+          "synonym": [
+            "Lần Thắng",
+            "Số Lần Đua Thắng"
+          ],
+          "sample_values": [
+            "1",
+            "0",
+            "2"
+          ],
+          "description": "Số lần tài xế đã giành chiến thắng trong các cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "drivers",
+      "alias_vi": "Hãnh trang đua xe",
+      "columns": [
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài xế",
+          "synonym": [
+            "ID tài xế",
+            "Số tài xế"
+          ],
+          "sample_values": [
+            "452",
+            "625",
+            "103"
+          ],
+          "description": "Mã duy nhất xác định mỗi tài xế trong bảng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "driverRef",
+          "type": "TEXT",
+          "alias_vi": "Tài liệu tài xế",
+          "synonym": [
+            "Tham chiếu tài xế",
+            "Tên tài xế"
+          ],
+          "sample_values": [
+            "hamilton",
+            "heidfeld",
+            "rosberg"
+          ],
+          "description": "Tên tham chiếu hoặc tên tài xế được sử dụng trong các tài liệu chính thức.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "number",
+          "type": "INTEGER",
+          "alias_vi": "Số áo",
+          "synonym": [
+            "Số tài xế",
+            "Số áo đấu"
+          ],
+          "sample_values": [
+            "44",
+            "6",
+            "14"
+          ],
+          "description": "Số áo mà tài xế mặc trên xe của mình trong giải đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "code",
+          "type": "TEXT",
+          "alias_vi": "Mã tài xế",
+          "synonym": [
+            "Mã đấu",
+            "Mã đội"
+          ],
+          "sample_values": [
+            "HAM",
+            "HEI",
+            "ROS"
+          ],
+          "description": "Mã ngắn gọn đại diện cho tài xế và đội đua của họ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "forename",
+          "type": "TEXT",
+          "alias_vi": "Họ",
+          "synonym": [
+            "Tên đệm",
+            "Tên trước"
+          ],
+          "sample_values": [
+            "Lewis",
+            "Nick",
+            "Nico"
+          ],
+          "description": "Tên đệm hoặc tên gọi trước của tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "surname",
+          "type": "TEXT",
+          "alias_vi": "Tên",
+          "synonym": [
+            "Tên sau",
+            "Tên họ"
+          ],
+          "sample_values": [
+            "Hamilton",
+            "Heidfeld",
+            "Rosberg"
+          ],
+          "description": "Tên họ hoặc tên gọi sau của tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "dob",
+          "type": "DATE",
+          "alias_vi": "Ngày sinh",
+          "synonym": [
+            "Ngày sinh nhật",
+            "Ngày ra đời"
+          ],
+          "sample_values": [
+            "1985-01-07",
+            "1977-05-10",
+            "1985-06-27"
+          ],
+          "description": "Ngày sinh của tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "nationality",
+          "type": "TEXT",
+          "alias_vi": "Quốc tịch",
+          "synonym": [
+            "Quốc gia",
+            "Dân tộc"
+          ],
+          "sample_values": [
+            "British",
+            "German",
+            "Spanish"
+          ],
+          "description": "Quốc tịch của tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "url",
+          "type": "TEXT",
+          "alias_vi": "Đường dẫn URL",
+          "synonym": [
+            "Liên kết web",
+            "Đường link"
+          ],
+          "sample_values": [
+            "",
+            "http://en.wikipedia.org/wiki/%C3%89lie_Bayol",
+            "http://en.wikipedia.org/wiki/%C3%89ric_Bernard"
+          ],
+          "description": "Đường dẫn URL đến trang web chính thức hoặc thông tin về tài xế.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "lapTimes",
+      "alias_vi": "Kết Quả Tròn",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "ID Giải Đấu",
+          "synonym": [
+            "Mã Giải Đấu",
+            "Số Giải Đấu"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "4"
+          ],
+          "description": "Mã duy nhất xác định giải đấu.",
+          "is_primary_key": true,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "ID Tài Xế",
+          "synonym": [
+            "Mã Tài Xế",
+            "Số Tài Xế"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định tài xế trong giải đấu.",
+          "is_primary_key": true,
+          "foreign_key_to": "drivers.driverId"
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER",
+          "alias_vi": "Tròn",
+          "synonym": [
+            "Lần Quanh",
+            "Tròn Đường"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Số tròn đua mà tài xế đã hoàn thành.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "INTEGER",
+          "alias_vi": "Vị Trí",
+          "synonym": [
+            "Hạng Đứng",
+            "Vị Trí Đua"
+          ],
+          "sample_values": [
+            "10",
+            "11",
+            "9"
+          ],
+          "description": "Vị trí của tài xế sau khi hoàn thành tròn đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "time",
+          "type": "TEXT",
+          "alias_vi": "Thời Gian",
+          "synonym": [
+            "Thời Gian Hoàn Thành",
+            "Thời Gian Đua"
+          ],
+          "sample_values": [
+            "1:52.965",
+            "1:41.865",
+            "1:40.869"
+          ],
+          "description": "Thời gian tài xế hoàn thành tròn đua, được thể hiện dưới dạng phút giây.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER",
+          "alias_vi": "Millisecond",
+          "synonym": [
+            "MS",
+            "Milli"
+          ],
+          "sample_values": [
+            "112965",
+            "101865",
+            "100869"
+          ],
+          "description": "Thời gian hoàn thành tròn đua tính đến milisecond.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "pitStops",
+      "alias_vi": "Lỗi Phục Hồi",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "ID Giải Đấu",
+          "synonym": [
+            "Mã Giải Đấu",
+            "Số Giải Đấu"
+          ],
+          "sample_values": [
+            "842",
+            "843",
+            "844"
+          ],
+          "description": "Đây là mã duy nhất xác định một giải đấu cụ thể.",
+          "is_primary_key": true,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "ID Tài Xế",
+          "synonym": [
+            "Mã Tài Xế",
+            "Số Tài Xế"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Đây là mã duy nhất xác định một tài xế cụ thể.",
+          "is_primary_key": true,
+          "foreign_key_to": "drivers.driverId"
+        },
+        {
+          "name": "stop",
+          "type": "INTEGER",
+          "alias_vi": "Lỗi Phục Hồi",
+          "synonym": [
+            "Lỗi Lái",
+            "Phục Hồi"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Số thứ tự của lỗi phục hồi mà tài xế đã thực hiện trong cuộc đua.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "lap",
+          "type": "INTEGER",
+          "alias_vi": "Quãng Đường",
+          "synonym": [
+            "Lộ Trình",
+            "Đường Quay"
+          ],
+          "sample_values": [
+            "12",
+            "24",
+            "37"
+          ],
+          "description": "Số vòng đua khi lỗi phục hồi được thực hiện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "time",
+          "type": "TEXT",
+          "alias_vi": "Thời Gian",
+          "synonym": [
+            "Giờ Phục Hồi",
+            "Thời Điểm"
+          ],
+          "sample_values": [
+            "16:24:40",
+            "16:45:48",
+            "17:08:28"
+          ],
+          "description": "Thời gian khi lỗi phục hồi được thực hiện, được biểu diễn dưới dạng chuỗi thời gian.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "duration",
+          "type": "TEXT",
+          "alias_vi": "Thời Gian Phục Hồi",
+          "synonym": [
+            "Thời Gian Lỗi",
+            "Thời Gian Chữa Lành"
+          ],
+          "sample_values": [
+            "22.552",
+            "22.611",
+            "25.382"
+          ],
+          "description": "Thời gian tổng cộng để tài xế hoàn thành lỗi phục hồi, được biểu diễn dưới dạng số thập phân.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER",
+          "alias_vi": "Thời Gian Phục Hồi (miliseconds)",
+          "synonym": [
+            "Thời Gian Phục Hồi (ms)",
+            "Thời Gian Lỗi (ms)"
+          ],
+          "sample_values": [
+            "22552",
+            "22611",
+            "25382"
+          ],
+          "description": "Thời gian tổng cộng để tài xế hoàn thành lỗi phục hồi, được biểu diễn dưới dạng milisecond.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "qualifying",
+      "alias_vi": "Kết quả bấm nút",
+      "columns": [
+        {
+          "name": "qualifyId",
+          "type": "INTEGER",
+          "alias_vi": "Mã vòng bấm nút",
+          "synonym": [
+            "Mã vòng đua",
+            "ID vòng bấm nút"
+          ],
+          "sample_values": [
+            "23",
+            "24",
+            "25"
+          ],
+          "description": "Mã duy nhất xác định mỗi vòng bấm nút.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "Mã cuộc đua",
+          "synonym": [
+            "ID cuộc đua",
+            "Mã giải đấu"
+          ],
+          "sample_values": [
+            "19",
+            "20",
+            "21"
+          ],
+          "description": "Mã duy nhất xác định mỗi cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài xế",
+          "synonym": [
+            "ID tài xế",
+            "Mã lái xe"
+          ],
+          "sample_values": [
+            "13",
+            "8",
+            "5"
+          ],
+          "description": "Mã duy nhất xác định mỗi tài xế tham gia cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "drivers.driverId"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER",
+          "alias_vi": "Mã đội đua",
+          "synonym": [
+            "ID đội đua",
+            "Mã nhà sản xuất"
+          ],
+          "sample_values": [
+            "6",
+            "1",
+            "7"
+          ],
+          "description": "Mã duy nhất xác định mỗi đội đua tham gia cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "constructors.constructorId"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER",
+          "alias_vi": "Số áo",
+          "synonym": [
+            "Số tài xế",
+            "Số đội đua"
+          ],
+          "sample_values": [
+            "2",
+            "1",
+            "23"
+          ],
+          "description": "Số áo của tài xế trên xe đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "INTEGER",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Hạng vị",
+            "Số thứ tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Vị trí của tài xế trong vòng bấm nút.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "q1",
+          "type": "TEXT",
+          "alias_vi": "Thời gian vòng 1",
+          "synonym": [
+            "Thời gian vòng đầu tiên",
+            "Thời gian vòng 1"
+          ],
+          "sample_values": [
+            "1:35.347",
+            "1:35.645",
+            "1:35.227"
+          ],
+          "description": "Thời gian bấm nút nhanh nhất trong vòng 1.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "q2",
+          "type": "TEXT",
+          "alias_vi": "Thời gian vòng 2",
+          "synonym": [
+            "Thời gian vòng thứ hai",
+            "Thời gian vòng 2"
+          ],
+          "sample_values": [
+            "1:34.412",
+            "1:34.188",
+            "1:34.759"
+          ],
+          "description": "Thời gian bấm nút nhanh nhất trong vòng 2.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "q3",
+          "type": "TEXT",
+          "alias_vi": "Thời gian vòng 3",
+          "synonym": [
+            "Thời gian vòng cuối cùng",
+            "Thời gian vòng 3"
+          ],
+          "sample_values": [
+            "1:35.748",
+            "1:36.230",
+            "1:36.613"
+          ],
+          "description": "Thời gian bấm nút nhanh nhất trong vòng 3.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "races",
+      "alias_vi": "Giải đua xe ô tô",
+      "columns": [
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "Mã giải đua",
+          "synonym": [
+            "ID giải đua",
+            "Số giải đua"
+          ],
+          "sample_values": [
+            "837",
+            "833",
+            "838"
+          ],
+          "description": "Mã duy nhất xác định mỗi cuộc đua.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "year",
+          "type": "INTEGER",
+          "alias_vi": "Năm",
+          "synonym": [
+            "Nam",
+            "Năm tổ chức"
+          ],
+          "sample_values": [
+            "2009",
+            "2008",
+            "2007"
+          ],
+          "description": "Năm mà cuộc đua được tổ chức.",
+          "is_primary_key": false,
+          "foreign_key_to": "seasons.year"
+        },
+        {
+          "name": "round",
+          "type": "INTEGER",
+          "alias_vi": "Vòng đua",
+          "synonym": [
+            "Vòng",
+            "Số vòng"
+          ],
+          "sample_values": [
+            "2",
+            "3",
+            "4"
+          ],
+          "description": "Vị trí của cuộc đua trong mùa giải.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "circuitId",
+          "type": "INTEGER",
+          "alias_vi": "Mã đường đua",
+          "synonym": [
+            "ID đường đua",
+            "Số đường đua"
+          ],
+          "sample_values": [
+            "2",
+            "17",
+            "3"
+          ],
+          "description": "Mã duy nhất xác định mỗi đường đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "circuits.circuitId"
+        },
+        {
+          "name": "name",
+          "type": "TEXT",
+          "alias_vi": "Tên giải đua",
+          "synonym": [
+            "Tên cuộc đua",
+            "Tên sự kiện"
+          ],
+          "sample_values": [
+            "Malaysian Grand Prix",
+            "Chinese Grand Prix",
+            "Bahrain Grand Prix"
+          ],
+          "description": "Tên chính thức của cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "date",
+          "type": "DATE",
+          "alias_vi": "Ngày diễn ra",
+          "synonym": [
+            "Ngày đua",
+            "Ngày tổ chức"
+          ],
+          "sample_values": [
+            "2009-04-05",
+            "2009-04-19",
+            "2009-04-26"
+          ],
+          "description": "Ngày mà cuộc đua được tổ chức.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "time",
+          "type": "TEXT",
+          "alias_vi": "Thời gian bắt đầu",
+          "synonym": [
+            "Giờ bắt đầu",
+            "Thời điểm bắt đầu"
+          ],
+          "sample_values": [
+            "09:00:00",
+            "07:00:00",
+            "12:00:00"
+          ],
+          "description": "Thời gian bắt đầu của cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "url",
+          "type": "TEXT",
+          "alias_vi": "Đường dẫn liên kết",
+          "synonym": [
+            "Liên kết",
+            "Đường link"
+          ],
+          "sample_values": [
+            "http://en.wikipedia.org/wiki/1950_Belgian_Grand_Prix",
+            "http://en.wikipedia.org/wiki/1950_British_Grand_Prix",
+            "http://en.wikipedia.org/wiki/1950_French_Grand_Prix"
+          ],
+          "description": "Địa chỉ URL đến trang web chi tiết về cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "results",
+      "alias_vi": "Kết quả đua",
+      "columns": [
+        {
+          "name": "resultId",
+          "type": "INTEGER",
+          "alias_vi": "Mã kết quả",
+          "synonym": [
+            "ID kết quả",
+            "Mã đua"
+          ],
+          "sample_values": [
+            "23",
+            "24",
+            "25"
+          ],
+          "description": "Mã duy nhất để xác định mỗi kết quả đua.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "raceId",
+          "type": "INTEGER",
+          "alias_vi": "Mã giải đua",
+          "synonym": [
+            "ID giải đua",
+            "Số giải đua"
+          ],
+          "sample_values": [
+            "19",
+            "20",
+            "21"
+          ],
+          "description": "Mã duy nhất để xác định mỗi giải đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "races.raceId"
+        },
+        {
+          "name": "driverId",
+          "type": "INTEGER",
+          "alias_vi": "Mã tài xế",
+          "synonym": [
+            "ID tài xế",
+            "Số tài xế"
+          ],
+          "sample_values": [
+            "8",
+            "9",
+            "5"
+          ],
+          "description": "Mã duy nhất để xác định mỗi tài xế tham gia đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "drivers.driverId"
+        },
+        {
+          "name": "constructorId",
+          "type": "INTEGER",
+          "alias_vi": "Mã đội đua",
+          "synonym": [
+            "ID đội đua",
+            "Số đội đua"
+          ],
+          "sample_values": [
+            "6",
+            "2",
+            "1"
+          ],
+          "description": "Mã duy nhất để xác định mỗi đội đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "constructors.constructorId"
+        },
+        {
+          "name": "number",
+          "type": "INTEGER",
+          "alias_vi": "Số xe",
+          "synonym": [
+            "Số tài xế trên xe",
+            "Số xe đua"
+          ],
+          "sample_values": [
+            "1",
+            "4",
+            "23"
+          ],
+          "description": "Số xe của tài xế trong giải đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "grid",
+          "type": "INTEGER",
+          "alias_vi": "Vị trí xuất phát",
+          "synonym": [
+            "Số hàng xuất phát",
+            "Vị trí xuất phát"
+          ],
+          "sample_values": [
+            "2",
+            "4",
+            "8"
+          ],
+          "description": "Vị trí xuất phát của tài xế trên đường đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "position",
+          "type": "INTEGER",
+          "alias_vi": "Vị trí",
+          "synonym": [
+            "Hạng vị",
+            "Vị trí chấm dứt"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Vị trí của tài xế khi kết thúc cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "positionText",
+          "type": "TEXT",
+          "alias_vi": "Vị trí văn bản",
+          "synonym": [
+            "Hạng vị văn bản",
+            "Vị trí chấm dứt văn bản"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Biểu diễn văn bản của vị trí của tài xế khi kết thúc cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "positionOrder",
+          "type": "INTEGER",
+          "alias_vi": "Vị trí thứ tự",
+          "synonym": [
+            "Số thứ tự vị trí",
+            "Vị trí thứ tự"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Số thứ tự của vị trí của tài xế khi kết thúc cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "points",
+          "type": "REAL",
+          "alias_vi": "Điểm",
+          "synonym": [
+            "Điểm thưởng",
+            "Điểm số"
+          ],
+          "sample_values": [
+            "10.0",
+            "8.0",
+            "6.0"
+          ],
+          "description": "Số điểm mà tài xế nhận được dựa trên vị trí của mình.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "laps",
+          "type": "INTEGER",
+          "alias_vi": "Laps",
+          "synonym": [
+            "Lộ trình",
+            "Lần đi quanh"
+          ],
+          "sample_values": [
+            "56",
+            "55",
+            "54"
+          ],
+          "description": "Số vòng đua mà tài xế đã hoàn thành.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "time",
+          "type": "TEXT",
+          "alias_vi": "Thời gian",
+          "synonym": [
+            "Thời gian hoàn thành",
+            "Thời gian đua"
+          ],
+          "sample_values": [
+            "1:31:18.555",
+            "+19.570",
+            "+38.450"
+          ],
+          "description": "Thời gian tài xế hoàn thành cuộc đua hoặc thời gian thêm so với người chiến thắng.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "milliseconds",
+          "type": "INTEGER",
+          "alias_vi": "Thời gian đua (mili giây)",
+          "synonym": [
+            "Thời gian đua (ms)",
+            "Thời gian đua (mili)"
+          ],
+          "sample_values": [
+            "5478555",
+            "5498125",
+            "5517005"
+          ],
+          "description": "Thời gian đua của lái xe trong đơn vị miligian.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fastestLap",
+          "type": "INTEGER",
+          "alias_vi": "Quãng đường nhanh nhất",
+          "synonym": [
+            "Quãng đường tốt nhất",
+            "Quãng đường nhanh"
+          ],
+          "sample_values": [
+            "37",
+            "39",
+            "19"
+          ],
+          "description": "Số vòng đua trong quãng đường nhanh nhất của lái xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "rank",
+          "type": "INTEGER",
+          "alias_vi": "Hạng",
+          "synonym": [
+            "Số hạng",
+            "Hạng mục"
+          ],
+          "sample_values": [
+            "2",
+            "6",
+            "7"
+          ],
+          "description": "Hạng của lái xe sau khi kết thúc cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fastestLapTime",
+          "type": "TEXT",
+          "alias_vi": "Thời gian quãng đường nhanh nhất",
+          "synonym": [
+            "Thời gian tốt nhất",
+            "Thời gian nhanh nhất"
+          ],
+          "sample_values": [
+            "1:35.405",
+            "1:35.921",
+            "1:35.922"
+          ],
+          "description": "Thời gian hoàn thành quãng đường nhanh nhất của lái xe.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "fastestLapSpeed",
+          "type": "TEXT",
+          "alias_vi": "Tốc độ trung bình quãng đường nhanh nhất",
+          "synonym": [
+            "Tốc độ nhanh nhất",
+            "Tốc độ tốt nhất"
+          ],
+          "sample_values": [
+            "209.158",
+            "208.033",
+            "208.031"
+          ],
+          "description": "Tốc độ trung bình khi lái xe hoàn thành quãng đường nhanh nhất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "statusId",
+          "type": "INTEGER",
+          "alias_vi": "Trạng thái",
+          "synonym": [
+            "Trạng thái lái xe",
+            "Trạng thái cuộc đua"
+          ],
+          "sample_values": [
+            "1",
+            "11",
+            "12"
+          ],
+          "description": "Mã trạng thái của lái xe tại thời điểm kết thúc cuộc đua.",
+          "is_primary_key": false,
+          "foreign_key_to": "status.statusId"
+        }
+      ]
+    },
+    {
+      "name": "seasons",
+      "alias_vi": "Hạng mục giải đua xe ô tô",
+      "columns": [
+        {
+          "name": "year",
+          "type": "INTEGER",
+          "alias_vi": "Năm",
+          "synonym": [
+            "Nam",
+            "Thời kỳ"
+          ],
+          "sample_values": [
+            "1950",
+            "1951",
+            "1952"
+          ],
+          "description": "Năm diễn ra giải đua xe ô tô",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "url",
+          "type": "TEXT",
+          "alias_vi": "Đường dẫn URL",
+          "synonym": [
+            "Liên kết",
+            "Đường link"
+          ],
+          "sample_values": [
+            "http://en.wikipedia.org/wiki/1950_Formula_One_season",
+            "http://en.wikipedia.org/wiki/1951_Formula_One_season",
+            "http://en.wikipedia.org/wiki/1952_Formula_One_season"
+          ],
+          "description": "Đường dẫn URL đến trang web chi tiết về mùa giải",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "status",
+      "alias_vi": "Trạng Thái",
+      "columns": [
+        {
+          "name": "statusId",
+          "type": "INTEGER",
+          "alias_vi": "Mã Trạng Thái",
+          "synonym": [
+            "ID Trạng Thái",
+            "Ký Hiệu Trạng Thái"
+          ],
+          "sample_values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "Mã duy nhất đại diện cho trạng thái hiện tại của một đối tượng.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "status",
+          "type": "TEXT",
+          "alias_vi": "Trạng Thái",
+          "synonym": [
+            "Tình Trạng",
+            "Phân Loại Trạng Thái"
+          ],
+          "sample_values": [
+            "Finished",
+            "Disqualified",
+            "Accident"
+          ],
+          "description": "Miêu tả tình trạng hiện tại của một đối tượng như đã hoàn thành, bị loại hoặc gặp sự cố.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}

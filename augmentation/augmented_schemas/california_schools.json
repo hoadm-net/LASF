@@ -1,0 +1,1523 @@
+{
+  "db_id": "california_schools",
+  "tables": [
+    {
+      "name": "frpm",
+      "alias_vi": "Dữ liệu trường học",
+      "columns": [
+        {
+          "name": "CDSCode",
+          "type": "TEXT",
+          "alias_vi": "Mã CDS",
+          "synonym": [
+            "Mã trường",
+            "Mã định danh"
+          ],
+          "sample_values": [
+            "01100170109835",
+            "01100170112607",
+            "01100170118489"
+          ],
+          "description": "Mã định danh duy nhất của trường học.",
+          "is_primary_key": true,
+          "foreign_key_to": "schools.CDSCode"
+        },
+        {
+          "name": "Academic Year",
+          "type": "TEXT",
+          "alias_vi": "Năm học",
+          "synonym": [
+            "Năm học",
+            "Năm học học kỳ"
+          ],
+          "sample_values": [
+            "2014-2015"
+          ],
+          "description": "Năm học được ghi nhận trong dữ liệu.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "County Code",
+          "type": "TEXT",
+          "alias_vi": "Mã quận",
+          "synonym": [
+            "Mã khu vực",
+            "Mã địa phương"
+          ],
+          "sample_values": [
+            "01",
+            "02",
+            "03"
+          ],
+          "description": "Mã đại diện cho quận hoặc khu vực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "District Code",
+          "type": "INTEGER",
+          "alias_vi": "Mã quận/huyện",
+          "synonym": [
+            "Mã đơn vị hành chính",
+            "Mã đơn vị giáo dục"
+          ],
+          "sample_values": [
+            "10017",
+            "31609",
+            "31617"
+          ],
+          "description": "Mã đại diện cho quận hoặc huyện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "School Code",
+          "type": "TEXT",
+          "alias_vi": "Mã trường",
+          "synonym": [
+            "Mã học viện",
+            "Mã tổ chức giáo dục"
+          ],
+          "sample_values": [
+            "0109835",
+            "0112607",
+            "0118489"
+          ],
+          "description": "Mã duy nhất đại diện cho trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "County Name",
+          "type": "TEXT",
+          "alias_vi": "Tên quận",
+          "synonym": [
+            "Tên khu vực",
+            "Tên địa phương"
+          ],
+          "sample_values": [
+            "Alameda",
+            "Alpine",
+            "Amador"
+          ],
+          "description": "Tên của quận hoặc khu vực.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "District Name",
+          "type": "TEXT",
+          "alias_vi": "Tên quận/huyện",
+          "synonym": [
+            "Tên đơn vị hành chính",
+            "Tên đơn vị giáo dục"
+          ],
+          "sample_values": [
+            "Alameda County Office of Education",
+            "California School for the Blind (State Special Schl)",
+            "California School for the Deaf-Fremont (State Special Schl)"
+          ],
+          "description": "Tên của quận hoặc huyện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "School Name",
+          "type": "TEXT",
+          "alias_vi": "Tên trường",
+          "synonym": [
+            "Tên học viện",
+            "Tên tổ chức giáo dục"
+          ],
+          "sample_values": [
+            "FAME Public Charter",
+            "Envision Academy for Arts & Technology",
+            "Aspire California College Preparatory Academy"
+          ],
+          "description": "Tên của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "District Type",
+          "type": "TEXT",
+          "alias_vi": "Loại đơn vị hành chính",
+          "synonym": [
+            "Loại đơn vị",
+            "Loại đơn vị quản lý"
+          ],
+          "sample_values": [
+            "County Office of Education (COE)",
+            "State Special Schools",
+            "Unified School District"
+          ],
+          "description": "Loại đơn vị hành chính như quận, huyện, hoặc đơn vị khác.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "School Type",
+          "type": "TEXT",
+          "alias_vi": "Loại trường",
+          "synonym": [
+            "Loại học viện",
+            "Loại tổ chức giáo dục"
+          ],
+          "sample_values": [
+            "K-12 Schools (Public)",
+            "High Schools (Public)",
+            "Elementary Schools (Public)"
+          ],
+          "description": "Loại hình của trường học như tiểu học, trung học, hoặc trung học phổ thông.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Educational Option Type",
+          "type": "TEXT",
+          "alias_vi": "Loại chương trình giáo dục",
+          "synonym": [
+            "Loại chương trình",
+            "Loại mô hình giáo dục"
+          ],
+          "sample_values": [
+            "Traditional",
+            "Juvenile Court School",
+            "County Community School"
+          ],
+          "description": "Loại chương trình giáo dục mà trường cung cấp.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "NSLP Provision Status",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái cung cấp bữa ăn miễn phí",
+          "synonym": [
+            "Trạng thái hỗ trợ dinh dưỡng",
+            "Trạng thái cung cấp bữa ăn"
+          ],
+          "sample_values": [
+            "Breakfast Provision 2",
+            "Provision 2",
+            "CEP"
+          ],
+          "description": "Trạng thái về việc cung cấp bữa ăn miễn phí theo Chương trình Bữa ăn Trẻ em Nông thôn (NSLP).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Charter School (Y/N)",
+          "type": "INTEGER",
+          "alias_vi": "Là trường học tư thục (Có/Không)",
+          "synonym": [
+            "Là trường tư",
+            "Trường tư thục"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Indicates whether the school is a charter school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Charter School Number",
+          "type": "TEXT",
+          "alias_vi": "Số hiệu trường học tư thục",
+          "synonym": [
+            "Mã trường tư",
+            "ID trường tư"
+          ],
+          "sample_values": [
+            "0728",
+            "0811",
+            "1049"
+          ],
+          "description": "Unique identifier for the charter school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Charter Funding Type",
+          "type": "TEXT",
+          "alias_vi": "Loại hình tài trợ của trường học tư thục",
+          "synonym": [
+            "Hình thức tài trợ",
+            "Phương thức tài trợ"
+          ],
+          "sample_values": [
+            "Directly funded",
+            "Locally funded",
+            "Not in CS funding model"
+          ],
+          "description": "Type of funding the charter school receives.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "IRC",
+          "type": "INTEGER",
+          "alias_vi": "IRC",
+          "synonym": [
+            "IRC",
+            "IRC"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Indicator related to IRC status.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Low Grade",
+          "type": "TEXT",
+          "alias_vi": "Khóa học cấp thấp",
+          "synonym": [
+            "Khóa học tiểu học",
+            "Khóa học lớp 1"
+          ],
+          "sample_values": [
+            "K",
+            "9",
+            "1"
+          ],
+          "description": "The lowest grade level offered by the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "High Grade",
+          "type": "TEXT",
+          "alias_vi": "Khóa học cấp cao",
+          "synonym": [
+            "Khóa học trung học",
+            "Khóa học lớp 12"
+          ],
+          "sample_values": [
+            "12",
+            "8",
+            "5"
+          ],
+          "description": "The highest grade level offered by the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Enrollment (K-12)",
+          "type": "REAL",
+          "alias_vi": "Số lượng học sinh (từ lớp 1 đến lớp 12)",
+          "synonym": [
+            "Số học sinh",
+            "Số lượng sinh viên"
+          ],
+          "sample_values": [
+            "1087.0",
+            "395.0",
+            "244.0"
+          ],
+          "description": "Total number of students enrolled from kindergarten to twelfth grade.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Free Meal Count (K-12)",
+          "type": "REAL",
+          "alias_vi": "Số lượng học sinh ăn miễn phí (từ lớp 1 đến lớp 12)",
+          "synonym": [
+            "Số học sinh ăn miễn phí",
+            "Số lượng học sinh được hỗ trợ bữa ăn"
+          ],
+          "sample_values": [
+            "565.0",
+            "186.0",
+            "134.0"
+          ],
+          "description": "Number of students eligible for free meals from kindergarten to twelfth grade.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Percent (%) Eligible Free (K-12)",
+          "type": "REAL",
+          "alias_vi": "Tỷ lệ học sinh đủ điều kiện ăn miễn phí (từ lớp 1 đến lớp 12)",
+          "synonym": [
+            "Tỷ lệ học sinh ăn miễn phí",
+            "Tỷ lệ học sinh được hỗ trợ bữa ăn miễn phí"
+          ],
+          "sample_values": [
+            "0.519779208831647",
+            "0.470886075949367",
+            "0.549180327868853"
+          ],
+          "description": "Percentage of students eligible for free meals from kindergarten to twelfth grade.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FRPM Count (K-12)",
+          "type": "REAL",
+          "alias_vi": "Số lượng học sinh đủ điều kiện nhận hỗ trợ tài chính (từ lớp 1 đến lớp 12)",
+          "synonym": [
+            "Số học sinh nhận hỗ trợ tài chính",
+            "Số lượng học sinh đủ điều kiện FRPM"
+          ],
+          "sample_values": [
+            "715.0",
+            "186.0",
+            "175.0"
+          ],
+          "description": "Number of students eligible for financial assistance from kindergarten to twelfth grade.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Percent (%) Eligible FRPM (K-12)",
+          "type": "REAL",
+          "alias_vi": "Tỷ lệ học sinh đủ điều kiện nhận hỗ trợ tài chính (từ lớp 1 đến lớp 12)",
+          "synonym": [
+            "Tỷ lệ học sinh nhận hỗ trợ tài chính",
+            "Tỷ lệ học sinh đủ điều kiện FRPM"
+          ],
+          "sample_values": [
+            "0.657773689052438",
+            "0.470886075949367",
+            "0.717213114754098"
+          ],
+          "description": "Percentage of students eligible for financial assistance from kindergarten to twelfth grade.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Enrollment (Ages 5-17)",
+          "type": "REAL",
+          "alias_vi": "Số lượng học sinh (tuổi từ 5 đến 17)",
+          "synonym": [
+            "Số học sinh",
+            "Số lượng sinh viên"
+          ],
+          "sample_values": [
+            "1070.0",
+            "376.0",
+            "230.0"
+          ],
+          "description": "Total number of students enrolled between ages 5 and 17.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Free Meal Count (Ages 5-17)",
+          "type": "REAL",
+          "alias_vi": "Số lượng bữa ăn miễn phí (tuổi 5-17)",
+          "synonym": [
+            "Số bữa ăn miễn phí",
+            "Bữa ăn miễn phí"
+          ],
+          "sample_values": [
+            "553.0",
+            "182.0",
+            "128.0"
+          ],
+          "description": "Số lượng bữa ăn miễn phí được cung cấp cho trẻ em từ 5 đến 17 tuổi.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Percent (%) Eligible Free (Ages 5-17)",
+          "type": "REAL",
+          "alias_vi": "Tỷ lệ phần trăm đủ điều kiện nhận bữa ăn miễn phí (tuổi 5-17)",
+          "synonym": [
+            "Tỷ lệ đủ điều kiện",
+            "Phần trăm đủ điều kiện"
+          ],
+          "sample_values": [
+            "0.516822429906542",
+            "0.484042553191489",
+            "0.556521739130435"
+          ],
+          "description": "Tỷ lệ phần trăm học sinh đủ điều kiện nhận bữa ăn miễn phí trong độ tuổi 5-17.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FRPM Count (Ages 5-17)",
+          "type": "REAL",
+          "alias_vi": "Số lượng FRPM (tuổi 5-17)",
+          "synonym": [
+            "Số FRPM",
+            "FRPM"
+          ],
+          "sample_values": [
+            "702.0",
+            "182.0",
+            "168.0"
+          ],
+          "description": "Số lượng học sinh đủ điều kiện nhận hỗ trợ tài chính để mua bữa ăn (FRPM) trong độ tuổi 5-17.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Percent (%) Eligible FRPM (Ages 5-17)",
+          "type": "REAL",
+          "alias_vi": "Tỷ lệ phần trăm đủ điều kiện nhận hỗ trợ tài chính để mua bữa ăn (tuổi 5-17)",
+          "synonym": [
+            "Tỷ lệ FRPM",
+            "Phần trăm FRPM"
+          ],
+          "sample_values": [
+            "0.65607476635514",
+            "0.484042553191489",
+            "0.730434782608696"
+          ],
+          "description": "Tỷ lệ phần trăm học sinh đủ điều kiện nhận hỗ trợ tài chính để mua bữa ăn (FRPM) trong độ tuổi 5-17.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "2013-14 CALPADS Fall 1 Certification Status",
+          "type": "INTEGER",
+          "alias_vi": "Trạng thái xác nhận CALPADS Fall 1 (năm 2013-2014)",
+          "synonym": [
+            "Trạng thái xác nhận",
+            "Xác nhận CALPADS"
+          ],
+          "sample_values": [
+            "1"
+          ],
+          "description": "Trạng thái xác nhận của CALPADS Fall 1 cho năm học 2013-2014.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "satscores",
+      "alias_vi": "Kết quả kỳ thi SAT",
+      "columns": [
+        {
+          "name": "cds",
+          "type": "TEXT",
+          "alias_vi": "Mã trung tâm",
+          "synonym": [
+            "Mã học viện",
+            "Mã cơ sở giáo dục"
+          ],
+          "sample_values": [
+            "01100170000000",
+            "01100170109835",
+            "01100170112607"
+          ],
+          "description": "Mã duy nhất của trung tâm hoặc cơ sở giáo dục.",
+          "is_primary_key": true,
+          "foreign_key_to": "schools.CDSCode"
+        },
+        {
+          "name": "rtype",
+          "type": "TEXT",
+          "alias_vi": "Loại kỳ thi",
+          "synonym": [
+            "Kiểu kỳ thi",
+            "Phân loại kỳ thi"
+          ],
+          "sample_values": [
+            "D",
+            "S"
+          ],
+          "description": "Loại kỳ thi SAT được thực hiện (D - Đơn lẻ, S - Tập thể).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "sname",
+          "type": "TEXT",
+          "alias_vi": "Tên trường",
+          "synonym": [
+            "Tên học viện",
+            "Tên trường học"
+          ],
+          "sample_values": [
+            "FAME Public Charter",
+            "Envision Academy for Arts & Technology",
+            "Aspire California College Preparatory Academy"
+          ],
+          "description": "Tên của trường hoặc học viện tham gia kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "dname",
+          "type": "TEXT",
+          "alias_vi": "Tên đơn vị hành chính",
+          "synonym": [
+            "Tên quận",
+            "Tên thành phố"
+          ],
+          "sample_values": [
+            "Alameda County Office of Education",
+            "Alameda Unified",
+            "Albany City Unified"
+          ],
+          "description": "Tên đơn vị hành chính nơi trường hoặc học viện nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "cname",
+          "type": "TEXT",
+          "alias_vi": "Tên tiểu bang",
+          "synonym": [
+            "Tên bang",
+            "Tên vùng"
+          ],
+          "sample_values": [
+            "Alameda",
+            "Amador",
+            "Butte"
+          ],
+          "description": "Tên tiểu bang nơi trường hoặc học viện nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "enroll12",
+          "type": "INTEGER",
+          "alias_vi": "Số lượng học sinh đăng ký lớp 12",
+          "synonym": [
+            "Số học sinh lớp 12",
+            "Số sinh viên lớp 12"
+          ],
+          "sample_values": [
+            "398",
+            "62",
+            "75"
+          ],
+          "description": "Số lượng học sinh đang học lớp 12 tại trường hoặc học viện.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "NumTstTakr",
+          "type": "INTEGER",
+          "alias_vi": "Số lượng thí sinh tham gia kỳ thi",
+          "synonym": [
+            "Số thí sinh",
+            "Số người dự thi"
+          ],
+          "sample_values": [
+            "88",
+            "17",
+            "71"
+          ],
+          "description": "Số lượng thí sinh đã tham gia kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AvgScrRead",
+          "type": "INTEGER",
+          "alias_vi": "Điểm trung bình môn đọc hiểu",
+          "synonym": [
+            "Điểm môn đọc",
+            "Điểm môn hiểu văn"
+          ],
+          "sample_values": [
+            "418",
+            "503",
+            "397"
+          ],
+          "description": "Điểm trung bình của thí sinh trong phần đọc hiểu của kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AvgScrMath",
+          "type": "INTEGER",
+          "alias_vi": "Điểm trung bình môn toán",
+          "synonym": [
+            "Điểm môn toán",
+            "Điểm môn giải tích"
+          ],
+          "sample_values": [
+            "418",
+            "546",
+            "387"
+          ],
+          "description": "Điểm trung bình của thí sinh trong phần toán của kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AvgScrWrite",
+          "type": "INTEGER",
+          "alias_vi": "Điểm trung bình môn viết",
+          "synonym": [
+            "Điểm môn viết",
+            "Điểm môn ngữ pháp"
+          ],
+          "sample_values": [
+            "417",
+            "505",
+            "395"
+          ],
+          "description": "Điểm trung bình của thí sinh trong phần viết của kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "NumGE1500",
+          "type": "INTEGER",
+          "alias_vi": "Số lượng thí sinh đạt ít nhất 1500 điểm",
+          "synonym": [
+            "Số thí sinh 1500+",
+            "Số người đạt 1500+"
+          ],
+          "sample_values": [
+            "14",
+            "9",
+            "5"
+          ],
+          "description": "Số lượng thí sinh đạt tổng điểm ít nhất 1500 trong kỳ thi SAT.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    },
+    {
+      "name": "schools",
+      "alias_vi": "Các trường học",
+      "columns": [
+        {
+          "name": "CDSCode",
+          "type": "TEXT",
+          "alias_vi": "Mã CDS",
+          "synonym": [
+            "Mã trường",
+            "Mã định danh"
+          ],
+          "sample_values": [
+            "01100170000000",
+            "01100170109835",
+            "01100170112607"
+          ],
+          "description": "Mã định danh duy nhất của trường học.",
+          "is_primary_key": true,
+          "foreign_key_to": null
+        },
+        {
+          "name": "NCESDist",
+          "type": "TEXT",
+          "alias_vi": "Mã NCES quận",
+          "synonym": [
+            "Mã quận NCES",
+            "Mã NCES địa phương"
+          ],
+          "sample_values": [
+            "0691051",
+            "0600002",
+            "0600003"
+          ],
+          "description": "Mã NCES đại diện cho quận hoặc đơn vị địa phương.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "NCESSchool",
+          "type": "TEXT",
+          "alias_vi": "Mã NCES trường",
+          "synonym": [
+            "Mã trường NCES",
+            "Mã NCES giáo dục"
+          ],
+          "sample_values": [
+            "10546",
+            "10947",
+            "12283"
+          ],
+          "description": "Mã NCES duy nhất đại diện cho mỗi trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "StatusType",
+          "type": "TEXT",
+          "alias_vi": "Trạng thái",
+          "synonym": [
+            "Trạng thái hoạt động",
+            "Trạng thái hiện tại"
+          ],
+          "sample_values": [
+            "Active",
+            "Closed",
+            "Merged"
+          ],
+          "description": "Trạng thái hoạt động của trường học như đang hoạt động, đóng cửa, hợp nhất.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "County",
+          "type": "TEXT",
+          "alias_vi": "Quận",
+          "synonym": [
+            "Quận hành chính",
+            "Địa giới hành chính"
+          ],
+          "sample_values": [
+            "Alameda",
+            "Alpine",
+            "Amador"
+          ],
+          "description": "Tên quận nơi trường học nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "District",
+          "type": "TEXT",
+          "alias_vi": "Huyện",
+          "synonym": [
+            "Huyện quản lý",
+            "Huyện giáo dục"
+          ],
+          "sample_values": [
+            "Alameda County Office of Education",
+            "California School for the Blind (State Special Schl)",
+            "California School for the Deaf-Fremont (State Special Schl)"
+          ],
+          "description": "Tên huyện hoặc đơn vị quản lý giáo dục của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "School",
+          "type": "TEXT",
+          "alias_vi": "Tên trường",
+          "synonym": [
+            "Tên trường học",
+            "Tên trường"
+          ],
+          "sample_values": [
+            "FAME Public Charter",
+            "Envision Academy for Arts & Technology",
+            "Aspire California College Preparatory Academy"
+          ],
+          "description": "Tên đầy đủ của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Street",
+          "type": "TEXT",
+          "alias_vi": "Địa chỉ",
+          "synonym": [
+            "Địa chỉ trường",
+            "Địa điểm"
+          ],
+          "sample_values": [
+            "313 West Winton Avenue",
+            "39899 Balentine Drive, Suite 335",
+            "1515 Webster Street"
+          ],
+          "description": "Địa chỉ cụ thể của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "StreetAbr",
+          "type": "TEXT",
+          "alias_vi": "Địa chỉ ngắn gọn",
+          "synonym": [
+            "Địa chỉ rút gọn",
+            "Địa chỉ tắt"
+          ],
+          "sample_values": [
+            "313 West Winton Ave.",
+            "39899 Balentine Dr., Ste. 335",
+            "1515 Webster St."
+          ],
+          "description": "Địa chỉ của trường học được viết tắt hoặc rút gọn.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "City",
+          "type": "TEXT",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành phố",
+            "Thành phố học"
+          ],
+          "sample_values": [
+            "Hayward",
+            "Newark",
+            "Oakland"
+          ],
+          "description": "Tên thành phố nơi trường học nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Zip",
+          "type": "TEXT",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "94544-1136",
+            "94560-5359",
+            "94612-3355"
+          ],
+          "description": "Mã bưu chính của địa chỉ trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "State",
+          "type": "TEXT",
+          "alias_vi": "Tỉnh",
+          "synonym": [
+            "Tỉnh",
+            "Tỉnh bang"
+          ],
+          "sample_values": [
+            "CA"
+          ],
+          "description": "Tên tỉnh hoặc bang nơi trường học nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "MailStreet",
+          "type": "TEXT",
+          "alias_vi": "Địa chỉ thư từ",
+          "synonym": [
+            "Địa chỉ gửi thư",
+            "Địa chỉ nhận thư"
+          ],
+          "sample_values": [
+            "313 West Winton Avenue",
+            "39899 Balentine Drive, Suite 335",
+            "1515 Webster Street"
+          ],
+          "description": "Địa chỉ cụ thể để gửi thư cho trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "MailStrAbr",
+          "type": "TEXT",
+          "alias_vi": "Tóm tắt địa chỉ thư từ",
+          "synonym": [
+            "Địa chỉ ngắn gọn",
+            "Địa chỉ thu gọn"
+          ],
+          "sample_values": [
+            "313 West Winton Ave.",
+            "39899 Balentine Dr., Ste. 335",
+            "1515 Webster St."
+          ],
+          "description": "Địa chỉ ngắn gọn của trường học được sử dụng trong thư từ.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "MailCity",
+          "type": "TEXT",
+          "alias_vi": "Thành phố",
+          "synonym": [
+            "Thành phố nằm ở",
+            "Thành phố đặt trụ sở"
+          ],
+          "sample_values": [
+            "Hayward",
+            "Newark",
+            "Oakland"
+          ],
+          "description": "Thành phố nơi trường học có trụ sở.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "MailZip",
+          "type": "TEXT",
+          "alias_vi": "Mã bưu chính",
+          "synonym": [
+            "Mã ZIP",
+            "Mã bưu điện"
+          ],
+          "sample_values": [
+            "94544-1136",
+            "94560-5359",
+            "94612"
+          ],
+          "description": "Mã bưu chính của địa chỉ thư từ của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "MailState",
+          "type": "TEXT",
+          "alias_vi": "Tỉnh/Thành phố",
+          "synonym": [
+            "Tỉnh",
+            "Thành phố"
+          ],
+          "sample_values": [
+            "CA"
+          ],
+          "description": "Tỉnh hoặc thành phố nơi trường học nằm.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Phone",
+          "type": "TEXT",
+          "alias_vi": "Số điện thoại",
+          "synonym": [
+            "Điện thoại",
+            "Số liên lạc"
+          ],
+          "sample_values": [
+            "(510) 887-0152",
+            "(510) 596-8901",
+            "(510) 686-4131"
+          ],
+          "description": "Số điện thoại chính của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Ext",
+          "type": "TEXT",
+          "alias_vi": "Phần mở rộng",
+          "synonym": [
+            "Phần phụ",
+            "Phần phụ trợ"
+          ],
+          "sample_values": [
+            "130",
+            "1240",
+            "1200"
+          ],
+          "description": "Phần mở rộng số điện thoại nếu có.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Website",
+          "type": "TEXT",
+          "alias_vi": "Trang web",
+          "synonym": [
+            "Trang mạng",
+            "Trang thông tin"
+          ],
+          "sample_values": [
+            "www.acoe.org",
+            "www.envisionacademy.org/",
+            "www.aspirepublicschools.org"
+          ],
+          "description": "Địa chỉ trang web chính thức của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "OpenDate",
+          "type": "DATE",
+          "alias_vi": "Ngày khai trương",
+          "synonym": [
+            "Ngày thành lập",
+            "Ngày hoạt động"
+          ],
+          "sample_values": [
+            "2005-08-29",
+            "2006-08-28",
+            "2008-08-21"
+          ],
+          "description": "Ngày mà trường học bắt đầu hoạt động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "ClosedDate",
+          "type": "DATE",
+          "alias_vi": "Ngày đóng cửa",
+          "synonym": [
+            "Ngày ngừng hoạt động",
+            "Ngày giải thể"
+          ],
+          "sample_values": [
+            "2015-07-31",
+            "2015-06-30",
+            "1989-06-30"
+          ],
+          "description": "Ngày mà trường học đã ngừng hoạt động.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Charter",
+          "type": "INTEGER",
+          "alias_vi": "Trường công lập",
+          "synonym": [
+            "Trường công",
+            "Trường nhà nước"
+          ],
+          "sample_values": [
+            "1",
+            "0"
+          ],
+          "description": "Biểu thị trường học là trường công lập (1) hay tư thục (0).",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "CharterNum",
+          "type": "TEXT",
+          "alias_vi": "Số chứng nhận",
+          "synonym": [
+            "Số cấp phép",
+            "Số chứng nhận hoạt động"
+          ],
+          "sample_values": [
+            "0728",
+            "0811",
+            "1049"
+          ],
+          "description": "Số chứng nhận hoạt động hoặc cấp phép của trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "FundingType",
+          "type": "TEXT",
+          "alias_vi": "Loại tài trợ",
+          "synonym": [
+            "Kiểu tài trợ",
+            "Phương thức tài trợ"
+          ],
+          "sample_values": [
+            "Directly funded",
+            "Locally funded",
+            "Not in CS funding model"
+          ],
+          "description": "Kiểu tài trợ mà trường học nhận được.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DOC",
+          "type": "TEXT",
+          "alias_vi": "Mã DOC",
+          "synonym": [
+            "Mã đơn vị hành chính",
+            "Mã đơn vị giáo dục"
+          ],
+          "sample_values": [
+            "00",
+            "31",
+            "34"
+          ],
+          "description": "Mã đơn vị hành chính hoặc giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "DOCType",
+          "type": "TEXT",
+          "alias_vi": "Kiểu mã DOC",
+          "synonym": [
+            "Kiểu đơn vị hành chính",
+            "Kiểu đơn vị giáo dục"
+          ],
+          "sample_values": [
+            "County Office of Education (COE)",
+            "State Special Schools",
+            "Non-School Locations"
+          ],
+          "description": "Kiểu mã đơn vị hành chính hoặc giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SOC",
+          "type": "TEXT",
+          "alias_vi": "Mã SOC",
+          "synonym": [
+            "Mã loại trường",
+            "Mã phân loại"
+          ],
+          "sample_values": [
+            "65",
+            "66",
+            "60"
+          ],
+          "description": "Mã phân loại loại trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "SOCType",
+          "type": "TEXT",
+          "alias_vi": "Kiểu mã SOC",
+          "synonym": [
+            "Kiểu loại trường",
+            "Kiểu phân loại"
+          ],
+          "sample_values": [
+            "K-12 Schools (Public)",
+            "High Schools (Public)",
+            "Elementary Schools (Public)"
+          ],
+          "description": "Kiểu mã phân loại loại trường học.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "EdOpsCode",
+          "type": "TEXT",
+          "alias_vi": "Mã quản lý giáo dục",
+          "synonym": [
+            "Mã quản lý",
+            "Mã EDOPS"
+          ],
+          "sample_values": [
+            "TRAD",
+            "JUV",
+            "COMM"
+          ],
+          "description": "Mã quản lý giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "EdOpsName",
+          "type": "TEXT",
+          "alias_vi": "Tên quản lý giáo dục",
+          "synonym": [
+            "Tên quản lý",
+            "Tên EDOPS"
+          ],
+          "sample_values": [
+            "Traditional",
+            "Juvenile Court School",
+            "County Community School"
+          ],
+          "description": "Tên quản lý giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "EILCode",
+          "type": "TEXT",
+          "alias_vi": "Mã EIL",
+          "synonym": [
+            "Mã tổ chức",
+            "Mã EIL"
+          ],
+          "sample_values": [
+            "ELEMHIGH",
+            "HS",
+            "ELEM"
+          ],
+          "description": "Mã tổ chức giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "EILName",
+          "type": "TEXT",
+          "alias_vi": "Tên tổ chức EIL",
+          "synonym": [
+            "Tên tổ chức",
+            "Tên EIL"
+          ],
+          "sample_values": [
+            "Elementary-High Combination",
+            "High School",
+            "Elementary"
+          ],
+          "description": "Tên tổ chức giáo dục của trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GSoffered",
+          "type": "TEXT",
+          "alias_vi": "Giáo trình cung cấp",
+          "synonym": [
+            "Giáo trình giảng dạy",
+            "Giáo trình học"
+          ],
+          "sample_values": [
+            "K-12",
+            "9-12",
+            "K-8"
+          ],
+          "description": "Giáo trình giảng dạy được cung cấp bởi trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "GSserved",
+          "type": "TEXT",
+          "alias_vi": "Giáo trình phục vụ",
+          "synonym": [
+            "Giáo trình học sinh",
+            "Giáo trình phục vụ học sinh"
+          ],
+          "sample_values": [
+            "K-12",
+            "9-12",
+            "K-7"
+          ],
+          "description": "Giáo trình học sinh được phục vụ bởi trường.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Virtual",
+          "type": "TEXT",
+          "alias_vi": "Trường học ảo",
+          "synonym": [
+            "Trường học trực tuyến",
+            "Trường học ảo"
+          ],
+          "sample_values": [
+            "P",
+            "N",
+            "F"
+          ],
+          "description": "Xác định trường học có là trường học ảo hay không.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Magnet",
+          "type": "INTEGER",
+          "alias_vi": "Trường từ ánh",
+          "synonym": [
+            "Trường đặc biệt",
+            "Trường chuyên"
+          ],
+          "sample_values": [
+            "0",
+            "1"
+          ],
+          "description": "Indicates whether the school is a magnet school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Latitude",
+          "type": "REAL",
+          "alias_vi": "Vĩ độ",
+          "synonym": [
+            "Độ vĩ",
+            "Vĩ tuyến"
+          ],
+          "sample_values": [
+            "37.658212",
+            "37.521436",
+            "37.80452"
+          ],
+          "description": "The latitude coordinate of the school's location.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "Longitude",
+          "type": "REAL",
+          "alias_vi": "Kinh độ",
+          "synonym": [
+            "Độ kinh",
+            "Kinh tuyến"
+          ],
+          "sample_values": [
+            "-122.09713",
+            "-121.99391",
+            "-122.26815"
+          ],
+          "description": "The longitude coordinate of the school's location.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmFName1",
+          "type": "TEXT",
+          "alias_vi": "Họ tên quản lý 1",
+          "synonym": [
+            "Tên quản lý 1",
+            "Tên giám đốc 1"
+          ],
+          "sample_values": [
+            "L Karen",
+            "Laura",
+            "Clifford"
+          ],
+          "description": "First name of the first administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmLName1",
+          "type": "TEXT",
+          "alias_vi": "Họ quản lý 1",
+          "synonym": [
+            "Họ giám đốc 1",
+            "Họ quản trị viên 1"
+          ],
+          "sample_values": [
+            "Monroe",
+            "Robell",
+            "Thompson"
+          ],
+          "description": "Last name of the first administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmEmail1",
+          "type": "TEXT",
+          "alias_vi": "Email quản lý 1",
+          "synonym": [
+            "Email giám đốc 1",
+            "Email quản trị viên 1"
+          ],
+          "sample_values": [
+            "lkmonroe@acoe.org",
+            "laura@envisionacademy.org",
+            "cliffordt@communityschoolforcreativeeducation.org"
+          ],
+          "description": "Email address of the first administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmFName2",
+          "type": "TEXT",
+          "alias_vi": "Họ tên quản lý 2",
+          "synonym": [
+            "Tên quản lý 2",
+            "Tên phó giám đốc 1"
+          ],
+          "sample_values": [
+            "Sau-Lim (Lance)",
+            "Jennifer",
+            "Annalisa"
+          ],
+          "description": "First name of the second administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmLName2",
+          "type": "TEXT",
+          "alias_vi": "Họ quản lý 2",
+          "synonym": [
+            "Họ phó giám đốc 1",
+            "Họ quản trị viên 2"
+          ],
+          "sample_values": [
+            "Tsang",
+            "Koelling",
+            "Moore"
+          ],
+          "description": "Last name of the second administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmEmail2",
+          "type": "TEXT",
+          "alias_vi": "Email quản lý 2",
+          "synonym": [
+            "Email phó giám đốc 1",
+            "Email quản trị viên 2"
+          ],
+          "sample_values": [
+            "stsang@unityhigh.org",
+            "jkoelling@efcps.net",
+            "annalisa.moore@neaclc.org"
+          ],
+          "description": "Email address of the second administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmFName3",
+          "type": "TEXT",
+          "alias_vi": "Họ tên quản lý 3",
+          "synonym": [
+            "Tên quản lý 3",
+            "Tên phó giám đốc 2"
+          ],
+          "sample_values": [
+            "Drew",
+            "Irma",
+            "Vickie"
+          ],
+          "description": "First name of the third administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmLName3",
+          "type": "TEXT",
+          "alias_vi": "Họ quản lý 3",
+          "synonym": [
+            "Họ phó giám đốc 2",
+            "Họ quản trị viên 3"
+          ],
+          "sample_values": [
+            "Sarratore",
+            "Munoz",
+            "Chang"
+          ],
+          "description": "Last name of the third administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "AdmEmail3",
+          "type": "TEXT",
+          "alias_vi": "Email quản lý 3",
+          "synonym": [
+            "Email phó giám đốc 2",
+            "Email quản trị viên 3"
+          ],
+          "sample_values": [
+            "dsarratore@vincentacademy.org",
+            "gmunoz@piedmont.k12.ca.us",
+            "vickiechang@acoe.org"
+          ],
+          "description": "Email address of the third administrator of the school.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        },
+        {
+          "name": "LastUpdate",
+          "type": "DATE",
+          "alias_vi": "Ngày cập nhật",
+          "synonym": [
+            "Ngày sửa đổi",
+            "Ngày cập nhật thông tin"
+          ],
+          "sample_values": [
+            "2015-06-23",
+            "2015-09-01",
+            "2015-06-18"
+          ],
+          "description": "Ngày cuối cùng thông tin về trường học được cập nhật.",
+          "is_primary_key": false,
+          "foreign_key_to": null
+        }
+      ]
+    }
+  ]
+}
