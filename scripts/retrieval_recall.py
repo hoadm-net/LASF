@@ -27,6 +27,8 @@ from tqdm import tqdm
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from utils.data_loader import load_spider_vi, load_bird_vi, load_schema_from_db, load_augmented_schema, Schema
 from linking.schema_linker import SchemaLinker, select_top_k
+from linking.bm25_linker import BM25Linker
+from linking.llm_table_selector import LLMTableSelector
 
 DEFAULT_KS = [5, 10, 15, 20, 30, 50]
 DEFAULT_RATIOS = [0.15, 0.25, 0.45]
@@ -73,7 +75,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", choices=["spider_vi", "bird_vi"], required=True)
     ap.add_argument("--lang", choices=["vi", "en"], default="vi")
-    ap.add_argument("--linkers", nargs="+", default=["e5-plain", "e5-aug"], choices=["e5-plain", "e5-aug"])
+    ap.add_argument("--linkers", nargs="+", default=["e5-plain", "e5-aug"], choices=["e5-plain", "e5-aug", "bm25-plain", "bm25-aug", "llm-select"])
     ap.add_argument("--ks", nargs="+", type=int, default=DEFAULT_KS)
     ap.add_argument("--ratios", nargs="+", type=float, default=DEFAULT_RATIOS)
     ap.add_argument("--cfg", default="configs/config.yaml")
@@ -89,13 +91,20 @@ def main():
     for db in sorted({e.db_id for e in examples}):
         plain[db] = load_schema_from_db(str(Path(data_cfg["db_dir"]) / db / f"{db}.sqlite"), db)
     aug = {}
-    if "e5-aug" in args.linkers:
+    if any(l.endswith("-aug") for l in args.linkers):
         for db in plain:
             aug[db] = load_augmented_schema(cfg["augmentation"]["output_dir"], db)
             if aug[db] is None:
                 raise FileNotFoundError(f"No augmented schema for {db}")
 
-    linker = SchemaLinker(model_name=cfg["linking"]["model"], device=cfg["linking"]["device"])
+    linkers = {}
+    if any(l.startswith("e5") for l in args.linkers):
+        linkers["e5"] = SchemaLinker(model_name=cfg["linking"]["model"], device=cfg["linking"]["device"])
+    if any(l.startswith("bm25") for l in args.linkers):
+        linkers["bm25"] = BM25Linker()
+    if "llm-select" in args.linkers:
+        from scripts.llm_table_selection import cache_path
+        linkers["llm"] = LLMTableSelector(str(cache_path(args.dataset, args.lang)))
     settings = [("k", k) for k in args.ks] + [("r", r) for r in args.ratios]
 
     out_dir = Path(args.out)
@@ -112,15 +121,22 @@ def main():
                 continue
             gold_tables, gold_cols = gold
             for linker_name in args.linkers:
-                schema = aug[ex.db_id] if linker_name == "e5-aug" else plain[ex.db_id]
-                column_index, scores = linker.score_columns(ex.question, schema)
-                n_total = len(column_index)
-                for kind, val in settings:
-                    k = val if kind == "k" else max(1, round(val * n_total))
-                    kept_t, kept_c = kept_elements(select_top_k(schema, column_index, scores, k))
+                schema = aug[ex.db_id] if linker_name.endswith("-aug") else plain[ex.db_id]
+                n_total = sum(len(t.columns) for t in schema.tables)
+                if linker_name == "llm-select":  # table selection: no k
+                    runs = [("llm", 0, linkers["llm"].retrieve(ex.question, schema))]
+                else:
+                    linker = linkers[linker_name.split("-")[0]]
+                    column_index, scores = linker.score_columns(ex.question, schema)
+                    runs = []
+                    for kind, val in settings:
+                        k = val if kind == "k" else max(1, round(val * n_total))
+                        runs.append((f"{kind}{val:g}", k, select_top_k(schema, column_index, scores, k)))
+                for setting, k, filtered in runs:
+                    kept_t, kept_c = kept_elements(filtered)
                     row = {
                         "question_id": ex.question_id, "db_id": ex.db_id, "difficulty": ex.difficulty,
-                        "linker": linker_name, "setting": f"{kind}{val:g}", "k": k,
+                        "linker": linker_name, "setting": setting, "k": k,
                         "n_gold_tables": len(gold_tables), "n_gold_cols": len(gold_cols),
                         "table_recall": len(gold_tables & kept_t) / len(gold_tables),
                         "all_tables_kept": int(gold_tables <= kept_t),

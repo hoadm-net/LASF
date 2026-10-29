@@ -73,6 +73,7 @@ def parse_args():
     parser.add_argument("--lang", choices=["vi", "en"], default="vi")
     parser.add_argument("--top_k", type=int, default=None)
     parser.add_argument("--top_k_ratio", type=float, default=None)
+    parser.add_argument("--linker", choices=["e5", "bm25", "llm"], default="e5")
     return parser.parse_args()
 
 
@@ -82,7 +83,7 @@ def load_config(path: str) -> dict:
 
 
 def output_path(results_dir: str, dataset: str, config: str, model_name: str, args) -> Path:
-    stem = result_stem(config, model_name, args.lang, args.top_k, args.top_k_ratio)
+    stem = result_stem(config, model_name, args.lang, args.top_k, args.top_k_ratio, args.linker)
     return Path(results_dir) / dataset / f"{stem}.jsonl"
 
 
@@ -138,7 +139,7 @@ def main():
             "--config", config,
             "--cfg", args.cfg,
         ]
-        cmd += ["--lang", args.lang]
+        cmd += ["--lang", args.lang, "--linker", args.linker]
         if args.top_k is not None:
             cmd += ["--top_k", str(args.top_k)]
         if args.top_k_ratio is not None:

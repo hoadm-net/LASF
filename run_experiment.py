@@ -31,6 +31,8 @@ load_dotenv()  # load .env vào os.environ
 from utils.data_loader import load_spider_vi, load_bird_vi, load_schema_from_db, load_augmented_schema
 from generation.sql_generator import SQLGenerator, GPT4O_MINI
 from linking.schema_linker import SchemaLinker
+from linking.bm25_linker import BM25Linker
+from linking.llm_table_selector import LLMTableSelector
 from evaluation.metrics import compute_metrics
 
 # config -> (aug_retrieval, aug_prompt, use_link)
@@ -53,6 +55,8 @@ def parse_args():
     parser.add_argument("--lang", choices=["vi", "en"], default="vi", help="Question language")
     parser.add_argument("--top_k", type=int, default=None, help="Columns kept by linking (default: config.yaml)")
     parser.add_argument("--top_k_ratio", type=float, default=None, help="Keep this fraction of each DB's columns")
+    parser.add_argument("--linker", choices=["e5", "bm25", "llm"], default="e5",
+                        help="e5 (proposed), bm25 (lexical baseline), llm (zero-shot table selection baseline)")
     parser.add_argument("--max_input_tokens", type=int, default=32768, help="Prompt budget; the schema is cut to fit")
     parser.add_argument("--cfg", default="configs/config.yaml", help="Path to config.yaml")
     parser.add_argument("--device", default=None, help="Override device (cpu/cuda)")
@@ -62,6 +66,8 @@ def parse_args():
     parser.add_argument("--results_dir", default=None, help="Default: evaluation.results_dir_v2 in config.yaml")
     parser.add_argument("--limit", type=int, default=None, help="Only the first N examples (debugging)")
     parser.add_argument("--db_filter", default=None, help="Only questions on this database (debugging)")
+    parser.add_argument("--sample", type=int, default=None,
+                        help="Random sample of N questions (seed 2026), e.g. for latency benchmarks")
     return parser.parse_args()
 
 
@@ -75,14 +81,18 @@ def short_model_name(model_name: str) -> str:
 
 
 def result_stem(config: str, model: str, lang: str = "vi", top_k: int | None = None,
-                top_k_ratio: float | None = None) -> str:
-    """{config}[_k{k}|_r{ratio}][_en]_{model} — k suffix only for non-default linking settings."""
+                top_k_ratio: float | None = None, linker: str = "e5") -> str:
+    """{config}[_k{k}|_r{ratio}][_{linker}][_en]_{model} — suffixes only for non-default settings."""
     parts = [config.replace("+", "plus")]
-    if CONFIGS[config][2]:
+    if CONFIGS[config][2] and linker == "llm":
+        parts.append("llm")
+    elif CONFIGS[config][2]:
         if top_k_ratio is not None:
             parts.append(f"r{top_k_ratio:g}")
         elif top_k is not None and top_k != DEFAULT_TOP_K:
             parts.append(f"k{top_k}")
+        if linker != "e5":
+            parts.append(linker)
     if lang != "vi":
         parts.append(lang)
     return "_".join(parts) + "_" + short_model_name(model)
@@ -131,6 +141,9 @@ def main():
         examples = [e for e in examples if e.db_id == args.db_filter]
     if args.limit:
         examples = examples[: args.limit]
+    if args.sample:
+        import random
+        examples = sorted(random.Random(2026).sample(examples, args.sample), key=lambda e: e.question_id)
     db_dir = data_cfg["db_dir"]
 
     # Schemas are per database; load each once
@@ -159,12 +172,19 @@ def main():
         max_new_tokens=cfg["generation"]["max_new_tokens"],
         max_input_tokens=args.max_input_tokens,
     )
-    linker = SchemaLinker(
-        model_name=cfg["linking"]["model"],
-        device=device or ("cuda" if torch.cuda.is_available() else "cpu"),
-        top_k=top_k,
-        top_k_ratio=args.top_k_ratio,
-    ) if use_link else None
+    linker = None
+    if use_link and args.linker == "e5":
+        linker = SchemaLinker(
+            model_name=cfg["linking"]["model"],
+            device=device or ("cuda" if torch.cuda.is_available() else "cpu"),
+            top_k=top_k,
+            top_k_ratio=args.top_k_ratio,
+        )
+    elif use_link and args.linker == "bm25":
+        linker = BM25Linker(top_k=top_k, top_k_ratio=args.top_k_ratio)
+    elif use_link and args.linker == "llm":
+        from scripts.llm_table_selection import cache_path
+        linker = LLMTableSelector(str(cache_path(args.dataset, args.lang)))
 
     # 1) Schema selection + prompt construction
     t0 = time.perf_counter()
@@ -249,7 +269,8 @@ def main():
         item["exec_status"] = metrics["pred_status_list"][i]
         item["gold_exec_status"] = metrics["gold_status_list"][i]
 
-    stem = result_stem(args.config, args.model, args.lang, top_k if use_link else None, args.top_k_ratio)
+    stem = result_stem(args.config, args.model, args.lang, top_k if use_link else None, args.top_k_ratio,
+                       args.linker)
     print(f"\nResults [{stem}]")
     print(f"  EM: {metrics['em']:.4f}  |  EX: {metrics['ex']:.4f}  |  invalid: {metrics['invalid_rate']:.4f}"
           f"  |  truncated: {sum(r['truncated'] for r in records)}  |  N: {metrics['n']}")
@@ -262,6 +283,8 @@ def main():
         stem += f"_db-{args.db_filter}"
     if args.limit:
         stem += f"_limit{args.limit}"
+    if args.sample:
+        stem += f"_sample{args.sample}"
     out_path = out_dir / f"{stem}.jsonl"
     with open(out_path, "w", encoding="utf-8") as f:
         for item in records:
@@ -274,7 +297,8 @@ def main():
         "aug_prompt": aug_prompt,
         "use_link": use_link,
         "top_k": top_k if use_link else None,
-        "linker_model": cfg["linking"]["model"] if use_link else None,
+        "linker": args.linker if use_link else None,
+        "linker_model": (cfg["linking"]["model"] if args.linker == "e5" else args.linker) if use_link else None,
         "api_model": getattr(generator, "api_model", None),
         "n": metrics["n"],
         "em": metrics["em"],
