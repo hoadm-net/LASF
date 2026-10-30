@@ -142,3 +142,55 @@ Mỗi dòng JSONL thêm các trường: `question_lang`, `difficulty`/`sql_class
 | R2 major 9 (phân tích lỗi) | A2, A3, T3 |
 | R2 3.5 (metadata chưa được người kiểm) | T2 |
 | R2 minor 4 / R1 4.5 (Figure 2) | Vẽ lại từ `analysis_v2` |
+
+---
+
+## 8. Tiến độ và kết quả (cập nhật 30/10)
+
+Số liệu chi tiết nằm trong `evaluation/analysis_v2/`; các con số dưới đây chỉ để định hướng, **chưa chốt**.
+
+### Trạng thái
+
+| Mục | Trạng thái | Output |
+|---|---|---|
+| B1 (sinh lại augmented schema) | Xong. ViSpider 439/439 cột, ViBIRD 796/798 | `augmentation/augmented_schemas/`, `_stats_*.jsonl` |
+| C1–C9 | Xong (C7: EM chính thức của Spider có thêm script riêng) | |
+| E1, E2, E3, E6 | Xong (E6 chạy cùng E1/E2) | `evaluation/results_v2/` |
+| E4 | Xong cho e5-plain/e5-aug; BM25 và LLM-select chạy trong E7 | `analysis_v2/recall/` |
+| E5 | Đang chạy (hàng đợi 1) | |
+| E7, E8, E9 | Chờ (hàng đợi 2, 3) | |
+| A1, A2, A5, A6 | Xong cho các run hiện có, chạy lại khi E5–E9 xong | `analysis_v2/breakdown/` |
+| A4 (C9) | Xong cho các run hiện có, chạy lại khi E5–E9 xong | `analysis_v2/stats/{dataset}_pairs.csv` |
+| C7 EM chính thức Spider | Xong | `analysis_v2/official_em/` |
+| A3, T3 | Chưa làm | |
+
+Lệnh chạy lại các phân tích: `scripts/run_stats.py`, `scripts/analyze_results.py`, `scripts/official_spider_em.py` (mỗi lệnh `--dataset spider_vi|bird_vi` nếu có).
+
+### Lưới thực tế khác kế hoạch (cần tác giả xem lại)
+
+- E5: chạy k ∈ {20, 30, 50} trên ViBIRD (`+link`, `full` × 1.5B, 7B) và k ∈ {5, 20} trên ViSpider (`full` × 1.5B, 7B). Chọn theo E4: ở k=10 ViBIRD chỉ giữ đủ bảng vàng cho 67% câu, k=30 là 87%, k=50 là 92%.
+- E9: thay vì bỏ hẳn sample values, cắt mỗi giá trị còn tối đa 50 ký tự (`--max_value_chars 50`), chỉ trên ViBIRD. Lý do: 10 cột XML của `european_football_2` chiếm 97,8% số ký tự sample values; prompt `+aug` của DB này giảm từ 43.659 xuống 12.618 token.
+- E3 chạy cả ViSpider và ViBIRD với `baseline` và `full`.
+
+### Kết quả chính đến 30/10 (EX %, k=10)
+
+| | ViSpider baseline → full | ViBIRD baseline → full |
+|---|---|---|
+| 0.5B | 18,5 → 29,8 | 6,3 → 7,1 |
+| 1.5B | 40,2 → 49,9 | 18,6 → 16,2 |
+| 3B | 52,4 → 62,4 | 31,4 → 23,8 |
+| 7B | 67,1 → 70,0 | 44,5 → 33,7 |
+| GPT-4.1-mini | 73,2 → 70,5 | 50,7 → 35,8 |
+
+- ViSpider: `+aug` và `full` hơn baseline có ý nghĩa thống kê (Holm) cho 0.5B–3B; 7B `full` chưa có ý nghĩa sau Holm (Δ +2,9, p_holm 0,17). `+link` và `augret` gần như không khác baseline; `augret` ≈ `+link` ở mọi model.
+- ViBIRD: ở k=10 mọi config có linking thấp hơn baseline (trừ 0.5B), kể cả GPT-4.1-mini (−14,9). `+aug` cũng không giúp (7B −5,1): 129 câu của `european_football_2` vẫn bị cắt schema dù context 32k.
+- E5 sơ bộ (ViBIRD): tăng k làm EX tăng đều. 1.5B `full` k=30 đạt 20,5 (> baseline 18,6, chưa có ý nghĩa). 7B `+link` k=30 đạt 38,5, vẫn thấp hơn baseline 44,5.
+- A5: khi đủ bảng vàng, ViBIRD 7B `full` đạt 40,6 (vẫn < baseline 44,5), nên ngoài việc mất bảng còn mất cột cần thiết (recall cột ở k=10 chỉ 34%).
+- A1: phần lớn SQL lỗi là `no such column` (model bịa cột), không phải lỗi cú pháp.
+- E3: câu hỏi tiếng Anh cao hơn tiếng Việt 5–12 điểm trên ViSpider; mức tăng của `full` gần như giống nhau ở hai ngôn ngữ.
+
+### Lưu ý khi viết
+
+- EM chính thức của Spider: parser của Spider không đọc được 40–70% câu SQL do model sinh (alias bảng không có `AS` như `FROM stadium s`, alias cột trong SELECT), nên EM chính thức thấp hơn nhiều so với EX. Nên dùng EX làm chỉ số chính và nêu rõ hạn chế này.
+- A5 trên ViBIRD: một số câu vẫn đúng dù “thiếu” bảng vàng, vì tập bảng vàng lấy từ gold SQL bằng sqlglot có thể dư (cột không ghi tên bảng được gán cho mọi bảng có cột đó) hoặc vì có câu SQL khác cho cùng kết quả.
+- Server khởi động lại hai lần sáng 30/10; các run bị ngắt đã được chạy lại từ đầu, không dùng kết quả dở.
