@@ -128,3 +128,4 @@ widgetsnbextension==4.0.16
 wrapt==2.5.1
 xxhash==4.0.2
 yarl==1.25.1
+nltk==3.10.4
