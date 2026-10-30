@@ -22,8 +22,8 @@ step() {
 
 # --- E7: existing-style schema-filtering baselines, plain prompt ---
 for d in spider_vi bird_vi; do
-    step e7_llmsel_$d python scripts/llm_table_selection.py --dataset $d
-    step e7_recall_$d python scripts/retrieval_recall.py --dataset $d --linkers bm25-plain bm25-aug llm-select \
+    [ -f evaluation/analysis_v2/llm_selection/$d.jsonl ] || step e7_llmsel_$d python scripts/llm_table_selection.py --dataset $d
+    [ -f evaluation/analysis_v2/recall_baselines/${d}_summary.csv ] || step e7_recall_$d python scripts/retrieval_recall.py --dataset $d --linkers bm25-plain bm25-aug llm-select \
         --out evaluation/analysis_v2/recall_baselines
     step e7_bm25_$d python scripts/run_ablation.py --dataset $d --configs augret --linker bm25 --skip_reference
     step e7_llm_$d python scripts/run_ablation.py --dataset $d --configs +link --linker llm --skip_reference

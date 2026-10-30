@@ -31,8 +31,8 @@ step aug_bird python augmentation/generate_aug.py --dataset bird_vi --device cud
 step aug_check python revision/scripts/check_augmentation.py || exit 1
 
 # --- E4: recall with and without augmentation ---
-step e4_recall_spider python scripts/retrieval_recall.py --dataset spider_vi --linkers e5-plain e5-aug
-step e4_recall_bird python scripts/retrieval_recall.py --dataset bird_vi --linkers e5-plain e5-aug
+[ -f evaluation/analysis_v2/recall/spider_vi_summary.csv ] || step e4_recall_spider python scripts/retrieval_recall.py --dataset spider_vi --linkers e5-plain e5-aug
+[ -f evaluation/analysis_v2/recall/bird_vi_summary.csv ] || step e4_recall_bird python scripts/retrieval_recall.py --dataset bird_vi --linkers e5-plain e5-aug
 
 # Smoke tests on the longest prompts (european_football_2, 7B, --limit 8) passed on 2026-10-29
 # and are no longer repeated on restart.

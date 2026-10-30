@@ -191,3 +191,23 @@ LASF/
 - Python 3.10+
 - Transformers, sentence-transformers
 - Hầu hết model chạy local; GPT-4.1-mini dùng OpenAI API (chỉ cho upper-bound reference baseline)
+
+## Cài đặt và chạy lại
+
+```bash
+git clone git@github.com:hoadm-net/LASF.git && cd LASF
+git checkout revision-jict && git lfs pull          # kết quả JSONL lưu qua Git LFS
+pip install -r requirements-lock.txt                 # phiên bản đã dùng (torch 2.6.0+cu124, transformers 5.x)
+python scripts/download_data.py                      # ViSpider, ViBIRD và database SQLite vào data/
+python scripts/setup_eval.py                         # script đánh giá chính thức của Spider vào third_party/spider/
+cp .env.example .env                                 # điền OPENROUTER_API_KEY (chỉ cần cho GPT-4.1-mini)
+```
+
+Model Hugging Face (Qwen2.5-Coder 0.5B–7B, Qwen2.5-7B-Instruct, multilingual-e5-large) được tải tự động ở lần chạy đầu.
+Schema tăng cường đã có sẵn trong `augmentation/augmented_schemas/`.
+
+Các thực nghiệm của bản sửa chạy theo hàng đợi trong `revision/scripts/` (xem `revision/EXPERIMENT_PLAN.md`):
+
+```bash
+./revision/scripts/run_all_queues.sh                 # bước nào đã có output thì bỏ qua; tiến độ ở logs/queue.log
+```
