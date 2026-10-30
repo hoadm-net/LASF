@@ -8,6 +8,32 @@ Thư mục này chứa các phiếu chấm cần giao cho người làm. Mỗi v
 | **T2** | Chất lượng metadata tiếng Việt do mô hình sinh (200 cột + toàn bộ bảng) | ✅ Sẵn sàng | 30/10/2026 | **07/11/2026** |
 | **T3** | Xem tay mẫu lỗi của mô hình (120 câu) | ✅ Sẵn sàng | 30/10/2026 | **10/11/2026** |
 
+## Danh sách file
+
+```
+human_tasks/
+├── README.md                          (file này)
+├── annotator_info.xlsx                phiếu thông tin người chấm — người phụ trách điền
+├── T1_translation_check/
+│   ├── README.md
+│   ├── T1_translation_annotator_A.xlsx    gửi người chấm A
+│   ├── T1_translation_annotator_B.xlsx    gửi người chấm B
+│   └── sample_ids.csv                     danh sách câu (giữ lại, không cần gửi)
+├── T2_metadata_check/
+│   ├── README.md
+│   ├── T2_metadata_annotator_A.xlsx
+│   ├── T2_metadata_annotator_B.xlsx
+│   ├── sample_ids.csv
+│   └── coverage.csv                       số liệu máy tính, không cần người chấm
+└── T3_error_analysis/
+    ├── README.md
+    ├── T3_error_annotator_A.xlsx
+    ├── T3_error_annotator_B.xlsx
+    └── sample_ids.csv
+```
+
+Mỗi người chấm chỉ cần nhận **một file .xlsx** của việc mình làm (bản A hoặc B). Các file `.csv` và `README.md` để người phụ trách giữ lại.
+
 ## Yêu cầu với người chấm
 
 - Thông thạo tiếng Việt và tiếng Anh. Với T2 và T3 cần đọc được SQL cơ bản (SELECT, WHERE, JOIN, GROUP BY).
@@ -27,8 +53,8 @@ python revision/scripts/agreement.py --task t1 \
   --out evaluation/analysis_v2/agreement_t1
 ```
 
-Script tính độ đồng thuận (Cohen's κ) và xuất `disagreements.csv` gồm các câu hai người chấm khác nhau. Sau đó một người thứ ba (hoặc hai người cùng ngồi lại) quyết định điểm cuối cho các câu này.
+Script tính độ đồng thuận (Cohen's κ) và xuất `disagreements.csv` gồm các câu hai người chấm khác nhau. Sau đó một người thứ ba (hoặc hai người cùng ngồi lại) quyết định điểm cuối cho các câu này. Lệnh cho T2 và T3 nằm trong README của từng thư mục (`--task t2`, `--task t3`).
 
 ## Thông tin cho bài báo (người phụ trách ghi lại)
 
-Với mỗi người chấm, ghi: trình độ, chuyên môn, mức độ thông thạo tiếng Anh, có tham gia dịch bộ dữ liệu hay không. Reviewer có thể hỏi, và người chấm không nên là người đã dịch bộ dữ liệu.
+Với mỗi người chấm, ghi vào `annotator_info.xlsx`: trình độ, chuyên môn, mức độ thông thạo tiếng Anh, có tham gia dịch bộ dữ liệu hay không. Reviewer có thể hỏi, và người chấm không nên là người đã dịch bộ dữ liệu.
