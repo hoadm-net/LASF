@@ -29,6 +29,10 @@ TASKS = {
                 "Mô tả (1–3)": "ordinal", "Có thể gây nhầm cột?": "nominal"},
         "Bảng": {"Tên tiếng Việt (1–3)": "ordinal"},
     },
+    "t3": {
+        "Lỗi": {"Nhãn lỗi đúng": "nominal", "Câu hỏi/SQL tham chiếu có vấn đề?": "nominal",
+                "Dùng làm ví dụ trong bài?": "nominal"},
+    },
 }
 KEY = "STT"
 

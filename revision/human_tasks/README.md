@@ -5,8 +5,8 @@ Thư mục này chứa các phiếu chấm cần giao cho người làm. Mỗi v
 | Việc | Nội dung | Trạng thái | Giao | Hạn nộp lại |
 |---|---|---|---|---|
 | **T1** | Chất lượng bản dịch câu hỏi và evidence (100 câu ViSpider + 100 câu ViBIRD) | ✅ Sẵn sàng | 30/10/2026 | **05/11/2026** |
-| **T2** | Chất lượng metadata tiếng Việt do mô hình sinh (200 cột + toàn bộ bảng) | ⏳ Chờ file augmented schemas gốc | Khi có file | **07/11/2026** |
-| **T3** | Xem tay mẫu lỗi của mô hình | ⏳ Chờ chạy lại thực nghiệm | khoảng 07/11/2026 | **10/11/2026** |
+| **T2** | Chất lượng metadata tiếng Việt do mô hình sinh (200 cột + toàn bộ bảng) | ✅ Sẵn sàng | 30/10/2026 | **07/11/2026** |
+| **T3** | Xem tay mẫu lỗi của mô hình (120 câu) | ✅ Sẵn sàng | 30/10/2026 | **10/11/2026** |
 
 ## Yêu cầu với người chấm
 
