@@ -1,0 +1,5 @@
+stage,dataset,n_db,seconds,peak_vram_gb,seconds_per_db_max,ms_per_question
+augmentation,bird_vi,11,2001.8,21.39,528.0,
+augmentation,spider_vi,20,1057.4,15.38,139.8,
+llm_table_selection,bird_vi,,293.8,18.62,,191.5
+llm_table_selection,spider_vi,,164.0,16.6,,158.6

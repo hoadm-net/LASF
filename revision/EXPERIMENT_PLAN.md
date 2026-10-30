@@ -157,12 +157,11 @@ Số liệu chi tiết nằm trong `evaluation/analysis_v2/`; các con số dư�
 | C1–C9 | Xong (C7: EM chính thức của Spider có thêm script riêng) | |
 | E1, E2, E3, E6 | Xong (E6 chạy cùng E1/E2) | `evaluation/results_v2/` |
 | E4 | Xong cho e5-plain/e5-aug; BM25 và LLM-select chạy trong E7 | `analysis_v2/recall/` |
-| E5 | Đang chạy (hàng đợi 1) | |
-| E7, E8, E9 | Chờ (hàng đợi 2, 3) | |
-| A1, A2, A5, A6 | Xong cho các run hiện có, chạy lại khi E5–E9 xong | `analysis_v2/breakdown/` |
-| A4 (C9) | Xong cho các run hiện có, chạy lại khi E5–E9 xong | `analysis_v2/stats/{dataset}_pairs.csv` |
+| E5, E7, E8, E9 | Xong 30/10 | `results_v2/`, `analysis_v2/latency/`, `analysis_v2/recall_baselines/` |
+| A1, A2, A5, A6 | Xong (chạy lại trên số liệu cuối 30/10) | `analysis_v2/breakdown/` |
+| A4 (C9) | Xong (chạy lại trên số liệu cuối 30/10) | `analysis_v2/stats/{dataset}_pairs.csv` |
 | C7 EM chính thức Spider | Xong | `analysis_v2/official_em/` |
-| A3, T3 | Chưa làm | |
+| A3, T3 | Xong; phiếu T3 đã giao | `analysis_v2/errors/`, `revision/human_tasks/T3_error_analysis/` |
 
 Lệnh chạy lại các phân tích: `scripts/run_stats.py`, `scripts/analyze_results.py`, `scripts/official_spider_em.py` (mỗi lệnh `--dataset spider_vi|bird_vi` nếu có).
 
@@ -194,3 +193,16 @@ Lệnh chạy lại các phân tích: `scripts/run_stats.py`, `scripts/analyze_r
 - EM chính thức của Spider: parser của Spider không đọc được 40–70% câu SQL do model sinh (alias bảng không có `AS` như `FROM stadium s`, alias cột trong SELECT), nên EM chính thức thấp hơn nhiều so với EX. Nên dùng EX làm chỉ số chính và nêu rõ hạn chế này.
 - A5 trên ViBIRD: một số câu vẫn đúng dù “thiếu” bảng vàng, vì tập bảng vàng lấy từ gold SQL bằng sqlglot có thể dư (cột không ghi tên bảng được gán cho mọi bảng có cột đó) hoặc vì có câu SQL khác cho cùng kết quả.
 - Server khởi động lại hai lần sáng 30/10; các run bị ngắt đã được chạy lại từ đầu, không dùng kết quả dở.
+
+### Kết quả cuối của các thí nghiệm GPU (30/10)
+
+- E5 ViBIRD, 7B `full`: k=10 33,7 · k=20 37,5 · k=30 40,7 · k=50 42,6 (baseline 44,5). 1.5B `full` cao nhất ở k=30 (20,5 > baseline 18,6, chưa có ý nghĩa). ViSpider 7B `full` k=20 đạt 72,1 (k=10: 70,0; baseline 67,1); k=5 giảm còn 64,2.
+- E7, LLM chọn bảng (Qwen2.5-7B-Instruct, giữ toàn bộ cột của bảng được chọn, prompt thường) là cách lọc mạnh nhất:
+  - ViBIRD: 0.5B 13,4 · 1.5B 23,9 · 3B 34,5 · 7B 45,6, đều ≥ baseline (có ý nghĩa với 0.5B–3B) và hơn `full` k=10 6–12 điểm.
+  - ViSpider: 0.5B 31,9 · 1.5B 51,4 · 3B 60,3 · 7B 67,3, ngang `full` (khác biệt không có ý nghĩa).
+  - Recall ViBIRD: giữ đủ bảng vàng 87,7% (e5-plain k=10: 66,8%) với trung bình 34 cột.
+- E7, BM25 trên cột có metadata (`augret` với BM25): EX ngang `augret` với e5. Đáng chú ý là recall của bm25-aug cao hơn e5 (ViBIRD k=10: đủ bảng vàng 77,8% so với 65,5%).
+- E9 (sample values ≤ 50 ký tự, ViBIRD): `+aug` tăng có ý nghĩa (7B 39,4 → 42,8; 3B 28,2 → 30,7), không còn câu nào bị cắt schema, nhưng vẫn chưa vượt baseline. `full` không đổi vì schema đã lọc vốn ngắn.
+- E8 (batch 1, 200 câu): linking e5 khoảng 21 ms/câu; sinh SQL 1–2,6 s/câu với HF transformers (bị chi phối bởi overhead mỗi token, nên 7B không chậm hơn 3B). Peak VRAM `full` 7B 19,8 GB (ViBIRD). Augmentation offline: ViSpider 17,6 phút, ViBIRD 33,4 phút, peak 21,4 GB. LLM chọn bảng: 160–190 ms/câu khi chạy batch 8, peak 18,6 GB (không so trực tiếp với số batch 1). Bảng: `analysis_v2/latency/summary.csv`, `offline.csv`.
+
+Gợi ý thí nghiệm bổ sung (chưa chạy, chờ tác giả quyết): `full` với LLM chọn bảng (prompt có metadata, lọc bằng LLM) và `full` với k theo tỉ lệ số cột (`--top_k_ratio`).

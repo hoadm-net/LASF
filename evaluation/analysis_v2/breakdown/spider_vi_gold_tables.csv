@@ -1,4 +1,8 @@
 run,n_all_gold_kept,ex_all_gold_kept,n_gold_missing,ex_gold_missing
+augret_bm25_qwen2.5-coder-0.5b,1013,0.1935,21,0.0476
+augret_bm25_qwen2.5-coder-1.5b,1013,0.4087,21,0.0952
+augret_bm25_qwen2.5-coder-3b,1013,0.5262,21,0.1429
+augret_bm25_qwen2.5-coder-7b,1013,0.6614,21,0.2857
 augret_qwen2.5-coder-0.5b,1005,0.2159,29,0.0
 augret_qwen2.5-coder-1.5b,1005,0.4358,29,0.069
 augret_qwen2.5-coder-3b,1005,0.5512,29,0.1034
@@ -8,10 +12,18 @@ full_en_qwen2.5-coder-1.5b,1009,0.6165,25,0.24
 full_en_qwen2.5-coder-3b,1009,0.665,25,0.12
 full_en_qwen2.5-coder-7b,1009,0.7651,25,0.16
 full_gpt-4.1-mini,1005,0.7194,29,0.2069
+full_k20_qwen2.5-coder-1.5b,1029,0.4976,5,0.2
+full_k20_qwen2.5-coder-7b,1029,0.723,5,0.4
+full_k5_qwen2.5-coder-1.5b,924,0.5465,110,0.1636
+full_k5_qwen2.5-coder-7b,924,0.6872,110,0.2636
 full_qwen2.5-coder-0.5b,1005,0.3065,29,0.0
 full_qwen2.5-coder-1.5b,1005,0.5104,29,0.1034
 full_qwen2.5-coder-3b,1005,0.6378,29,0.1379
 full_qwen2.5-coder-7b,1005,0.7154,29,0.1724
+pluslink_llm_qwen2.5-coder-0.5b,1005,0.3264,29,0.069
+pluslink_llm_qwen2.5-coder-1.5b,1005,0.5244,29,0.1379
+pluslink_llm_qwen2.5-coder-3b,1005,0.6169,29,0.1034
+pluslink_llm_qwen2.5-coder-7b,1005,0.6876,29,0.1724
 pluslink_qwen2.5-coder-0.5b,1008,0.2123,26,0.0
 pluslink_qwen2.5-coder-1.5b,1008,0.4296,26,0.0769
 pluslink_qwen2.5-coder-3b,1008,0.5466,26,0.2308
