@@ -1,0 +1,7 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "n": 1534,
+  "seconds": 293.8,
+  "ms_per_question": 191.5,
+  "peak_vram_gb": 18.62
+}
