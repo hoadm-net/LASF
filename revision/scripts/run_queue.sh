@@ -34,11 +34,8 @@ step aug_check python revision/scripts/check_augmentation.py || exit 1
 step e4_recall_spider python scripts/retrieval_recall.py --dataset spider_vi --linkers e5-plain e5-aug
 step e4_recall_bird python scripts/retrieval_recall.py --dataset bird_vi --linkers e5-plain e5-aug
 
-# --- Smoke tests on the longest prompts (outputs carry a _db-/_limit suffix and are not used) ---
-for c in +aug augret full; do
-    step smoke_bird_7b_$c python run_experiment.py --dataset bird_vi --model $M7 --config $c \
-        --db_filter european_football_2 --limit 8 --batch-size 4 --max_batch_tokens 32768
-done
+# Smoke tests on the longest prompts (european_football_2, 7B, --limit 8) passed on 2026-10-29
+# and are no longer repeated on restart.
 
 # --- E1: ViSpider (Vietnamese questions), 4 models x 5 configs + GPT-4.1-mini baseline/full ---
 step e1_spider python scripts/run_ablation.py --dataset spider_vi
