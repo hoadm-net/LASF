@@ -9,7 +9,8 @@ Families (per dataset × model):
   ablation   all pairs of baseline, +aug, +link, augret, full (Vietnamese, e5, k=10)
   language   baseline vs full on English questions; Vietnamese vs English for each
   k          each k ≠ 10 vs the same config at k=10, and vs baseline
-  linker     BM25 / LLM table selection vs e5 for the same config, vs baseline and full
+  linker     BM25 / LLM table selection vs e5 for the same config, vs baseline and full;
+             full with LLM selection also vs +link with LLM selection
   values     capped sample values (--max_value_chars) vs uncapped, and vs baseline
 
 Usage:
@@ -74,12 +75,22 @@ def families(runs: dict, model: str) -> dict[str, list[tuple]]:
             fam["k"] += [(key, k(config)), (key, k("baseline"))]
         if linker != "e5":
             fam["linker"] += [(key, k(config)), (key, k("baseline")), (key, k("full"))]
+            if config == "full":  # metadata in the prompt on top of the same filtering
+                fam["linker"].append((key, k("+link", linker=linker)))
     for key in runs:
         m, config, lang, top_k, linker, mvc = key
         if m == model and mvc is not None:
-            fam["values"] += [(key, k(config)), (key, k("baseline"))]
+            fam["values"] += [(key, k(config, linker=linker)), (key, k("baseline"))]
 
-    return {name: [(a, b) for a, b in pairs if a in runs and b in runs] for name, pairs in fam.items()}
+    def keep(pairs):  # existing runs, no self-pairs or duplicates
+        seen, out = set(), []
+        for a, b in pairs:
+            if a in runs and b in runs and a != b and (a, b) not in seen:
+                seen.add((a, b))
+                out.append((a, b))
+        return out
+
+    return {name: keep(pairs) for name, pairs in fam.items()}
 
 
 def main():
