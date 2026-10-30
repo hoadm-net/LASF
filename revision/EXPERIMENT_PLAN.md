@@ -205,4 +205,8 @@ Lệnh chạy lại các phân tích: `scripts/run_stats.py`, `scripts/analyze_r
 - E9 (sample values ≤ 50 ký tự, ViBIRD): `+aug` tăng có ý nghĩa (7B 39,4 → 42,8; 3B 28,2 → 30,7), không còn câu nào bị cắt schema, nhưng vẫn chưa vượt baseline. `full` không đổi vì schema đã lọc vốn ngắn.
 - E8 (batch 1, 200 câu): linking e5 khoảng 21 ms/câu; sinh SQL 1–2,6 s/câu với HF transformers (bị chi phối bởi overhead mỗi token, nên 7B không chậm hơn 3B). Peak VRAM `full` 7B 19,8 GB (ViBIRD). Augmentation offline: ViSpider 17,6 phút, ViBIRD 33,4 phút, peak 21,4 GB. LLM chọn bảng: 160–190 ms/câu khi chạy batch 8, peak 18,6 GB (không so trực tiếp với số batch 1). Bảng: `analysis_v2/latency/summary.csv`, `offline.csv`.
 
-Gợi ý thí nghiệm bổ sung (chưa chạy, chờ tác giả quyết): `full` với LLM chọn bảng (prompt có metadata, lọc bằng LLM) và `full` với k theo tỉ lệ số cột (`--top_k_ratio`).
+### E10 (thêm 30/10, tác giả đồng ý): `full` với LLM chọn bảng
+
+Prompt có metadata tiếng Việt như `full`, nhưng lọc schema bằng LLM chọn bảng (cache của E7) thay cho e5 top-k cột; bảng được chọn giữ toàn bộ cột. Lưới: 4 model × 2 dataset (`full_llm_*`), cộng ViBIRD với sample values ≤ 50 ký tự (`full_llm_*_v50`). Chạy bằng `revision/scripts/run_queue4.sh`.
+
+Gợi ý còn lại (chưa chạy): `full` với k theo tỉ lệ số cột (`--top_k_ratio`).
