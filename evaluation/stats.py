@@ -1,81 +1,50 @@
 import numpy as np
-from scipy.stats import spearmanr
-from statsmodels.stats.contingency_tables import mcnemar
+from scipy.stats import binomtest, chi2
 
 
-def mcnemar_test(list_a: list[int], list_b: list[int]) -> dict:
+def mcnemar_test(list_a: list[int], list_b: list[int], exact_below: int = 25) -> dict:
     """
-    McNemar's test comparing two binary outcome lists.
-    list_a: binary results of system A (e.g., +Aug)
-    list_b: binary results of system B (e.g., Baseline)
+    McNemar's test on paired binary outcomes (A vs B on the same questions).
+    Exact binomial test when the number of discordant pairs is below `exact_below`,
+    otherwise the chi-square test with continuity correction.
     """
-    assert len(list_a) == len(list_b), "Lists must have equal length"
-
-    # Contingency table
-    # [A correct & B correct, A correct & B wrong]
-    # [A wrong & B correct,   A wrong & B wrong  ]
-    b = sum(1 for a, b in zip(list_a, list_b) if a == 1 and b == 0)  # A wins
-    c = sum(1 for a, b in zip(list_a, list_b) if a == 0 and b == 1)  # B wins
-
-    table = [[0, b], [c, 0]]
-    result = mcnemar(table, exact=False, correction=True)
-
-    return {
-        "statistic": result.statistic,
-        "p_value": result.pvalue,
-        "a_wins": b,
-        "b_wins": c,
-        "significant": result.pvalue < 0.05,
-    }
+    a, b = np.asarray(list_a), np.asarray(list_b)
+    assert len(a) == len(b), "Lists must have equal length"
+    a_only = int(((a == 1) & (b == 0)).sum())
+    b_only = int(((a == 0) & (b == 1)).sum())
+    n_disc = a_only + b_only
+    if n_disc == 0:
+        return {"a_only": 0, "b_only": 0, "test": "none", "statistic": 0.0, "p_value": 1.0}
+    if n_disc < exact_below:
+        return {"a_only": a_only, "b_only": b_only, "test": "exact",
+                "statistic": float(min(a_only, b_only)),
+                "p_value": float(binomtest(a_only, n_disc, 0.5).pvalue)}
+    stat = (abs(a_only - b_only) - 1) ** 2 / n_disc
+    return {"a_only": a_only, "b_only": b_only, "test": "chi2_cc",
+            "statistic": float(stat), "p_value": float(chi2.sf(stat, 1))}
 
 
-def spearman_correlation(model_sizes: list[float], deltas: list[float]) -> dict:
-    """
-    Spearman's rank correlation between model size and delta EX.
-    model_sizes: e.g., [0.5, 1.5, 3.0, 7.0]
-    deltas:      delta EX for each model size (Full - Baseline)
-    """
-    corr, p_value = spearmanr(model_sizes, deltas)
-    return {
-        "rho": corr,
-        "p_value": p_value,
-        "significant": p_value < 0.05,
-        "h3_supported": corr < 0 and p_value < 0.05,
-    }
+def holm(p_values: list[float]) -> list[float]:
+    """Holm-Bonferroni adjusted p-values (same order as the input)."""
+    p = np.asarray(p_values, dtype=float)
+    m = len(p)
+    order = np.argsort(p)
+    adjusted = np.empty(m)
+    running = 0.0
+    for rank, i in enumerate(order):
+        running = max(running, (m - rank) * p[i])
+        adjusted[i] = min(1.0, running)
+    return adjusted.tolist()
 
 
-def run_ablation_stats(results: dict, alpha: float = 0.05) -> dict:
-    """
-    Run all statistical tests for the ablation study.
-
-    results: {
-        "baseline": {"ex_list": [...], "ex": 0.xx},
-        "+aug":     {"ex_list": [...], "ex": 0.xx},
-        "+link":    {"ex_list": [...], "ex": 0.xx},
-        "full":     {"ex_list": [...], "ex": 0.xx},
-    }
-    Returns summary of all comparisons.
-    """
-    baseline = results["baseline"]["ex_list"]
-    comparisons = {}
-
-    for config in ["+aug", "+link", "full"]:
-        comparisons[f"{config}_vs_baseline"] = mcnemar_test(
-            results[config]["ex_list"], baseline
-        )
-
-    return comparisons
-
-
-def run_h3_stats(model_sizes: list[float], full_ex: list[float], baseline_ex: list[float]) -> dict:
-    """
-    Test H3: smaller models benefit more from schema-aware enhancement.
-
-    model_sizes:  [0.5, 1.5, 3.0, 7.0]
-    full_ex:      EX of Full config per model size
-    baseline_ex:  EX of Baseline per model size
-    """
-    deltas = [f - b for f, b in zip(full_ex, baseline_ex)]
-    result = spearman_correlation(model_sizes, deltas)
-    result["deltas"] = deltas
-    return result
+def paired_bootstrap_ci(list_a: list[int], list_b: list[int], n_boot: int = 10_000,
+                        alpha: float = 0.05, seed: int = 2026) -> tuple[float, float]:
+    """Percentile CI for mean(A) - mean(B), resampling questions with replacement."""
+    diff = np.asarray(list_a, dtype=float) - np.asarray(list_b, dtype=float)
+    rng = np.random.default_rng(seed)
+    means = np.empty(n_boot)
+    for start in range(0, n_boot, 1000):  # chunks keep memory small for n ~ 1.5k
+        idx = rng.integers(0, len(diff), size=(min(1000, n_boot - start), len(diff)))
+        means[start:start + len(idx)] = diff[idx].mean(axis=1)
+    lo, hi = np.quantile(means, [alpha / 2, 1 - alpha / 2])
+    return float(lo), float(hi)
