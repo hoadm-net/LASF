@@ -16,6 +16,10 @@ full_k20_qwen2.5-coder-1.5b,1029,0.4976,5,0.2
 full_k20_qwen2.5-coder-7b,1029,0.723,5,0.4
 full_k5_qwen2.5-coder-1.5b,924,0.5465,110,0.1636
 full_k5_qwen2.5-coder-7b,924,0.6872,110,0.2636
+full_llm_qwen2.5-coder-0.5b,1005,0.4,29,0.1034
+full_llm_qwen2.5-coder-1.5b,1005,0.5801,29,0.1034
+full_llm_qwen2.5-coder-3b,1005,0.6617,29,0.1034
+full_llm_qwen2.5-coder-7b,1005,0.7224,29,0.2069
 full_qwen2.5-coder-0.5b,1005,0.3065,29,0.0
 full_qwen2.5-coder-1.5b,1005,0.5104,29,0.1034
 full_qwen2.5-coder-3b,1005,0.6378,29,0.1379

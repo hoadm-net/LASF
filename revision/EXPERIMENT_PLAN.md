@@ -210,3 +210,16 @@ Lệnh chạy lại các phân tích: `scripts/run_stats.py`, `scripts/analyze_r
 Prompt có metadata tiếng Việt như `full`, nhưng lọc schema bằng LLM chọn bảng (cache của E7) thay cho e5 top-k cột; bảng được chọn giữ toàn bộ cột. Lưới: 4 model × 2 dataset (`full_llm_*`), cộng ViBIRD với sample values ≤ 50 ký tự (`full_llm_*_v50`). Chạy bằng `revision/scripts/run_queue4.sh`.
 
 Gợi ý còn lại (chưa chạy): `full` với k theo tỉ lệ số cột (`--top_k_ratio`).
+
+**Kết quả E10 (31/10), EX %** (baseline / `full` e5 k=10 / LLM chọn bảng không metadata / `full_llm`):
+
+| | ViSpider | ViBIRD |
+|---|---|---|
+| 0.5B | 18,5 / 29,8 / 31,9 / **39,2** | 6,3 / 7,1 / 13,4 / 13,2 |
+| 1.5B | 40,2 / 49,9 / 51,4 / **56,7** | 18,6 / 16,2 / 23,9 / **26,2** |
+| 3B | 52,4 / 62,4 / 60,3 / **64,6** | 31,4 / 23,8 / 34,5 / **35,6** |
+| 7B | 67,1 / 70,0 / 67,3 / **70,8** | 44,5 / 33,7 / 45,6 / **47,2** |
+
+- `full_llm` hơn baseline có ý nghĩa (Holm) ở mọi model trên ViSpider và ở 0.5B–3B trên ViBIRD (7B: +2,7, p_holm 0,068).
+- Thêm metadata vào prompt khi đã lọc bằng LLM (`full_llm` so với `pluslink_llm`): có ý nghĩa ở cả 4 model trên ViSpider (+3,5 đến +7,2); trên ViBIRD tăng +1,1 đến +2,3 nhưng chưa có ý nghĩa sau Holm.
+- ViBIRD: 34 câu bị cắt schema (bảng chọn giữ đủ cột kèm metadata); bản `_v50` hết cắt nhưng EX không đổi.
