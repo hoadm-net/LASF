@@ -1,0 +1,18 @@
+task,criterion,kappa
+T1,ViSpider: Độ chính xác nghĩa,0.56
+T1,ViSpider: Độ tự nhiên,0.77
+T1,ViSpider: Lỗi ảnh hưởng SQL?,0.49
+T1,ViSpider: Loại lỗi,0.69
+T1,ViBIRD: Độ chính xác nghĩa,0.60
+T1,ViBIRD: Độ tự nhiên,0.52
+T1,ViBIRD: Lỗi ảnh hưởng SQL?,0.66
+T1,ViBIRD: Loại lỗi,0.60
+T1,ViBIRD: Độ chính xác evidence,0.27
+T2,Cột: Tên tiếng Việt,0.75
+T2,Cột: Từ đồng nghĩa,0.55
+T2,Cột: Mô tả,0.66
+T2,Cột: Có thể gây nhầm cột?,0.55
+T2,Bảng: Tên tiếng Việt,0.72
+T3,Nhãn lỗi đúng,0.81
+T3,Câu hỏi/SQL tham chiếu có vấn đề?,0.69
+T3,Dùng làm ví dụ trong bài?,0.17

@@ -223,3 +223,7 @@ Gợi ý còn lại (chưa chạy): `full` với k theo tỉ lệ số cột (`-
 - `full_llm` hơn baseline có ý nghĩa (Holm) ở mọi model trên ViSpider và ở 0.5B–3B trên ViBIRD (7B: +2,7, p_holm 0,068).
 - Thêm metadata vào prompt khi đã lọc bằng LLM (`full_llm` so với `pluslink_llm`): có ý nghĩa ở cả 4 model trên ViSpider (+3,5 đến +7,2); trên ViBIRD tăng +1,1 đến +2,3 nhưng chưa có ý nghĩa sau Holm.
 - ViBIRD: 34 câu bị cắt schema (bảng chọn giữ đủ cột kèm metadata); bản `_v50` hết cắt nhưng EX không đổi.
+
+### Độ đồng thuận người chấm (nhận 31/10)
+
+Bảng κ do tác giả gửi (tính ngoài repo, chưa rõ có trọng số hay không): `evaluation/analysis_v2/agreement/kappa_reported_2026-10-31.csv`. Còn thiếu các file `.xlsx` đã chấm để tính điểm trung bình, tỉ lệ lỗi dịch, độ chính xác của nhãn lỗi tự động, κ có trọng số và danh sách câu bất đồng (`revision/scripts/agreement.py`).
