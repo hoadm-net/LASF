@@ -232,5 +232,5 @@ File đã phân xử: `revision/human_tasks/final/*_best.xlsx` (2 người chấ
 - T2 (metadata, 200 cột + 155 bảng): tên tiếng Việt 2,25; từ đồng nghĩa 2,02; mô tả 2,35; tên bảng 2,21. 41,5% cột bị đánh giá "có thể gây nhầm cột" (ViBIRD 46,7%, ViSpider 33,8%). ViBIRD thấp hơn ViSpider ở mọi tiêu chí.
 - T3 (120 lỗi): nhãn tự động khớp nhãn người 73,1% (nhóm A 76,9%, B 85,0%, C 57,5%). 19/120 câu (15,8%) có câu hỏi hoặc SQL tham chiếu có vấn đề.
 - κ thấp ở "Lỗi ảnh hưởng SQL?" (0,49) và "evidence" (0,27) do một giá trị chiếm 95–99% (nghịch lý κ); đồng thuận thô 86–99%, AC1 0,85–0,99. Nên báo cáo cả đồng thuận thô và AC1. "Dùng làm ví dụ" (κ 0,17) không đưa vào bài.
-- Người chấm (tác giả xác nhận 31/10): 2 sinh viên ngành CNTT, IELTS 6.5, chấm độc lập, có nhận thù lao; không nêu tên và không cần lời cảm ơn trong bài. Người phân xử (Annotator 3) là tác giả chính.
+- Người chấm (tác giả xác nhận 31/10): 2 sinh viên ngành CNTT, IELTS 6.5, chấm độc lập, có nhận thù lao; không nêu tên và không cần lời cảm ơn trong bài. Người phân xử (Annotator 3) là tác giả chính. Hai người chấm không tham gia dịch ViSpider/ViBIRD.
 - Còn 7 ô chưa thống nhất (T1 loại lỗi: 6; T3 nhãn lỗi: 1), không ảnh hưởng các con số chính.
