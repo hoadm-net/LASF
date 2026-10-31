@@ -1,0 +1,55 @@
+task,sheet,criterion,value,count,share,n,mean
+T1,ViSpider,Độ chính xác nghĩa,1,1,0.01,100,2.84
+T1,ViSpider,Độ chính xác nghĩa,2,14,0.14,100,2.84
+T1,ViSpider,Độ chính xác nghĩa,3,85,0.85,100,2.84
+T1,ViSpider,Độ tự nhiên,1,4,0.04,100,2.48
+T1,ViSpider,Độ tự nhiên,2,44,0.44,100,2.48
+T1,ViSpider,Độ tự nhiên,3,52,0.52,100,2.48
+T1,ViSpider,Lỗi ảnh hưởng SQL?,Có,1,0.01,100,
+T1,ViSpider,Lỗi ảnh hưởng SQL?,Không,99,0.99,100,
+T1,ViSpider,Loại lỗi,Câu không tự nhiên,37,0.3737,99,
+T1,ViSpider,Loại lỗi,Khác,1,0.0101,99,
+T1,ViSpider,Loại lỗi,Không có lỗi,55,0.5556,99,
+T1,ViSpider,Loại lỗi,Sai thuật ngữ,6,0.0606,99,
+T1,ViBIRD,Độ chính xác nghĩa,1,2,0.02,100,2.87
+T1,ViBIRD,Độ chính xác nghĩa,2,9,0.09,100,2.87
+T1,ViBIRD,Độ chính xác nghĩa,3,89,0.89,100,2.87
+T1,ViBIRD,Độ tự nhiên,1,4,0.04,100,2.57
+T1,ViBIRD,Độ tự nhiên,2,35,0.35,100,2.57
+T1,ViBIRD,Độ tự nhiên,3,61,0.61,100,2.57
+T1,ViBIRD,Lỗi ảnh hưởng SQL?,Có,2,0.02,100,
+T1,ViBIRD,Lỗi ảnh hưởng SQL?,Không,98,0.98,100,
+T1,ViBIRD,Loại lỗi,Câu không tự nhiên,17,0.1789,95,
+T1,ViBIRD,Loại lỗi,Khác,1,0.0105,95,
+T1,ViBIRD,Loại lỗi,Không có lỗi,69,0.7263,95,
+T1,ViBIRD,Loại lỗi,Sai nghĩa,1,0.0105,95,
+T1,ViBIRD,Loại lỗi,Sai thuật ngữ,2,0.0211,95,
+T1,ViBIRD,Loại lỗi,Thiếu thông tin,3,0.0316,95,
+T1,ViBIRD,Loại lỗi,Thêm thông tin,2,0.0211,95,
+T1,ViBIRD,Độ chính xác evidence,1.0,1,0.0112,89,2.944
+T1,ViBIRD,Độ chính xác evidence,2.0,3,0.0337,89,2.944
+T1,ViBIRD,Độ chính xác evidence,3.0,85,0.9551,89,2.944
+T2,Cột,Tên tiếng Việt,1,37,0.185,200,2.25
+T2,Cột,Tên tiếng Việt,2,76,0.38,200,2.25
+T2,Cột,Tên tiếng Việt,3,87,0.435,200,2.25
+T2,Cột,Từ đồng nghĩa,1,41,0.205,200,2.02
+T2,Cột,Từ đồng nghĩa,2,114,0.57,200,2.02
+T2,Cột,Từ đồng nghĩa,3,45,0.225,200,2.02
+T2,Cột,Mô tả,1,29,0.145,200,2.345
+T2,Cột,Mô tả,2,73,0.365,200,2.345
+T2,Cột,Mô tả,3,98,0.49,200,2.345
+T2,Cột,Có thể gây nhầm cột?,Có,83,0.415,200,
+T2,Cột,Có thể gây nhầm cột?,Không,117,0.585,200,
+T2,Bảng,Tên tiếng Việt,1,31,0.2,155,2.213
+T2,Bảng,Tên tiếng Việt,2,60,0.3871,155,2.213
+T2,Bảng,Tên tiếng Việt,3,64,0.4129,155,2.213
+T3,Lỗi,Nhãn lỗi đúng,Chọn sai bảng,37,0.3109,119,
+T3,Lỗi,Nhãn lỗi đúng,Khác,16,0.1345,119,
+T3,Lỗi,Nhãn lỗi đúng,Sai cột,22,0.1849,119,
+T3,Lỗi,Nhãn lỗi đúng,Sai hàm gộp hoặc GROUP BY,11,0.0924,119,
+T3,Lỗi,Nhãn lỗi đúng,Sai điều kiện hoặc giá trị,7,0.0588,119,
+T3,Lỗi,Nhãn lỗi đúng,Thiếu bảng cần thiết trong schema,26,0.2185,119,
+T3,Lỗi,Câu hỏi/SQL tham chiếu có vấn đề?,Có,19,0.1583,120,
+T3,Lỗi,Câu hỏi/SQL tham chiếu có vấn đề?,Không,101,0.8417,120,
+T3,Lỗi,Dùng làm ví dụ trong bài?,Có,110,0.9167,120,
+T3,Lỗi,Dùng làm ví dụ trong bài?,Không,10,0.0833,120,

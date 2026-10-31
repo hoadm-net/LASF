@@ -1,0 +1,18 @@
+task,sheet,criterion,n_pairs,raw_agreement,kappa,kappa_linear_weighted,gwet_ac1,n_adjudicated,n_unresolved,n_inconsistent
+T1,ViSpider,Độ chính xác nghĩa,100,0.85,0.5566,0.5765,0.8204,15,0,0
+T1,ViSpider,Độ tự nhiên,100,0.88,0.7744,0.7862,0.8369,12,0,0
+T1,ViSpider,Lỗi ảnh hưởng SQL?,100,0.98,0.4924,,0.9792,2,0,0
+T1,ViSpider,Loại lỗi,100,0.83,0.6942,,0.8027,16,1,0
+T1,ViBIRD,Độ chính xác nghĩa,100,0.91,0.5966,0.5994,0.8988,9,0,0
+T1,ViBIRD,Độ tự nhiên,100,0.75,0.5233,0.5494,0.6636,25,0,0
+T1,ViBIRD,Lỗi ảnh hưởng SQL?,100,0.99,0.6622,,0.9897,1,0,0
+T1,ViBIRD,Loại lỗi,100,0.83,0.603,,0.8169,12,5,0
+T1,ViBIRD,Độ chính xác evidence,89,0.8652,0.2705,0.3424,0.8515,12,0,0
+T2,Cột,Tên tiếng Việt,200,0.845,0.7528,0.7993,0.7743,31,0,0
+T2,Cột,Từ đồng nghĩa,200,0.74,0.5535,0.6137,0.6337,52,0,0
+T2,Cột,Mô tả,200,0.795,0.6607,0.7273,0.7063,41,0,0
+T2,Cột,Có thể gây nhầm cột?,200,0.77,0.5459,,0.5577,46,0,0
+T2,Bảng,Tên tiếng Việt,155,0.8194,0.7203,0.7812,0.7334,28,0,0
+T3,Lỗi,Nhãn lỗi đúng,120,0.85,0.81,,0.822,17,1,0
+T3,Lỗi,Câu hỏi/SQL tham chiếu có vấn đề?,120,0.9167,0.688,,0.8864,10,0,0
+T3,Lỗi,Dùng làm ví dụ trong bài?,120,0.8333,0.1667,,0.7934,20,0,0

@@ -1,0 +1,521 @@
+STT,Nhóm,Dataset,Model / config,Câu hỏi,SQL mô hình sinh,SQL tham chiếu,Nhãn lỗi đúng,Ghi chú
+1,A,ViBIRD,Qwen2.5-Coder-7B / full,"Địa chỉ đầy đủ của trường có tỷ lệ xuất sắc thấp nhất là gì? Hãy cho biết Street, City, Zip và State.","SELECT Street, City, Zip, MailState 
+FROM schools 
+JOIN satscores ON schools.CDSCode = satscores.cds 
+WHERE Street IS NOT NULL AND City IS NOT NULL AND MailState IS NOT NULL AND Zip IS NOT NULL 
+ORDER BY (NumGE1500 / NumTstTakr) ASC 
+LIMIT 1;","SELECT T2.Street, T2.City, T2.State, T2.Zip FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode ORDER BY CAST(T1.NumGE1500 AS REAL) / T1.NumTstTakr ASC LIMIT 1",Sai cột,"• Schema lọc bỏ mất cột State (và NumGE1500/NumTstTakr của satscores), nên mô hình buộc phải dùng MailState thay State; ngoài ra thiếu CAST gây chia số nguyên. Lỗi gốc là do lọc schema làm mất cột cần thiết; nếu chỉ xét cột thì nhãn 'Sai cột' cũng chấp nhận được.
+• Schema không có cột State; SQL tham chiếu dùng cột này, còn mô hình dùng MailState. SQL mô hình cũng thêm điều kiện loại NULL và không CAST khi tính tỷ lệ.
+• Bước lọc schema làm mất cột State trong bảng schools (chỉ còn MailState) khiến mô hình chọn sai cột. Ngoài ra mô hình thiếu ép kiểu REAL khi chia và tự thêm điều kiện IS NOT NULL."
+2,A,ViBIRD,Qwen2.5-Coder-7B / full,Điểm viết trung bình của từng trường do Ricci Ulrich quản lý là bao nhiêu? Hãy liệt kê các trường và điểm viết trung bình tương ứng.,"SELECT s.School, ss.AvgScrWrite
+FROM satscores ss
+JOIN schools s ON ss.cds = s.CDSCode
+WHERE s.School LIKE '%Ricci Ulrich%';","SELECT T2.School, T1.AvgScrWrite FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.AdmFName1 = 'Ricci' AND T2.AdmLName1 = 'Ulrich'",Sai cột,"• Schema rút gọn thiếu các cột AdmFName1/AdmLName1 của bảng schools nên mô hình buộc phải lọc theo tên trường; lỗi gốc do bước lọc schema (thiếu cột cần thiết), hệ quả là 'Sai cột'.
+• Mô hình lọc tên người quản lý bằng cột School thay vì AdmFName1 và AdmLName1; hai cột này không có trong schema được cung cấp.
+• Bước lọc schema (schema linking) đã loại bỏ mất hai cột cần thiết là AdmFName1 và AdmLName1 trong bảng schools, khiến mô hình buộc phải đoán và tìm tên người quản lý trong cột School."
+3,A,ViBIRD,Qwen2.5-Coder-7B / full,Vùng của khách hàng có id 3541 là gì?,SELECT T2.A4 FROM client AS T1 JOIN district AS T2 ON T1.district_id = T2.district_id WHERE T1.client_id = 3541;,SELECT T1.A3 FROM district AS T1 INNER JOIN client AS T2 ON T1.district_id = T2.district_id WHERE T2.client_id = 3541,Sai cột,"• Schema rút gọn chỉ giữ A4, A14 của bảng district mà bỏ mất cột A3 (region) — cột cần thiết theo evidence. Mô hình buộc phải chọn A4, nên nguyên nhân gốc là lọc schema làm mất cột, không phải mô hình chọn sai cột. Có thể coi là biến thể 'thiếu cột cần thiết'.
+• Schema được cấp thiếu cột district.A3 (region); mô hình chọn A4 thay thế.
+• Bước lọc schema (schema linking) đã loại mất cột A3 của bảng district mặc dù có trong evidence, đồng thời mô tả cột A4 bị gán nhầm là 'khu vực' nên mô hình chọn nhầm sang A4."
+4,A,ViBIRD,Qwen2.5-Coder-7B / full,Tần suất tài khoản số 3 yêu cầu phát hành báo cáo tài khoản là bao nhiêu? Mục đích ghi nợ tổng cộng 3539 là gì?,SELECT COUNT(*) AS frequency FROM trans WHERE account_id = 3 AND k_symbol = 'FIRMS';,"SELECT T1.frequency, T2.k_symbol FROM account AS T1 INNER JOIN (SELECT account_id, k_symbol, SUM(amount) AS total_amount FROM `order` GROUP BY account_id, k_symbol) AS T2 ON T1.account_id = T2.account_id WHERE T1.account_id = 3 AND T2.total_amount = 3539",Thiếu bảng cần thiết trong schema,"• Schema thiếu bảng account (cột frequency) và thiếu cột k_symbol của bảng order; mô hình phải bịa cột k_symbol trong trans. Lỗi lọc schema là nguyên nhân sớm nhất.
+• Schema thiếu bảng account chứa frequency và thiếu cột k_symbol, cần dùng để trả lời.
+• Bước lọc schema làm mất bảng account và cột k_symbol của bảng order, dẫn đến mô hình không thể trả lời đúng."
+5,A,ViBIRD,Qwen2.5-Coder-7B / full,Có bao nhiêu tài khoản ở Beroun được mở sau năm 1996?,SELECT COUNT(*) FROM account WHERE district_id = 1 AND account_id > 1996;,"SELECT COUNT(account_id) FROM account AS T1 INNER JOIN district AS T2 ON T1.district_id = T2.district_id WHERE STRFTIME('%Y', T1.date) > '1996' AND T2.A2 = 'Beroun'",Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng district và cả cột account.date, nên mô hình buộc phải đoán district_id=1 và dùng account_id>1996 thay cho năm mở tài khoản. Lỗi gốc do bước lọc schema.
+• Schema thiếu bảng district và cột account.date cần để lọc theo Beroun và năm mở tài khoản; mô hình dùng district_id và account_id thay thế.
+• Bước lọc schema làm mất bảng district và cột account.date, khiến mô hình phải đoán mò điều kiện bằng district_id = 1 và account_id > 1996."
+7,A,ViBIRD,Qwen2.5-Coder-7B / full,Tỷ lệ phần trăm của nguyên tố clo trong các phân tử có liên kết đơn là bao nhiêu?,"SELECT CAST(SUM(CASE WHEN T1.element = 'cl' THEN 1 ELSE 0 END) AS REAL) * 100 / COUNT(T1.atom_id) AS percent 
+FROM atom AS T1 
+JOIN connected AS T2 ON T1.atom_id = T2.atom_id 
+JOIN bond AS T3 ON T2.bond_id = T3.bond_id 
+WHERE T3.bond_type = '-';","SELECT CAST(COUNT(CASE WHEN T.element = 'cl' THEN T.atom_id ELSE NULL END) AS REAL) * 100 / COUNT(T.atom_id) FROM ( SELECT T1.atom_id, T1.element FROM atom AS T1 INNER JOIN molecule AS T2 ON T1.molecule_id = T2.molecule_id INNER JOIN bond AS T3 ON T2.molecule_id = T3.molecule_id WHERE T3.bond_type = '-' ) AS T",Chọn sai bảng,"• Mô hình join qua bảng connected (theo từng nguyên tử trong liên kết) thay vì join atom-molecule-bond theo molecule_id như tham chiếu, dẫn tới mẫu đếm khác nên tỷ lệ sai.
+• Mô hình chỉ đếm nguyên tử ở một đầu liên kết đơn, thay vì mọi nguyên tử thuộc phân tử có liên kết đơn.
+• Mô hình nối atom với bond qua bảng connected (các nguyên tử trực tiếp tham gia liên kết đơn) thay vì nối qua molecule_id (các nguyên tử thuộc phân tử có liên kết đơn)."
+8,A,ViBIRD,Qwen2.5-Coder-7B / full,Những thẻ bài nào chỉ có sẵn trên giấy và ngôn ngữ tiếng Nhật?,SELECT * FROM cards WHERE availability = 'paper';,SELECT T1.name FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T1.uuid = T2.uuid WHERE T1.availability = 'paper' AND T2.language = 'Japanese',Thiếu bảng cần thiết trong schema,"• Schema rút gọn thiếu bảng foreign_data (và cả cột name, uuid của cards), nên mô hình không thể lọc ngôn ngữ tiếng Nhật; ví dụ điển hình cho lỗi lọc schema.
+• Schema thiếu bảng foreign_data, cần để lọc ngôn ngữ Japanese; đồng thời thiếu các cột uuid và name của cards.
+• Bước lọc schema (schema linking) đã làm mất bảng foreign_data cũng như các cột name, uuid của bảng cards."
+10,A,ViBIRD,Qwen2.5-Coder-7B / full,"Tên tiếng Ý của bộ bài có ""Ancestor's Chosen"" nằm trong đó là gì?",SELECT T1.duelDeck FROM cards AS T1 JOIN cards AS T2 ON T1.id = T2.mtgoId WHERE T2.name = 'Ancestor''s Chosen';,SELECT translation FROM set_translations WHERE setCode IN ( SELECT setCode FROM cards WHERE name = 'Ancestor''s Chosen' ) AND language = 'Italian',Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng set_translations và cả cột setCode của cards, nên mô hình buộc phải self-join cards một cách vô nghĩa. Ví dụ điển hình cho lỗi do bước lọc schema.
+• Schema chỉ có cards, thiếu set_translations chứa tên tiếng Ý của bộ bài.
+• Bước lọc schema làm mất bảng set_translations và cột setCode của bảng cards, khiến mô hình phải tự bịa câu truy vấn với bảng cards"
+11,A,ViBIRD,Qwen2.5-Coder-7B / full,"Nội dung flavor text bằng tiếng Ý của thẻ bài ""Ancestor's Chosen"" là gì?",SELECT T1.flavorText FROM foreign_data AS T1 JOIN cards AS T2 ON T1.uuid = T2.uuid WHERE T2.faceName = 'Ancestor''s Chosen' AND T1.language = 'Italian';,SELECT T2.flavorText FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T2.uuid = T1.uuid WHERE T1.name = 'Ancestor''s Chosen' AND T2.language = 'Italian',Thiếu bảng cần thiết trong schema,"• Schema rút gọn thiếu cột name (cards) và language (foreign_data) nên mô hình buộc phải dùng faceName; lỗi gốc do bước lọc schema bỏ cột cần thiết, không phải mô hình chọn sai cột. Lưu ý SQL sinh ra lẽ ra phải lỗi vì cột language không có trong schema được cung cấp.
+• Schema được cung cấp thiếu cột name của cards và language của foreign_data; mô hình dùng faceName thay cho name.
+• Bước lọc schema làm mất cột cards.name, khiến mô hình phải dùng cột thay thế là cards.faceName dù evidence đã chỉ rõ name."
+12,A,ViBIRD,Qwen2.5-Coder-7B / full,"Trong số các bài viết do csgillespie sở hữu, có bao nhiêu bài viết là root posts?","SELECT COUNT(*) 
+FROM posts 
+WHERE OwnerDisplayName = 'csgillespie' AND ParentId IS NULL;",SELECT COUNT(T1.Id) FROM posts AS T1 INNER JOIN users AS T2 ON T1.OwnerUserId = T2.Id WHERE T2.DisplayName = 'csgillespie' AND T1.ParentId IS NULL,Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng users (dù FK vẫn tham chiếu users.Id), nên mô hình phải thay thế bằng posts.OwnerDisplayName dẫn đến sai kết quả. Ví dụ điển hình cho lỗi lọc schema.
+• Schema thiếu bảng users nên mô hình lọc theo posts.OwnerDisplayName thay vì nối users.DisplayName.
+• Bước lọc schema làm mất bảng users nên mô hình buộc phải dùng cột OwnerDisplayName trong bảng posts thay vì JOIN với bảng users để kiểm tra DisplayName."
+13,A,ViBIRD,Qwen2.5-Coder-7B / full,Hãy cho biết số lượt bình chọn cho bài đăng về data visualization.,"SELECT SUM(Score) AS Total_Votes
+FROM posts
+WHERE Title LIKE '%data visualization%';",SELECT COUNT(T1.Id) FROM posts AS T1 INNER JOIN votes AS T2 ON T1.Id = T2.PostId WHERE T1.Title LIKE '%data visualization%',Chọn sai bảng,"• Schema rút gọn thiếu cột Title của posts (mô hình vẫn dùng Title nên SQL lẽ ra phải lỗi) và thiếu thông tin để đếm votes; mô hình dùng SUM(Score) trên posts thay vì JOIN votes. Lỗi sớm nhất là thiếu thông tin cột/bảng trong schema do bước lọc.
+• Thiếu bảng votes; SUM(posts.Score) không phải số lượt bình chọn, cần đếm các bản ghi votes.
+• Mô hình thiếu bảng votes (được gán alias tiếng Việt là 'Đánh giá') và nhầm 'số lượt bình chọn' thành tổng cột Score của bảng posts (do mô tả cột Score ghi là 'Số lượt thích hoặc điểm của bài viết'). Ngoài ra bước lọc cột cũng làm mất cột Title trong schema của bảng posts nhưng mô hình vẫn tự suy luận ra được từ evidence."
+14,A,ViBIRD,Qwen2.5-Coder-7B / full,Trung bình số lượt up votes và tuổi trung bình của người dùng tạo ra hơn 10 bài đăng là bao nhiêu?,"SELECT AVG(users.UpVotes) AS AverageUpVotes, AVG(users.Age) AS AverageAge
+FROM users
+JOIN (
+    SELECT UserId
+    FROM comments
+    GROUP BY UserId
+    HAVING COUNT(PostId) > 10
+) AS high_activity_users ON users.Id = high_activity_users.UserId;","SELECT AVG(T1.UpVotes), AVG(T1.Age) FROM users AS T1 INNER JOIN ( SELECT OwnerUserId, COUNT(*) AS post_count FROM posts GROUP BY OwnerUserId HAVING post_count > 10) AS T2 ON T1.Id = T2.OwnerUserId",Chọn sai bảng,"• Mô hình đếm bình luận (bảng comments) thay vì đếm bài đăng (posts.OwnerUserId), dẫn đến sai tập người dùng.
+• Dùng comments thay vì posts để đếm bài đăng của người dùng.
+• Evidence của bộ dữ liệu ghi sai tên cột (Count(UserId) thay vì OwnerUserId trong bảng posts), khiến mô hình chọn nhầm bảng comments (có cột UserId và PostId) thay vì bảng posts."
+15,A,ViBIRD,Qwen2.5-Coder-7B / full,"Có bao nhiêu tag có số lượng bài viết nằm trong khoảng từ 5,000 đến 7,000?","SELECT COUNT(*) FROM tags WHERE ExcerptPostId IN (
+    SELECT Id FROM posts WHERE AnswerCount BETWEEN 5000 AND 7000
+);",SELECT COUNT(Id) FROM tags WHERE Count BETWEEN 5000 AND 7000,Thiếu bảng cần thiết trong schema,"• Schema rút gọn của bảng tags bị mất cột Count (cột cần thiết), buộc mô hình phải vòng qua posts.AnswerCount. Lỗi gốc do bước lọc schema bỏ cột, không phải mô hình chọn sai bảng.
+• Schema mô hình thiếu cột Count của bảng tags; mô hình dùng AnswerCount của posts thay thế. SQL tham chiếu hợp lý nếu schema gốc có tags.Count.
+• Bước lọc schema (schema linking) làm mất cột Count trong bảng tags, khiến mô hình phải cố gắng nối sang bảng posts và dùng cột AnswerCount để thay thế."
+16,A,ViBIRD,Qwen2.5-Coder-7B / full,Xác định chủng tộc của anh hùng siêu nhiên có cân nặng 169 kg.,SELECT T1.race_id FROM superhero AS T1 JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.weight_kg = 169;,SELECT T2.race FROM superhero AS T1 INNER JOIN race AS T2 ON T1.race_id = T2.id WHERE T1.weight_kg = 169,Thiếu bảng cần thiết trong schema,"• Bảng race không có trong schema được cung cấp nhưng mô hình vẫn JOIN được (SQL chạy ok); lỗi chính là SELECT race_id thay vì race.race (tên chủng tộc). Nhãn tự động 'Thiếu bảng' không chính xác vì bảng vẫn dùng được.
+• Schema thiếu bảng race nên mô hình chọn race_id thay vì tên chủng tộc; SQL vẫn chạy được.
+• Bước lọc schema làm mất bảng race; mô hình suy ra được tên bảng race từ khóa ngoại nhưng không biết tên cột T2.race nên chọn T1.race_id"
+17,A,ViBIRD,Qwen2.5-Coder-7B / full,Tên đầy đủ của anh hùng có giá trị thuộc tính cao nhất trong Strength là gì?,"SELECT s.full_name 
+FROM superhero s
+JOIN hero_attribute ha ON s.id = ha.hero_id
+JOIN attribute a ON ha.attribute_id = a.id
+WHERE a.attribute_name = 'strength' AND ha.attribute_value = (SELECT MAX(attribute_value) FROM hero_attribute WHERE attribute_id = (SELECT attribute_id FROM attribute WHERE attribute_name = 'strength'));",SELECT T1.full_name FROM superhero AS T1 INNER JOIN hero_attribute AS T2 ON T1.id = T2.hero_id INNER JOIN attribute AS T3 ON T2.attribute_id = T3.id WHERE T3.attribute_name = 'Strength' ORDER BY T2.attribute_value DESC LIMIT 1,Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng attribute (dù FK có nhắc tới), mô hình vẫn đoán đúng tên bảng/cột nhưng dùng sai cột con 'attribute_id' trong truy vấn con; nguyên nhân gốc là thiếu bảng attribute. Ngoài ra giá trị 'strength' viết thường thay vì 'Strength'.
+• Schema được cung cấp thiếu bảng attribute; mô hình còn dùng 'strength' thay vì 'Strength'.
+• Schema thiếu bảng attribute nên không thấy giá trị mẫu 'Strength' viết hoa; đồng thời evidence cũng viết thường 'strength' gây hiểu nhầm cho mô hình (SQLite phân biệt hoa thường với dấu =)."
+18,A,ViBIRD,Qwen2.5-Coder-7B / full,"Đối với cuộc đua diễn ra vào ngày 2015/11/29, có bao nhiêu tay đua đã hoàn thành trò chơi?","SELECT COUNT(DISTINCT driverId) AS numberOfDriversCompleted
+FROM lapTimes
+JOIN races ON lapTimes.raceId = races.raceId
+WHERE DATE(races.date) = '2015-11-29';",SELECT COUNT(T2.driverId) FROM races AS T1 INNER JOIN results AS T2 ON T2.raceId = T1.raceId WHERE T1.date = '2015-11-29' AND T2.time IS NOT NULL,Thiếu bảng cần thiết trong schema,"• Schema thiếu bảng races (chỉ có trong FK) và thiếu cột results.time, nên mô hình không thể lọc theo time; thêm vào đó mô hình chọn sai bảng lapTimes. Lỗi sớm nhất là thiếu bảng/cột do lọc schema.
+• Schema thiếu bảng races và cột results.time cần cho điều kiện ngày đua và xác định tay đua hoàn thành.
+• Schema bị lọc thiếu bảng races và thiếu cột time trong bảng results"
+19,A,ViBIRD,Qwen2.5-Coder-7B / full,"Đối với cuộc đua diễn ra vào ngày 2015/11/29, có bao nhiêu tay đua không hoàn thành trò chơi?",SELECT COUNT(*) FROM pitStops WHERE raceId IN (SELECT raceId FROM races WHERE date = '2015-11-29') AND stop IS NULL;,SELECT COUNT(T2.driverId) FROM races AS T1 INNER JOIN results AS T2 ON T2.raceId = T1.raceId WHERE T1.date = '2015-11-29' AND T2.time IS NULL,Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng races và cột results.time; mô hình phải dùng pitStops.stop IS NULL nên sai bảng/cột. Lỗi gốc là lọc schema thiếu bảng/cột cần thiết.
+• Schema thiếu bảng races và cột results.time cần cho SQL tham chiếu; mô hình dùng pitStops.stop thay thế.
+• Schema lọc thiếu bảng races và thiếu cột time trong bảng results (khiến mô hình chọn bừa bảng pitStops). Ngoài ra, phần dịch tiếng Việt của evidence bị ngược nghĩa ('nên có ghi nhận trong cột time' thay vì NULL/không có ghi nhận)."
+20,A,ViBIRD,Qwen2.5-Coder-7B / full,Hãy cho biết tên và ngày của lượt đua cuối cùng trong năm 1999.,"SELECT r.date, c.name AS circuit_name
+FROM races r
+JOIN circuits c ON r.circuitid = c.circuitid
+WHERE r.year = 1999
+ORDER BY r.round DESC
+LIMIT 1;","SELECT name, date FROM races WHERE year = 1999 ORDER BY round DESC LIMIT 1",Chọn sai bảng,"• Schema rút gọn thiếu cột races.name và round nên mô hình JOIN sang circuits lấy tên đường đua thay vì tên lượt đua; lỗi bắt nguồn từ lọc schema (thiếu cột) dẫn đến thừa bảng circuits.
+• Schema được cung cấp thiếu cột name và round của races; mô hình lấy tên đường đua từ circuits thay vì tên lượt đua.
+• Bước lọc cột làm mất cột name và round của bảng races, khiến mô hình phải tự suy diễn và JOIN thừa sang bảng circuits để lấy tên."
+22,A,ViBIRD,Qwen2.5-Coder-7B / full,Ai là người vô địch giải Australian Grand Prix năm 2008 và tôi có thể tìm hiểu thêm về anh ấy ở đâu?,"SELECT DISTINCT r.driverid, r.position, r.points, r.laps, r.grid, r.rank, r.statusid, d.forename, d.surname, d.nationality, d.dob, d.url
+FROM results r
+JOIN drivers d ON r.driverid = d.driverid
+WHERE r.raceid = 19 AND r.position = 1;","SELECT T1.forename, T1.surname, T1.url FROM drivers AS T1 INNER JOIN results AS T2 ON T1.driverId = T2.driverId INNER JOIN races AS T3 ON T3.raceId = T2.raceId WHERE T3.name = 'Australian Grand Prix' AND T2.time LIKE '_:%:__.___' AND T3.year = 2008",Thiếu bảng cần thiết trong schema,"• Schema thiếu bảng races (và drivers) nên mô hình phải đoán raceId = 19 thay vì lọc theo name='Australian Grand Prix' và year=2008; đồng thời SELECT thừa nhiều cột. Lỗi gốc là do bước lọc schema bỏ mất bảng cần thiết.
+• Schema thiếu races và drivers; mô hình dùng raceId = 19 thay cho lọc tên giải, năm và định dạng thời gian.
+• Schema bị lọc mất bảng drivers và races cùng cột results.time; mô hình phải tự đoán tên cột của drivers từ trí nhớ và đoán mò raceId = 19."
+24,A,ViBIRD,Qwen2.5-Coder-7B / full,Liệt kê tên tham chiếu của các tay đua đã vượt qua vòng đua thứ hai trong chặng đua số 23. Ghi nhận quốc tịch và ngày sinh của họ.,"SELECT d.driverRef, d.nationality, d.dob
+FROM drivers d
+JOIN results r ON d.driverId = r.driverId
+WHERE r.raceId = 23 AND r.position <= 2;","SELECT T2.driverRef, T2.nationality, T2.dob FROM qualifying AS T1 INNER JOIN drivers AS T2 on T1.driverId = T2.driverId WHERE T1.raceId = 23 AND T1.q2 IS NOT NULL",Thiếu bảng cần thiết trong schema,"• Schema lọc thiếu bảng qualifying (chứa q2) nên mô hình buộc phải dùng results.position; cũng thiếu cột driverRef trong bảng drivers được hiển thị. Ví dụ tốt về lỗi lọc schema.
+• Schema thiếu bảng qualifying chứa q2; mô hình dùng results.position <= 2 thay thế.
+• Schema bị lọc mất bảng qualifying và cột driverRef của bảng drivers, dù trong evidence có nhắc đến q2 và driverRef."
+25,A,ViBIRD,Qwen2.5-Coder-7B / full,Liệt kê các cầu thủ bóng đá sinh năm 1970 và tháng sinh là tháng 10.,"SELECT * FROM Player WHERE strftime('%Y-%m', birthday) = '1970-10';","SELECT player_name FROM Player WHERE SUBSTR(birthday, 1, 7) = '1970-10'",Sai cột,"• Điều kiện đúng nhưng SELECT * thay vì player_name; schema rút gọn thiếu cột player_name nên mô hình phải dùng *. Có thể dùng minh họa lỗi lọc cột.
+• SQL mô hình dùng SELECT * thay vì player_name; schema được cung cấp lại thiếu cột player_name mà SQL tham chiếu cần.
+• Bước lọc cột trong schema linking đã bỏ sót cột player_name của bảng Player, khiến mô hình phải dùng SELECT *."
+26,A,ViBIRD,Qwen2.5-Coder-7B / full,Vui lòng liệt kê các giải đấu từ Đức.,"SELECT DISTINCT T1.league_id 
+FROM Match AS T1 
+JOIN Country AS T2 ON T1.country_id = T2.id 
+WHERE T2.name = 'Germany';",SELECT t2.name FROM Country AS t1 INNER JOIN League AS t2 ON t1.id = t2.country_id WHERE t1.name = 'Germany',Thiếu bảng cần thiết trong schema,"• Schema (bị cắt) vẫn có tham chiếu tới League qua khóa ngoại; mô hình dùng bảng Match và trả về league_id thay vì JOIN Country-League để lấy League.name. Nếu bảng League thực sự không có trong schema thì nhãn tự động đúng, nhưng theo phần FK hiển thị thì League có mặt nên đây là lỗi chọn sai bảng/sai cột trả về.
+• Schema chỉ có Match; thiếu League và Country để lấy tên giải đấu theo quốc gia.
+• Bước lọc schema bỏ sót bảng League và Country nên mô hình phải chọn cột league_id từ bảng Match và tự đoán bảng Country từ evidence."
+27,A,ViBIRD,Qwen2.5-Coder-7B / full,Có bao nhiêu trận đấu trong mùa giải 2008/2009 được tổ chức ở Belgium?,"SELECT COUNT(*) 
+FROM Match 
+JOIN Country ON Match.country_id = Country.id 
+WHERE Country.name = 'Belgium' AND Match.date LIKE '2008%';",SELECT COUNT(t2.id) FROM Country AS t1 INNER JOIN Match AS t2 ON t1.id = t2.country_id WHERE t1.name = 'Belgium' AND t2.season = '2008/2009',Thiếu bảng cần thiết trong schema,"• Schema rút gọn thiếu cột season của bảng Match (và bảng Country không được hiển thị), buộc mô hình thay bằng date LIKE '2008%' nên sai kết quả. Lỗi gốc do bước lọc schema loại bỏ thông tin cần thiết.
+• Schema chỉ có Match, thiếu Country và cột season; mô hình phải dùng điều kiện ngày thay cho mùa giải.
+• Schema bị lọc mất bảng Country và cột Match.season. Mô hình tự suy ra được bảng Country nhờ evidence nhưng phải dùng cột Match.date thay cho Match.season"
+28,A,ViBIRD,Qwen2.5-Coder-7B / full,"Giới tính của bệnh nhân được chẩn đoán là PSS trong một lần khám sức khỏe và có mức độ protein C-reactive trong máu là 2+, creatinine là 1 và LDH là 123 trong một lần xét nghiệm máu?","SELECT P.SEX 
+FROM Patient P 
+JOIN Examination E ON P.ID = E.ID 
+JOIN Laboratory L ON P.ID = L.ID 
+WHERE P.Diagnosis = 'PSS' AND L.CRP = 2 AND L.CRE = 1 AND L.LDH = 123;",SELECT T1.SEX FROM Patient AS T1 INNER JOIN Examination AS T2 ON T1.ID = T2.ID INNER JOIN Laboratory AS T3 ON T3.ID = T2.ID WHERE T2.Diagnosis = 'PSS' AND T3.CRP = '2+' AND T3.CRE = 1.0 AND T3.LDH = 123,Sai cột,"• Mô hình dùng CRP = 2 thay vì CRP = '2+' (cột TEXT), và lấy Diagnosis từ Patient thay vì Examination. Lỗi chính là sai giá trị điều kiện. Lưu ý schema rút gọn không liệt kê cột LDH nhưng SQL vẫn chạy được.
+• Dùng Patient.Diagnosis thay vì Examination.Diagnosis; đồng thời dùng CRP = 2 thay vì '2+'.
+• Mô hình dùng sai cột P.Diagnosis thay vì E.Diagnosis và sai giá trị CRP = 2 thay vì '2+'. Ngoài ra, evidence bị sai (ghi CRP > 2 trong khi câu hỏi và SQL tham chiếu là CRP = '2+') và bước lọc schema làm thiếu cột Laboratory.LDH."
+29,A,ViBIRD,Qwen2.5-Coder-7B / full,Liệt kê tất cả các bệnh nhân ngoại khoa có creatinine phosphokinase trong phạm vi bình thường. Hãy cho tôi các id duy nhất.,"SELECT DISTINCT Patient.ID 
+FROM Patient 
+JOIN Laboratory ON Patient.ID = Laboratory.ID 
+WHERE Laboratory.CPK < 250 AND Patient.Description IS NULL;",SELECT DISTINCT T1.ID FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.CPK < 250 AND T1.Admission = '-',Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất cột Patient.Admission (bảng Patient có nhưng thiếu cột cần thiết), nên mô hình buộc phải thay bằng Description IS NULL. Lỗi gốc do bước lọc schema; nếu danh mục chỉ xét thiếu bảng thì gần nhất là nhãn này, bản chất là 'thiếu cột trong schema'.
+• Schema thiếu cột Patient.Admission cần để lọc bệnh nhân ngoại khoa; mô hình dùng Description IS NULL thay thế. Danh mục không có nhãn thiếu cột trong schema.
+• Bước lọc schema làm mất cột Admission của bảng Patient (dù đã có trong evidence), khiến mô hình phải chọn đại cột Description."
+30,A,ViBIRD,Qwen2.5-Coder-7B / full,"Trong số các bệnh nhân có mức IGG ở mức bình thường, có bao nhiêu người được nhập viện?","SELECT COUNT(*) 
+FROM Examination 
+JOIN Laboratory ON Examination.ID = Laboratory.ID 
+JOIN Patient ON Examination.ID = Patient.ID 
+WHERE IGG BETWEEN 900 AND 2000 AND Admission = '+';",SELECT COUNT(T1.ID) FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.IGG > 900 AND T2.IGG <2000 AND  T1.Admission = '+',Chọn sai bảng,"• Mô hình thừa bảng Examination, JOIN này làm nhân bản dòng và đếm sai; ngoài ra BETWEEN bao gồm biên 900/2000 trong khi evidence yêu cầu khoảng mở. Lỗi sớm nhất là thừa bảng.
+• Mô hình thừa bảng Examination, khiến kết quả đếm bị ảnh hưởng; BETWEEN cũng lấy cả hai mốc, khác điều kiện nghiêm ngặt trong evidence.
+• Mô hình JOIN thừa bảng Examination không cần thiết và dùng BETWEEN thay vì toán tử so sánh ngặt (<, >)"
+32,A,ViBIRD,Qwen2.5-Coder-7B / full,Ngày sinh của bệnh nhân lớn tuổi nhất có đường huyết bất thường là khi nào?,"SELECT T1.Birthday 
+FROM Patient AS T1 
+JOIN Examination AS T2 ON T1.ID = T2.ID 
+JOIN Laboratory AS T3 ON T1.ID = T3.ID 
+WHERE T3.GLU > 180 
+ORDER BY T1.Birthday ASC 
+LIMIT 1;",SELECT T1.Birthday FROM Patient AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.GLU > 180 ORDER BY T1.Birthday ASC LIMIT 1,Chọn sai bảng,"• Mô hình JOIN thừa bảng Examination không cần thiết; tuy logic lọc GLU>180 đúng nhưng JOIN thừa có thể nhân bản dòng/đổi kết quả. Nhãn tự động phù hợp.
+• JOIN thừa bảng Examination, có thể loại bệnh nhân không có bản ghi trong bảng này.
+• Mô hình JOIN thừa bảng Examination (có thể bị nhầm lẫn do cả hai bảng Examination và Laboratory đều có tên tiếng Việt trong schema là 'Kết quả xét nghiệm')."
+33,A,ViBIRD,Qwen2.5-Coder-7B / full,Vui lòng liệt kê tên các sự kiện mà Maya Mclean đã tham gia.,"SELECT e.event_name 
+FROM event e 
+JOIN attendance a ON e.event_id = a.link_to_event 
+JOIN member m ON a.link_to_member = m.member_id 
+WHERE m.member_id = 'rec28ORZgcm1dtqBZ';",SELECT T1.event_name FROM event AS T1 INNER JOIN attendance AS T2 ON T1.event_id = T2.link_to_event INNER JOIN member AS T3 ON T2.link_to_member = T3.member_id WHERE T3.first_name = 'Maya' AND T3.last_name = 'Mclean',Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất cột first_name/last_name của bảng member nên mô hình buộc phải đoán member_id cứng. Lỗi gốc do bước lọc schema (thiếu cột cần thiết), không phải mô hình chọn sai cột.
+• Schema thiếu các cột first_name và last_name của bảng member; mô hình lọc bằng member_id thay vì tên.
+• Bước lọc schema làm mất cột first_name và last_name trong bảng member, khiến mô hình đoán bừa giá trị từ member_id."
+34,A,ViBIRD,Qwen2.5-Coder-7B / full,Hãy liệt kê họ của tất cả các sinh viên đã chọn chuyên ngành Law and Constitutional Studies.,"SELECT m.first_name 
+FROM member m 
+JOIN major j ON m.link_to_major = j.major_id 
+WHERE j.major_name = 'Law and Constitutional Studies';",SELECT T1.last_name FROM member AS T1 INNER JOIN major AS T2 ON T1.link_to_major = T2.major_id WHERE T2.major_name = 'Law and Constitutional Studies',Sai cột,"• Schema chú thích ngược: first_name được mô tả là 'Họ', last_name là 'Tên'. Câu hỏi hỏi 'họ' nên mô hình chọn first_name theo đúng mô tả schema; SQL tham chiếu lấy last_name. Lỗi do dịch/chú thích họ-tên không nhất quán, mô hình chọn sai cột theo tham chiếu.
+• Mô hình chọn first_name thay vì last_name; alias tiếng Việt của hai cột bị đảo, dễ gây nhầm lẫn.
+• Trong schema làm giàu (full), alias và mô tả tiếng Việt dịch ngược 'first_name' thành 'Họ' và 'last_name' thành 'Tên', khiến mô hình chọn nhầm cột first_name khi câu hỏi yêu cầu 'họ' (last_name)."
+35,A,ViBIRD,Qwen2.5-Coder-7B / full,Tổng số tiền đã chi tiêu cho thực phẩm là bao nhiêu?,SELECT SUM(cost) AS total_spent_on_food FROM expense WHERE expense_description LIKE '%Food%',SELECT SUM(spent) FROM budget WHERE category = 'Food',Thiếu bảng cần thiết trong schema,"• Schema lọc ra bảng budget nhưng thiếu cột category — không có cột nào để lọc 'Food', buộc mô hình phải dùng expense_description. Lỗi gốc do bước lọc schema (thiếu cột cần thiết), không phải mô hình chọn sai bảng.
+• Schema có bảng budget nhưng thiếu cột category cần để lọc thực phẩm; mô hình chuyển sang expense và lọc mô tả.
+• Bước lọc schema làm mất cột category của bảng budget, khiến mô hình không thể dùng bảng budget như trong evidence mà chuyển sang dùng bảng expense."
+36,A,ViBIRD,Qwen2.5-Coder-7B / full,"Hãy liệt kê tên đầy đủ và tổng chi phí mà thành viên có mã ID ""rec4BLdZHS2Blfp4v"" đã chịu.","SELECT m.first_name || ' ' || m.last_name AS full_name, SUM(e.cost) AS total_expense
+FROM member m
+JOIN expense e ON m.member_id = e.link_to_member
+WHERE m.member_id = 'rec4BLdZHS2Blfp4v'
+GROUP BY m.first_name, m.last_name;","SELECT T1.first_name, T1.last_name, SUM(T2.cost) FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE T1.member_id = 'rec4BLdZHS2Blfp4v'",Khác,"• SQL mô hình đúng về mặt ngữ nghĩa, chỉ khác định dạng đầu ra: nối first_name và last_name thành một cột thay vì trả về hai cột như tham chiếu. Nhãn tự động 'Sai hàm gộp hoặc GROUP BY' không chính xác vì GROUP BY ở đây không làm sai kết quả; lỗi thực chất là khác định dạng cột trả về.
+• Mô hình ghép first_name và last_name thành một cột, trong khi SQL tham chiếu trả về hai cột riêng; phép SUM và JOIN đều đúng.
+• Mô hình nối chuỗi hai cột first_name và last_name thành 1 cột trong khi SQL tham chiếu chọn 2 cột riêng lẻ; GROUP BY trong SQL mô hình thực chất không làm sai kết quả của 1 thành viên."
+37,A,ViBIRD,Qwen2.5-Coder-7B / full,Vui lòng liệt kê số điện thoại của các thành viên đã tốt nghiệp khoa Business tại College of Agriculture and Applied Sciences.,"SELECT m.phone 
+FROM member m 
+JOIN major ma ON m.link_to_major = ma.major_id 
+WHERE ma.major_name = 'Business' AND m.zip IN (
+    SELECT z.zip_code 
+    FROM zip_code z 
+    WHERE z.city = 'College of Agriculture and Applied Sciences'
+);",SELECT T1.phone FROM member AS T1 INNER JOIN major AS T2 ON T2.major_id = T1.link_to_major WHERE T2.major_name = 'Business' AND T2.college = 'College of Agriculture and Applied Sciences',Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất bảng major (chỉ còn khóa ngoại), thiếu cột major_name/college nên mô hình đoán 'college' là thành phố trong zip_code. Ví dụ điển hình lỗi lọc schema.
+• Schema thiếu bảng major chứa cột college; mô hình dùng zip_code.city thay cho major.college.
+• Bước lọc schema bỏ sót bảng major nên mô hình không biết có cột college trong major và tự suy đoán qua bảng zip_code"
+38,A,ViBIRD,Qwen2.5-Coder-7B / full,Liệt kê các email của những người đã trả hơn 20 đô la trong khoảng từ 9/10/2019 đến 11/19/2019.,"SELECT DISTINCT m.email 
+FROM member m 
+JOIN income i ON m.member_id = i.link_to_member 
+WHERE i.amount > 20 AND i.notes LIKE '%paid more than $20%';","SELECT DISTINCT T1.email FROM member AS T1 INNER JOIN expense AS T2 ON T1.member_id = T2.link_to_member WHERE date(SUBSTR(T2.expense_date, 1, 10)) BETWEEN '2019-09-10' AND '2019-11-19' AND T2.cost > 20",Chọn sai bảng,"• Mô hình dùng bảng income thay vì expense, bỏ qua điều kiện ngày và thêm LIKE vô nghĩa trên notes; nhãn tự động hợp lý.
+• Dùng income thay vì expense để tìm người chi tiêu; đồng thời thiếu điều kiện ngày.
+• Mô hình chọn sai bảng income thay vì bảng expense mặc dù đã có gợi ý rõ trong phần evidence, dẫn đến sai toàn bộ điều kiện lọc."
+39,A,ViBIRD,Qwen2.5-Coder-7B / full,"Sinh viên nào có quê hương ở Lincolnton, North Carolina với zip code 28092? Hãy liệt kê họ tên đầy đủ và vị trí của họ.","SELECT m.first_name, m.last_name, m.phone 
+FROM member m 
+JOIN zip_code z ON m.zip = z.zip_code 
+WHERE z.city = 'Lincolnton' AND z.state = 'North Carolina' AND m.zip = 28092;","SELECT T1.first_name, T1.last_name, T1.position FROM member AS T1 INNER JOIN zip_code AS T2 ON T2.zip_code = T1.zip WHERE T2.city = 'Lincolnton' AND T2.state = 'North Carolina' AND T2.zip_code = 28092",Sai cột,"• Schema bị lược cột member.position và zip_code.state; mô hình buộc phải thay bằng phone và vẫn dùng z.state không có trong schema. Lỗi gốc là do bước lọc schema bỏ mất cột cần thiết, không phải mô hình chọn nhầm cột.
+• Mô hình chọn phone thay vì position; schema được cung cấp cũng không liệt kê position và state.
+• Bước lọc schema làm mất cột position trong bảng member, khiến mô hình chọn nhầm cột phone"
+40,A,ViBIRD,Qwen2.5-Coder-7B / full,Loại tiền tệ mà khách hàng thanh toán vào lúc 16:25:00 vào ngày 2012/8/24 là gì?,"SELECT c.Currency 
+FROM customers c 
+JOIN transactions_1k t ON c.CustomerID = t.CardID 
+WHERE t.Date = '2012-08-24' AND t.Time = '16:25:00';",SELECT DISTINCT T3.Currency FROM transactions_1k AS T1 INNER JOIN gasstations AS T2 ON T1.GasStationID = T2.GasStationID INNER JOIN customers AS T3 ON T1.CustomerID = T3.CustomerID WHERE T1.Date = '2012-08-24' AND T1.Time = '16:25:00',Sai cột,"• Schema bị lọc mất cột transactions_1k.CustomerID (và bảng gasstations, tuy bảng này không ảnh hưởng kết quả), khiến mô hình join sai bằng CardID = CustomerID. Lỗi gốc là thiếu cột khóa ngoại chứ không phải thiếu bảng; FK trong schema cũng bị hỏng (customers.None).
+• Schema thiếu gasstations và cột transactions_1k.CustomerID cần để nối đúng với customers; mô hình nối nhầm CustomerID với CardID.
+• Bước lọc cột đã làm mất cột CustomerID trong bảng transactions_1k của schema đầu vào, khiến mô hình phải JOIN sai qua cột CardID. Ngoài ra nhãn tự động bắt nhầm lỗi thiếu bảng gasstations (bảng này thừa trong SQL tham chiếu)."
+42,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Những năm nào đã sản xuất các xe có trọng lượng từ ít nhất 3000 đến nhiều nhất 4000?,"SELECT DISTINCT YEAR
+FROM cars_data
+WHERE Horsepower BETWEEN 3000 AND 4000;",select distinct year from cars_data where weight between 3000 and 4000;,Sai cột,"• Mô hình dùng Horsepower thay vì Weight trong điều kiện BETWEEN; ví dụ rõ về lỗi chọn sai cột của model 0.5B.
+• Mô hình lọc Horsepower thay vì Weight; khoảng 3000–4000 là trọng lượng xe.
+• Mô hình chọn nhầm cột Horsepower thay vì Weight cho 'trọng lượng'"
+43,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Horsepower của chiếc xe có tốc độ tăng tốc cao nhất là bao nhiêu?,SELECT MAX(Horsepower) FROM cars_data WHERE Accelerate > 0;,SELECT T1.horsepower FROM CARS_DATA AS T1 ORDER BY T1.accelerate DESC LIMIT 1;,Sai hàm gộp hoặc GROUP BY,"• Mô hình lấy MAX(Horsepower) thay vì ORDER BY Accelerate DESC LIMIT 1; thêm điều kiện thừa Accelerate > 0. Lỗi sớm nhất theo thứ tự là dùng sai hàm gộp.
+• Mô hình lấy horsepower lớn nhất thay vì horsepower của xe có Accelerate lớn nhất.
+• Mô hình dùng hàm MAX trên cột cần lấy (Horsepower) thay vì sắp xếp giảm dần theo cột điều kiện (Accelerate) và dùng LIMIT 1"
+44,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Horsepower của chiếc xe có tốc độ tăng tốc cao nhất là bao nhiêu?,SELECT MAX(Horsepower) FROM cars_data WHERE Accelerate > 0;,SELECT T1.horsepower FROM CARS_DATA AS T1 ORDER BY T1.accelerate DESC LIMIT 1;,Sai hàm gộp hoặc GROUP BY,"• Mô hình dùng MAX(Horsepower) thay vì ORDER BY Accelerate DESC LIMIT 1; hiểu sai 'cao nhất' áp cho cột nào, thêm điều kiện thừa Accelerate > 0.
+• Mô hình lấy horsepower lớn nhất thay vì horsepower của xe có Accelerate lớn nhất.
+• Mô hình dùng hàm MAX trực tiếp lên cột Horsepower kèm điều kiện WHERE thừa, thay vì sắp xếp theo cột Accelerate giảm dần và lấy LIMIT 1."
+45,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Có bao nhiêu xe có hơn 6 xi lanh?,SELECT COUNT(*) FROM cars_data WHERE MPG > 6,SELECT COUNT(*) FROM CARS_DATA WHERE Cylinders  >  6;,Sai cột,"• Mô hình dùng cột MPG thay vì Cylinders dù schema có đủ cột; đúng bảng, đúng toán tử và giá trị.
+• Mô hình dùng MPG thay vì Cylinders để lọc xe có hơn 6 xi lanh.
+• Mô hình chọn sai cột MPG thay vì Cylinders trong điều kiện WHERE (không ánh xạ được 'xi lanh' sang 'Cylinders')."
+46,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Airline 'JetBlue Airways' có bao nhiêu chuyến bay?,SELECT COUNT(*) FROM flights WHERE Airline = 'JetBlue Airways';,"SELECT count(*) FROM FLIGHTS AS T1 JOIN AIRLINES AS T2 ON T1.Airline  =  T2.uid WHERE T2.Airline = ""JetBlue Airways""",Chọn sai bảng,"• Mô hình thiếu bảng airlines và không JOIN qua flights.Airline = airlines.uid; so sánh cột khóa số với tên hãng dạng text nên kết quả rỗng. Ví dụ tốt cho lỗi thiếu JOIN.
+• Thiếu JOIN với airlines; mô hình so sánh mã hãng bay với tên hãng.
+• Mô hình thiếu JOIN bảng airlines (schema không khai báo khóa ngoại giữa flights.Airline và airlines.uid) và lọc nhầm tên hãng trên cột ID kiểu số nguyên."
+49,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,"Các số hiệu chuyến bay của các chuyến bay đến sân bay ""APG"" là gì?",SELECT COUNT(*) FROM flights WHERE SourceAirport = 'APG',"SELECT FlightNo FROM FLIGHTS WHERE DestAirport  =  ""APG""",Sai cột,"• Mô hình dùng SourceAirport thay vì DestAirport và trả về COUNT(*) thay vì FlightNo; lỗi cột xuất hiện sớm nhất nên giữ nhãn 'Sai cột'.
+• Mô hình đếm chuyến bay thay vì lấy số hiệu, đồng thời lọc sân bay đi thay vì sân bay đến.
+• Mô hình chọn sai cột điều kiện (SourceAirport thay vì DestAirport) và dùng thừa hàm COUNT(*) thay vì lấy cột FlightNo"
+51,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Hãy cho biết các số hiệu chuyến bay khởi hành từ Aberdeen.,SELECT COUNT(*) FROM flights WHERE SourceAirport = 'Aberdeen',"SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.SourceAirport   =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",Chọn sai bảng,"• Mô hình bỏ JOIN với airports, so sánh mã sân bay với tên thành phố 'Aberdeen'; ngoài ra còn dùng COUNT(*) thay vì liệt kê FlightNo. Lỗi sớm nhất là thiếu bảng airports trong truy vấn.
+• Thiếu JOIN với airports để lọc theo City; đồng thời dùng COUNT(*) thay vì trả về FlightNo.
+• Mô hình thiếu JOIN với bảng airports để lọc theo tên thành phố và dùng COUNT(*) thay vì lấy cột FlightNo."
+52,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,"Các số hiệu chuyến bay của các chuyến bay đến thành phố ""Aberdeen"" là gì?",SELECT COUNT(*) FROM flights WHERE DestAirport = 'Aberdeen',"SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport   =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",Chọn sai bảng,"• Thiếu JOIN với airports để ánh xạ City sang AirportCode; ngoài ra còn trả COUNT(*) thay vì FlightNo. Lỗi sớm nhất là chọn/thiếu bảng.
+• Thiếu JOIN với airports để lọc theo City; đồng thời dùng COUNT(*) thay vì lấy FlightNo.
+• Mô hình thiếu JOIN với bảng airports để lấy tên thành phố và dùng sai COUNT(*) thay vì lấy cột FlightNo."
+53,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Hãy cho biết các số hiệu chuyến bay đến Aberdeen.,SELECT COUNT(*) FROM flights WHERE DestAirport = 'Aberdeen';,"SELECT T1.FlightNo FROM FLIGHTS AS T1 JOIN AIRPORTS AS T2 ON T1.DestAirport   =  T2.AirportCode WHERE T2.City  =  ""Aberdeen""",Chọn sai bảng,"• Mô hình bỏ JOIN với airports (so sánh DestAirport với tên thành phố), đồng thời trả COUNT(*) thay vì FlightNo. Lỗi sớm nhất theo thứ tự là thiếu bảng airports.
+• Thiếu bảng airports để lọc theo thành phố Aberdeen; đồng thời đếm chuyến bay thay vì trả về số hiệu.
+• Mô hình thiếu JOIN bảng airports để lọc theo tên thành phố và dùng sai COUNT(*) thay vì lấy cột FlightNo"
+54,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Liệt kê tên của các nhân viên và sắp xếp theo tuổi tăng dần.,SELECT e.Name FROM employee e JOIN evaluation ev ON e.Employee_ID = ev.Employee_ID JOIN hiring h ON ev.Employee_ID = h.Employee_ID JOIN shop s ON h.Shop_ID = s.Shop_ID ORDER BY e.Age ASC;,SELECT name FROM employee ORDER BY age,Chọn sai bảng,"• Mô hình JOIN thừa 3 bảng không cần thiết, làm mất/nhân bản hàng; chỉ cần truy vấn bảng employee
+• Mô hình JOIN thừa ba bảng, có thể làm thiếu hoặc lặp tên nhân viên.
+• Mô hình nhỏ (0.5B) ở chế độ baseline bị nhiễu bởi schema đầy đủ nên JOIN thừa tất cả các bảng trong database dù câu hỏi chỉ cần truy vấn 1 bảng."
+55,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Số lượng sản phẩm tối thiểu và tối đa trên tất cả các shop là bao nhiêu?,"SELECT COUNT(*) AS min_products, COUNT(*) AS max_products
+FROM shop;","SELECT min(Number_products) ,  max(Number_products) FROM shop",Sai hàm gộp hoặc GROUP BY,"• Mô hình dùng COUNT(*) thay vì MIN/MAX trên cột Number_products; lỗi hàm gộp là nguyên nhân chính (kèm sai cột).
+• Dùng COUNT(*) thay vì MIN và MAX trên Number_products.
+• Mô hình dùng COUNT(*) thay vì MIN và MAX trên cột Number_products"
+56,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Tìm tên của các cửa hàng có số lượng sản phẩm lớn hơn mức trung bình.,SELECT DISTINCT s.Name FROM shop s JOIN hiring h ON s.Shop_ID = h.Shop_ID JOIN evaluation e ON h.Employee_ID = e.Employee_ID WHERE s.Number_products > (SELECT AVG(e.Bonus) FROM evaluation e),SELECT name FROM shop WHERE number_products  >  (SELECT avg(number_products) FROM shop),Chọn sai bảng,"• Mô hình thừa JOIN hiring/evaluation và tính trung bình trên cột Bonus của bảng evaluation thay vì AVG(Number_products) của shop; lỗi sớm nhất là chọn sai bảng.
+• Mô hình nối thừa hiring và evaluation, đồng thời so sánh số sản phẩm với trung bình tiền thưởng thay vì trung bình số sản phẩm.
+• Mô hình dùng thừa bảng hiring và evaluation, đồng thời tính trung bình sai trên cột Bonus thay vì Number_products"
+58,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Tìm tên của những nhân viên chưa từng giành được bất kỳ giải thưởng nào trong evaluation.,"SELECT e.Name FROM employee e
+WHERE e.Employee_ID NOT IN (
+    SELECT e2.Employee_ID FROM evaluation e2
+    JOIN hiring h ON e2.Employee_ID = h.Employee_ID
+)",SELECT name FROM employee WHERE Employee_ID NOT IN (SELECT Employee_ID FROM evaluation),Chọn sai bảng,"• Mô hình thừa JOIN với bảng hiring trong subquery, làm thu hẹp tập nhân viên đã nhận thưởng; chỉ cần truy vấn bảng evaluation.
+• JOIN thừa bảng hiring khiến nhân viên có evaluation nhưng không có bản ghi hiring bị tính là chưa nhận giải.
+• Mô hình JOIN thừa bảng hiring trong câu truy vấn con làm thu hẹp tập loại trừ"
+59,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Tổng số tiền bonus được trao trong tất cả các lượt đánh giá là bao nhiêu?,"SELECT SUM(e.Bonus) FROM evaluation e
+JOIN hiring h ON e.Employee_ID = h.Employee_ID
+JOIN shop s ON h.Shop_ID = s.Shop_ID;",SELECT sum(bonus) FROM evaluation,Chọn sai bảng,"• Mô hình thêm JOIN thừa với hiring và shop, làm nhân bản/mất dòng nên tổng bonus sai; chỉ cần SUM trên bảng evaluation.
+• JOIN thừa với hiring và shop có thể nhân bản các khoản bonus, làm sai tổng.
+• Mô hình JOIN thừa bảng hiring và shop làm sai lệch kết quả tính tổng."
+60,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Có bao nhiêu địa điểm cửa hàng khác nhau?,"SELECT COUNT(DISTINCT shop.Name) FROM shop
+JOIN hiring ON shop.Shop_ID = hiring.Shop_ID
+JOIN employee ON hiring.Employee_ID = employee.Employee_ID
+WHERE hiring.Is_full_time = FALSE;",SELECT count(DISTINCT LOCATION) FROM shop,Chọn sai bảng,"• Chỉ cần đếm DISTINCT Location trong bảng shop; mô hình thừa JOIN hiring/employee, sai cột (Name thay Location) và thêm điều kiện Is_full_time không có trong câu hỏi. Lỗi sớm nhất là chọn thừa bảng.
+• Mô hình thêm bảng hiring và employee không cần thiết; đồng thời đếm Name thay vì Location và lọc nhân viên bán thời gian.
+• Mô hình JOIN thừa hai bảng hiring, employee, chọn sai cột (Name thay vì Location) và tự bịa thêm điều kiện WHERE không có trong câu hỏi."
+61,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Đếm số lượng địa điểm cửa hàng khác nhau.,"SELECT COUNT(DISTINCT shop.District) FROM shop
+LEFT JOIN hiring ON shop.Shop_ID = hiring.Shop_ID
+LEFT JOIN evaluation ON hiring.Employee_ID = evaluation.Employee_ID
+WHERE hiring.Is_full_time = FALSE;",SELECT count(DISTINCT LOCATION) FROM shop,Chọn sai bảng,"• Đúng bảng shop nhưng đếm District thay vì Location, lại thừa JOIN và điều kiện Is_full_time không có trong câu hỏi; nhãn tự động 'Chọn sai bảng' chưa chính xác.
+• Thừa bảng hiring và evaluation; đồng thời đếm District thay vì Location và thêm điều kiện nhân viên không toàn thời gian.
+• Mô hình JOIN thừa bảng hiring và evaluation, chọn sai cột District thay vì Location, và tự bịa điều kiện WHERE không có trong câu hỏi."
+63,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Các id của các documents nào chứa cả đoạn văn bản 'Brazil' và 'Ireland'?,"SELECT Documents.Document_ID
+FROM Documents
+JOIN Paragraphs ON Documents.Document_ID = Paragraphs.Document_ID
+JOIN Templates ON Documents.Template_ID = Templates.Template_ID
+WHERE Templates.Template_Details LIKE '%Brazil%' OR Templates.Template_Details LIKE '%Ireland%';",SELECT document_id FROM Paragraphs WHERE paragraph_text  =  'Brazil' INTERSECT SELECT document_id FROM Paragraphs WHERE paragraph_text  =  'Ireland',Chọn sai bảng,"• Mô hình thừa bảng Templates và tìm trong Template_Details thay vì Paragraphs.Paragraph_Text; đồng thời dùng OR thay vì INTERSECT nên không thỏa 'cả hai'. Lỗi sớm nhất là chọn sai bảng.
+• Mô hình tìm trong Templates thay vì Paragraphs; đồng thời dùng OR thay vì yêu cầu cả hai đoạn văn bản.
+• Mô hình dùng thừa bảng Documents và Templates, đặt điều kiện lọc ở cột Template_Details thay vì Paragraph_Text và dùng OR thay vì INTERSECT."
+66,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Có bao nhiêu tàu đã kết thúc với trạng thái 'Captured'?,SELECT COUNT(*) FROM battle WHERE result = 'Captured',SELECT count(*) FROM ship WHERE disposition_of_ship  =  'Captured',Chọn sai bảng,"• Mô hình đếm trên bảng battle với cột result thay vì ship.disposition_of_ship; sai bảng kéo theo sai cột.
+• Mô hình đếm trận chiến theo result thay vì đếm tàu theo disposition_of_ship.
+• Mô hình chọn nhầm bảng battle và cột result thay vì bảng ship và cột disposition_of_ship."
+67,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Các id và tên khác nhau của các trận chiến đã mất bất kỳ tàu loại 'Brig' nào?,"SELECT DISTINCT T1.id, T1.name FROM battle AS T1 INNER JOIN death AS T2 ON T1.id = T2.caused_by_ship_id INNER JOIN ship AS T3 ON T2.caused_by_ship_id = T3.id WHERE T3.ship_type = 'Brig'","SELECT DISTINCT T1.id ,  T1.name FROM battle AS T1 JOIN ship AS T2 ON T1.id  =  T2.lost_in_battle WHERE T2.ship_type  =  'Brig'",Chọn sai bảng,"• Mô hình thêm thừa bảng death và join sai (battle.id = death.caused_by_ship_id) thay vì join trực tiếp battle.id = ship.lost_in_battle
+• Mô hình thêm bảng death không cần thiết và nối battle.id với death.caused_by_ship_id thay vì ship.lost_in_battle.
+• Mô hình dùng thừa bảng death và nối sai khóa ngoại thay vì nối trực tiếp battle và ship"
+68,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Liệt kê từng ngôn ngữ và số lượng kênh truyền hình sử dụng nó.,"SELECT T2.Language, COUNT(T1.id) AS Total_Views
+FROM Cartoon AS T1
+JOIN TV_Channel AS T2 ON T1.Channel = T2.id
+GROUP BY T2.Language;","SELECT LANGUAGE ,  count(*) FROM TV_Channel GROUP BY LANGUAGE",Chọn sai bảng,"• Chỉ cần đếm trên TV_Channel, mô hình thừa JOIN với Cartoon nên đếm sai số kênh theo ngôn ngữ
+• Mô hình nối thêm bảng Cartoon nên đếm phim hoạt hình thay vì đếm kênh theo ngôn ngữ.
+• Mô hình dùng thừa bảng Cartoon nên đếm số lượng phim hoạt hình thay vì số kênh truyền hình."
+69,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Trung bình số tiền kiếm được của các tay chơi poker là bao nhiêu?,SELECT AVG(Earnings) FROM poker_player WHERE People_ID IN (SELECT People_ID FROM people WHERE Nationality = 'Trung bình'),SELECT avg(Earnings) FROM poker_player,Chọn sai bảng,"• Mô hình hiểu nhầm 'Trung bình' (average) thành giá trị quốc tịch, thêm điều kiện WHERE thừa; hàm AVG và bảng đều đúng.
+• Mô hình dùng thừa bảng people để lọc quốc tịch theo 'Trung bình', dù câu hỏi chỉ yêu cầu AVG(Earnings).
+• Mô hình hiểu nhầm từ 'Trung bình' (AVG) trong câu hỏi thành giá trị quốc tịch trong bảng people, dẫn đến việc dùng thừa bảng people và thêm điều kiện WHERE sai."
+70,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Hạng tiền thưởng (Money_Rank) của người chơi poker cao nhất (tallest) là gì?,SELECT Money_Rank FROM poker_player ORDER BY Money_Rank DESC LIMIT 1,SELECT T2.Money_Rank FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID ORDER BY T1.Height DESC LIMIT 1,Chọn sai bảng,"• Mô hình bỏ JOIN với bảng people nên sắp xếp theo Money_Rank thay vì Height; lỗi sớm nhất là thiếu bảng people.
+• Thiếu bảng people để xác định người chơi cao nhất theo Height; mô hình lại sắp xếp theo Money_Rank.
+• Mô hình hiểu nhầm 'cao nhất' (tallest) thành hạng tiền thưởng cao nhất thay vì chiều cao (Height), nên bỏ qua bảng people và sắp xếp sai cột."
+71,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,"Tên và ngày sinh của các người, được sắp xếp theo thứ tự bảng chữ cái của tên.","SELECT T1.Name, T1.Birth_Date FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID = T2.People_ID ORDER BY T1.Name ASC;","SELECT Name ,  Birth_Date FROM people ORDER BY Name ASC",Chọn sai bảng,"• Mô hình thừa JOIN với poker_player, giới hạn kết quả chỉ còn người chơi poker thay vì tất cả người trong bảng people.
+• JOIN thừa bảng poker_player, có thể loại bỏ những người không phải người chơi poker.
+• Mô hình JOIN thừa bảng poker_player vì không được lọc schema (nhận cả 2 bảng)."
+72,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Diện tích mặt đất tổng thể của các quốc gia thuộc khu vực Caribbean là bao nhiêu?,SELECT SUM(T2.SurfaceArea) FROM city AS T1 INNER JOIN country AS T2 ON T1.CountryCode = T2.Code WHERE T2.Continent = 'Caribbean',"SELECT sum(SurfaceArea) FROM country WHERE Region  =  ""Caribbean""",Chọn sai bảng,"• Thừa JOIN với bảng city (gây nhân bản dòng) và dùng sai cột Continent thay vì Region; lỗi sớm nhất là chọn thừa bảng
+• Thừa bảng city, khiến diện tích bị cộng lặp theo số thành phố; đồng thời lọc Continent thay vì Region.
+• Mô hình JOIN thừa bảng city làm sai lệch kết quả SUM, đồng thời chọn sai cột điều kiện (Continent thay vì Region)."
+74,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Có bao nhiêu học sinh trung học?,SELECT COUNT(DISTINCT T1.student_id) FROM Friend AS T1 JOIN Likes AS T2 ON T1.student_id = T2.student_id JOIN Highschooler AS T3 ON T2.liked_id = T3.ID,SELECT count(*) FROM Highschooler,Chọn sai bảng,"• Chỉ cần đếm trên bảng Highschooler nhưng mô hình JOIN thừa Friend và Likes, dẫn đến đếm sai.
+• Mô hình đếm học sinh có quan hệ bạn bè và thích người khác thay vì đếm toàn bộ học sinh trong Highschooler.
+• Mô hình JOIN thừa hai bảng Friend và Likes trong khi chỉ cần đếm trên bảng Highschooler"
+76,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Đếm số lượng học sinh ở lớp 9 hoặc lớp 10.,"SELECT COUNT(DISTINCT H.ID) FROM Friend AS F JOIN Likes AS L ON F.student_id = L.student_id JOIN Highschooler AS H ON L.liked_id = H.ID WHERE H.grade IN (9, 10);",SELECT count(*) FROM Highschooler WHERE grade  =  9 OR grade  =  10,Chọn sai bảng,"• Chỉ cần đếm trên bảng Highschooler nhưng mô hình JOIN thừa Friend và Likes, làm hẹp kết quả. Nhãn tự động chính xác.
+• Mô hình thêm Friend và Likes, khiến chỉ đếm học sinh lớp 9 hoặc 10 xuất hiện trong các quan hệ này.
+• Mô hình JOIN thừa hai bảng Friend và Likes trong khi chỉ cần truy vấn trên bảng Highschooler"
+78,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Tìm số lượng chủ không sở hữu bất kỳ con chó nào tại thời điểm hiện tại.,SELECT COUNT(DISTINCT T1.owner_id) FROM Owners AS T1 INNER JOIN Dogs AS T2 ON T1.owner_id = T2.owner_id WHERE T2.abandoned_yn = 'N',SELECT count(*) FROM Owners WHERE owner_id NOT IN ( SELECT owner_id FROM Dogs ),Sai điều kiện hoặc giá trị,"• Tham chiếu yêu cầu chủ KHÔNG có con chó nào (NOT IN). Mô hình lại INNER JOIN và lọc abandoned_yn='N', tức đếm chủ CÓ chó — sai logic phủ định của điều kiện.
+• Mô hình đếm chủ có chó chưa bị bỏ rơi, thay vì chủ không có chó trong bảng Dogs; cần điều kiện loại trừ chủ xuất hiện trong Dogs.
+• Mô hình dùng INNER JOIN kèm điều kiện abandoned_yn = 'N' thay vì dùng NOT IN để tìm chủ không có chó."
+80,B,ViSpider,Qwen2.5-Coder-0.5B / baseline,Tên của các ca sĩ không có quốc tịch Pháp là gì?,SELECT Name FROM singer WHERE Citizenship != 'Pháp';,"SELECT Name FROM singer WHERE Citizenship != ""France""",Sai điều kiện hoặc giá trị,"• Mô hình dùng giá trị tiếng Việt 'Pháp' thay vì 'France' trong DB; nhãn tự động 'Sai cột' không chính xác
+• Mô hình dùng giá trị 'Pháp' thay vì 'France' trong cơ sở dữ liệu.
+• Mô hình dịch giá trị 'France' sang tiếng Việt 'Pháp' thay vì giữ nguyên giá trị tiếng Anh trong database."
+82,C,ViSpider,Qwen2.5-Coder-7B / full,Nhà sản xuất của chiếc xe được sản xuất sớm nhất là gì và năm đó là năm nào?,"SELECT cm.FullName, cd.Year 
+FROM car_makers cm 
+JOIN model_list ml ON cm.Id = ml.Maker 
+JOIN cars_data cd ON ml.ModelId = cd.Id 
+ORDER BY cd.Year ASC 
+LIMIT 1;","SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);",Chọn sai bảng,"• Mô hình join sai: dùng car_makers/model_list và nối ml.ModelId = cd.Id (sai khóa), trong khi tham chiếu chỉ cần cars_data JOIN car_names qua MakeId; kết quả trả về FullName thay vì Make.
+• Mô hình nối model_list.ModelId với cars_data.Id thay vì dùng car_names; đồng thời LIMIT 1 bỏ sót các xe cùng năm sớm nhất.
+• Câu hỏi dịch 'make' (mẫu xe cụ thể trong cột car_names.Make) thành 'nhà sản xuất', khiến mô hình hiểu nhầm sang bảng car_makers. Ngoài ra mô hình còn JOIN sai khóa ngoại và dùng LIMIT 1 thay vì lọc theo MIN(Year)."
+83,C,ViSpider,Qwen2.5-Coder-7B / full,Có bao nhiêu xe có tốc độ tăng tốc cao hơn mức tối đa của các loại xe?,SELECT COUNT(*) FROM cars_data WHERE Accelerate > (SELECT MAX(Accelerate) FROM cars_data);,SELECT COUNT(*) FROM CARS_DATA WHERE Accelerate  >  ( SELECT Accelerate FROM CARS_DATA ORDER BY Horsepower DESC LIMIT 1 );,Khác,"• Câu hỏi tiếng Việt mơ hồ, không thể hiện ý 'xe có mã lực lớn nhất'. SQL tham chiếu so sánh Accelerate của xe có Horsepower cao nhất, còn mô hình dùng MAX(Accelerate) nên luôn trả về 0. Lỗi chính do dùng sai cột/điều kiện so sánh, nhưng câu hỏi dịch cũng có vấn đề.
+• Câu hỏi nói mức tăng tốc tối đa, nhưng SQL tham chiếu lấy Accelerate của xe có Horsepower cao nhất. SQL mô hình phù hợp hơn với cách hiểu trực tiếp của câu hỏi.
+• Câu hỏi dịch sai hoàn toàn ý nghĩa câu gốc (thiếu thông tin 'xe có mã lực cao nhất' - highest horsepower car), khiến câu hỏi trở nên vô nghĩa."
+84,C,ViSpider,Qwen2.5-Coder-7B / full,Mã của sân bay nào có số lượng chuyến bay ít nhất?,"SELECT SourceAirport 
+FROM flights 
+GROUP BY SourceAirport 
+ORDER BY COUNT(*) ASC 
+LIMIT 1;",SELECT T1.AirportCode FROM AIRPORTS AS T1 JOIN FLIGHTS AS T2 ON T1.AirportCode  =  T2.DestAirport OR T1.AirportCode  =  T2.SourceAirport GROUP BY T1.AirportCode ORDER BY count(*) LIMIT 1,Chọn sai bảng,"• Mô hình chỉ đếm chuyến bay đi (SourceAirport) từ bảng flights, bỏ qua JOIN với airports để gộp cả chuyến đến và đi theo AirportCode.
+• Mô hình chỉ đếm chuyến bay xuất phát, bỏ qua chuyến bay đến và bảng airports.
+• Mô hình thiếu bảng airports và chỉ đếm chuyến bay theo cột SourceAirport (sân bay đi), trong khi cần kết nối với bảng airports để đếm tổng số chuyến bay cả đi lẫn đến (SourceAirport hoặc DestAirport)."
+85,C,ViSpider,Qwen2.5-Coder-7B / full,Biên mã hóa của hãng hàng không có số lượng chuyến bay ít nhất là gì và nó nằm ở quốc gia nào?,"SELECT T1.CountryAbbrev, COUNT(*) as MinFlights 
+FROM airports AS T1 
+JOIN flights AS T2 ON T1.AirportCode = T2.SourceAirport 
+GROUP BY T1.CountryAbbrev 
+ORDER BY MinFlights ASC 
+LIMIT 1;","SELECT T1.Abbreviation ,  T1.Country FROM AIRLINES AS T1 JOIN FLIGHTS AS T2 ON T1.uid  =  T2.Airline GROUP BY T1.Airline ORDER BY count(*) LIMIT 1",Chọn sai bảng,"• Mô hình hiểu nhầm 'biên mã hóa' thành CountryAbbrev của bảng airports, dùng airports+flights thay vì airlines+flights; nguyên nhân do alias 'Biên mã' gây nhiễu.
+• Mô hình đếm chuyến bay theo quốc gia sân bay xuất phát thay vì theo hãng hàng không, rồi trả mã quốc gia thay vì tên viết tắt và quốc gia của hãng.
+• Câu hỏi dịch 'abbreviation' thành 'biên mã hóa' (từ vô nghĩa) và gán alias 'Biên mã' cho cột airports.CountryAbbrev trong schema, khiến mô hình chọn nhầm bảng airports thay vì airlines."
+87,C,ViSpider,Qwen2.5-Coder-7B / full,Tìm xếp hạng trung bình cho mỗi người chơi và tên đầu tiên của họ.,"SELECT AVG(rankings.ranking) AS average_ranking, players.first_name 
+FROM rankings 
+JOIN players ON rankings.player_id = players.player_id 
+GROUP BY players.player_id, players.first_name;","SELECT avg(ranking) ,  T1.first_name FROM players AS T1 JOIN rankings AS T2 ON T1.player_id  =  T2.player_id GROUP BY T1.first_name",Sai hàm gộp hoặc GROUP BY,"• SQL mô hình gộp theo player_id (hợp lý về ngữ nghĩa 'mỗi người chơi'), tham chiếu gộp theo first_name nên khác kết quả. SQL tham chiếu có vấn đề; sai lệch chủ yếu ở GROUP BY.
+• SQL mô hình nhóm theo player_id và first_name, đúng với yêu cầu mỗi người chơi; SQL tham chiếu chỉ nhóm theo first_name nên gộp những người chơi trùng tên.
+• SQL tham chiếu chỉ GROUP BY first_name nên gộp nhầm các người chơi trùng tên. Mô hình GROUP BY theo player_id là hợp lý hơn."
+89,C,ViSpider,Qwen2.5-Coder-7B / full,Những quốc gia châu Á nào có dân số lớn hơn bất kỳ quốc gia nào ở châu Phi?,SELECT Name FROM country WHERE Continent = 'Asia' AND Population > (SELECT MAX(Population) FROM country WHERE Continent = 'Africa');,"SELECT Name FROM country WHERE Continent  =  ""Asia""  AND population  >  (SELECT min(population) FROM country WHERE Continent  =  ""Africa"")",Sai hàm gộp hoặc GROUP BY,"• Mô hình dùng MAX, tham chiếu dùng MIN. Câu hỏi 'lớn hơn bất kỳ quốc gia nào ở châu Phi' mơ hồ: hiểu theo nghĩa 'lớn hơn mọi nước' thì MAX đúng; tham chiếu theo nghĩa 'lớn hơn ít nhất một nước' nên dùng MIN. Nhãn tự động 'Sai cột' không chính xác.
+• Mô hình dùng MAX thay vì MIN: lớn hơn ít nhất một quốc gia châu Phi chỉ cần vượt dân số nhỏ nhất.
+• Cụm 'lớn hơn bất kỳ' (larger than any) gây nhập nhằng ngôn ngữ giữa MAX (lớn hơn tất cả) và MIN (lớn hơn ít nhất một). Trong tiếng Việt tự nhiên, mô hình dùng MAX hợp lý hơn SQL tham chiếu dùng MIN."
+90,C,ViSpider,Qwen2.5-Coder-7B / full,"Tên, năm giải phóng và diện tích của quốc gia có dân số nhỏ nhất là gì?","SELECT Name, IndepYear, SurfaceArea 
+FROM country 
+ORDER BY Population ASC 
+LIMIT 1;","SELECT Name ,  SurfaceArea ,  IndepYear FROM country ORDER BY Population LIMIT 1",Khác,"• SQL mô hình đúng về mặt ngữ nghĩa, chỉ khác thứ tự cột trong SELECT (IndepYear trước SurfaceArea) nên bị chấm sai; lỗi đánh giá do so khớp thứ tự cột, không phải lỗi ORDER BY/LIMIT.
+• SQL mô hình chọn đúng quốc gia nhưng đảo thứ tự hai cột diện tích và năm giải phóng so với SQL tham chiếu; thứ tự cột của mô hình lại khớp câu hỏi.
+• Mô hình chọn đúng các cột và đúng thứ tự trong câu hỏi (Tên, năm giải phóng, diện tích), nhưng SQL tham chiếu lại đảo thứ tự hai cột SurfaceArea và IndepYear."
+91,C,ViSpider,Qwen2.5-Coder-7B / full,Tìm số lượng các thành phố trong mỗi district có dân số lớn hơn dân số trung bình của các thành phố?,"SELECT District, COUNT(*) AS NumberOfCities
+FROM city
+WHERE Population > (SELECT AVG(Population) FROM city)
+GROUP BY District;","SELECT count(*) ,  District FROM city WHERE Population  >  (SELECT avg(Population) FROM city) GROUP BY District",Khác,"• SQL tương đương về mặt ngữ nghĩa, chỉ khác thứ tự cột trong SELECT nên bị chấm sai; lỗi do cách so khớp kết quả, không phải lỗi mô hình.
+• Hai SQL tương đương; chỉ khác thứ tự cột SELECT và bí danh, không phải lỗi truy vấn.
+• Mô hình sinh đúng câu truy vấn nhưng thứ tự hai cột trong SELECT bị đảo ngược so với SQL tham chiếu"
+92,C,ViSpider,Qwen2.5-Coder-7B / full,Tìm tên chính phủ và tổng dân số cho từng chính phủ có độ tuổi thọ trung bình dài hơn 72.,"SELECT c.GovernmentForm, SUM(p.Population) AS TotalPopulation
+FROM country c
+JOIN city p ON c.Code = p.CountryCode
+GROUP BY c.GovernmentForm
+HAVING AVG(c.LifeExpectancy) > 72;","SELECT sum(Population) ,  GovernmentForm FROM country GROUP BY GovernmentForm HAVING avg(LifeExpectancy)  >  72",Chọn sai bảng,"• Mô hình JOIN thừa bảng city và tính tổng dân số thành phố thay vì dùng country.Population, làm sai cả tổng dân số lẫn trọng số của AVG(LifeExpectancy).
+• Thừa bảng city; cộng dân số thành phố thay vì dân số quốc gia, đồng thời phép JOIN làm lặp các dòng quốc gia.
+• Mô hình JOIN thừa bảng city và lấy tổng dân số từ city.Population thay vì lấy trực tiếp từ country.Population."
+93,C,ViSpider,Qwen2.5-Coder-7B / full,Tìm tuổi thọ trung bình và tổng dân số cho mỗi lục địa nơi tuổi thọ trung bình ngắn hơn 72?,"SELECT c.Continent, AVG(c.LifeExpectancy) AS AvgLifeExpectancy, SUM(c.Population) AS TotalPopulation
+FROM country c
+WHERE c.LifeExpectancy < 72
+GROUP BY c.Continent;","SELECT sum(Population) ,  avg(LifeExpectancy) ,  Continent FROM country GROUP BY Continent HAVING avg(LifeExpectancy)  <  72",Sai điều kiện hoặc giá trị,"• Mô hình dùng WHERE LifeExpectancy < 72 để lọc từng quốc gia, trong khi tham chiếu dùng HAVING avg(LifeExpectancy) < 72 để lọc theo lục địa; câu hỏi tiếng Việt mơ hồ nhưng ngữ cảnh 'mỗi lục địa' nghiêng về HAVING. Nhãn tự động 'Sai hàm gộp hoặc GROUP BY' chưa chính xác vì GROUP BY đúng, lỗi nằm ở vị trí điều kiện lọc.
+• Lọc từng quốc gia có tuổi thọ dưới 72 bằng WHERE, thay vì lọc lục địa theo tuổi thọ trung bình bằng HAVING.
+• Mô hình dùng WHERE thay vì HAVING cho điều kiện trên giá trị trung bình của nhóm (do alias của cột LifeExpectancy cũng là 'Tuổi thọ trung bình' gây nhầm lẫn)."
+94,C,ViSpider,Qwen2.5-Coder-7B / full,Mã của các quốc gia nơi tiếng Tây Ban Nha được nói với tỷ lệ lớn nhất là gì?,"SELECT c.Code 
+FROM country c 
+JOIN countrylanguage cl ON c.Code = cl.CountryCode 
+WHERE cl.Language = 'Spanish' 
+ORDER BY cl.Percentage DESC 
+LIMIT 1;","SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  ""Spanish"" GROUP BY CountryCode",Khác,"• SQL tham chiếu sai ngữ nghĩa: GROUP BY CountryCode trả về mọi quốc gia thay vì nước có tỷ lệ lớn nhất. SQL mô hình (ORDER BY ... LIMIT 1) mới đúng ý câu hỏi; sai lệch do tham chiếu, không phải do chọn sai bảng.
+• SQL tham chiếu trả mã và tỷ lệ lớn nhất theo từng quốc gia, không tìm quốc gia có tỷ lệ nói tiếng Tây Ban Nha cao nhất. SQL mô hình chỉ lấy một quốc gia; câu hỏi dùng số nhiều nên cũng chưa rõ cách xử lý đồng hạng.
+• SQL tham chiếu có vấn đề: GROUP BY CountryCode (với Language = 'Spanish' là khóa chính) không giúp tìm quốc gia có tỷ lệ lớn nhất và trả về thêm cột max(Percentage) không được yêu cầu. SQL mô hình sinh dùng ORDER BY ... LIMIT 1 hợp lý hơn với câu hỏi."
+95,C,ViSpider,Qwen2.5-Coder-7B / full,Trả về các mã quốc gia cho những quốc gia mà Tây Ban Nha là ngôn ngữ phổ biến nhất.,"SELECT c.Code
+FROM country c
+JOIN countrylanguage cl ON c.Code = cl.CountryCode
+WHERE cl.Language = 'Spanish' AND cl.Percentage = (SELECT MAX(Percentage) FROM countrylanguage WHERE Language = 'Spanish');","SELECT CountryCode ,  max(Percentage) FROM countrylanguage WHERE LANGUAGE  =  ""Spanish"" GROUP BY CountryCode",Khác,"• SQL tham chiếu chỉ GROUP BY theo quốc gia và lấy max tỷ lệ của tiếng Tây Ban Nha, không thực sự kiểm tra đó là ngôn ngữ phổ biến nhất; mô hình lại so với max toàn cục nên cũng sai. Lỗi chủ yếu do câu hỏi/SQL tham chiếu mơ hồ, không phải chọn sai bảng.
+• SQL tham chiếu trả thêm tỷ lệ cao nhất của tiếng Tây Ban Nha theo từng quốc gia, không kiểm tra đây có phải ngôn ngữ phổ biến nhất tại quốc gia đó. Mô hình lại chỉ lấy quốc gia có tỷ lệ tiếng Tây Ban Nha cao nhất toàn bộ bảng.
+• SQL tham chiếu bị sai logic hoàn toàn so với câu hỏi (trả về tất cả các nước có nói tiếng Tây Ban Nha và dư cột max(Percentage)). Cách giải đúng cho câu hỏi này trong bộ Spider gốc là dùng GROUP BY CountryCode HAVING Language = 'Spanish' kết hợp MAX(Percentage)."
+96,C,ViSpider,Qwen2.5-Coder-7B / full,Tên của nhạc trưởng đã làm việc lâu nhất là gì?,"SELECT conductor.Name 
+FROM conductor 
+JOIN orchestra ON conductor.Conductor_ID = orchestra.Conductor_ID 
+ORDER BY orchestra.Year_of_Founded ASC 
+LIMIT 1;",SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1,Chọn sai bảng,"• Mô hình join thừa bảng orchestra và sắp xếp theo Year_of_Founded thay vì dùng conductor.Year_of_Work; kéo theo sai cột và sai chiều sắp xếp. Mô tả cột Year_of_Work ('năm bắt đầu công việc') dễ gây nhầm.
+• Mô hình thừa bảng orchestra và xếp theo năm thành lập nhạc đoàn thay vì số năm làm việc của nhạc trưởng.
+• Mô tả cột Year_of_Work bị sai ('Năm bắt đầu công việc' thay vì 'Số năm làm việc') khiến mô hình không dùng cột này mà JOIN thừa sang bảng orchestra để sắp xếp theo Year_of_Founded."
+97,C,ViSpider,Qwen2.5-Coder-7B / full,Các id của những học sinh nào có cả bạn bè và được yêu thích?,SELECT student_id FROM Friend INTERSECT SELECT student_id FROM Likes;,SELECT student_id FROM Friend INTERSECT SELECT liked_id FROM Likes,Sai cột,"• Câu hỏi hỏi học sinh vừa có bạn vừa ""được"" yêu thích (liked_id), mô hình dùng student_id của Likes (người đi thích). Lỗi cột do hiểu sai hướng quan hệ bị động.
+• Mô hình chọn Likes.student_id (người thích) thay vì Likes.liked_id (người được thích).
+• Mô hình chọn sai cột student_id thay vì liked_id trong bảng Likes (do mô tả cột liked_id trong schema bị dịch sai thành 'Mã Nội Dung Yêu Thích' thay vì học sinh được yêu thích)."
+99,C,ViSpider,Qwen2.5-Coder-7B / full,Những chuyên gia nào đã thực hiện ít nhất hai loại treatment? Hãy liệt kê professional id và số điện thoại di động.,"SELECT p.professional_id, p.cell_number
+FROM Professionals p
+JOIN Treatments t ON p.professional_id = t.professional_id
+GROUP BY p.professional_id, p.cell_number
+HAVING COUNT(DISTINCT t.treatment_type_code) >= 2;","SELECT T1.professional_id ,  T1.cell_number FROM Professionals AS T1 JOIN Treatments AS T2 ON T1.professional_id  =  T2.professional_id GROUP BY T1.professional_id HAVING count(*)  >=  2",Khác,"• Mô hình đếm DISTINCT loại treatment (đúng ngữ nghĩa 'ít nhất hai loại'), SQL tham chiếu dùng count(*) nên đếm số lần điều trị. Lỗi thực chất nằm ở SQL tham chiếu; nhãn tự động 'Sai cột' không chính xác.
+• SQL mô hình đếm DISTINCT loại điều trị, đúng với câu hỏi; SQL tham chiếu đếm số lần điều trị nên có thể tính hai lần cùng một loại.
+• Câu hỏi dịch sai thành 'ít nhất hai loại treatment' khiến mô hình dùng COUNT(DISTINCT treatment_type_code) >= 2 (đúng với câu hỏi tiếng Việt), trong khi câu hỏi gốc của Spider là 'at least two treatments' nên SQL tham chiếu dùng COUNT(*) >= 2."
+100,C,ViSpider,Qwen2.5-Coder-7B / full,Tên và họ của các chuyên gia đã thực hiện các treatment với cost thấp hơn mức trung bình là gì?,"SELECT p.first_name, p.last_name
+FROM Professionals p
+JOIN Treatments t ON p.professional_id = t.professional_id
+WHERE t.cost_of_treatment < (SELECT AVG(cost_of_treatment) FROM Treatments);","SELECT DISTINCT T1.first_name ,  T1.last_name FROM Professionals AS T1 JOIN Treatments AS T2 WHERE cost_of_treatment  <  ( SELECT avg(cost_of_treatment) FROM Treatments )",Khác,"• SQL mô hình về cơ bản đúng logic, chỉ thiếu DISTINCT nên khác kết quả. SQL tham chiếu có JOIN không điều kiện (thiếu ON) nên tạo tích Descartes, bản thân nó đã có vấn đề. Nhãn tự động 'Sai cột' không chính xác.
+• SQL tham chiếu thiếu điều kiện JOIN giữa Professionals và Treatments, tạo tích Descartes; SQL mô hình nối đúng nhưng thiếu DISTINCT.
+• SQL tham chiếu bị lỗi thiếu điều kiện ON trong JOIN (tạo tích Đề-các) và dùng thêm DISTINCT. SQL của mô hình sinh mới là câu truy vấn đúng."
+101,C,ViBIRD,Qwen2.5-Coder-7B / full,"Xếp hạng các trường theo điểm trung bình môn Writing, với điều kiện điểm lớn hơn 499, đồng thời cho biết số charter của chúng.","SELECT 
+    s.School, 
+    ss.AvgScrWrite, 
+    COUNT(ss.cds) AS CharterCount
+FROM 
+    satscores ss
+JOIN 
+    schools s ON ss.cds = s.CDSCode
+WHERE 
+    ss.AvgScrWrite > 499 AND s.Charter IS NOT NULL
+GROUP BY 
+    s.School, 
+    ss.AvgScrWrite;","SELECT CharterNum, AvgScrWrite, RANK() OVER (ORDER BY AvgScrWrite DESC) AS WritingScoreRank FROM schools AS T1  INNER JOIN satscores AS T2 ON T1.CDSCode = T2.cds WHERE T2.AvgScrWrite > 499 AND CharterNum is not null",Sai cột,"• Mô hình chọn School và COUNT thay vì CharterNum, và lọc Charter IS NOT NULL thay vì CharterNum IS NOT NULL; cũng thiếu xếp hạng. Câu hỏi tiếng Việt mơ hồ ('số charter'), schema mô tả Charter sai (công lập/tư thục) gây nhầm lẫn.
+• Mô hình chọn tên trường và COUNT(cds) thay cho CharterNum, đồng thời thiếu RANK() theo điểm Writing giảm dần.
+• Mô hình hiểu nhầm 'số charter' (CharterNum - mã số charter) thành việc đếm số lượng (COUNT) và dùng sai cột điều kiện Charter thay vì CharterNum. Ngoài ra mô hình cũng thiếu hàm xếp hạng RANK() OVER."
+102,C,ViBIRD,Qwen2.5-Coder-7B / full,Có bao nhiêu thí sinh tham gia kỳ thi tại các trường có địa chỉ thư từ ở Fresno?,"SELECT SUM(s.NumTstTakr) AS TotalTestTakers
+FROM satscores s
+JOIN schools sc ON s.cds = sc.CDSCode
+WHERE sc.MailCity = 'Fresno';",SELECT T1.NumTstTakr FROM satscores AS T1 INNER JOIN schools AS T2 ON T1.cds = T2.CDSCode WHERE T2.MailCity = 'Fresno',Sai hàm gộp hoặc GROUP BY,"• Câu hỏi 'có bao nhiêu thí sinh' gợi ý tổng hợp (SUM), mô hình dùng SUM là hợp lý; SQL tham chiếu lại liệt kê từng giá trị NumTstTakr. Lỗi chủ yếu do câu hỏi/tham chiếu mơ hồ.
+• Câu hỏi hỏi tổng số thí sinh, nhưng SQL tham chiếu trả từng giá trị NumTstTakr; SUM của mô hình phù hợp hơn nếu có nhiều trường ở Fresno.
+• Câu hỏi hỏi tổng số thí sinh tại 'các trường' ở Fresno, mô hình dùng SUM(NumTstTakr) là hợp lý hơn SQL tham chiếu (chỉ liệt kê NumTstTakr của từng trường mà không cộng tổng)."
+103,C,ViBIRD,Qwen2.5-Coder-7B / full,Molecule TR000 có phải là chất gây ung thư hay không?,SELECT CASE WHEN label = '+' THEN 'Có' ELSE 'Không' END AS is_cancerous FROM molecule WHERE molecule_id = 'TR000';,SELECT label FROM molecule AS T WHERE T.molecule_id = 'TR000',Khác,"• Logic đúng (đúng bảng, cột, điều kiện) nhưng mô hình trả về chuỗi 'Có'/'Không' thay vì giá trị label '+'/'-' như tham chiếu, nên bị tính sai do khác định dạng kết quả.
+• SQL mô hình trả lời Có/Không theo evidence, còn SQL tham chiếu trả về nhãn +/−; khác định dạng nhưng cùng ý nghĩa.
+• Mô hình dùng CASE WHEN trả về 'Có'/'Không' theo đúng câu hỏi nghi vấn, trong khi SQL tham chiếu chỉ SELECT trực tiếp cột label ('+'/'-')."
+104,C,ViBIRD,Qwen2.5-Coder-7B / full,"Chi phí mana của các thẻ có layout normal, frameVersion 2003, borderColor màu đen và có sẵn cả ở paper và mtgo là bao nhiêu?","SELECT convertedManaCost 
+FROM cards 
+WHERE availability = 'mtgo,paper' 
+  AND frameVersion = '2003' 
+  AND borderColor = 'black';","SELECT manaCost FROM cards WHERE availability = 'mtgo,paper' AND borderColor = 'black' AND frameVersion = 2003 AND layout = 'normal'",Sai cột,"• Mô hình chọn convertedManaCost thay vì manaCost; ngoài ra schema bị lọc mất cột layout nên thiếu điều kiện layout='normal'. Lỗi sớm nhất theo thứ tự là sai cột.
+• Mô hình chọn convertedManaCost thay vì manaCost và bỏ điều kiện layout = 'normal'.
+• Mô hình chọn sai cột convertedManaCost thay vì manaCost trong SELECT, đồng thời bước lọc schema làm mất cột layout nên thiếu điều kiện WHERE layout = 'normal'."
+105,C,ViBIRD,Qwen2.5-Coder-7B / full,"Bộ bài thuộc nghệ sĩ nào có văn bản ""Das perfekte Gegenmittel zu einer dichten Formation""?",SELECT artist FROM cards WHERE text = 'Das perfekte Gegenmittel zu einer dichten Formation';,SELECT DISTINCT T1.artist FROM cards AS T1 INNER JOIN foreign_data AS T2 ON T1.uuid = T2.uuid WHERE T2.flavorText LIKE '%DAS perfekte Gegenmittel zu einer dichten Formation%',Thiếu bảng cần thiết trong schema,"• Schema lọc bỏ bảng foreign_data chứa flavorText tiếng Đức; mô hình buộc phải dùng cards.text nên sai. Ví dụ tốt cho lỗi lọc schema.
+• Schema thiếu bảng foreign_data chứa flavorText; mô hình phải tìm trong cards.text nên không thể đối chiếu đúng.
+• Bước lọc schema bỏ sót bảng foreign_data chứa thông tin văn bản bằng ngôn ngữ khác (flavorText), khiến mô hình phải tìm trong cột text của bảng cards."
+107,C,ViBIRD,Qwen2.5-Coder-7B / full,Bộ bài có tên Adarkar Valkyrie chỉ có sẵn ở ngoài Hoa Kỳ không?,"SELECT CASE WHEN COUNT(*) > 0 THEN 'Có' ELSE 'Không' END AS Result
+FROM cards
+WHERE faceName = 'Adarkar Valkyrie' AND isOnlineOnly = 1;","SELECT IIF(isForeignOnly = 1, 'YES', 'NO') FROM cards AS T1 INNER JOIN sets AS T2 ON T2.code = T1.setCode WHERE T1.name = 'Adarkar Valkyrie'",Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất cột isForeignOnly và name (chỉ còn faceName), nên mô hình thay bằng isOnlineOnly + faceName. Lỗi gốc là thiếu cột chứ không thiếu bảng (bảng sets trong SQL tham chiếu là thừa, không ảnh hưởng kết quả).
+• Schema thiếu bảng sets chứa isForeignOnly; mô hình dùng isOnlineOnly, không tương đương.
+• Schema bị lọc mất bảng sets cũng như các cột name, setCode của bảng cards, khiến mô hình buộc phải đoán bằng faceName và isOnlineOnly."
+108,C,ViBIRD,Qwen2.5-Coder-7B / full,Tiêu đề của bài đăng có liên kết bài đăng lâu đời nhất là gì?,"SELECT p.Title
+FROM posts p
+JOIN postLinks pl ON p.Id = pl.PostId
+ORDER BY pl.CreationDate ASC
+LIMIT 1;",SELECT T1.Title FROM posts AS T1 INNER JOIN postLinks AS T2 ON T2.PostId = T1.Id ORDER BY T1.CreaionDate LIMIT 1,Khác,"• SQL tham chiếu sắp xếp theo posts.CreaionDate (cột gõ sai, và không có trong schema đưa cho mô hình), trong khi câu hỏi/evidence nói về liên kết bài đăng lâu đời nhất. Mô hình dùng postLinks.CreationDate là hợp lý; lỗi chủ yếu do SQL tham chiếu/schema lọc.
+• SQL tham chiếu sắp xếp theo T1.CreaionDate (sai chính tả, không có trong schema); SQL mô hình dùng đúng postLinks.CreationDate theo evidence.
+• SQL tham chiếu sai logic (dùng ngày tạo của bảng posts thay vì bảng postLinks như câu hỏi yêu cầu) và dùng cột bị sai chính tả trong DB (CreaionDate); ngoài ra bộ lọc schema đã bỏ mất cột này ở bảng posts."
+109,C,ViBIRD,Qwen2.5-Coder-7B / full,Trung bình số siêu anh hùng không có màu da là bao nhiêu?,SELECT AVG(CASE WHEN skin_colour_id = 1 THEN 1 ELSE 0 END) AS average_no_skin_color FROM superhero;,SELECT CAST(COUNT(*) AS REAL) / SUM(CASE WHEN T2.id = 1 THEN 1 ELSE 0 END) FROM superhero AS T1 INNER JOIN colour AS T2 ON T1.skin_colour_id = T2.id,Sai hàm gộp hoặc GROUP BY,"• Schema có đủ bảng superhero (bảng colour chỉ dùng để join lại chính skin_colour_id, không bắt buộc), nên nhãn 'Thiếu bảng' không chính xác. Lỗi chính: mô hình tính AVG(CASE...) = tỷ lệ, trong khi tham chiếu yêu cầu COUNT(*)/SUM(CASE...) tức nghịch đảo. Bản thân câu hỏi/SQL tham chiếu cũng mơ hồ, công thức 'trung bình' không hợp lý về ngữ nghĩa.
+• Schema thiếu bảng colour mà SQL tham chiếu dùng; mô hình còn đảo tỷ lệ, tính số anh hùng không có màu da trên tổng số.
+• Evidence định nghĩa công thức trung bình bị ngược (tổng số chia cho số lượng thỏa mãn, tức là nghịch đảo của AVG). Mô hình dùng hàm AVG chuẩn thay vì tuân thủ mù quáng công thức sai trong evidence. Ngoài ra schema cũng thiếu bảng colour nhưng thực tế không cần JOIN bảng này vì đã có skin_colour_id."
+110,C,ViBIRD,Qwen2.5-Coder-7B / full,Hãy cho biết chặng đua và năm của chặng đua mà Michael Schumacher có vòng đua nhanh nhất.,"SELECT c.name AS CircuitName, r.year AS Year
+FROM results res
+JOIN drivers d ON res.driverid = d.driverid
+JOIN races r ON res.raceid = r.raceid
+JOIN circuits c ON r.circuitid = c.circuitid
+WHERE d.forename = 'Michael' AND d.surname = 'Schumacher'
+ORDER BY CAST(REPLACE(SUBSTR(res.fastestlapspeed, 4), ',', '') AS REAL) DESC
+LIMIT 1;","SELECT T1.name, T1.year FROM races AS T1 INNER JOIN lapTimes AS T2 ON T2.raceId = T1.raceId INNER JOIN drivers AS T3 ON T3.driverId = T2.driverId WHERE T3.forename = 'Michael' AND T3.surname = 'Schumacher' ORDER BY T2.milliseconds ASC LIMIT 1",Thiếu bảng cần thiết trong schema,"• Schema rút gọn thiếu bảng drivers, circuits và thiếu cột lapTimes.milliseconds, races.name nên không thể sinh SQL đúng; mô hình phải dùng results.fastestLapSpeed thay cho min(milliseconds).
+• Schema thiếu lapTimes.milliseconds và races.name; mô hình thay bằng tốc độ vòng nhanh nhất từ results.
+• Bước lọc schema làm mất bảng drivers và các cột cần thiết (races.name, lapTimes.milliseconds)."
+111,C,ViBIRD,Qwen2.5-Coder-7B / full,"Trong chặng đua F1 nào, Lewis Hamilton có hạng cao nhất?","SELECT r.round, r.name
+FROM races r
+JOIN results res ON r.raceid = res.raceid
+JOIN drivers d ON res.driverid = d.driverid
+WHERE d.forename = 'Lewis' AND d.surname = 'Hamilton'
+ORDER BY res.rank ASC
+LIMIT 1;",SELECT name FROM races WHERE raceId IN ( SELECT raceId FROM results WHERE rank = 1 AND driverId = ( SELECT driverId FROM drivers WHERE forename = 'Lewis' AND surname = 'Hamilton' ) ),Thiếu bảng cần thiết trong schema,"• Schema lọc bỏ mất bảng races và drivers (chỉ còn trong khóa ngoại), mô hình vẫn đoán đúng tên bảng/cột nhưng thừa cột round và dùng ORDER BY rank (rank có thể = 0/NULL) thay vì rank = 1; nguyên nhân sớm nhất là thiếu bảng trong schema.
+• Schema thiếu bảng races và drivers; SQL mô hình vẫn chạy nhờ các bảng có trong CSDL.
+• Schema thiếu bảng races và drivers (mô hình tự đoán từ FK và evidence nhưng chọn thừa cột round và dùng LIMIT 1 thay vì lấy hết đồng hạng). Ngoài ra SQL tham chiếu hardcode rank = 1 thay vì dùng MIN(rank) như trong evidence."
+112,C,ViBIRD,Qwen2.5-Coder-7B / full,"Liệt kê ID của các tay đua đứng trong top năm, theo thứ tự giảm dần về thời gian nhanh nhất trong vòng đầu tiên của cuộc đua.","SELECT driverId 
+FROM lapTimes 
+WHERE raceId = 1 
+ORDER BY time ASC 
+LIMIT 5;",SELECT driverId FROM lapTimes WHERE lap = 1 ORDER BY time LIMIT 5,Sai cột,"• Schema bị lọc mất cột time của lapTimes (SQL vẫn chạy do DB thực có cột này), đồng thời mô hình hiểu sai 'vòng đầu tiên' thành raceId = 1 thay vì lap = 1. Lỗi gốc là thiếu thông tin cột trong schema rút gọn.
+• Mô hình lọc raceId = 1 thay vì lap = 1. Câu hỏi yêu cầu thứ tự giảm dần nhưng SQL tham chiếu sắp xếp tăng dần; schema cũng không hiển thị cột time.
+• Mô hình dùng nhầm cột raceId thay vì lap cho điều kiện 'vòng đầu tiên' (một phần do cột lap bị gán alias tiếng Việt là 'Tròn'). Ngoài ra câu hỏi dịch sai 'ascending' thành 'giảm dần'."
+113,C,ViBIRD,Qwen2.5-Coder-7B / full,Liệt kê player_api_id của những cầu thủ có overall_rating cao hơn mức trung bình nhất trong năm 2010.,"SELECT player_api_id 
+FROM Player_Attributes 
+WHERE overall_rating > (SELECT AVG(overall_rating) FROM Player_Attributes WHERE date LIKE '2010%')","SELECT player_api_id FROM Player_Attributes WHERE SUBSTR(`date`, 1, 4) = '2010' ORDER BY overall_rating DESC LIMIT 1",Sai hàm gộp hoặc GROUP BY,"• Mô hình hiểu sai 'cao hơn mức trung bình nhất' thành so sánh với AVG, trong khi evidence yêu cầu MAX (ORDER BY ... DESC LIMIT 1); ngoài ra thiếu lọc năm 2010 ở câu ngoài. Lỗi gốc là hiểu sai điều kiện so sánh. Câu hỏi tiếng Việt diễn đạt tối nghĩa ('cao hơn mức trung bình nhất'), cột date cũng không có trong schema rút gọn.
+• Mô hình dùng AVG thay vì tìm điểm cao nhất, đồng thời không lọc năm 2010 ở truy vấn ngoài. Câu hỏi/evidence nói “cao hơn mức trung bình nhất” và MAX, nhưng SQL tham chiếu lấy đúng một cầu thủ có điểm cao nhất năm 2010.
+• Câu hỏi dịch sai cụm 'highest overall rating' thành 'cao hơn mức trung bình nhất' khiến mô hình hiểu nhầm là tính AVG thay vì tìm giá trị lớn nhất như trong evidence. Ngoài ra schema cũng lọc thiếu cột date."
+114,C,ViBIRD,Qwen2.5-Coder-7B / full,Hãy cho biết team_fifa_api_id của các đội có tốc độ xây dựng tấn công nằm trong khoảng từ 50 đến 60.,SELECT team_fifa_api_id FROM Team_Attributes WHERE buildUpPlaySpeed BETWEEN 50 AND 60;,SELECT DISTINCT team_fifa_api_id FROM Team_Attributes WHERE buildUpPlaySpeed > 50 AND buildUpPlaySpeed < 60,Sai điều kiện hoặc giá trị,"• Evidence nêu rõ >50 AND <60 nhưng mô hình dùng BETWEEN (bao gồm cả 50 và 60); ngoài ra thiếu DISTINCT. Lỗi sớm nhất là điều kiện.
+• BETWEEN lấy cả 50 và 60, trái với evidence yêu cầu lớn hơn 50 và nhỏ hơn 60; SQL cũng thiếu DISTINCT.
+• Mô hình dùng BETWEEN (bao gồm cả 50 và 60) thay vì > 50 AND < 60 như trong evidence đã cung cấp, đồng thời thiếu DISTINCT."
+116,C,ViBIRD,Qwen2.5-Coder-7B / full,Tên bệnh của bệnh nhân có mức triglyceride cao nhất trong phạm vi bình thường là gì?,"SELECT T2.Description 
+FROM Laboratory AS T1 
+JOIN Patient AS T2 ON T1.ID = T2.ID 
+WHERE T1.TG = (SELECT MAX(TG) FROM Laboratory WHERE TG < 200);",SELECT T1.Diagnosis FROM Examination AS T1 INNER JOIN Laboratory AS T2 ON T1.ID = T2.ID WHERE T2.TG < 200 ORDER BY T2.TG DESC LIMIT 1,Thiếu bảng cần thiết trong schema,"• Schema bị lọc mất cột Examination.Diagnosis (bảng Examination chỉ còn ID, Thrombosis), nên mô hình buộc phải lấy Patient.Description. Lỗi gốc từ bước lọc schema, không phải chọn sai bảng.
+• Schema mô hình nhận được thiếu cột Diagnosis của bảng Examination; mô hình chọn Patient.Description thay thế.
+• Schema bị lọc mất cột Diagnosis (dù đã nhắc trong evidence), khiến mô hình chọn nhầm bảng Patient và cột Description"
+117,C,ViBIRD,Qwen2.5-Coder-7B / full,Maya Mclean có tham gia sự kiện 'Women's Soccer' không?,"SELECT CASE WHEN EXISTS (
+    SELECT 1 
+    FROM attendance 
+    JOIN event ON attendance.link_to_event = event.event_id 
+    JOIN member ON attendance.link_to_member = member.member_id 
+    WHERE member.first_name = 'Maya' AND member.last_name = 'Mclean' AND event.event_name = 'Women''s Soccer'
+) THEN 'Có' ELSE 'Không' END AS has_attended;",SELECT CASE WHEN T3.event_name = 'Women''s Soccer' THEN 'YES' END AS result FROM member AS T1 INNER JOIN attendance AS T2 ON T1.member_id = T2.link_to_member INNER JOIN event AS T3 ON T2.link_to_event = T3.event_id WHERE T1.first_name = 'Maya' AND T1.last_name = 'Mclean',Khác,"• Logic truy vấn tương đương, chỉ khác định dạng giá trị trả về ('Có' vs 'YES'); schema cung cấp còn thiếu cột first_name dù mô hình vẫn dùng. SQL tham chiếu trả về NULL thay vì 'NO' — cách biểu diễn câu trả lời yes/no không chuẩn hóa.
+• Schema được cung cấp không có member.first_name, dù cả hai SQL đều dùng cột này. SQL tham chiếu cũng không trả lời rõ 'Không' khi không có bản ghi phù hợp.
+• Câu hỏi dạng Có/Không nhưng không quy định định dạng trả về: mô hình trả về 'Có'/'Không' bằng EXISTS (hợp lý hơn), trong khi SQL tham chiếu trả về 'YES' trên từng dòng sự kiện của thành viên."
+118,C,ViBIRD,Qwen2.5-Coder-7B / full,Hãy nêu danh mục các sự kiện được tổ chức tại MU 215.,SELECT event_name FROM event WHERE location = 'MU 215';,SELECT T2.category FROM event AS T1 INNER JOIN budget AS T2 ON T1.event_id = T2.link_to_event WHERE T1.location = 'MU 215',Thiếu bảng cần thiết trong schema,"• Schema rút gọn thiếu cột budget.category (bảng budget có nhưng không có cột category), nên mô hình không thể trả lời đúng; đây là lỗi lọc schema chứ không phải chọn sai bảng. Câu hỏi 'danh mục' ám chỉ category của dự toán.
+• Schema thiếu cột budget.category cần để trả lời danh mục sự kiện; mô hình chọn event_name thay thế.
+• Bước lọc schema làm mất cột category của bảng budget, đồng thời câu hỏi dịch 'category' thành 'danh mục các sự kiện' khiến mô hình hiểu nhầm là liệt kê tên sự kiện."
+119,C,ViBIRD,Qwen2.5-Coder-7B / full,; Difference in annual average = LAM's annual average - KAM's annual average; Difference in annual average = KAM's annual average - SME's annual average;,"SELECT 
+    (AVG(CASE WHEN c.Segment = 'LAM' THEN y.Consumption ELSE NULL END) - AVG(CASE WHEN c.Segment = 'KAM' THEN y.Consumption ELSE NULL END)) AS diff_LAM_KAM,
+    (AVG(CASE WHEN c.Segment = 'KAM' THEN y.Consumption ELSE NULL END) - AVG(CASE WHEN c.Segment = 'SME' THEN y.Consumption ELSE NULL END)) AS diff_KAM_SME
+FROM 
+    yearmonth y
+JOIN 
+    customers c ON y.CustomerID = c.CustomerID;","SELECT CAST(SUM(IIF(T1.Segment = 'SME', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'LAM', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) , CAST(SUM(IIF(T1.Segment = 'LAM', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'KAM', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) , CAST(SUM(IIF(T1.Segment = 'KAM', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) - CAST(SUM(IIF(T1.Segment = 'SME', T2.Consumption, 0)) AS REAL) / COUNT(T1.CustomerID) FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Currency = 'CZK' AND T2.Consumption = ( SELECT MIN(Consumption) FROM yearmonth ) AND T2.Date BETWEEN 201301 AND 201312",Khác,"• Câu hỏi bị hỏng (chỉ còn mảnh công thức, evidence là chỉ dẫn dịch thuật bị lẫn vào), không thể suy ra yêu cầu thật. SQL tham chiếu đòi điều kiện Currency='CZK', Consumption nhỏ nhất, năm 2013 và trả 3 hiệu số — hoàn toàn không xuất hiện trong câu hỏi. Ngoài ra schema lọc thiếu cột Currency và khóa ngoại bị lỗi (customers.None). Lỗi dữ liệu nguồn, không phải lỗi suy luận của mô hình.
+• Schema thiếu cột customers.Currency cần cho SQL tham chiếu; câu hỏi chỉ là các mảnh tiếng Anh, không nêu điều kiện Currency, mức tiêu thụ tối thiểu hay năm 2013.
+• Lỗi dữ liệu bản dịch: Câu hỏi và Evidence bị hỏng hoàn toàn (câu hỏi chứa phần của evidence gốc bằng tiếng Anh, thiếu nội dung câu hỏi thật; evidence chỉ chứa câu lệnh prompt dịch thuật), đồng thời schema cũng lọc mất cột Currency."
+120,C,ViBIRD,Qwen2.5-Coder-7B / full,Chi tiêu hàng tháng lớn nhất của những khách hàng sử dụng euro là bao nhiêu?,"SELECT AVG(T2.Consumption) AS MonthlySpending
+FROM customers AS T1
+JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID
+WHERE T1.Currency = 'EUR'
+GROUP BY T1.CustomerID
+ORDER BY MonthlySpending DESC
+LIMIT 1;",SELECT SUM(T2.Consumption) / 12 AS MonthlyConsumption FROM customers AS T1 INNER JOIN yearmonth AS T2 ON T1.CustomerID = T2.CustomerID WHERE T1.Currency = 'EUR' GROUP BY T1.CustomerID ORDER BY MonthlyConsumption DESC LIMIT 1,Sai hàm gộp hoặc GROUP BY,"• Mô hình dùng AVG(Consumption) thay vì SUM(Consumption)/12 như evidence yêu cầu; cột và bảng đều đúng nên nhãn tự động 'Sai cột' chưa chính xác.
+• Mô hình dùng AVG(Consumption) thay vì SUM(Consumption) / 12 theo evidence.
+• Mô hình dùng AVG(Consumption) thay vì làm theo công thức trong evidence là SUM(Consumption) / 12."

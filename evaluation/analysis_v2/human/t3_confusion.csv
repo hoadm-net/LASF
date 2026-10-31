@@ -1,0 +1,8 @@
+Nhãn tự động,Chọn sai bảng,Khác,Sai cột,Sai hàm gộp hoặc GROUP BY,Sai điều kiện hoặc giá trị,Thiếu bảng cần thiết trong schema
+Chọn sai bảng,37,3,1,0,0,4
+Khác,0,5,0,0,0,0
+Sai cột,0,5,19,4,5,3
+Sai hàm gộp hoặc GROUP BY,0,1,0,6,1,0
+Sai sắp xếp hoặc LIMIT,0,1,0,0,0,0
+Sai điều kiện hoặc giá trị,0,1,1,0,1,0
+Thiếu bảng cần thiết trong schema,0,0,1,1,0,19
