@@ -224,6 +224,12 @@ Gợi ý còn lại (chưa chạy): `full` với k theo tỉ lệ số cột (`-
 - Thêm metadata vào prompt khi đã lọc bằng LLM (`full_llm` so với `pluslink_llm`): có ý nghĩa ở cả 4 model trên ViSpider (+3,5 đến +7,2); trên ViBIRD tăng +1,1 đến +2,3 nhưng chưa có ý nghĩa sau Holm.
 - ViBIRD: 34 câu bị cắt schema (bảng chọn giữ đủ cột kèm metadata); bản `_v50` hết cắt nhưng EX không đổi.
 
-### Độ đồng thuận người chấm (nhận 31/10)
+### Kết quả người chấm T1–T3 (nhận 31/10)
 
-Bảng κ do tác giả gửi (tính ngoài repo, chưa rõ có trọng số hay không): `evaluation/analysis_v2/agreement/kappa_reported_2026-10-31.csv`. Còn thiếu các file `.xlsx` đã chấm để tính điểm trung bình, tỉ lệ lỗi dịch, độ chính xác của nhãn lỗi tự động, κ có trọng số và danh sách câu bất đồng (`revision/scripts/agreement.py`).
+File đã phân xử: `revision/human_tasks/final/*_best.xlsx` (2 người chấm độc lập, người thứ 3 phân xử khi bất đồng). Tổng hợp bằng `revision/scripts/human_results.py` → `evaluation/analysis_v2/human/`. κ tính lại khớp bảng tác giả gửi (κ không trọng số); có thêm κ trọng số tuyến tính và Gwet's AC1.
+
+- T1 (bản dịch, 100 + 100 câu): độ chính xác nghĩa trung bình 2,84 (ViSpider) và 2,87 (ViBIRD); 85% và 89% đạt điểm 3. Lỗi làm SQL phải khác: 1% và 2%. Độ tự nhiên 2,48 và 2,57. Evidence ViBIRD: 2,94 (95,5% đạt 3, n = 89 câu có evidence).
+- T2 (metadata, 200 cột + 155 bảng): tên tiếng Việt 2,25; từ đồng nghĩa 2,02; mô tả 2,35; tên bảng 2,21. 41,5% cột bị đánh giá "có thể gây nhầm cột" (ViBIRD 46,7%, ViSpider 33,8%). ViBIRD thấp hơn ViSpider ở mọi tiêu chí.
+- T3 (120 lỗi): nhãn tự động khớp nhãn người 73,1% (nhóm A 76,9%, B 85,0%, C 57,5%). 19/120 câu (15,8%) có câu hỏi hoặc SQL tham chiếu có vấn đề.
+- κ thấp ở "Lỗi ảnh hưởng SQL?" (0,49) và "evidence" (0,27) do một giá trị chiếm 95–99% (nghịch lý κ); đồng thuận thô 86–99%, AC1 0,85–0,99. Nên báo cáo cả đồng thuận thô và AC1. "Dùng làm ví dụ" (κ 0,17) không đưa vào bài.
+- Còn 7 ô chưa thống nhất (T1 loại lỗi: 6; T3 nhãn lỗi: 1), không ảnh hưởng các con số chính.
